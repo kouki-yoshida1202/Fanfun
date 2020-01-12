@@ -42,9 +42,12 @@
   <script src="lib/onsenui/js/baseJump.js"></script>
 
   <script>
+    // ログインしたらまずTopページにくるようにTopのアイコンを押す
     ons.ready(function() {
       $('#topPageTab').click();
     });
+
+    // マイページの右上にメニューを開く
     var app = {};
     ons.ready(function () {
       ons.createElement('action-sheet.html', { append: true })
@@ -54,14 +57,17 @@
         });
     });
     
+    // ギフト一覧のロード完了に時間がかかるので、最初に数秒間ロードのグルグルアイコンを入れている
     $(function() {
       setTimeout(function(){
         $('.homestart svg').fadeIn(1600);
-      },500); //0.5秒後にロゴをフェードイン!
+      },500);
       setTimeout(function(){
         $('.homestart').fadeOut(500);
-      },2500); //2.5秒後にロゴ含め真っ白背景をフェードアウト！
+      },2500);
     });
+
+    // フォローリスト、フォロワーリストから、フォローやフォロワーを解除するダイアログ表示用
     var createAlertDialog = function() {
       var dialog = document.getElementById('my-alert-dialog');
 
@@ -94,21 +100,28 @@
           });
       }
     };
-
     var hideAlertDialog2 = function() {
       document
         .getElementById('my-alert-dialog2')
         .hide();
     };
+
+    
     if (ons.platform.isIPhoneX()) {
       document.documentElement.setAttribute('onsflag-iphonex-portrait', '');
       document.documentElement.setAttribute('onsflag-iphonex-landscape', '');
     }
+
+    
     document.addEventListener("init", function(event) {
+
+          // トップページにて、上下スクロール中は上部のメニューを非表示
           $(window).on('scroll touchmove',function() {
             $(".swiper-navigation").stop(); //アニメーションしている場合、アニメーションを強制停止
 			      $(".swiper-navigation").css('display', 'none').delay(500).fadeIn('fast');
           });
+
+          //このあたりはswiper.jsというライブラリのサンプルを結構そのまま持ってきたので、何をやっているか具体的にまでわかりません。
           function setCurrentSlide(ele, index) {
             $(".swiper-navigation .swiper-slide").removeClass('selected');
             ele.addClass('selected');
@@ -131,6 +144,7 @@
             setTimeout(function(){
               var index = $('div.sp-content > div.swiper-slide-active').index();
               if(index == 0){
+                //新着にメニューがうつると、新着ギフトをロード
                 shintyaku();
               }else{
                 followUserGift();
@@ -140,6 +154,7 @@
             },250);
           });
           
+          // ギフト出品時の価格設定時に価格に応じて、手数料と利益が表示されるようにしている
           $('.kakaku').change(function(){
             var kakaku = $('.kakaku').val();
             var tesuryou = Math.floor(kakaku*0.1);
@@ -147,6 +162,9 @@
             $('.tesuryou').text(tesuryou);
             $('.rieki').text(rieki);
           });
+
+          // このあたりは全て、ギフト写真を正方形に表示するための処理
+          // 横幅を取得して、それと同じ高さを画像に指定している
           var gift_image = $('.gift_image').width();
           $('.gift_image').height(gift_image);
           var gift_image_crown = $('.gift_image_crown').width();
@@ -167,12 +185,14 @@
           header_icon = header_icon -5;
           $('.search-input').height(header_icon);
 
+          // ヘッダーの高さ分、メインコンテンツのmargin-topをつける
           var header_height = $('.header').height();
           $('.contents').css('margin-top',header_height);
         
+          // ギフトタイトルがボックスをはみ出さないようにsyoraku関数で、はみ出す部分は…表示にしている
           syoryaku();
+
           loginImage();
-          
       });
   </script>
   <style>

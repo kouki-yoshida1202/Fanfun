@@ -248,7 +248,7 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
                                 $('#gift_id').val(gift_uid);
                                 gift_favorite_check_detail(gift_uid);
                                 if(ReleaseStatus == "false"){
-                                        $('#ReleaseStatusButton').text("ギフト審査中");
+                                        $('#ReleaseStatusButton').text("出品停止中");
                                         $("#ReleaseStatusButton").prop("disabled", true);
                                 }else{
                                         $('#ReleaseStatusButton').text("購入手続きへ");
