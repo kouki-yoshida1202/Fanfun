@@ -1,0 +1,293 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta http-equiv="Content-Security-Policy" content="default-src * data: gap: https://ssl.gstatic.com; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+  <script src="components/loader.js"></script>
+  
+  <script src="lib/onsenui/js/onsenui.min.js"></script>
+  <script src="https://kit.fontawesome.com/1cca0b75e5.js" crossorigin="anonymous"></script>
+  <link href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" rel="stylesheet">
+  <link rel="stylesheet" href="components/loader.css">
+  <link rel="stylesheet" href="lib/onsenui/css/onsenui.css">
+  <link rel="stylesheet" href="lib/onsenui/css/onsen-css-components.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/modal.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.css">
+  <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css">
+  <script src="https://unpkg.com/swiper/js/swiper.js"></script>
+  <script src="https://unpkg.com/swiper/js/swiper.min.js"></script>
+  <script src="lib/onsenui/js/logout.js"></script>
+  <script src="lib/onsenui/js/currentuser.js"></script>
+  <script src="lib/onsenui/js/profileEdit.js"></script>
+  <script src="lib/onsenui/js/profileImage.js"></script>
+  <script src="lib/onsenui/js/giftInfo.js"></script>
+  <script src="lib/onsenui/js/userGift.js"></script>
+  <!-- <script src="lib/onsenui/js/kyujosyo.js"></script>/ -->
+  <script src="lib/onsenui/js/shintyaku.js"></script>
+  <script src="lib/onsenui/js/followGiftList.js"></script>
+  <script src="lib/onsenui/js/otherPage.js"></script>
+  <script src="lib/onsenui/js/follow.js"></script>
+  <script src="lib/onsenui/js/bellList.js"></script>
+  <script src="lib/onsenui/js/gift_favorite.js"></script>
+  <script src="lib/onsenui/js/other_gift_favorite.js"></script>
+  <script src="lib/onsenui/js/message.js"></script>
+  <script src="lib/onsenui/js/modal.js"></script>
+  <script src="lib/onsenui/js/houkoku.js"></script>
+  <script src="lib/onsenui/js/instagram.js"></script>
+  <script src="lib/onsenui/js/searchGift.js"></script>
+  <script src="lib/onsenui/js/buypage.js"></script>
+  <script src="lib/onsenui/js/baseJump.js"></script>
+
+  <script>
+    ons.ready(function() {
+      $('#topPageTab').click();
+    });
+    var app = {};
+    ons.ready(function () {
+      ons.createElement('action-sheet.html', { append: true })
+        .then(function (sheet) {
+          app.showFromTemplate = sheet.show.bind(sheet);
+          app.hideFromTemplate = sheet.hide.bind(sheet);
+        });
+    });
+    
+    $(function() {
+      setTimeout(function(){
+        $('.homestart svg').fadeIn(1600);
+      },500); //0.5秒後にロゴをフェードイン!
+      setTimeout(function(){
+        $('.homestart').fadeOut(500);
+      },2500); //2.5秒後にロゴ含め真っ白背景をフェードアウト！
+    });
+    var createAlertDialog = function() {
+      var dialog = document.getElementById('my-alert-dialog');
+
+      if (dialog) {
+        dialog.show();
+      } else {
+        ons.createElement('alert-dialog.html', { append: true })
+          .then(function(dialog) {
+            dialog.show();
+          });
+      }
+    };
+    var hideAlertDialog = function() {
+      document
+        .getElementById('my-alert-dialog')
+        .hide();
+    };
+    function homeback(){
+      window.location.href = 'home.html'
+    }
+    var createAlertDialog2 = function() {
+      var dialog = document.getElementById('my-alert-dialog2');
+
+      if (dialog) {
+        dialog.show();
+      } else {
+        ons.createElement('alert-dialog2.html', { append: true })
+          .then(function(dialog) {
+            dialog.show();
+          });
+      }
+    };
+
+    var hideAlertDialog2 = function() {
+      document
+        .getElementById('my-alert-dialog2')
+        .hide();
+    };
+    if (ons.platform.isIPhoneX()) {
+      document.documentElement.setAttribute('onsflag-iphonex-portrait', '');
+      document.documentElement.setAttribute('onsflag-iphonex-landscape', '');
+    }
+    document.addEventListener("init", function(event) {
+          $(window).on('scroll touchmove',function() {
+            $(".swiper-navigation").stop(); //アニメーションしている場合、アニメーションを強制停止
+			      $(".swiper-navigation").css('display', 'none').delay(500).fadeIn('fast');
+          });
+          function setCurrentSlide(ele, index) {
+            $(".swiper-navigation .swiper-slide").removeClass('selected');
+            ele.addClass('selected');
+          }
+          swiperNavigation = new Swiper('.swiper-navigation', {
+            slidesPerView: 'auto',
+            pagination: {
+              clickable: true
+            },
+            freeMode: true,
+            loop: false,
+            autoplay: false
+          });
+          swiperContents = new Swiper('.swiper-contents', {
+            direction: 'horizontal',
+            loop: false,
+            autoHeight: true
+          });
+          swiperContents.on('slideChange', function() {
+            setTimeout(function(){
+              var index = $('div.sp-content > div.swiper-slide-active').index();
+              if(index == 0){
+                shintyaku();
+              }else{
+                followUserGift();
+              }
+              setCurrentSlide($('.swiper-navigation .swiper-slide').eq(index), index);
+              swiperNavigation.slideTo(index, 500, false);
+            },250);
+          });
+          
+          $('.kakaku').change(function(){
+            var kakaku = $('.kakaku').val();
+            var tesuryou = Math.floor(kakaku*0.1);
+            var rieki = kakaku - tesuryou;
+            $('.tesuryou').text(tesuryou);
+            $('.rieki').text(rieki);
+          });
+          var gift_image = $('.gift_image').width();
+          $('.gift_image').height(gift_image);
+          var gift_image_crown = $('.gift_image_crown').width();
+          $('.gift_image_crown').height(gift_image_crown);
+          var gift_image_search = $('.gift_image_search').width();
+          $('.gift_image_search').height(gift_image_search);
+          var gift_image_detail = $('.gift_image_detail').width();
+          $('.gift_image_detail').height(gift_image_detail);
+          var buyhistory_image = $('.buyhistory_image').width();
+          $('.buyhistory_image').height(buyhistory_image);
+          var gift_image_otherpage = $('.gift_image_otherpage').width();
+          $('.gift_image_otherpage').height(gift_image_otherpage);
+
+          var header_icon = $('.toolbar').height();
+          header_icon = header_icon -5;
+          $('.header_icon').width(header_icon);
+          $('.header_icon').height(header_icon);
+          header_icon = header_icon -5;
+          $('.search-input').height(header_icon);
+
+          var header_height = $('.header').height();
+          $('.contents').css('margin-top',header_height);
+        
+          syoryaku();
+          loginImage();
+          
+      });
+  </script>
+  <style>
+    .card{
+      padding:5px 10px 5px 10px;
+    }
+
+    .gift-card{
+      float: left;
+    }
+    .follow_on{
+      background:gray !important;
+      border-radius:20px;
+    }
+
+    .follow_off{
+      background: -moz-linear-gradient(bottom left, #FF1048, #FFAA95); 
+      background: -webkit-linear-gradient(bottom left, #FF1048, #FFAA95); 
+      background: linear-gradient(to top right, #FF1048, #FFAA95);
+      border-radius:20px;
+    }
+    .navi-menu{
+      border-radius:20px;
+      border:0.5px solid #FF6070;
+      padding:2px 20px 2px 20px;
+      font-size:80%;
+      line-height:35px;
+      color:#898989;
+    }
+    .segment__button{
+      margin:0 auto;
+      width:80%;
+      border-radius: 20px !important;
+      border:none;
+      color:#898989;
+    }
+
+    :checked + .segment__button{
+      background: -moz-linear-gradient(bottom left, #FF1048, #FFAA95); 
+      background: -webkit-linear-gradient(bottom left, #FF1048, #FFAA95); 
+      background: linear-gradient(to top right, #FF1048, #FFAA95);
+    }
+
+    .button{
+      background: -moz-linear-gradient(bottom left, #FF1048, #FFAA95); 
+      background: -webkit-linear-gradient(bottom left, #FF1048, #FFAA95); 
+      background: linear-gradient(to top right, #FF1048, #FFAA95);
+    }
+
+    .button-gray{
+      height:70%;
+      border-radius: 20px;
+      margin-right:10px;
+      font-size:80%;
+      padding:0px 20px 0px 20px;
+      background: white;
+      border:1px solid #898989;
+      color:white;
+    }
+    :checked + .tabbar__button{
+      color: #FF6070;
+    }
+
+    .header{
+      position: fixed;
+      top: 0;
+      left:0;
+      width:100%;
+      z-index: 100;
+    }
+
+    .swiper-slide{
+      width:50%;
+      text-align: center;
+    }
+
+    .back-button,.back-button__icon{
+      color:#898989;;
+      fill:#898989;
+    }
+
+    .sp-navi > .selected > span{
+      color:white;
+      background-color: #FF6070;
+    }
+
+    .footer{
+      position: fixed;
+      bottom: 0;
+      left:0;
+      height:35px;
+      width: 100%; /* フッターの横幅を指定する */
+      z-index: 100;
+    }
+    
+    .tabbar__icon > .fa{
+      font-size:20px;
+    }
+
+    .follow_thumbnanil{
+      width:50px;
+      height:50px;
+    }
+  </style>
+</head>
+<body> 
+  <ons-navigator  id = "navi">
+    <ons-page>
+      <ons-tabbar position="bottom">
+          <ons-tab id="topPageTab"page="top.html" icon="home" onclick="shintyaku();" active></ons-tab>
+          <ons-tab page="instagram.html" icon="instagram" onclick="InstagramNews();"></ons-tab>
+          <ons-tab page="bell.html" icon="bell" onclick="bellList();;"></ons-tab>
+          <ons-tab id="myPageTab" page="user.html" icon="user" onclick="MyGift();loginInfo();"></ons-tab>
+      </ons-tabbar> 
+    </ons-page>
+  </ons-navigator> 
+</body>
+</html>

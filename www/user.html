@@ -1,0 +1,104 @@
+<ons-page>
+    <ons-toolbar class="toolbar" style="background-color: white;">
+        <div class="center" style="width:120%;">
+            <span class="current_user_name" style="color:#898989;"></span> 
+        </div>
+        <div class="right" style="padding-right: 5%;">
+            <ons-button style="color:#898989;background: none;" onclick="app.showFromTemplate()">
+              <i class="fas fa-ellipsis-h"></i>
+            </ons-button> 
+        </div>
+    </ons-toolbar>
+    <input type="hidden" class="current_user_id">
+    <div class="contents" style="background-color: white;">
+        <ul class="list list--material">
+            <li class="list-item list-item--material">
+              <div class="list-item__left list-item--material__left">
+                <img id="user_image" class="list-item__thumbnail list-item--material__thumbnail" src="" alt="" style="width:70px;height:70px;">
+              </div>
+          
+              <div class="list-item__center list-item--material__center">
+                <div class="list-item__subtitle list-item--material__subtitle" style="height:100%;">
+                    <div style="width:49%;text-align: center;float: left;height:100%;">
+                        <p style="line-height: 100%;" onclick="document.getElementById('navi').pushPage('follow.html');followList();">
+                            <span id="my_follow_number" style="font-weight: bold;font-size:24px;">0</span>
+                            <br>
+                            <span style="color:#898989;">フォロー</span>
+                        </p> 
+                    </div>
+                    <div style="width:49%;text-align: center;float: right;height:100%;border-left:1px solid #ddd;">
+                        <p style="line-height: 100%;" onclick="document.getElementById('navi').pushPage('follower.html');followerList();">
+                            <span id="my_follower_number" style="font-weight: bold;font-size:24px;">0</span>
+                            <br>
+                            <span style="color:#898989;">フォロワー</span>
+                        </p> 
+                    </div>
+                </div>
+              </div>
+
+            </li>
+        </ul>
+        <ul class="list list--material">
+            <li class="list-item list-item--material">          
+              <div class="list-item__left list-item--material__left" style="padding:0px;min-height: auto;">
+                <div class="list-item__subtitle list-item--material__subtitle" style="height:100%;padding:0px;">
+                    <div style="width:100%;text-align: center;float: left;height:100%;">
+                        <p style="line-height: 100%;margin:0px;font-size:18px;text-align: left;">
+                            <span class="current_user_name"></span>
+                        </p> 
+                    </div>
+                    
+                </div>
+              </div>
+              
+            </li>
+            <li class="list-item">
+                <div class="list-item__left" style="padding:0px;padding-left:2px;min-height: auto;padding-top:5px;">
+                    <div id="myReview"class="list-item__subtitle">
+                        
+                        
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <div class="other_profile_text current_text" style="max-height:100px;height:auto;font-size:14px;padding:16px;">
+        </div>
+        <div style="margin-bottom:20px;height:20px;">
+            <div style="width:49%;text-align:center;float:left;">
+                <button class="button "style="width:90%;padding-top:0px;padding-bottom:0px;line-height:auto;border-radius:30px;font-size:16px;margin:0 auto;"onclick="document.getElementById('navi').pushPage('giftinput.html')">出品する</button>
+            </div>
+            <div style="width:49%;text-align:center;float:right;">
+                <button class="button "style="width:90%;padding-top:0px;padding-bottom:0px;line-height:auto;border-radius:30px;font-size:16px;margin:0 auto;background: -moz-linear-gradient(bottom left, #00C6FB, #005BEA);background: -webkit-linear-gradient(bottom left, #00C6FB, #005BEA);background: linear-gradient(to top right, #00C6FB, #005BEA);"onclick="document.getElementById('navi').pushPage('profile_edit.html');profilePage();loginImageEdit();">プロフィール編集</button>
+            </div>
+        </div>
+        <div style="width:100%;text-align:center;margin-top:20px;">
+            <p style="width:auto;line-height: 100%;margin:0px;font-size:14px;margin-top:10px;margin-bottom:10px;">
+                <span id="myGiftLength" style="border-bottom:1px solid #FF6070;padding-bottom:3px;"></span>
+            </p> 
+        </div>
+        <div id="myGiftList" style="background-color: #efeff4;">
+            <!-- カードリスト部分 -->
+            
+        </div>
+        <div id="kanrisyabox"style="display: none;background-color: #efeff4;">
+            <button onclick="document.getElementById('navi').pushPage('messagePush.html');">ユーザにメッセージ送信画面へ（管理者専用）</button>
+            <br><br>
+            <button onclick="document.getElementById('navi').pushPage('instagramPush.html');">instagram投稿へ（管理者専用）</button>
+        </div>
+    </div>
+    <template id="action-sheet.html">
+      <ons-action-sheet id="sheet" cancelable>
+        <ons-action-sheet-button icon="md-square-o" onclick="app.hideFromTemplate();document.getElementById('navi').pushPage('buyhistory.html')">取引履歴</ons-action-sheet-button>
+        <ons-action-sheet-button icon="md-square-o" onclick="logout()">ログアウト</ons-action-sheet-button>
+        <ons-action-sheet-button icon="md-close" onclick="app.hideFromTemplate()">Cancel</ons-action-sheet-button>
+      </ons-action-sheet>
+    </template>
+    <style>
+        .favorite_on{
+            color:#FF6070;
+        }
+        .favorite_off{
+            color:gray;
+        }
+    </style>
+</ons-page>

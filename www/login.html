@@ -1,0 +1,42 @@
+<ons-page>
+    <div style="text-align: center;background-color:white;height:100%;width:100%">
+        <div class="start" style="text-align: center;background-color:white;height:100%;width:100%">
+            <img src="img/first3.png" alt=""></img>
+        </div>
+        <div style="text-align: center;background-color:white;height:100%;width:100%">
+            <div style="width:100%;" style="margin-top:20%;margin-bottom:10%;">
+            <img src="img/logo.png" alt="" style="width:50%;height:auto;margin-top:35%;">
+            </div>
+            <div class="login_input">
+                <i class="fas fa-user" style="color:#898989;font-size: 20px;"></i>
+                <input id="login_mail"class="text-input text-input--material" placeholder="mailaddress" type="text" required>
+            </div>
+            <div class="login_input">
+                <i class="fas fa-key" style="color:#898989;font-size: 20px;"></i>
+                <input id="login_pass"class="text-input text-input--material" placeholder="Password" type="password" required>
+            </div>
+            
+            <p style="margin-top: 15px;" >
+            <button class="button" onclick="loginCheck()" style="width:50%;">L O G I N</button>
+            </p>
+            <p>
+            <p style="color:rgb(0, 88, 251);margin-top:50px;" onclick="document.getElementById('login').pushPage('usercreate.html')">アカウント新規作成</p> 
+            </p>
+            <!-- <div style="width:100%;margin:0 auto;margin-top:20px;">
+            <div style="width:30%;display: inline-block;">
+                <button class="fab"><i class="fab fa-twitter"></i></button>
+            </div>
+            <div style="width:30%;display: inline-block;">
+                <button class="fab"><i class="fab fa-google"></i></button>
+            </div>
+            <div style="width:30%;display: inline-block;">
+                <button class="fab"><i class="fab fa-facebook-f"></i></button>
+            </div>
+            </div> -->
+            <p style="margin-top:30px;color:#898989;"onclick="document.getElementById('login').pushPage('forget.html')">パスワードを忘れた方はこちら</a> 
+            </p>
+            <p style="color:#898989;"onclick="window.open('https://gonmura.com/contact');">ヘルプ/お問い合わせ
+            </p>
+        </div>
+    </div>
+</ons-page>

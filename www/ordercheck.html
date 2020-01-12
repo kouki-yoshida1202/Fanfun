@@ -1,0 +1,77 @@
+<ons-page>
+    <ons-toolbar class="toolbar" style="background-color: white;position: fixed;">
+        <div class="left" style="padding-left: 3%;">
+            <ons-back-button></ons-back-button>
+        </div>
+        <div class="center" style="color:#898989;">
+            注文確認
+        </div>
+    </ons-toolbar>
+    <div class="container contents" style="background-color:#efeff4;padding-bottom:30px;">
+        <!-- カードリスト部分 -->
+        <div class="" style="width:100%;height: auto; padding: 1px 0 0 0;display: inline-block;">
+            <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:15px;">
+                <div>
+                    <span style="font-size: 70%;">
+                        下の「注文を確定する」ボタンを押して、ご注文いただくことで、お客様は
+                        <a href="">利用規約</a> 
+                        および
+                        <a href="">プライバシーポリシー</a>
+                        に同意の上、商品をご注文されたことになります。
+                    </span>
+                </div>
+                <div style="width:100%;text-align:center;margin-top:5px;">
+                    <button class="button "style="width:100%;padding-top:0px;padding-bottom:0px;line-height:auto;border-radius:30px;font-size:16px;margin:0 auto;" onclick="document.getElementById('navi').pushPage('orderend.html')">注文を確定する</button>
+                </div>
+            </div>
+            <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:20px;">
+                <div>
+                    <span>注文詳細</span>
+                </div>
+                <div class="card" style="width: 100%; margin: 0 auto;margin-top:3px;background-color: white;border:1px solid #898989;border-radius: 20px">
+                    <ul class="list">
+                        <li class="list-item">
+                            <div class="list-item__center" style="font-size: 80%;">
+                            <div style="width:100%;">届け先</div>
+                            <div style="width:100%;color:#898989;margin-left:10px;margin-top:5px;">知人</div>
+                            </div>
+                        </li>
+                        <li class="list-item">
+                            <div class="list-item__center" style="font-size: 80%;">
+                            <div style="width:100%;">送り先のニックネーム</div>
+                            <div style="width:100%;color:#898989;margin-left:10px;margin-top:5px;">ファンファン太郎</div>
+                            </div>
+                        </li>
+                        <li class="list-item">
+                            <div class="list-item__center" style="font-size: 80%;">
+                            <div style="width:100%;">支払い方法</div>
+                            <div style="width:100%;color:#898989;margin-left:10px;margin-top:5px;">コンビニ/ATM支払い</div>
+                            </div>
+                        </li>
+                        <li class="list-item">
+                            <div class="list-item__center" style="font-size: 80%;">
+                            <div style="width:100%;">リクエスト内容</div>
+                            <div style="width:100%;color:#898989;margin-left:10px;margin-top:5px;">ふぁんふぁん太郎の誕生日が1月1日です。そこでサプライズとしてふぁんふぁん太郎が大好きなまいみゃさんに彼へのサプライズ動画を撮っていただきたいです。</div>
+                            </div>
+                        </li>
+                        <li class="list-item">
+                            <div class="list-item__center" style="font-size: 80%;">
+                            <div style="width:100%;">ギフト内容</div>
+                            <div style="width:100%;color:#898989;margin-left:10px;margin-top:5px;">メッセージ動画をプレゼント！</div>
+                            <div style="width:100%;color:#898989;margin-left:10px;margin-top:5px;">¥2,100（税込）</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div style="width:100%;text-align:center;margin-top:20px;margin-bottom:10px;">
+                    <button class="button "style="width:100%;padding-top:0px;padding-bottom:0px;line-height:auto;border-radius:30px;font-size:16px;margin:0 auto;" onclick="document.getElementById('navi').pushPage('orderend.html')">注文を確定する</button>
+                </div>
+                <div>
+                    <span style="font-size: 70%;">
+                        Fanfunで注文すると、注文の受領を通知するEメールが送信されます。商品の購入契約は、商品の配送を通知するEメールをお送りすることで初めて完了します。
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</ons-page>

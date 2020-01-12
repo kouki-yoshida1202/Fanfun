@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta http-equiv="Content-Security-Policy" content="default-src * data: gap: https://ssl.gstatic.com; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+  <script src="components/loader.js"></script>
+  
+  <script src="lib/onsenui/js/onsenui.min.js"></script>
+  <script src="https://kit.fontawesome.com/1cca0b75e5.js" crossorigin="anonymous"></script>
+  <link href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" rel="stylesheet">
+  <link rel="stylesheet" href="components/loader.css">
+  <link rel="stylesheet" href="lib/onsenui/css/onsenui.css">
+  <link rel="stylesheet" href="lib/onsenui/css/onsen-css-components.css">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="lib/onsenui/js/createuser.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script>
+    ons.ready(function() {
+    });
+
+    if (ons.platform.isIPhoneX()) {
+      document.documentElement.setAttribute('onsflag-iphonex-portrait', '');
+      document.documentElement.setAttribute('onsflag-iphonex-landscape', '');
+    }
+
+    $(function() {
+      setTimeout(function(){
+        $('.start img').fadeIn(1600);
+      },500); //0.5秒後にロゴをフェードイン!
+      setTimeout(function(){
+        $('.start').fadeOut(500);
+      },2500); //2.5秒後にロゴ含め真っ白背景をフェードアウト！
+    });
+    // function login(){
+    //   var username = document.getElementById('username').value;
+    //   var password = document.getElementById('password').value;
+
+    //   if (username === 'kouki' && password === '123') {
+    //     
+    //   } else {
+    //     ons.notification.alert('ユーザー名かパスワードが正しくありません。');
+    //   }
+    // };
+  </script>
+  <style>
+  .text-input{
+    width:80%;
+    padding-left:6px;
+    height:30px;
+    font-size:20px;
+  }
+  
+  .text-input--material:focus{
+    background-image: linear-gradient(#FF1048, #FFAA95),linear-gradient(to top,transparent 1px,#afafaf 1px);
+  }
+  .login_input{
+    height:40px;
+    margin:20px;
+  }
+
+  .button{
+    background: -moz-linear-gradient(bottom left, #FF1048, #FFAA95); 
+    background: -webkit-linear-gradient(bottom left, #FF1048, #FFAA95); 
+    background: linear-gradient(to top right, #FF1048, #FFAA95);
+    border-radius: 40px;
+    padding:5px 20px 5px 20px;
+  }
+
+  .footer{
+      height:120px;
+      width: 100%; /* フッターの横幅を指定する */
+      margin-top:40px;
+    }
+  </style>
+</head>
+<body>
+    <ons-navigator id="login" page="login.html">
+    </ons-navigator> 
+</body>
+</html>

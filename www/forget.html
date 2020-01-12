@@ -1,0 +1,20 @@
+<ons-page>
+    <ons-toolbar class="toolbar" style="background-color: white;">
+        <div class="left" style="padding-left: 3%;">
+            <ons-back-button></ons-back-button>
+        </div>
+        <div class="center" style="width:120%;">
+            <span style="color:#FF6070;">パスワード再設定</span> 
+        </div>
+    </ons-toolbar>
+    <div style="background-color:white;height:100%;padding-top:30px;">
+            <div style="width:80%;margin:0 auto;">
+                <i class="fas fa-envelope" style="color:#898989;font-size: 20px;"></i>
+                <input id="reminder_mail" class="text-input text-input--material" placeholder="メールアドレス" type="email" style="width:90%;font-size:100%;height:45px;" required>
+            </div>
+        <br><br><br>
+        <div style="width:80%;margin:0 auto;">
+        <button class="button "style="width:100%;padding-top:0px;padding-bottom:0px;line-height:auto;border-radius:30px;font-size:100%;margin:0 auto;height:45px;" onclick="passwordReminder()">送信</button>
+        </div>
+    </div>
+</ons-page>

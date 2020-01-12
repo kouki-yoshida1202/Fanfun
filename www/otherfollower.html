@@ -1,0 +1,26 @@
+<ons-page>
+    <ons-toolbar class="toolbar" style="background-color: white;">
+        <div class="left" style="padding-left: 3%;">
+            <ons-back-button></ons-back-button>
+        </div>
+        <div class="center" style="width:120%;">
+            <span style="color:#898989;">フォロワー</span> 
+        </div>
+    </ons-toolbar>
+    <div class="contents" style="padding:5px;background-color: white;">
+        <ul id="otherfollowerList" class="list list--material">
+        </ul>
+    </div>
+    <template id="alert-dialog2.html">
+        <ons-alert-dialog id="my-alert-dialog2" modifier="rowfooter">
+          <div class="alert-dialog-title">Alert</div>
+          <div class="alert-dialog-content">
+            フォロワーから削除しますか？<br>(相手に通知はいきません)
+          </div>
+          <div class="alert-dialog-footer">
+            <ons-alert-dialog-button onclick="hideAlertDialog2()">Cancel</ons-alert-dialog-button>
+            <ons-alert-dialog-button onclick="hideAlertDialog2()">OK</ons-alert-dialog-button>
+          </div>
+        </ons-alert-dialog>
+    </template>
+</ons-page>

@@ -1,0 +1,43 @@
+<ons-page>
+    <style>
+        .buypage_cardheight{
+            height:100px;
+        }
+    </style>
+    <ons-toolbar class="toolbar" style="background-color: white;position: fixed;">
+        <div class="left" style="padding-left: 3%;">
+            <ons-back-button></ons-back-button>
+        </div>
+        <div class="center" style="color:#898989;">
+            メッセージ詳細
+        </div>
+    </ons-toolbar>
+    <div class="contents" style="padding:5px;">
+        <div style="height: 200px; padding: 1px 0 0 0;">
+            <div class="card" style="width:90%;margin:0 auto;border-radius:20px;padding:15px;">
+                <h3 id="message_title" class="card__title"></h3>
+                <hr>
+                <div id="message_text"class="card__content">
+                </div>
+                <br>
+            </div>
+            <div id="gift_zone" class="card" style="height:100px;margin:0 auto;border-radius:20px;padding:0px;width:90%;margin-top:10px;">
+                <div class="card__content buypage_cardheight">
+                    <div style="width:30%;float:left;height:auto;">
+                        <img id="gift_photo"class="buypage_img" src="" alt="" style="width:100px;height:100px;border-radius: 20px;">
+                    </div>
+                    <div style="width:65%;float:right;">
+                        <div style="margin-top:5px;">
+                            <span id="gift_title"style="font-size:20px;"> 
+                            </span>
+                        </div>
+                        <div style="padding-right:10%;text-align: right;margin-top:5px;">
+                            <span id="gift_price"style="font-size:16px;">
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ons-page>

@@ -1,0 +1,69 @@
+<ons-page>
+    <ons-toolbar class="toolbar" style="background-color: white;position: fixed;">
+        <div class="left" style="padding-left: 3%;">
+            <ons-back-button></ons-back-button>
+        </div>
+        <div class="center" style="color:#898989;">
+            プロフィール変更画面
+        </div>
+    </ons-toolbar>
+    <style>
+    input{
+        height:40px !important;
+    }
+    </style>
+    <div class="container contents" style="background-color:#efeff4;padding-bottom:100px;">
+        <!-- カードリスト部分 -->
+        <div class="" style="width:100%;height: auto; padding: 1px 0 0 0;display: inline-block;">
+            <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:15px;">
+                <div>
+                    <span>1.写真を変更する</span>
+                </div>
+                <div class="" style="width: 60%; margin: 0 auto;margin-top:3px;background-color: white;border-radius: 20px;border:1px solid #898989;">
+                    <img id="image_edit" src="" alt="" style="width:200px;height:200px;border-radius:50%;">
+                    <input type="file" id="file-data"/>
+                    <span>※正方形の写真をアップロードしてください</span>
+                </div>
+            </div>
+            <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:20px;">
+                <div>
+                    <span>2.IDと表示名</span>
+                </div>
+                <div class="" style="width: 100%; margin: 0 auto;margin-top:3px;">
+                    <input type="text" id="current_user_name_profile" class="text-input" placeholder="表示名(必須/20文字以内)" style="background-color: white;border-radius:20px;width:100%;font-size:14px;border:1px solid #898989;height:30px;padding-left:3%;margin-bottom:7px;">
+                </div>
+            </div>
+            <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:20px;">
+                <div>
+                    <span>3.プロフィール文章</span>
+                </div>
+                <div class="" style="width: 100%; margin: 0 auto;margin-top:3px;">
+                    <textarea id="current_text_profile"class="textarea" rows="7" placeholder="プロフィール(任意/200文字以内)" style="background-color: white;border-radius:20px;width:100%;border:1px solid #898989;padding:10px;font-size:14px;"></textarea>
+                </div>
+            </div>
+            <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:20px;">
+                <div>
+                    <span>4.メールアドレス</span>
+                </div>
+                <div class="" style="width: 100%; margin: 0 auto;margin-top:3px;">
+                    <input type="email" id="current_mailaddress_profile" class="text-input" placeholder="メールアドレス" style="background-color: white;border-radius:20px;width:100%;font-size:14px;border:1px solid #898989;height:30px;padding-left:3%;margin-bottom:7px;">
+                </div>
+            </div>
+            <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:20px;">
+                <div>
+                    <span>5.パスワード</span>
+                </div>
+                <div class="" style="width: 100%; margin: 0 auto;margin-top:3px;">
+                    <p style="color:#005BEA;" onclick="document.getElementById('navi').pushPage('forget.html')">パスワード再設定画面へ</a>    
+                </div>
+            </div>
+            <div style="width:90%;text-align:center;margin:0 auto;margin-top:20px;margin-bottom:10px;">
+                <button class="button "style="width:100%;padding-top:0px;padding-bottom:0px;line-height:40px;border-radius:30px;font-size:16px;margin:0 auto;" onclick="profileEdit();">変更する</button>
+                <br>
+                <span style="color:#FF6070;">※ログイン画面に戻ります</span>
+            </div>
+        </div>
+    </div>
+    <script>
+    </script>
+</ons-page>

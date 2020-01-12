@@ -1,0 +1,42 @@
+
+body{
+    font-family:"ヒラギノ丸ゴ Pro W4","ヒラギノ丸ゴ Pro","Hiragino Maru Gothic Pro","ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","HG丸ｺﾞｼｯｸM-PRO","HGMaruGothicMPRO";
+}
+.start {
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+    z-index: 9000;
+    background: -moz-linear-gradient(bottom left, #FF1048, #FFAA95); 
+    background: -webkit-linear-gradient(bottom left, #FF1048, #FFAA95); 
+    background: linear-gradient(to top right, #FF1048, #FFAA95); 
+}
+.start img {
+	z-index: 9999;
+    width: 100%;
+    height:auto;
+}
+
+.grad{
+    background: -moz-linear-gradient(bottom left, #FF1048, #FFAA95); 
+    background: -webkit-linear-gradient(bottom left, #FF1048, #FFAA95); 
+    background: linear-gradient(to top right, #FF1048, #FFAA95);
+}
+
+.kakumaru{
+    border-radius:20px;
+}
+#fontawesome{
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    display: inline-block;
+}
+
+.text-input--underbar{
+    border:none;
+    height:40px;
+}

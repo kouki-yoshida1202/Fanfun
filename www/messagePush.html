@@ -1,0 +1,31 @@
+<ons-page>
+        <ons-toolbar class="toolbar" style="background-color: white;">
+                <div class="left" style="padding-left: 3%;">
+                <ons-back-button></ons-back-button>
+                </div>
+                <div class="center" style="width:120%;">
+                <span style="color:#FF6070;">メッセージ送信</span> 
+                </div>
+        </ons-toolbar>
+        <div style="height:100%;padding-top:30px;">
+                <div style="width:80%;margin:0 auto;">
+                        <input type="text" id="message_to_userId" placeholder="送り先のユーザID" style="background-color: white;border-radius:20px;width:100%;border:1px solid #898989;padding:10px;font-size:14px;">
+                </div>
+                <br>
+                <div style="width:80%;margin:0 auto;">
+                        <textarea id="message_title"class="textarea" rows="15" placeholder="メッセージタイトル" style="background-color: white;border-radius:20px;width:100%;border:1px solid #898989;padding:10px;font-size:14px;"></textarea>
+                </div>
+                <br>
+                <div style="width:80%;margin:0 auto;">
+                        <textarea id="message_text"class="textarea" rows="15" placeholder="メッセージ本文" style="background-color: white;border-radius:20px;width:100%;border:1px solid #898989;padding:10px;font-size:14px;"></textarea>
+                </div>
+                <br>
+                <div style="width:80%;margin:0 auto;">
+                        <input type="text" id="message_gift_id"placeholder="連絡するギフトID" style="background-color: white;border-radius:20px;width:100%;border:1px solid #898989;padding:10px;font-size:14px;">
+                </div>
+                <br><br>
+                <div style="width:80%;margin:0 auto;">
+                        <button class="button "style="width:100%;padding-top:0px;padding-bottom:0px;line-height:auto;border-radius:30px;font-size:100%;margin:0 auto;height:45px;"onclick="messageSend()">送信</button>
+                </div>
+        </div>
+</ons-page>

@@ -1,0 +1,28 @@
+<ons-page>
+  <ons-toolbar class="toolbar" style="background-color: white;">
+    <div class="left" style="padding-left: 3%;">
+        <ons-back-button></ons-back-button>
+    </div>
+    <div class="center" style="color:#898989;">
+        フォロー
+    </div>
+  </ons-toolbar>
+  <div class="container contents" style="position:relative;">
+      <ul id="otherfollow-ul" class="list list--material">
+        
+      </ul>
+  </div>
+
+  <template id="alert-dialog.html">
+    <ons-alert-dialog id="my-alert-dialog" modifier="rowfooter">
+      <div class="alert-dialog-title">Alert</div>
+      <div class="alert-dialog-content">
+        フォローを解除しますか？
+      </div>
+      <div class="alert-dialog-footer">
+        <ons-alert-dialog-button onclick="hideAlertDialog()">Cancel</ons-alert-dialog-button>
+        <ons-alert-dialog-button onclick="followDelete()">OK</ons-alert-dialog-button>
+      </div>
+    </ons-alert-dialog>
+  </template>
+</ons-page>

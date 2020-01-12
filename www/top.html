@@ -1,0 +1,53 @@
+<ons-page>
+        <style>
+            .toolbar{
+                background-image: none;
+            }
+            #loading{
+                position:absolute;
+                left:50%;
+                top:30%;
+            }
+        </style>
+        <script>
+            // kyujosyo();
+        </script>
+        <div class="homestart" style="text-align: center;background-color:white;height:100%;width:100%">
+            <svg id="loading"class="progress-circular progress-circular--indeterminate">
+                <circle class="progress-circular__background"/>
+                <circle class="progress-circular__primary progress-circular--indeterminate__primary"/>
+                <circle class="progress-circular__secondary progress-circular--indeterminate__secondary"/>
+            </svg>
+        </div>
+        <ons-toolbar class="toolbar" style="background-color: white;">
+            <div class="right" style="padding-right:5%;" onclick="searchGift();">
+                <button class="button" style="border-radius:30px;background: gray;height:80%;line-height: initial;vertical-align: middle;font-size:12px;" onclick="searchGift();">検索</button>
+            </div>
+            <div class="center" style="width:120%;margin-left:-10%;">
+                <input id="user_name_search"type="search" value="" placeholder="ユーザー名で検索" class="search-input" style="width:100%;border-radius: 20px;margin-top:5px;" required>
+            </div>
+        </ons-toolbar>
+        <div class="container contents top-container" style="position:relative;">
+            <div class="swiper-container swiper-navigation" style="position: fixed;left:0px;width:100%;height:35px;background-color: white;z-index:100;">
+                <div class="swiper-wrapper sp-navi">
+                    <div class="swiper-slide selected sp-slide">
+                        <span class="navi-menu">新着</span>
+                    </div>
+                    <div class="swiper-slide sp-slide">
+                        <span class="navi-menu">フォロー</span>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-container swiper-contents">
+                <div class="swiper-wrapper sp-content" style="margin-top:35px;">
+                    <div class="swiper-slide">
+                        <div id="shintyakuList"></div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div id="followGiftList"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ons-page>
