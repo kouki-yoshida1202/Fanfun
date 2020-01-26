@@ -1,0 +1,61 @@
+<ons-page>
+        <ons-toolbar class="toolbar" style="background-color: white;">
+                <div class="left" style="padding-left: 3%;">
+                        <ons-back-button></ons-back-button>
+                </div>
+                <div class="center" style="width:120%;">
+                        <span style="color:#898989;">Are you ...?</span> 
+                </div>
+        </ons-toolbar>
+        <style>
+                .fab{
+                        width:36px !important;
+                        height:36px !important;
+                        line-height:36px !important;
+                        font-size:18px !important;
+                }
+        </style>
+        <div style="background-color: #efeff4;height:100%;padding-top:30px;">
+                <div class="card" style="width:90%;margin:0 auto;">
+                        <div class="card__content">
+                                <div style="width:100%;margin:0 auto;text-align: center;">
+                                        <button id="" class="button" style="width:100%;margin:0 auto;font-size:90%;text-align: center;" onclick="document.getElementById('login').pushPage('usercreate.html')">
+                                                ファンとして登録する
+                                        </button>
+                                        <br><br>
+                                        <div>
+                                                <button class="fab"><i class="fas fa-shopping-cart"></i></button> <span style="font-size:80%;"> ギフト購入OK</span> &emsp;
+                                                <button class="fab" disabled><i class="fas fa-gift"></i></button> <span style="font-size:80%;"> ギフト出品NG</span>
+                                        </div>
+                                        
+                                </div>
+                        </div>
+                </div>
+                <br><br>
+                <div class="card" style="width:90%;margin:0 auto;">
+                        <div class="card__content">
+                                <div style="width:100%;margin:0 auto;text-align: center;">
+                                        <button id="" class="button" style="width:100%;margin:0 auto;font-size:90%;text-align: center;" onclick="document.getElementById('login').pushPage('influencerKiyaku.html')">
+                                                インフルエンサーとして登録する
+                                        </button>
+                                        <br><br>
+                                        <div style="width:100%;margin:0 auto;">
+                                                <button class="fab"><i class="fas fa-shopping-cart"></i></button> <span style="font-size:80%;"> ギフト購入OK</span> &emsp;
+                                                <button class="fab"><i class="fas fa-gift"></i></button> <span style="font-size:80%;"> ギフト出品NG</span>
+                                                <br><br>
+                                                <p style="font-size:80%;">
+                                                        ①次ページの「出品者利用規約」に同意すること
+                                                </p>
+                                                <p style="font-size:80%;">
+                                                        ②なりすまし防止のため簡易審査がございます。        
+                                                </p>
+                                        </div>
+                                </div>
+                        </div>
+                </div>
+                
+                <div style="width:100%;margin:0 auto;text-align: center;position: fixed;bottom:30px;left:0;">
+                        ※この設定は後から変更可能です
+                </div>
+        </div>
+</ons-page>

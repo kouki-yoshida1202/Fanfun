@@ -22,12 +22,12 @@ function insertUser() {
         // ユーザー名・パスワードを設定
         var mailcheck = MailCheck(mailaddress);
         if(mailcheck){
-            // プレイヤーがTaroのスコアを降順で取得
             user.set("userName", username) /* ユーザー名 */
             .set("password", password) /* パスワード */
             .set("mailAddress", mailaddress) /* 任意フィールドも追加可能 */
             .set("BoughtCount",0)
-            .set("Review",0);
+            .set("Review",0)
+            .set("Influencer",false);
             //   ユーザーの新規登録処理
             user.signUpByAccount()
                 .then(function(){
@@ -46,7 +46,49 @@ function insertUser() {
         }
     }
 }
-
+// -------[Demo1]データをmBaaSに保存する -------//
+function insertInfluencer() {
+        
+    //ユーザーの入力したデータを変数にセットする
+    var username = $("#form_name").val();            //お名前
+    var mailaddress = $("#form_mailaddress").val();     //メールアドレス
+    var password = $("#form_password").val();      //パスワード
+    //入力規則およびデータをフィールドにセットする
+    if(username == ""){
+        alert("お名前が入力されていません");
+    }else if(mailaddress == ""){
+        alert("メールアドレスが入力されていません");
+    }else if(password == ""){
+        alert("パスワードが入力されていません");
+    }else{
+        var user = new ncmb.User();
+        // ユーザー名・パスワードを設定
+        var mailcheck = MailCheck(mailaddress);
+        if(mailcheck){
+            user.set("userName", username) /* ユーザー名 */
+            .set("password", password) /* パスワード */
+            .set("mailAddress", mailaddress) /* 任意フィールドも追加可能 */
+            .set("BoughtCount",0)
+            .set("Review",0)
+            .set("Influencer",true);
+            //   ユーザーの新規登録処理
+            user.signUpByAccount()
+                .then(function(){
+                    //   登録後処理
+                    //  保存に成功した場合の処理
+                    alert("認証メールを送信しました。メールに記載のURL押下後、登録が完了します。");
+                    window.location.href = 'index.html';
+                })
+                .catch(function(err){
+                    //   エラー処理
+                    //  保存に失敗した場合の処理
+                    alert("ユーザ名かメールアドレスが既に使用されています");
+                });
+        }else{
+            alert("メールアドレスが正しくありません");
+        }
+    }
+}
 // -------------------------------------------------------------------
 // メールアドレスチェック関数
 // -------------------------------------------------------------------
