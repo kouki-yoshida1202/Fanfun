@@ -53,6 +53,9 @@ function insertInfluencer() {
     var username = $("#form_name").val();            //お名前
     var mailaddress = $("#form_mailaddress").val();     //メールアドレス
     var password = $("#form_password").val();      //パスワード
+    var genre = $('.checkbox__input:checked').map(function() {
+        return $(this).val();
+      }).get();
     //入力規則およびデータをフィールドにセットする
     if(username == ""){
         alert("お名前が入力されていません");
@@ -70,6 +73,7 @@ function insertInfluencer() {
             .set("mailAddress", mailaddress) /* 任意フィールドも追加可能 */
             .set("BoughtCount",0)
             .set("Review",0)
+            .set("Genre",genre)
             .set("Influencer",true);
             //   ユーザーの新規登録処理
             user.signUpByAccount()
