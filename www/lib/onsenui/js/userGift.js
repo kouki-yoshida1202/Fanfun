@@ -4,6 +4,13 @@ function MyGift(){
         var currentUser = ncmb.User.getCurrentUser();
         var objectId = currentUser.get("objectId");
         $('.current_user_id').val(objectId);
+        var influencer = currentUser.get("Influencer");
+        var authentication = currentUser.get("Authentication");
+        console.log(influencer);
+        console.log(authentication);
+        if(influencer==true && authentication=="OK"){
+                $('#exhibition_button').prop("disabled",false);
+        }
         var userName = currentUser.get("userName");
         //データストアから取得して、1件表示する
         var GiftData = ncmb.DataStore("giftData");
