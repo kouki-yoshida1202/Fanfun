@@ -21,7 +21,15 @@ function changeInfluencer(){
         .set("Influencer",true)
         .update()
         .then(function(data) {
-        // 更新完了
+                // 更新完了
+                // 運営へ通知
+                monaca.cloud.Mailer.sendMail("oid", "template_name", null)
+                .done(function(result) {
+                console.log("Send mail success");
+                })
+                .fail(function(err) {
+                console.log("Mail Err#" + err.code +": " + err.message);
+                });
                 alert('申請が完了致しました。運営より登録頂いたメールアドレスに後ほどご連絡致します。');
         })
         .catch(function(err) {
