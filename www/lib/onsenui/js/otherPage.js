@@ -12,10 +12,17 @@ function otherPage(){
         .equalTo("objectId", other_user_id)
         .fetch()
         .then(function(results){
+                var influencer = results.get("Influencer");
+                var authentication = results.get("Authentication");
+                if(influencer==true && authentication=="OK"){
+                        var other_user_name_title = results.get("userName") + " <i class='far fa-check-circle' style='color:#FF6070;'></i>";
+                }else{
+                        var other_user_name_title = results.get("userName");
+                }
                 var other_user_name = results.get("userName");
                 var other_profile_text = results.get("Text");
                 $('#other_page_user_id').val(other_user_id);
-                $('#other_user_name').html(other_user_name);
+                $('#other_user_name').html(other_user_name_title);
                 $('#other_page_header').html(other_user_name);
                 $('#other_profile').html(other_profile_text);
                 var Review = results.get("Review");

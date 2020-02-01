@@ -5,10 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
   <meta http-equiv="Content-Security-Policy" content="default-src * data: gap: https://ssl.gstatic.com; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
   <script src="components/loader.js"></script>
-  
+  <script src="https://smtpjs.com/v3/smtp.js"></script>
   <script src="lib/onsenui/js/onsenui.min.js"></script>
   <script src="https://kit.fontawesome.com/1cca0b75e5.js" crossorigin="anonymous"></script>
   <link href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" rel="stylesheet">
+
   <link rel="stylesheet" href="components/loader.css">
   <link rel="stylesheet" href="lib/onsenui/css/onsenui.css">
   <link rel="stylesheet" href="lib/onsenui/css/onsen-css-components.css">
@@ -40,13 +41,18 @@
   <script src="lib/onsenui/js/searchGift.js"></script>
   <script src="lib/onsenui/js/buypage.js"></script>
   <script src="lib/onsenui/js/baseJump.js"></script>
+  <script src="lib/onsenui/js/influencerChangeKiyaku.js"></script>
+  <script src="lib/onsenui/js/influencerChange.js"></script>
+  <script src="lib/onsenui/js/mailSend.js"></script>
+
+  
 
   <script>
     // ログインしたらまずTopページにくるようにTopのアイコンを押す
     ons.ready(function() {
       $('#topPageTab').click();
     });
-
+    
     // マイページの右上にメニューを開く
     var app = {};
     ons.ready(function () {
@@ -88,23 +94,6 @@
     function homeback(){
       window.location.href = 'home.html'
     }
-    var createAlertDialog2 = function() {
-      var dialog = document.getElementById('my-alert-dialog2');
-
-      if (dialog) {
-        dialog.show();
-      } else {
-        ons.createElement('alert-dialog2.html', { append: true })
-          .then(function(dialog) {
-            dialog.show();
-          });
-      }
-    };
-    var hideAlertDialog2 = function() {
-      document
-        .getElementById('my-alert-dialog2')
-        .hide();
-    };
 
     
     if (ons.platform.isIPhoneX()) {

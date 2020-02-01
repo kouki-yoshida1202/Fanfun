@@ -55,7 +55,7 @@ function insertInfluencer() {
     var password = $("#form_password").val();      //パスワード
     var genre = $('.checkbox__input:checked').map(function() {
         return $(this).val();
-      }).get();
+    }).get();
     //入力規則およびデータをフィールドにセットする
     if(username == ""){
         alert("お名前が入力されていません");
@@ -80,7 +80,7 @@ function insertInfluencer() {
                 .then(function(){
                     //   登録後処理
                     //  保存に成功した場合の処理
-                    alert("認証メールを送信しました。メールに記載のURL押下後、登録が完了します。");
+                    alert('申請が完了致しました。運営より登録頂いたメールアドレスに後ほどご連絡致します。それまでは一般ユーザとして利用できます。');
                     window.location.href = 'index.html';
                 })
                 .catch(function(err){

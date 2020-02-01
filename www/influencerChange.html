@@ -1,0 +1,159 @@
+<ons-page>
+  <ons-toolbar class="toolbar" style="background-color: white;">
+      <div class="left" style="padding-left: 3%;">
+          <ons-back-button></ons-back-button>
+      </div>
+      <div class="center" style="width:120%;">
+          <span style="color:#FF6070;">インフルエンサー申請</span> 
+      </div>
+  </ons-toolbar>
+  <div style="background-color: #efeff4;height:auto;padding-top:20px;padding-bottom:40px;">
+    <div class="card" style="width:85%;margin:0 auto;padding-top:20px;padding-bottom:20px;border-radius: 30px;">
+        <div class="card__content">
+          <p>以下から主要な活動を<span style="color:#FF6070;">3つまで</span>選択してください。</p>
+          <ul class="list">
+            <li class="list-item list-item--tappable">
+              <div class="list-item__left">
+                <label class="checkbox">
+                  <input type="checkbox" id="YouTuber" class="checkbox__input" name="c" value="YouTuber">
+                  <div class="checkbox__checkmark"></div>
+                </label>
+              </div>
+              <label for="YouTuber" class="list-item__center">
+                YouTuber
+              </label>
+            </li>
+            <li class="list-item list-item--tappable">
+              <div class="list-item__left">
+                <label class="checkbox">
+                  <input type="checkbox" id="Instagramer" class="checkbox__input" name="c"value="Instagramer">
+                  <div class="checkbox__checkmark"></div>
+                </label>
+              </div>
+              <label for="Instagramer" class="list-item__center">
+                Instagramer
+              </label>
+            </li>
+            <li class="list-item list-item--tappable">
+              <div class="list-item__left">
+                <label class="checkbox">
+                  <input type="checkbox" id="ライバー" class="checkbox__input" name="c"value="ライバー(Liver)">
+                  <div class="checkbox__checkmark"></div>
+                </label>
+              </div>
+              <label for="ライバー" class="list-item__center">
+                ライバー(Liver)
+              </label>
+            </li>
+            <li class="list-item list-item--tappable">
+              <div class="list-item__left">
+                <label class="checkbox">
+                  <input type="checkbox" id="モデル" class="checkbox__input" name="c" value="モデル">
+                  <div class="checkbox__checkmark"></div>
+                </label>
+              </div>
+              <label for="モデル" class="list-item__center">
+                モデル
+              </label>
+            </li>
+            <li class="list-item list-item--tappable">
+              <div class="list-item__left">
+                <label class="checkbox">
+                  <input type="checkbox" id="タレント" class="checkbox__input" name="c"value="タレント">
+                  <div class="checkbox__checkmark"></div>
+                </label>
+              </div>
+              <label for="タレント" class="list-item__center">
+                タレント
+              </label>
+            </li>
+            <li class="list-item list-item--tappable">
+              <div class="list-item__left">
+                <label class="checkbox">
+                  <input type="checkbox" id="アイドル" class="checkbox__input" name="c"value="アイドル">
+                  <div class="checkbox__checkmark"></div>
+                </label>
+              </div>
+              <label for="アイドル" class="list-item__center">
+                アイドル
+              </label>
+            </li>
+            <li class="list-item list-item--tappable">
+              <div class="list-item__left">
+                <label class="checkbox">
+                  <input type="checkbox" id="Musician" class="checkbox__input" name="c"value="Musician">
+                  <div class="checkbox__checkmark"></div>
+                </label>
+              </div>
+              <label for="Musician" class="list-item__center">
+                Musician
+              </label>
+            </li>
+            <li class="list-item list-item--tappable">
+              <div class="list-item__left">
+                <label class="checkbox">
+                  <input type="checkbox" id="TikToker" class="checkbox__input" name="c"value="TikToker">
+                  <div class="checkbox__checkmark"></div>
+                </label>
+              </div>
+              <label for="TikToker" class="list-item__center">
+                TikToker
+              </label>
+            </li>
+            <li class="list-item list-item--tappable">
+              <div class="list-item__left">
+                <label class="checkbox">
+                  <input type="checkbox" id="ビジネス" class="checkbox__input" name="c"value="ビジネス">
+                  <div class="checkbox__checkmark"></div>
+                </label>
+              </div>
+              <label for="ビジネス" class="list-item__center">
+                ビジネス
+              </label>
+            </li>
+            <li class="list-item list-item--tappable">
+              <div class="list-item__left">
+                <label class="checkbox">
+                  <input type="checkbox" id="その他" class="checkbox__input" name="c"value="その他">
+                  <div class="checkbox__checkmark"></div>
+                </label>
+              </div>
+              <label for="その他" class="list-item__center">
+                その他
+              </label>
+            </li>
+          </ul>
+          <p style="font-size:80%;color:#898989;">※「ライバー」はライブ配信アプリで活動されているインフルエンサー様を指します。</p>
+        </div>
+    </div>
+    <br><br>
+
+    <div style="width:80%;margin:0 auto;">
+      <button id="influenceButton"class="button "style="width:100%;padding-top:5px;padding-bottom:5px;line-height:auto;border-radius:30px;font-size:100%;margin:0 auto;height:45px;" onclick="changeInfluencer()" disabled>
+        アカウント登録
+      </button>
+    </div>
+  </div>
+  <script>
+  $(function () {
+    $('.checkbox__input').prop('checked', false);
+    //チェックボックスをクリックするとイベント発火
+    $("input[type=checkbox]").click(function(){
+        var count = $("input[type=checkbox]:checked").length;
+        var not = $('input[type=checkbox]').not(':checked')
+        
+        //チェックが3つ付いたら、チェックされてないチェックボックスにdisabledを加える
+        if(count >= 3) {
+          not.attr("disabled",true);
+          $('#influenceButton').attr("disabled",false);
+        }else if(count == 0){
+          $('#influenceButton').attr("disabled",true);
+        }else{
+          //3つ以下ならisabledを外す
+          not.attr("disabled",false);
+          $('#influenceButton').attr("disabled",false);
+        }
+    });
+  });
+  </script>
+</ons-page>

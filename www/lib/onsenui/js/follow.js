@@ -108,7 +108,13 @@ function followList(){
                         .fetch()
                         .then(function(result){
                                 var object_id = result.get("objectId");
-                                var user_name = result.get("userName");
+                                var influencer = result.get("Influencer");
+                                var authentication = result.get("Authentication");
+                                if(influencer==true && authentication=="OK"){
+                                        var user_name = result.get("userName") + " <i class='far fa-check-circle' style='color:#FF6070;'></i>";
+                                }else{
+                                        var user_name = result.get("userName");
+                                }
                                 var follow_list = `
                                 <li class="list-item list-item--material">
                                         <div class="list-item__left list-item--material__left" onclick="document.getElementById('navi').pushPage('otherpage.html');
@@ -203,11 +209,19 @@ function followerList(){
 
 // 一覧にユーザネームを追加
 function userNameAppend(object_id){
+
         ncmb.User
-        .equalTo("objectId", object_id)
+        .equalTo("objectId",object_id)
         .fetch()
         .then(function(result){
-                var user_name = result.get("userName");
+                var object_id = result.get("objectId");
+                var influencer = result.get("Influencer");
+                var authentication = result.get("Authentication");
+                if(influencer==true && authentication=="OK"){
+                        var user_name = result.get("userName") + " <i class='far fa-check-circle' style='color:#FF6070;'></i>";
+                }else{
+                        var user_name = result.get("userName");
+                }
                 var follower_user_name = "follower_user_name_"+object_id;
                 $('#'+follower_user_name).append(user_name);
         });
@@ -230,7 +244,7 @@ function followerCheck(object_id,userId){
                         class="button follow_on" style="" onclick="`;
                         followcheck += "ichiranFollow('"+object_id+"');";
                         followcheck +=`
-                        ">フォロー中</button><i style="color:#FF6070" class="list-item__icon list-item--material__icon zmdi zmdi-more follow-action" onclick="createAlertDialog2();"></i>
+                        ">フォロー中</button>
                         `;
                 }else{
                         var followcheck =`
@@ -240,7 +254,7 @@ function followerCheck(object_id,userId){
                         class="button follow_off" style="" onclick="`;
                         followcheck += "ichiranFollow('"+object_id+"');";
                         followcheck +=`
-                        ">フォロー</button><i style="color:#FF6070" class="list-item__icon list-item--material__icon zmdi zmdi-more follow-action" onclick="createAlertDialog2();"></i>
+                        ">フォロー</button>
                         `;
                 }
                 $('#'+follow_check).append(followcheck);
@@ -279,7 +293,7 @@ function followerUserImage(objectId){
         })
         .catch(function(err){
                 // エラー処理
-                alert('error = ' + err);
+                // alert('error = ' + err);
         });
 }
 
@@ -293,10 +307,17 @@ function toOtherPageFromFollowList(jumpToUserId){
         .equalTo("objectId", jumpToUserId)
         .fetch()
         .then(function(results){
+                var influencer = results.get("Influencer");
+                var authentication = results.get("Authentication");
+                if(influencer==true && authentication=="OK"){
+                        var other_user_name_title = results.get("userName") + " <i class='far fa-check-circle' style='color:#FF6070;'></i>";
+                }else{
+                        var other_user_name_title = results.get("userName");
+                }
                 var other_user_name = results.get("userName");
                 var other_profile_text = results.get("Text");
                 $('#other_page_user_id').val(jumpToUserId);
-                $('#other_user_name').html(other_user_name);
+                $('#other_user_name').html(other_user_name_title);
                 $('#other_page_header').html(other_user_name);
                 $('#other_profile').html(other_profile_text);
                 var Review = results.get("Review");

@@ -6,11 +6,20 @@ function MyGift(){
         $('.current_user_id').val(objectId);
         var influencer = currentUser.get("Influencer");
         var authentication = currentUser.get("Authentication");
-        console.log(influencer);
-        console.log(authentication);
         if(influencer==true && authentication=="OK"){
                 $('#exhibition_button').prop("disabled",false);
+                var userNameTitle = currentUser.get("userName") + " <i class='far fa-check-circle' style='color:#FF6070;'></i>";
+                $('#influencerTouroku').hide();
+        }else{
+                var userNameTitle = currentUser.get("userName");
+                $('#myGiftList').hide();
+
+                var influencer_button = `
+                <button id="influencer_button" class="button "style="width:70%;padding-top:0px;padding-bottom:0px;line-height:auto;border-radius:30px;font-size:16px;margin:0 auto;"onclick="document.getElementById('navi').pushPage('influencerChangeKiyaku.html');influencerChangeKiyaku();">インフルエンサー申請</button>
+                `;
+                $('#influencerTouroku').html(influencer_button);
         }
+        $('.user_name_title').html(userNameTitle);
         var userName = currentUser.get("userName");
         //データストアから取得して、1件表示する
         var GiftData = ncmb.DataStore("giftData");

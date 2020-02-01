@@ -56,4 +56,4 @@ function MailCheck(mail) {
         } else {
             return false;
         }
-    }
+}
