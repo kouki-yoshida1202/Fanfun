@@ -79,8 +79,18 @@ function insertInfluencer() {
             user.signUpByAccount()
                 .then(function(){
                     //   登録後処理
-                    //  保存に成功した場合の処理
+                    
+                    // 運営へ通知
+                    monaca.cloud.Mailer.sendMail("oid", "template_name", null)
+                    .done(function(result) {
+                        console.log("Send mail success");
+                    })
+                    .fail(function(err) {
+                        console.log("Mail Err#" + err.code +": " + err.message);
+                    });
+
                     alert('申請が完了致しました。運営より登録頂いたメールアドレスに後ほどご連絡致します。それまでは一般ユーザとして利用できます。');
+
                     window.location.href = 'index.html';
                 })
                 .catch(function(err){
