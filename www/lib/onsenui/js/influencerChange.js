@@ -1,4 +1,4 @@
-function changeInfluencer(){
+function influencerChange(){
 
         //APIキーの設定とSDKの初期化
         var appKey    = "2a769bb0b55358cb641215e139e1e4c409bfba09b1177e468e736635af5c7f58";
@@ -23,13 +23,8 @@ function changeInfluencer(){
         .then(function(data) {
                 // 更新完了
                 // 運営へ通知
-                monaca.cloud.Mailer.sendMail("oid", "template_name", null)
-                .done(function(result) {
-                console.log("Send mail success");
-                })
-                .fail(function(err) {
-                console.log("Mail Err#" + err.code +": " + err.message);
-                });
+                mailSend("ub7192f4b-a9c9-4379-b492-d7e0f40bfd43","インフルエンサー申請")
+                
                 alert('申請が完了致しました。運営より登録頂いたメールアドレスに後ほどご連絡致します。');
         })
         .catch(function(err) {
@@ -37,4 +32,15 @@ function changeInfluencer(){
                 alert('更新が失敗しました。');
         });               
         
+}
+
+function mailSend(userOid,templateName){
+        console.log(userOid,templateName);
+        monaca.cloud.Mailer.sendMail(userOid, templateName, null)
+        .done(function(result) {
+                alert("Send mail success");
+        })
+        .fail(function(err) {
+                alert("Mail Err#" + err.code +": " + err.message);
+        });
 }

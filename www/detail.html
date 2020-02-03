@@ -35,38 +35,15 @@
                             <br>
                             <span id="gift_favorite_count" style="font-size:14px;color:#898989;">0</span>
                         </div>
-                        <div class="js-modal__btn" style="width:33%;float:left;text-align: center;" onclick="modal();">
+                        <div class="" style="width:33%;float:left;text-align: center;" onclick="detailModalOpen();">
                             <i class="fab fa-hubspot" style="font-size:20px;color:gray;"></i>
                             <br>
                             <span style="font-size:14px;color:#898989;">共有</span>
                         </div>
-                        <div class="js-modal__bg"></div>
-                        <div class="js-modal__main">
-                            <button class="button "style="width:100%;padding-top:0px;padding-bottom:0px;line-height:auto;border-radius:30px;font-size:100%;margin:0 auto;height:30px;background:#1DA1F2;margin-top:20px;"><a href="javascript:window.open('http://twitter.com/share?text='+encodeURIComponent(document.title)+'&url='+encodeURIComponent(location.href),'sharewindow','width=550, height=450, personalbar=0, toolbar=0, scrollbars=1, resizable=!');" style="color:white;">Tweet</a></button>
-                            <button class="button "style="width:100%;padding-top:0px;padding-bottom:0px;line-height:auto;border-radius:30px;font-size:100%;margin:0 auto;height:30px;background:#3B5998;margin-top:20px;"><a href="javascript:window.open('http://www.facebook.com/sharer.php?u='+encodeURIComponent(location.href),'sharewindow','width=550, height=450, personalbar=0, toolbar=0, scrollbars=1, resizable=!');" style="color:white;">Facebook</a></button>
-                            <button class="button "style="width:100%;padding-top:0px;padding-bottom:0px;line-height:auto;border-radius:30px;font-size:100%;margin:0 auto;height:30px;background:#00B900;margin-top:20px;"><a href="javascript:window.open('http://line.me/R/msg/text/?'+encodeURIComponent(document.title)+'%20'+encodeURIComponent(location.href),'sharewindow','width=550, height=450, personalbar=0, toolbar=0, scrollbars=1, resizable=!');" style="color:white;">LINE</a></button>
-                            <button class="button "style="width:100%;padding-top:0px;padding-bottom:0px;line-height:auto;border-radius:30px;font-size:100%;margin:0 auto;height:30px;background:lightgray;margin-top:20px;" id="copy-page" onclick="copyPage();">URLコピー</button>
-                            <p class="js-modal__btn--close">close</p>
-                            <p class="js-modal__btn--close--fix"></p>
-                        </div>
-                        <div class="js-modal__btn"style="width:33%;float:left;text-align: center;" onclick="modal();">
+                        <div class=""style="width:33%;float:left;text-align: center;" onclick="houkokuModalOpen();">
                             <i class="fab fa-font-awesome-flag"style="font-size:20px;color:gray;"></i>
                             <br>
                             <span style="font-size:14px;color:#898989;">報告</span>
-                        </div>
-                        <div class="js-modal__bg"></div>
-                        <div class="js-modal__main">
-                            <p>報告内容</p>
-                            <br>
-                            <div style="width:80%;margin:0 auto;">
-                                <textarea id="houkoku_text"class="textarea" rows="15" placeholder="メッセージ本文" style="background-color: white;border-radius:20px;width:100%;border:1px solid #898989;padding:10px;font-size:14px;"></textarea>
-                            </div>
-                            <br><br>
-                            <div style="width:80%;margin:0 auto;">
-                                <button class="button "style="width:100%;padding-top:0px;padding-bottom:0px;line-height:auto;border-radius:30px;font-size:100%;margin:0 auto;height:45px;"onclick="houkokuSend()">送信</button>
-                            </div>
-                            <p class="js-modal__btn--close">close</p>
-                            <p class="js-modal__btn--close--fix"></p>
                         </div>
                     </div>
                     <div id="gift_detail_title_other"class="gift_title" style="height:auto;font-size:14px;padding:10px 5px 10px 5px;"></div>
@@ -87,6 +64,59 @@
                 </button>
             </div>
         </div>
+        <div id="share_modal" class="modal">
+            <div class="modal__content">
+                <div style="height: 200px; padding: 1px 0 0 0;">
+                    <div class="card">
+                        <div class="card__content">
+                            <button class="button "style="width:100%;padding-top:10px;padding-bottom:10px;line-height:20px;border-radius:30px;font-size:100%;margin:0 auto;height:40px;background:#1DA1F2;margin-top:20px;"><a href="javascript:window.open('http://twitter.com/share?text='+encodeURIComponent(document.title)+'&url='+encodeURIComponent(location.href),'sharewindow','width=550, height=450, personalbar=0, toolbar=0, scrollbars=1, resizable=!');" style="color:white;">Tweet</a></button>
+                            <button class="button "style="width:100%;padding-top:10px;padding-bottom:10px;line-height:20px;border-radius:30px;font-size:100%;margin:0 auto;height:40px;background:#3B5998;margin-top:20px;"><a href="javascript:window.open('http://www.facebook.com/sharer.php?u='+encodeURIComponent(location.href),'sharewindow','width=550, height=450, personalbar=0, toolbar=0, scrollbars=1, resizable=!');" style="color:white;">Facebook</a></button>
+                            <button class="button "style="width:100%;padding-top:10px;padding-bottom:10px;line-height:20px;border-radius:30px;font-size:100%;margin:0 auto;height:40px;background:#00B900;margin-top:20px;"><a href="javascript:window.open('http://line.me/R/msg/text/?'+encodeURIComponent(document.title)+'%20'+encodeURIComponent(location.href),'sharewindow','width=550, height=450, personalbar=0, toolbar=0, scrollbars=1, resizable=!');" style="color:white;">LINE</a></button>
+                            <button class="button "style="width:100%;padding-top:10px;padding-bottom:10px;line-height:20px;border-radius:30px;font-size:100%;margin:0 auto;height:40px;background:lightgray;margin-top:20px;" id="copy-page" onclick="copyPage();">URLコピー</button>
+                            <br><br>
+                            <p class="modal_close" style="text-align: center;font-size: 120%;" onclick="detailModalClose();">close</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="houkoku_modal" class="modal">
+            <div class="modal__content">
+                <div style="height: 200px; padding: 1px 0 0 0;">
+                    <div class="card">
+                        <div class="card__content">
+                            <p>報告内容 <span style="text-align: right;float:right;font-size:130%;" onclick="houkokuModalClose();">×</span> </p>
+                            
+                            <div style="width:80%;margin:0 auto;">
+                                <textarea id="houkoku_text"class="textarea" rows="10" placeholder="メッセージ本文" style="background-color: white;border-radius:20px;width:100%;border:1px solid #898989;padding:10px;font-size:14px;"></textarea>
+                            </div>
+                            <br>
+                            <div style="width:80%;margin:0 auto;">
+                                <button class="button "style="width:100%;padding-top:0px;padding-bottom:0px;line-height:auto;border-radius:30px;font-size:100%;margin:0 auto;height:45px;"onclick="houkokuSend()">送信</button>
+                            </div>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            $('.modal').hide();
+            function detailModalOpen(){
+                $('#share_modal').slideDown();
+            }
+            function detailModalClose(){
+                $('#share_modal').slideUp();
+            }
+
+            function houkokuModalOpen(){
+                $('#houkoku_modal').slideDown();
+            }
+
+            function houkokuModalClose(){
+                $('#houkoku_modal').slideUp();
+            }
+        </script>
         <style>
         .favorite_on{
             color:#FF6070;

@@ -41,7 +41,6 @@
   <script src="lib/onsenui/js/searchGift.js"></script>
   <script src="lib/onsenui/js/buypage.js"></script>
   <script src="lib/onsenui/js/baseJump.js"></script>
-
   <script src="lib/onsenui/js/influencerChangeKiyaku.js"></script>
   <script src="lib/onsenui/js/influencerChange.js"></script>
   <script src="lib/onsenui/js/mailSend.js"></script>
@@ -51,16 +50,6 @@
     // ログインしたらまずTopページにくるようにTopのアイコンを押す
     ons.ready(function() {
       $('#topPageTab').click();
-    });
-    
-    // マイページの右上にメニューを開く
-    var app = {};
-    ons.ready(function () {
-      ons.createElement('action-sheet.html', { append: true })
-        .then(function (sheet) {
-          app.showFromTemplate = sheet.show.bind(sheet);
-          app.hideFromTemplate = sheet.hide.bind(sheet);
-        });
     });
     
     // ギフト一覧のロード完了に時間がかかるので、最初に数秒間ロードのグルグルアイコンを入れている
