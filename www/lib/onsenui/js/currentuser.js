@@ -15,18 +15,18 @@ function loginInfo(){
         $('.current_text').html(text);
         $('.current_user_id').val(objectId);
         
-        var star = `<i class="fas fa-star" style="font-size: 12px;color:#FFBB00;"></i>`;
-        var no_star = `<i class="fas fa-star" style="font-size: 12px;color:gray;"></i>`;
-        $('#myReview').empty();
-        for(var i=0;i<5;i++){
-                if(i<Review){
-                        $('#myReview').append(star);
-                }else{
-                        $('#myReview').append(no_star);
-                }
-        }
-        var myBoughtCount = `<span id="myBoughtCount"style="color:#898989;font-size: 12px;">`+BoughtCount+`</span>`;
-        $('#myReview').append(myBoughtCount);
+        // var star = `<i class="fas fa-star" style="font-size: 12px;color:#FFBB00;"></i>`;
+        // var no_star = `<i class="fas fa-star" style="font-size: 12px;color:gray;"></i>`;
+        // $('#myReview').empty();
+        // for(var i=0;i<5;i++){
+        //         if(i<Review){
+        //                 $('#myReview').append(star);
+        //         }else{
+        //                 $('#myReview').append(no_star);
+        //         }
+        // }
+        // var myBoughtCount = `<span id="myBoughtCount"style="color:#898989;font-size: 12px;">`+BoughtCount+`</span>`;
+        // $('#myReview').append(myBoughtCount);
         //フォローフォロワー数
         var FollowData = ncmb.DataStore("follow");
 

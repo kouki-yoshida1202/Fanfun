@@ -325,16 +325,16 @@ function toOtherPageFromFollowList(jumpToUserId){
 
                 var star = `<i class="fas fa-star" style="font-size: 12px;color:#FFBB00;"></i>`;
                 var no_star = `<i class="fas fa-star" style="font-size: 12px;color:gray;"></i>`;
-                $('#otherReview').empty();
-                for(var i=0;i<5;i++){
-                        if(i<Review){
-                                $('#otherReview').append(star);
-                        }else{
-                                $('#otherReview').append(no_star);
-                        }
-                }
-                var myBoughtCount = `<span id="otherBoughtCount"style="color:#898989;font-size: 12px;">`+BoughtCount+`</span>`;
-                $('#otherReview').append(myBoughtCount);
+                // $('#otherReview').empty();
+                // for(var i=0;i<5;i++){
+                //         if(i<Review){
+                //                 $('#otherReview').append(star);
+                //         }else{
+                //                 $('#otherReview').append(no_star);
+                //         }
+                // }
+                // var myBoughtCount = `<span id="otherBoughtCount"style="color:#898989;font-size: 12px;">`+BoughtCount+`</span>`;
+                // $('#otherReview').append(myBoughtCount);
 
                 ncmb.File.download(jumpToUserId, "blob")
                 .then(function(fileData) {
