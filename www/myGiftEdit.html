@@ -1,77 +1,95 @@
 <ons-page>
-        <ons-toolbar class="toolbar" style="background-color: white;position: fixed;">
-            <div class="left" style="padding-left: 3%;">
-                <ons-back-button></ons-back-button>
-            </div>
-            <div class="center" style="color:#898989;">
-                ギフト変更画面
-            </div>
-        </ons-toolbar>
-        <div class="container contents" style="background-color:#efeff4;padding-bottom:100px;">
-            <!-- カードリスト部分 -->
-            <input type="hidden" class="gift_uid_edit">
-            <div class="" style="width:100%;height: auto; padding: 1px 0 0 0;display: inline-block;">
-                <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:15px;">
-                    <div>
-                        <span>1.写真を登録</span>
-                    </div>
-                    <div class="" style="width: 60%; margin: 0 auto;margin-top:3px;background-color: white;border-radius: 20px;border:1px solid #898989;">
-                        <img id="gift_image_edit" class="buypage_img"src="img/imagePlus.png" alt="" style="width:100%;border-radius: 20px;">
-                        <input type="file" id="file-data-gift-edit"/>
-                        <span>※正方形の写真をアップロードしてください</span>
-                    </div>
+    <ons-toolbar class="toolbar" style="background-color: white;position: fixed;">
+        <div class="left" style="padding-left: 3%;">
+            <ons-back-button></ons-back-button>
+        </div>
+        <div class="center" style="color:#898989;">
+            ギフト変更画面
+        </div>
+    </ons-toolbar>
+    <div class="container contents" style="background-color:#efeff4;padding-bottom:100px;">
+        <!-- カードリスト部分 -->
+        <input type="hidden" class="gift_uid_edit">
+        <div class="" style="width:100%;height: auto; padding: 1px 0 0 0;display: inline-block;">
+            <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:15px;">
+                <div>
+                    <span>1.写真を登録</span>
                 </div>
-                <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:20px;">
-                    <div>
-                        <span>2.ギフトタイトルと説明</span>
-                    </div>
-                    <div class="" style="width: 100%; margin: 0 auto;margin-top:3px;">
-                        <input id="gift_title_edit"type="text" class="text-input" placeholder="ギフトタイトル(必須/20文字以内)" style="background-color: white;border-radius:20px;width:100%;font-size:14px;border:1px solid #898989;height:30px;padding-left:3%;margin-bottom:7px;">
-                        <textarea id="gift_text_edit"class="textarea" rows="7" placeholder="商品の説明(任意/200文字以内)" style="background-color: white;border-radius:20px;width:100%;border:1px solid #898989;padding:10px;font-size:14px;"></textarea>
-                    </div>
+                <div class="" style="width: 60%; margin: 0 auto;margin-top:3px;background-color: white;border-radius: 20px;border:1px solid #898989;">
+                    <img id="gift_image_edit" class="buypage_img"src="img/imagePlus.png" alt="" style="width:100%;border-radius: 20px;">
+                    <input type="file" id="file-data-gift-edit"/>
+                    <span>※正方形の写真をアップロードしてください</span>
                 </div>
-                <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:20px;">
-                    <div>
-                        <span>3.販売価格(300~9,999,999)</span>
-                    </div>
-                    <div class="card" style="width: 100%; margin: 0 auto;margin-top:3px;background-color: white;border:1px solid #898989;border-radius: 20px">
-                        <ul class="list">
-                            <li class="list-item">
-                                <div class="list-item__center" style="font-size: 80%;">
-                                販売価格
-                                </div>
-                                <div class="list-item__right">
-                                    <span>
-                                        <div>
-                                            <input id="gift_price_edit" class="text-input text-input--material kakaku" placeholder="¥0" type="tel" style="text-align: right;" required>
-                                        </div>
-                                    </span>
-                                </div>
-                            </li>
-                            <li class="list-item">
-                                <div class="list-item__center" style="color:#898989;font-size: 80%;">
-                                販売手数料
-                                </div>
-                                <div class="list-item__right">
-                                    <label class="tesuryou">
-                                    </label>
-                                </div>
-                            </li>
-                            <li class="list-item">
-                                <div class="list-item__center" style="color:#898989;font-size: 80%;">
-                                販売利益
-                                </div>
-                                <div class="list-item__right">
-                                    <label class="rieki">
-                                    </label>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
+            </div>
+            <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:20px;">
+                <div>
+                    <span>2.ギフトタイトルと説明</span>
+                </div>
+                <div class="" style="width: 100%; margin: 0 auto;margin-top:3px;">
+                    <input id="gift_title_edit"type="text" class="text-input" placeholder="ギフトタイトル(必須/20文字以内)" style="background-color: white;border-radius:20px;width:100%;font-size:14px;border:1px solid #898989;height:30px;padding-left:3%;margin-bottom:7px;">
+                    <textarea id="gift_text_edit"class="textarea" rows="7" placeholder="商品の説明(任意/200文字以内)" style="background-color: white;border-radius:20px;width:100%;border:1px solid #898989;padding:10px;font-size:14px;"></textarea>
+                </div>
+            </div>
+            <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:20px;">
+                <div>
+                    <span>3.販売価格(300~9,999,999)</span>
+                </div>
+                <div class="card" style="width: 100%; margin: 0 auto;margin-top:3px;background-color: white;border:1px solid #898989;border-radius: 20px">
+                    <ul class="list">
+                        <li class="list-item">
+                            <div class="list-item__center" style="font-size: 80%;">
+                            販売価格
+                            </div>
+                            <div class="list-item__right">
+                                <span>
+                                    <div>
+                                        <input id="gift_price_edit" class="text-input text-input--material kakaku" placeholder="¥0" type="tel" style="text-align: right;" required>
+                                    </div>
+                                </span>
+                            </div>
+                        </li>
+                        <li class="list-item">
+                            <div class="list-item__center" style="color:#898989;font-size: 80%;">
+                            販売手数料
+                            </div>
+                            <div class="list-item__right">
+                                <label class="tesuryou">
+                                </label>
+                            </div>
+                        </li>
+                        <li class="list-item">
+                            <div class="list-item__center" style="color:#898989;font-size: 80%;">
+                            販売利益
+                            </div>
+                            <div class="list-item__right">
+                                <label class="rieki">
+                                </label>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
-        <div class="tabbar" style="background-color: #FF6070;position: fixed;bottom:0;left:0;text-align: center;color:white;">
-            <span style="text-align: center;width:100%;padding-top:10px;font-size:20px;" onclick="giftEdit();">変更する</span>
-        </div>
+    </div>
+    <div id="giftEditButton" class="tabbar" style="background-color: #FF6070;position: fixed;bottom:0;left:0;text-align: center;color:white;">
+        <span id="giftEditButton2"style="text-align: center;width:100%;padding-top:10px;font-size:20px;" onclick="giftEdit();">変更する</span>
+    </div>
+    <script>
+        // ギフト出品時の価格設定時に価格に応じて、手数料と利益が表示されるようにしている
+        $('.kakaku').change(function(){
+          var kakaku = $('.kakaku').val();
+          if(kakaku%100==0 && kakaku!=0){
+            var tesuryou = Math.floor(kakaku*0.2);
+            var rieki = kakaku - tesuryou;
+            $('.tesuryou').text(tesuryou);
+            $('.rieki').text(rieki);
+            $("#giftEditButton").css("background-color","#FF6070");
+            $("#giftEditButton2").prop("disabled",false);
+          }else{
+            alert("100円単位で設定してください");
+            $("#giftEditButton").css("background-color","gray");
+            $("#giftEditButton2").prop("disabled",true);
+          }
+        });
+    </script>
 </ons-page>

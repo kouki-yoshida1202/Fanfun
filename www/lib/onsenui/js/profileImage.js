@@ -17,7 +17,7 @@ function onFormSend(){
         })
         .catch(function(err){
                 // エラー処理
-                alert("写真失敗");
+                console.log(err);
         });
 }
 
@@ -32,7 +32,7 @@ function onFormSendGift(uid){
         })
         .catch(function(err){
                 // エラー処理
-                alert("写真失敗");
+                console.log(err);
         });
 }
 
@@ -48,6 +48,5 @@ function onFormSendGiftEdit(uid){
         .catch(function(err){
                 // エラー処理
                 console.log(err);
-                alert("写真失敗");
         });
 }

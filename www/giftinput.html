@@ -42,7 +42,8 @@
                             </div>
                             <div class="list-item__right">
                                 <span>
-                                    <div>
+                                    <div style="text-align: right;">
+                                        <span style="float:right;font-size:80%;">※100円単位での設定となります。</span>
                                         <input id="gift_price" class="text-input text-input--material kakaku" placeholder="¥0" type="tel" style="text-align: right;" required>
                                     </div>
                                 </span>
@@ -71,7 +72,27 @@
             </div>
         </div>
     </div>
-    <div class="tabbar" style="background-color: #FF6070;position: fixed;bottom:0;left:0;text-align: center;color:white;">
-        <span style="text-align: center;width:100%;padding-top:10px;font-size:20px;"onclick="giftInsert();">出品する</span>
+    <div id="giftInsertButton"class="tabbar" style="background-color: gray;position: fixed;bottom:0;left:0;text-align: center;color:white;">
+        <span id="giftInsertButton2" style="text-align: center;width:100%;padding-top:10px;font-size:20px;"onclick="giftInsert();" disabled>出品する</span>
     </div>
+    <script>
+    // ギフト出品時の価格設定時に価格に応じて、手数料と利益が表示されるようにしている
+    $('.kakaku').change(function(){
+      var kakaku = $('.kakaku').val();
+      if(kakaku%100==0 && kakaku!=0){
+        var tesuryou = Math.floor(kakaku*0.2);
+        var rieki = kakaku - tesuryou;
+        $('.tesuryou').text(tesuryou);
+        $('.rieki').text(rieki);
+        $("#giftInsertButton").css("background-color","#FF6070");
+        $("#giftInsertButton2").prop("disabled",false);
+      }else{
+        alert("100円単位で設定してください");
+        $("#giftInsertButton").css("background-color","gray");
+        $("#giftInsertButton2").prop("disabled",true);
+      }
+    });
+    </script>
+    
+
 </ons-page>
