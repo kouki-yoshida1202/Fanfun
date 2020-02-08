@@ -363,12 +363,13 @@ function toOtherPageFromFollowList(jumpToUserId){
                                         var time = jikanCulc(create_date);
                                         var gift_uid = object[i].get("giftUid");
                                         var gift_price = object[i].get("price");
-
+                                        var gift_stock = object[i].get("stock");
+                                        var ReleaseStatus = object[i].get("ReleaseStatus");
                                         //カードに出力していく
                                         var card = `
                                         <div class="gift-card" style="width:49%;height: auto; padding: 1px 0 0 0;display: inline-block;margin-top:5px;"onclick="
                                         `;
-                                        card += "giftIdJudge('"+gift_uid+"','"+other_user_name+"','"+gift_title+"','"+gift_text+"','"+objectId+"','"+create_date+"','"+gift_price+"','"+jumpToUserId+"');";
+                                        card += "giftIdJudge('"+gift_uid+"','"+other_user_name+"','"+gift_title+"','"+gift_text+"','"+objectId+"','"+create_date+"','"+gift_price+"','"+jumpToUserId+"','"+ReleaseStatus+"','"+gift_stock+"');";
                                         card +=`
                                         ">
                                                 <input class="gift_uid" type="" value="`;
@@ -408,6 +409,11 @@ function toOtherPageFromFollowList(jumpToUserId){
                                                                 card +=`"class="fas fa-heart favorite_off" style="font-size:12px;"></i> <span id="`;
                                                                 card += "gift_favorite_span_"+i;
                                                                 card +=`"class="favorite_off">0</span>
+                                                                </button>
+                                                                <button class="toolbar-button" style="font-size:12px;padding:0px;">
+                                                                        <span style="font-size:12px;color:gray">残:`;
+                                                                        card += gift_stock;
+                                                                        card +=`</span>
                                                                 </button>
                                                                 <button class="toolbar-button" style="font-size:12px;padding:0px;float: right;">
                                                                         <span style="color:#898989">

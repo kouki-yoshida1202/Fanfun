@@ -7,7 +7,6 @@ function loginInfo(){
         var objectId = currentUser.get("objectId");
         var Review = currentUser.get("Review");
         var havePoint = currentUser.get("havePoint");
-        console.log(havePoint);
         var BoughtCount = "("+currentUser.get("BoughtCount")+")";
         
         if(objectId == "V5wsDER2rALwDReh"){

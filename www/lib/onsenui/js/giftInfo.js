@@ -10,12 +10,17 @@ function giftInsert() {
         var gift_title = $("#gift_title").val();            
         var gift_text = $("#gift_text").val();     
         var gift_price = $("#gift_price").val(); 
+        var gift_stock = $("#gift_stock").val(); 
         if(gift_title ==''){
                 alert("ギフトタイトルが未入力です");
         }else if(gift_text == ""){
                 alert("ギフト説明文が未入力です");
         }else if(gift_price == ""){
                 alert("ギフト価格が未入力です");
+        }else if(gift_stock == ""){
+                alert("ギフト在庫数が未入力です");
+        }else if(!Number.isInteger(gift_stock) || !Number.isInteger(gift_price) || gift_price < 1 || gift_stock < 1){
+                alert("数値を1以上の整数で入力してください");
         }else{
                 var currentUser = ncmb.User.getCurrentUser();
                 var objectId = currentUser.get("objectId");
@@ -31,6 +36,7 @@ function giftInsert() {
                         .set("giftText", gift_text)
                         .set("price",gift_price)
                         .set("giftUid",uid)
+                        .set("stock",gift_stock)
                         .set("ReleaseStatus",false)
                         .save()
                         .then(function(gameScore){
@@ -84,6 +90,7 @@ function giftEdit() {
         var gift_title = $("#gift_title_edit").val();            //お名前
         var gift_text = $("#gift_text_edit").val();     //メールアドレス
         var gift_price = $("#gift_price_edit").val();      //パスワード
+        var gift_stock = $("#gift_stock_edit").val();
         if(gift_title ==''){
                 alert("ギフトタイトルが未入力です");
         }else if(gift_text == ""){
@@ -92,6 +99,10 @@ function giftEdit() {
                 alert("ギフト価格が未入力です");
         }else if(gift_price % 100 != 0){
                 alert("価格を100円単位で設定してください")
+        }else if(gift_stock == ""){
+                alert("ギフト在庫数が未入力です");
+        }else if(!Number.isInteger(gift_stock) || !Number.isInteger(gift_price) || gift_price < 1 || gift_stock < 1){
+                alert("数値を1以上の整数で入力してください");
         }else{
                 var currentUser = ncmb.User.getCurrentUser();
                 var objectId = currentUser.get("objectId");
@@ -111,6 +122,7 @@ function giftEdit() {
                                 results.set("giftTitle", gift_title)
                                         .set("giftText", gift_text)
                                         .set("price",gift_price)
+                                        .set("stock",gift_stock)
                                         .update();
 
                                 onFormSendGiftEdit(uid);

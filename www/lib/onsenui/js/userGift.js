@@ -38,6 +38,7 @@ function MyGift(){
                         var create_date = object[i].get("createDate");
                         var time = jikanCulc(create_date);
                         var gift_uid = object[i].get("giftUid");
+                        var gift_stock = object[i].get("stock");
                         var gift_price = object[i].get("price");
                         var gift_user_id = object[i].get("userId");
                         var ReleaseStatus = object[i].get("ReleaseStatus");
@@ -45,7 +46,7 @@ function MyGift(){
                         var card = `
                         <div class="gift-card" style="width:49%;height: auto; padding: 1px 0 0 0;display: inline-block;margin-top:5px;"onclick="
                         `;
-                        card += "giftIdJudge('"+gift_uid+"','"+userName+"','"+gift_title+"','"+gift_text+"','"+objectId+"','"+create_date+"','"+gift_price+"','"+gift_user_id+"','"+ReleaseStatus+"');";
+                        card += "giftIdJudge('"+gift_uid+"','"+userName+"','"+gift_title+"','"+gift_text+"','"+objectId+"','"+create_date+"','"+gift_price+"','"+gift_user_id+"','"+ReleaseStatus+"','"+gift_stock+"');";
                         card +=`
                         ">
                                 <input class="gift_uid" type="" value="`;
@@ -85,6 +86,11 @@ function MyGift(){
                                                         card +=`"class="fas fa-heart favorite_off" style="font-size:12px;"></i> <span id="`;
                                                         card += "my_gift_favorite_span_"+i;
                                                         card +=`"class="favorite_off">0</span>
+                                                </button>
+                                                <button class="toolbar-button" style="font-size:12px;padding:0px;">
+                                                        <span style="font-size:12px;color:gray">残:`;
+                                                        card += gift_stock;
+                                                        card +=`</span>
                                                 </button>
                                                 <button class="toolbar-button" style="font-size:12px;padding:0px;float: right;">
                                                         <span style="color:#898989">
@@ -149,8 +155,9 @@ function giftImageGet(giftUid,i){
         });
 }
 
-function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date,price,gift_user_id,ReleaseStatus){
+function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date,price,gift_user_id,ReleaseStatus,gift_stock){
         // 日付のフォーマット変換
+        
         ncmb.User
         .equalTo("objectId", gift_user_id)
         .fetch()
@@ -208,6 +215,7 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
                                 $('#gift_detail_time').html(formatDate(date));
                                 $('#my_user_id').val(gift_user_id);
                                 $('#my_gift_id').val(gift_uid);
+                                $('#my_stock').html(gift_stock);
                                 my_gift_favorite_check_detail(gift_uid);
                         },500);
                 }else{
@@ -262,7 +270,12 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
                                 $('#gift_detail_time_other').html(formatDate(date));
                                 $('#other_user_id').val(gift_user_id);
                                 $('#gift_id').val(gift_uid);
+                                $('#stock').html(gift_stock);
                                 gift_favorite_check_detail(gift_uid);
+                                if(gift_stock == 0 || gift_stock == '' || gift_stock==undefined){
+                                        $('#ReleaseStatusButton').prop("disabled",true);
+                                        $('#ReleaseStatusButton').html("在庫切れ");
+                                }
                         },500);
                 }
         });

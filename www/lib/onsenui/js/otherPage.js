@@ -68,6 +68,7 @@ function otherPage(){
                                         var time = jikanCulc(create_date);
                                         var gift_uid = object[i].get("giftUid");
                                         var gift_price = object[i].get("price");
+                                        var gift_stock = object[i].get("stock");
                                         var gift_user_id = object[i].get("userId");
                                         var ReleaseStatus = object[i].get("ReleaseStatus");
                                         
@@ -115,6 +116,11 @@ function otherPage(){
                                                                 card +=`"class="fas fa-heart favorite_off" style="font-size:12px;"></i> <span id="`;
                                                                 card += "gift_favorite_span_"+i;
                                                                 card +=`"class="favorite_off">0</span>
+                                                                </button>
+                                                                <button class="toolbar-button" style="font-size:12px;padding:0px;">
+                                                                        <span style="font-size:12px;color:gray">残:`;
+                                                                        card += gift_stock;
+                                                                        card +=`</span>
                                                                 </button>
                                                                 <button class="toolbar-button" style="font-size:12px;padding:0px;float: right;">
                                                                         <span style="color:#898989">
