@@ -37,11 +37,11 @@
                 </div>
                 <div class="segment" style="width: 100%; margin: 0 auto;margin-top:7px;">
                     <div class="segment__item">
-                        <input type="radio" class="segment__input" name="segment-a" checked>
+                        <input type="radio" class="segment__input" name="segment-a" value="自分"checked>
                         <div class="segment__button">自分</div>
                     </div>
                     <div class="segment__item">
-                        <input type="radio" class="segment__input" name="segment-a">
+                        <input type="radio" class="segment__input" name="segment-a" value="知人">
                         <div class="segment__button">知人</div>
                     </div>
                 </div>
@@ -51,7 +51,7 @@
                     <span>送り先のニックネームは？</span>
                 </div>
                 <div class="" style="width: 100%; margin: 0 auto;margin-top:3px;">
-                    <input type="text" class="text-input" placeholder="ギフト内で使用する呼び名になります。" style="background-color: white;border-radius:20px;width:100%;font-size:14px;border:1px solid #898989;height:30px;padding-left:3%;">
+                    <input id="nickname_input"type="text" class="text-input" placeholder="ギフト内で使用する呼び名になります。" style="background-color: white;border-radius:20px;width:100%;font-size:14px;border:1px solid #898989;height:30px;padding-left:3%;" required>
                 </div>
             </div>
             <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:20px;">
@@ -59,7 +59,7 @@
                     <span>リクエスト内容</span>
                 </div>
                 <div class="" style="width: 100%; margin: 0 auto;margin-top:3px;">
-                    <textarea class="textarea" rows="7" placeholder="知人との関係性、話してほしいセリフ、お渡しするシチュエーションなど、できるだけ具体的にご記入ください。" style="background-color: white;border-radius:20px;width:100%;border:1px solid #898989;padding:10px;font-size:14px;"></textarea>
+                    <textarea id="request_message_input"class="textarea" rows="7" placeholder="知人との関係性、話してほしいセリフ、お渡しするシチュエーションなど、できるだけ具体的にご記入ください。" style="background-color: white;border-radius:20px;width:100%;border:1px solid #898989;padding:10px;font-size:14px;" required></textarea>
                 </div>
             </div>
         </div>
@@ -74,7 +74,7 @@
                 </span>
             </div> -->
             <div style="width:100%;text-align:center;margin-top:5px;">
-                <button class="button "style="width:100%;padding-top:0px;padding-bottom:0px;line-height:auto;border-radius:30px;font-size:16px;margin:0 auto;" onclick="document.getElementById('navi').pushPage('ordercheck.html');">決済ページへ</button>
+                <button class="button "style="width:100%;padding-top:0px;padding-bottom:0px;line-height:auto;border-radius:30px;font-size:16px;margin:0 auto;" onclick="orderCheck();">決済ページへ</button>
             </div>
         </div>
     </ons-page>
