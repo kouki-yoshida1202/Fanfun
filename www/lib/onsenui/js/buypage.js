@@ -1,4 +1,5 @@
 function buypage(){
+        document.getElementById('navi').pushPage('buypage.html');
         var gift_uid = $('#gift_id').val();
 
         var currentUser = ncmb.User.getCurrentUser();
@@ -18,12 +19,12 @@ function buypage(){
                 $('#buypage_title').html(giftTitle);
                 $('#buypage_price').html(price);
                 $('#buypage_gift_uid').val(gift_uid);
+                $("#buypage_img").height($("#buypage_img").width());
                 ncmb.File.download(gift_uid, "blob")
                 .then(function(fileData) {
                         var reader = new FileReader();
                         reader.onloadend = function() {
-                                var buypage_img = "buypage_img";
-                                var img = document.getElementById(buypage_img);
+                                var img = document.getElementById("buypage_img");
                                 img.src = reader.result;
                         }
                         // DataURLとして読み込む
