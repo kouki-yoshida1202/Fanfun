@@ -37,7 +37,6 @@ function giftInsert() {
                         .set("price",gift_price)
                         .set("giftUid",uid)
                         .set("stock",gift_stock)
-                        .set("ReleaseStatus",false)
                         .save()
                         .then(function(gameScore){
                         // 保存後の処理

@@ -1,29 +1,30 @@
-function followUserGift(){
-        $("#followGiftList").empty();
-        // カレントユーザー情報の取得
+function myFavoriteGift(){
+        document.getElementById('navi').pushPage('myFavoriteGift.html');
+        $('#myFavoriteGift').empty();
+
         var currentUser = ncmb.User.getCurrentUser();
         var objectId = currentUser.get("objectId");
-        $('.current_user_id').val(objectId);
         var userName = currentUser.get("userName");
-        var GiftData = ncmb.DataStore("giftData");
-        //データストアから取得して、1件表示する
 
-        var FollowData = ncmb.DataStore("follow");
-        FollowData
-        .equalTo("followId", objectId)
+        var GiftFavorite = ncmb.DataStore("GiftFavorite");
+        var GiftData = ncmb.DataStore("giftData");
+
+        GiftFavorite
+        .equalTo("UserId",objectId)
         .fetchAll()
-        .then(function(results){
-                var follow_user = results;
-                var follow_user_id = [];
-                for(var k=0;k<follow_user.length;k++){
-                        follow_user_id.push(follow_user[k].get("followerId"));
+        .then(function(favList){
+                var favList = favList;
+                
+                var gift_uid_array = [];
+                for(var k=0;k<favList.length;k++){
+                        gift_uid_array.push(favList[k].get("giftUid"));
                 }
-                return follow_user_id;
+                return gift_uid_array;
         })
-        .then(function(follow_user_id){
+        .then(function(gift_uid_array){
                 GiftData
                 .order('createDate', true)
-                .in('userId',follow_user_id)
+                .in('giftUid',gift_uid_array)
                 .fetchAll()                
                 .then(function(results){
                         var object = results;
@@ -36,7 +37,9 @@ function followUserGift(){
                                 var gift_price = object[i].get("price");
                                 var gift_stock = object[i].get("stock");
                                 var gift_user_id = object[i].get("userId");
+                                // ユーザ名の取得
                                 
+                        
                                 //カードに出力していく
                                 var card = `
                                 <div class="gift-card" style="width:48%;height: auto; padding: 1px 0 0 0;display: inline-block;margin-top:5px;"onclick="
@@ -51,20 +54,20 @@ function followUserGift(){
                                         <div class="card" style="height:99%;margin:3px;border-radius:20px;">
                                                 <div class="card__content" style="height:auto;">
                                                         <img id="`;
-                                                        card += "follow_gift_image_top_"+i;
+                                                        card += "search_gift_image_top_"+i;
                                                         card +=`"class="gift_image" src="" alt="" style="width:100%;height:125px;border-radius: 20px;">
                                                 </div>
                                                 <div class="card__content" style="height:45px;">
                                                         <ul class="list" style="background-image:none;background:transparent;margin-top:-13px;">
                                                         <li class="list-item" style="padding:0px;">
                                                                 <div class="list-item__left" style="padding:0px;">
-                                                                <img class="list-item__thumbnail" id="follow_gift_user_image_top_`;
+                                                                <img class="list-item__thumbnail" id="search_gift_user_image_top_`;
                                                                 card += i;
                                                                 card +=`" src="" alt="" style="border-radius: 50%;">
                                                                 </div>
                                                         
                                                                 <div class="list-item__center" style="padding:0px; padding-left:5px;">
-                                                                <div id="follow_gift_user_name_top_`;
+                                                                <div id="search_gift_user_name_top_`;
                                                                 card +=i;
                                                                 card +=`" class="current_user_name" style="text-align: left;">
                                                                 </div>
@@ -80,15 +83,10 @@ function followUserGift(){
                                                 <div style="height:20px;">
                                                         <button class="toolbar-button" style="font-size:12px;padding:0px;">
                                                                 <i id="`;
-                                                                card += "follow_gift_favorite_"+i;
+                                                                card += "search_gift_favorite_"+i;
                                                                 card +=`"class="fas fa-heart favorite_off" style="font-size:12px;"></i> <span id="`;
-                                                                card += "follow_gift_favorite_span_"+i;
+                                                                card += "search_gift_favorite_span_"+i;
                                                                 card +=`"class="favorite_off">0</span>
-                                                        </button>
-                                                        <button class="toolbar-button" style="font-size:12px;padding:0px;">
-                                                                <span style="font-size:12px;color:gray">残:`;
-                                                                card += gift_stock;
-                                                                card +=`</span>
                                                         </button>
                                                         <button class="toolbar-button" style="font-size:12px;padding:0px;float: right;">
                                                                 <span style="color:#898989">
@@ -101,13 +99,12 @@ function followUserGift(){
                                         </div>
                                 </div>
                                 `;
-                                // console.log(card);
-                                $('#followGiftList').append(card);
+                                $('#myFavoriteGift').append(card);
                                 $('.gift_image').height($('.gift_image').width());
-                                followgiftUserGet(gift_user_id,i);
-                                followgiftImageGetTop(gift_uid,i);
-                                followgiftUserImageTop(gift_user_id,i);
-                                followgift_favorite_check(gift_uid,i);
+                                searchgiftUserGet(gift_user_id,i);
+                                searchgiftImageGetTop(gift_uid,i);
+                                searchgiftUserImageTop(gift_user_id,i);
+                                searchgift_favorite_check(gift_uid,i);
                         }
                         
                         syoryaku();
@@ -115,88 +112,6 @@ function followUserGift(){
                 .catch(function(err){
                         console.log(err);
                 });   
+                
         });
-}
-
-function followgiftUserGet(gift_user_id,i){
-        ncmb.User
-        .equalTo("objectId", gift_user_id)
-        .fetch()
-        .then(function(results){
-                var gift_user_name = results.get("userName");
-                var gift_user_name_top = "follow_gift_user_name_top_"+i;
-                document.getElementById(gift_user_name_top).innerHTML = gift_user_name;
-        });
-}
-
-function followgiftImageGetTop(giftUid,i){
-        ncmb.File.download(giftUid, "blob")
-        .then(function(fileData) {
-                var reader = new FileReader();
-                reader.onloadend = function() {
-                        var gift_image_place = "follow_gift_image_top_"+i;
-                        var img = document.getElementById(gift_image_place);
-                        img.src = reader.result;
-                }
-                // DataURLとして読み込む
-                reader.readAsDataURL(fileData);
-        })
-        .catch(function(err){
-        // エラー処理
-        console.log('error = ' + err);
-        });
-}
-
-function followgiftUserImageTop(gift_user_id,i){
-        ncmb.File.download(gift_user_id, "blob")
-        .then(function(fileData) {
-                var reader = new FileReader();
-                reader.onloadend = function() {
-                        var gift_userimage = "follow_gift_user_image_top_"+i;
-                        var img = document.getElementById(gift_userimage);
-                        img.src = reader.result;
-                }
-                // DataURLとして読み込む
-                reader.readAsDataURL(fileData);
-        })
-        .catch(function(err){
-                // エラー処理
-                console.log('error = ' + err);
-        });
-}
-
-////////////////////////////////
-    // ギフト一覧でイイネ数を表示する関数
-function followgift_favorite_check(gift_uid,i){
-
-var currentUser = ncmb.User.getCurrentUser();
-var myUserId = currentUser.get('objectId');
-
-var GiftFavorite = ncmb.DataStore("GiftFavorite");
-
-GiftFavorite
-.equalTo("giftUid", gift_uid)
-.fetchAll()
-.then(function(results){
-        var favorite_count = results.length;
-        $('#follow_gift_favorite_span_'+i).html(favorite_count);
-});
-
-
-GiftFavorite
-.equalTo("UserId", myUserId)
-.equalTo("giftUid", gift_uid)
-.fetch()               
-.then(function(results){
-        if(Object.keys(results).length != 0){
-        $('#follow_gift_favorite_'+i).addClass("favorite_on").removeClass("favorite_off");
-        $('#follow_gift_favorite_span_'+i).addClass("favorite_on").removeClass("favorite_off");
-        }else{
-        $('#follow_gift_favorite_'+i).removeClass("favorite_on").addClass("favorite_off");
-        $('#follow_gift_favorite_span_'+i).removeClass("favorite_on").addClass("favorite_off");
-        }
-})
-.catch(function(err){
-        console.log(err);
-});
 }

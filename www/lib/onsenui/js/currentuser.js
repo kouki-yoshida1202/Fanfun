@@ -9,9 +9,9 @@ function loginInfo(){
         var havePoint = currentUser.get("havePoint");
         var BoughtCount = "("+currentUser.get("BoughtCount")+")";
         
-        if(objectId == "V5wsDER2rALwDReh"){
-                $('#kanrisyabox').show();
-        }
+        // if(objectId == "V5wsDER2rALwDReh"){
+        //         $('#kanrisyabox').show();
+        // }
         $('.current_user_name').html(userName);
         $('.current_text').html(text);
         $('.current_user_id').val(objectId);

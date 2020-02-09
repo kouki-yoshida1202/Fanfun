@@ -70,13 +70,12 @@ function otherPage(){
                                         var gift_price = object[i].get("price");
                                         var gift_stock = object[i].get("stock");
                                         var gift_user_id = object[i].get("userId");
-                                        var ReleaseStatus = object[i].get("ReleaseStatus");
                                         
                                         //カードに出力していく
                                         var card = `
                                         <div class="gift-card" style="width:49%;height: auto; padding: 1px 0 0 0;display: inline-block;margin-top:5px;"onclick="
                                         `;
-                                        card += "giftIdJudge('"+gift_uid+"','"+other_user_name+"','"+gift_title+"','"+gift_text+"','"+other_user_id+"','"+create_date+"','"+gift_price+"','"+gift_user_id+"','"+ReleaseStatus+"');";
+                                        card += "giftIdJudge('"+gift_uid+"','"+other_user_name+"','"+gift_title+"','"+gift_text+"','"+other_user_id+"','"+create_date+"','"+gift_price+"','"+gift_user_id+"','"+gift_stock+"');";
                                         card +=`
                                         ">
                                                 <input class="gift_uid" type="" value="`;

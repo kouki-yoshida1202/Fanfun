@@ -24,15 +24,12 @@ function shintyaku(){
                         var gift_price = object[i].get("price");
                         var gift_stock = object[i].get("stock");
                         var gift_user_id = object[i].get("userId");
-                        var ReleaseStatus = object[i].get("ReleaseStatus");
-                        // ユーザ名の取得
                         
-                
                         //カードに出力していく
                         var card = `
                         <div class="gift-card" style="width:48%;height: auto; padding: 1px 0 0 0;display: inline-block;margin-top:5px;"onclick="
                         `;
-                        card += "giftIdJudge('"+gift_uid+"','"+userName+"','"+gift_title+"','"+gift_text+"','"+objectId+"','"+create_date+"','"+gift_price+"','"+gift_user_id+"','"+ReleaseStatus+"','"+gift_stock+"');";
+                        card += "giftIdJudge('"+gift_uid+"','"+userName+"','"+gift_title+"','"+gift_text+"','"+objectId+"','"+create_date+"','"+gift_price+"','"+gift_user_id+"','"+gift_stock+"');";
                         card +=`
                         ">
                                 <input class="gift_uid" type="" value="`;
