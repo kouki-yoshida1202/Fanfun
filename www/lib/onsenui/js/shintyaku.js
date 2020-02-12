@@ -40,7 +40,7 @@ function shintyaku(){
                                         <div class="card__content" style="height:auto;">
                                                 <img id="`;
                                                 card += "gift_image_top_"+i;
-                                                card +=`"class="gift_image" src="" alt="" style="width:100%;height:125px;border-radius: 20px;">
+                                                card +=`"class="gift_image" src="img/imagePlus.png" alt="" style="width:100%;height:125px;border-radius: 20px;">
                                         </div>
                                         <div class="card__content" style="height:45px;">
                                                 <ul class="list" style="background-image:none;background:transparent;margin-top:-13px;">
@@ -48,7 +48,7 @@ function shintyaku(){
                                                         <div class="list-item__left" style="padding:0px;">
                                                         <img class="list-item__thumbnail" id="gift_user_image_top_`;
                                                         card += i;
-                                                        card +=`" src="" alt="" style="border-radius: 50%;">
+                                                        card +=`" src="img/imagePlus.png" alt="" style="border-radius: 50%;">
                                                         </div>
                                                 
                                                         <div class="list-item__center" style="padding:0px; padding-left:5px;">
