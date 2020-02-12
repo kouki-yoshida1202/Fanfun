@@ -16,8 +16,9 @@
                 </div>
                 <div class="" style="width: 60%; margin: 0 auto;margin-top:3px;background-color: white;border-radius: 20px;border:1px solid #898989;">
                     <img id="gift_image_insert" class="buypage_img"src="img/imagePlus.png" alt="" style="width:100%;height:auto;border-radius: 20px;">
-                    <input type="file" id="file-data-gift"/>
-                    <span>※正方形の写真をアップロードしてください</span>
+                    <input type="file" id="file-data-gift" hidden>
+                    <hr>
+                    <p style="font-size: 80%;padding-right:10px;padding-left:10px;">※正方形の写真をアップロードしてください</p>
                     <!-- <button class="button "style="width:100%;padding-top:0px;padding-bottom:0px;line-height:40px;border-radius:30px;font-size:16px;margin:0 auto;" onclick="onFormSendGift();">変更</button> -->
                 </div>
             </div>
@@ -99,6 +100,19 @@
         $("#giftInsertButton").css("background-color","gray");
         $("#giftInsertButton2").prop("disabled",true);
       }
+    });
+
+    $('#file-data-gift').on('change', function (e) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $("#gift_image_insert").attr('src', e.target.result);
+        }
+        reader.readAsDataURL(e.target.files[0]);
+        $('#gift_image_insert').height($('#gift_image_insert').width());
+    });
+
+    $('#gift_image_insert').click(function(){
+        $('#file-data-gift').click();
     });
     </script>
     

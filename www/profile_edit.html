@@ -20,9 +20,10 @@
                     <span>1.写真を変更する</span>
                 </div>
                 <div class="" style="width: 60%; margin: 0 auto;margin-top:3px;background-color: white;border-radius: 20px;border:1px solid #898989;">
-                    <img id="image_edit" src="" alt="" style="width:200px;height:200px;border-radius:50%;">
-                    <input type="file" id="file-data"/>
-                    <span>※正方形の写真をアップロードしてください</span>
+                    <img id="image_edit" src="img/imagePlus.png" alt="" style="width:100%;height:auto;border-radius:20px;">
+                    <input type="file" id="file-data" hidden>
+                    <hr>
+                    <p style="font-size: 80%;padding-right:10px;padding-left:10px;">※正方形の写真をアップロードしてください</p>
                 </div>
             </div>
             <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:20px;">
@@ -65,5 +66,17 @@
         </div>
     </div>
     <script>
+        $('#file-data').on('change', function (e) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $("#image_edit").attr('src', e.target.result);
+            }
+            reader.readAsDataURL(e.target.files[0]);
+            $('#image_edit').height($('#image_edit').width());
+        });
+
+        $('#image_edit').click(function(){
+            $('#file-data').click();
+        });
     </script>
 </ons-page>

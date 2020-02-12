@@ -16,9 +16,10 @@
                     <span>1.写真を登録</span>
                 </div>
                 <div class="" style="width: 60%; margin: 0 auto;margin-top:3px;background-color: white;border-radius: 20px;border:1px solid #898989;">
-                    <img id="gift_image_edit" class="buypage_img"src="img/imagePlus.png" alt="" style="width:100%;border-radius: 20px;">
-                    <input type="file" id="file-data-gift-edit"/>
-                    <span>※正方形の写真をアップロードしてください</span>
+                    <img id="gift_image_edit" class="buypage_img"src="img/imagePlus.png" alt="" style="width:100%;height:auto;border-radius: 20px;">
+                    <input type="file" id="file-data-gift-edit" hidden>
+                    <hr>
+                    <p style="font-size: 80%;padding-right:10px;padding-left:10px;">※正方形の写真をアップロードしてください</p>
                 </div>
             </div>
             <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:20px;">
@@ -98,6 +99,19 @@
             $("#giftEditButton").css("background-color","gray");
             $("#giftEditButton2").prop("disabled",true);
           }
+        });
+
+        $('#file-data-gift-edit').on('change', function (e) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $("#gift_image_edit").attr('src', e.target.result);
+            }
+            reader.readAsDataURL(e.target.files[0]);
+            $('#gift_image_edit').height($('#gift_image_edit').width());
+        });
+
+        $('#gift_image_edit').click(function(){
+            $('#file-data-gift-edit').click();
         });
     </script>
 </ons-page>
