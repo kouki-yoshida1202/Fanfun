@@ -15,5 +15,5 @@ function addLog(uid,gid,lType,msg,process,page){
                 .catch(function(err){
                 // エラー処理
                 console.log(err)
-        });ß
+        });
 }
