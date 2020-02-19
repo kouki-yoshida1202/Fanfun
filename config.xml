@@ -66,6 +66,7 @@
     <splash src="/res/android/screen/splash-port-xxhdpi.png" density="port-xxhdpi"/>
     <splash src="/res/android/screen/splash-port-xxxhdpi.png" density="port-xxxhdpi"/>
     <splash src="/res/android/screen/splash-mdpi.png" density="mdpi"/>
+    <custom-preference name="android-manifest/uses-permission/[@android:name='com.android.vending.BILLING']" delete="false" />
   </platform>
   <platform name="electron">
     <icon src="/res/electron/icon/icon_electron_512.png" width="512" height="512"/>
