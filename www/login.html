@@ -35,8 +35,15 @@
             </div> -->
             <p style="margin-top:30px;color:#898989;"onclick="document.getElementById('login').pushPage('forget.html')">パスワードを忘れた方はこちら</a> 
             </p>
-            <p style="color:#898989;"onclick="window.open('https://gonmura.com/contact');">ヘルプ/お問い合わせ
+            <p style="color:#898989;"onclick="openMonaca();">
+                ヘルプ/お問い合わせ
             </p>
+            <script>
+                function openMonaca() {
+                  window.open("https://gonmura.com/contact", '_blank', 'location=yes');
+                  return false;
+                }
+            </script>
         </div>
     </div>
 </ons-page>

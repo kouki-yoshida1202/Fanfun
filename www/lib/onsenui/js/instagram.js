@@ -37,9 +37,9 @@ function instaPush() {
         }
 }
 function aiueo(link){
-        // window.location.href=link;
-        window.open(link);      
         // どっちか使う
+        window.open(link, '_blank', 'location=yes');
+        return false;
 }
 function InstagramNews(){
         $("#js-instalib").empty();
