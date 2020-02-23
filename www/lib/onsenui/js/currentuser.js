@@ -6,7 +6,6 @@ function loginInfo(){
         var text = currentUser.get('Text');
         var objectId = currentUser.get("objectId");
         var Review = currentUser.get("Review");
-        var havePoint = currentUser.get("havePoint");
         var BoughtCount = "("+currentUser.get("BoughtCount")+")";
         
         // if(objectId == "V5wsDER2rALwDReh"){
@@ -15,7 +14,6 @@ function loginInfo(){
         $('.current_user_name').html(userName);
         $('.current_text').html(text);
         $('.current_user_id').val(objectId);
-        $('#havePoint').html("<i class='fas fa-ticket-alt' style='color:#FFA50E;'></i> 所有チケット: "+havePoint+"枚");
         
         // var star = `<i class="fas fa-star" style="font-size: 12px;color:#FFBB00;"></i>`;
         // var no_star = `<i class="fas fa-star" style="font-size: 12px;color:gray;"></i>`;

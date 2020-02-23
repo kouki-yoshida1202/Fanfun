@@ -20,7 +20,7 @@
             <button class="button" onclick="loginCheck()" style="width:50%;">L O G I N</button>
             </p>
             <p>
-            <button class="button"style="margin-top:50px;width:50%;background: -moz-linear-gradient(bottom left, #00C6FB, #005BEA);background: -webkit-linear-gradient(bottom left, #00C6FB, #005BEA);background: linear-gradient(to top right, #00C6FB, #005BEA);" onclick="document.getElementById('login').pushPage('kiyaku.html')">
+            <button class="button"style="margin-top:30px;width:50%;background: -moz-linear-gradient(bottom left, #00C6FB, #005BEA);background: -webkit-linear-gradient(bottom left, #00C6FB, #005BEA);background: linear-gradient(to top right, #00C6FB, #005BEA);" onclick="document.getElementById('login').pushPage('kiyaku.html')">
                 アカウント新規作成
             </button> 
             </p>
@@ -35,14 +35,16 @@
                 <button class="fab"><i class="fab fa-facebook-f"></i></button>
             </div>
             </div> -->
-            <p style="margin-top:30px;color:#898989;"onclick="document.getElementById('login').pushPage('forget.html')">パスワードを忘れた方はこちら</a> 
+            <p style="margin-top:30px;color:#898989;"onclick="document.getElementById('login').pushPage('forget.html')">
+                パスワードを忘れた方はこちら
             </p>
-            <p style="color:#898989;"onclick="openMonaca();">
+            <p style="color:#898989;"onclick="openMonaca('https://gonmura.com/contact');">
                 ヘルプ/お問い合わせ
             </p>
+            <br><br>
             <script>
-                function openMonaca() {
-                  window.open("https://gonmura.com/contact", '_blank', 'location=yes');
+                function openMonaca(url) {
+                  window.open(url, '_blank', 'location=yes');
                   return false;
                 }
             </script>

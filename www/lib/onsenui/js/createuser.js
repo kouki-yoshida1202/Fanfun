@@ -27,7 +27,6 @@ function insertUser() {
             .set("mailAddress", mailaddress) /* 任意フィールドも追加可能 */
             .set("BoughtCount",0)
             .set("Review",0)
-            .set("havePoint",0)
             .set("Influencer",false);
             //   ユーザーの新規登録処理
             user.signUpByAccount()
@@ -74,7 +73,6 @@ function insertInfluencer() {
             .set("mailAddress", mailaddress) /* 任意フィールドも追加可能 */
             .set("BoughtCount",0)
             .set("Review",0)
-            .set("havePoint",0)
             .set("Genre",genre)
             .set("Influencer",true);
             //   ユーザーの新規登録処理

@@ -9,6 +9,9 @@
     </ons-toolbar>
     <div class="container contents" style="background-color:#efeff4;padding-bottom:30px;">
         <!-- カードリスト部分 -->
+        <input type="hidden" id="check_gift_title">
+        <input type="hidden" id="check_price">
+        <input type="hidden" id="check_gift_uid">
         <div class="" style="width:100%;height: auto; padding: 1px 0 0 0;display: inline-block;">
             <!-- <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:15px;">
                 <div>
@@ -65,7 +68,9 @@
                     </ul>
                 </div>
                 <div style="width:100%;text-align:center;margin-top:20px;margin-bottom:10px;">
-                    <button class="button "style="width:100%;padding-top:0px;padding-bottom:0px;line-height:auto;border-radius:30px;font-size:16px;margin:0 auto;" onclick="orderEnd();document.getElementById('navi').pushPage('orderend.html')">注文を確定する</button>
+                    <!-- <button class="button "style="width:100%;padding-top:0px;padding-bottom:0px;line-height:auto;border-radius:30px;font-size:16px;margin:0 auto;" onclick="orderEnd();document.getElementById('navi').pushPage('orderend.html')">注文を確定する</button> -->
+                    <button class="button "style="width:100%;padding-top:0px;padding-bottom:0px;line-height:auto;border-radius:30px;font-size:16px;margin:0 auto;" onclick="stripe();">支払い画面へ</button>
+                    <!-- <a class="button money_button" onclick="">¥550</a> -->
                 </div>
                 <div>
                     <span style="font-size: 70%;">
@@ -75,4 +80,22 @@
             </div>
         </div>
     </div>
+    <script>
+        function stripe(){
+            var currentUser = ncmb.User.getCurrentUser();
+            var userName = currentUser.get("userName");
+            var mailaddress = currentUser.get("mailAddress");
+            var objectId = currentUser.get("objectId");
+            var gift_title = $('#check_gift_title').val();
+            var price = $('#check_price').val();
+            var gift_uid = $('#check_gift_uid').val();
+            var send_human = $('#send_human').html();
+            var nickname = $('#nickname').html();
+            var request = $('#request_message').html();
+            aiueo('https://fanfun2020.xsrv.jp/paybutton.html?objectId='+objectId+'&giftUid='+gift_uid+'&price='+price+'&userName='+userName+'&giftTitle='+gift_title+'&mailaddress='+mailaddress+'&sendHuman='+send_human+'&nickName='+nickname+'&request='+request);
+        }
+    
+
+
+    </script>
 </ons-page>

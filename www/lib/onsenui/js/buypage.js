@@ -15,9 +15,10 @@ function buypage(){
                 var giftTitle = object.get("giftTitle");
                 var giftText = object.get("giftText");
                 var price = object.get("price");
-                price = "¥"+price+"(税込)";
+                $('#buypage_price_number').val(price);
+                price_kakou = "¥"+price+"(税込)";
                 $('#buypage_title').html(giftTitle);
-                $('#buypage_price').html(price);
+                $('#buypage_price').html(price_kakou);
                 $('#buypage_gift_uid').val(gift_uid);
                 $("#buypage_img").height($("#buypage_img").width());
                 ncmb.File.download(gift_uid, "blob")
