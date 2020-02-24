@@ -59,7 +59,7 @@ function searchGift(search_way){
                                                                         <div class="card__content" style="height:auto;">
                                                                                 <img id="`;
                                                                                 card += "search_gift_image_top_"+i;
-                                                                                card +=`"class="gift_image" src="img/imagePlus.png" alt="" style="width:100%;height:125px;border-radius: 20px;">
+                                                                                card +=`"class="gift_image" src="img/loading.png" alt="" style="width:100%;height:154px;object-fit:cover;border-radius: 20px;">
                                                                         </div>
                                                                         <div class="card__content" style="height:45px;">
                                                                                 <ul class="list" style="background-image:none;background:transparent;margin-top:-13px;">
@@ -67,7 +67,7 @@ function searchGift(search_way){
                                                                                         <div class="list-item__left" style="padding:0px;">
                                                                                         <img class="list-item__thumbnail" id="search_gift_user_image_top_`;
                                                                                         card += i;
-                                                                                        card +=`" src="img/imagePlus.png" alt="" style="border-radius: 50%;">
+                                                                                        card +=`" src="img/human.png" alt="" style="border-radius: 50%;">
                                                                                         </div>
                                                                                 
                                                                                         <div class="list-item__center" style="padding:0px; padding-left:5px;">
@@ -104,12 +104,10 @@ function searchGift(search_way){
                                                         </div>
                                                         `;
                                                         $('#searchGift').append(card);
-                                                        $('.gift_image').height($('.gift_image').width());
                                                         searchgiftUserGet(gift_user_id,i);
                                                         searchgiftImageGetTop(gift_uid,i);
                                                         searchgiftUserImageTop(gift_user_id,i);
                                                         searchgift_favorite_check(gift_uid,i);
-                                                        $('.gift_image').height($('.gift_image').width());
                                                 }
                                                 
                                                 syoryaku();
@@ -189,7 +187,7 @@ function searchGift(search_way){
                                                                                 <div class="card__content" style="height:auto;">
                                                                                         <img id="`;
                                                                                         card += "search_gift_image_top_"+i;
-                                                                                        card +=`"class="gift_image" src="img/imagePlus.png" alt="" style="width:100%;height:125px;border-radius: 20px;">
+                                                                                        card +=`"class="gift_image" src="img/loading.png" alt="" style="width:100%;height:154px;border-radius: 20px;">
                                                                                 </div>
                                                                                 <div class="card__content" style="height:45px;">
                                                                                         <ul class="list" style="background-image:none;background:transparent;margin-top:-13px;">
@@ -197,7 +195,7 @@ function searchGift(search_way){
                                                                                                 <div class="list-item__left" style="padding:0px;">
                                                                                                 <img class="list-item__thumbnail" id="search_gift_user_image_top_`;
                                                                                                 card += i;
-                                                                                                card +=`" src="img/imagePlus.png" alt="" style="border-radius: 50%;">
+                                                                                                card +=`" src="img/human.png" alt="" style="border-radius: 50%;">
                                                                                                 </div>
                                                                                         
                                                                                                 <div class="list-item__center" style="padding:0px; padding-left:5px;">
@@ -234,12 +232,10 @@ function searchGift(search_way){
                                                                 </div>
                                                                 `;
                                                                 $('#searchGift').append(card);
-                                                                $('.gift_image').height($('.gift_image').width());
                                                                 searchgiftUserGet(gift_user_id,i);
                                                                 searchgiftImageGetTop(gift_uid,i);
                                                                 searchgiftUserImageTop(gift_user_id,i);
                                                                 searchgift_favorite_check(gift_uid,i);
-                                                                $('.gift_image').height($('.gift_image').width());
                                                         }
                                                         
                                                         syoryaku();
@@ -283,7 +279,6 @@ function searchgiftImageGetTop(giftUid,i){
                 }
                 // DataURLとして読み込む
                 reader.readAsDataURL(fileData);
-                $('.gift_image').height($('.gift_image').width());
         })
         .catch(function(err){
         // エラー処理
@@ -302,7 +297,6 @@ function searchgiftUserImageTop(gift_user_id,i){
                 }
                 // DataURLとして読み込む
                 reader.readAsDataURL(fileData);
-                $('.gift_image').height($('.gift_image').width());
         })
         .catch(function(err){
                 // エラー処理

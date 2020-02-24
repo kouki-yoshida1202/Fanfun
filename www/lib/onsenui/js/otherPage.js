@@ -86,7 +86,7 @@ function otherPage(){
                                                         <div class="card__content" style="height:auto;">
                                                                 <img id="`;
                                                                 card += "gift_image_"+i;
-                                                                card +=`"class="other_gift_image" src="" alt="" style="width:100%;height:125px;border-radius: 20px;">
+                                                                card +=`"class="other_gift_image" src="" alt="" style="width:100%;height:154px;object-fit:cover;border-radius: 20px;">
                                                         </div>
                                                         <div class="card__content" style="height:45px;">
                                                                 <ul class="list" style="background-image:none;background:transparent;margin-top:-13px;">
@@ -133,8 +133,6 @@ function otherPage(){
                                         </div>
                                         `;
                                         $('#otherGiftList').append(card);
-                                        var width = $('.other_gift_image').width();
-                                        $('.other_gift_image').height(width);
                                         $('.current_user_name').html(other_user_name);
                                         giftImageGet(gift_uid,i);
                                         giftUserImage(other_user_id,i);

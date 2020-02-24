@@ -55,7 +55,7 @@ function myFavoriteGift(){
                                                 <div class="card__content" style="height:auto;">
                                                         <img id="`;
                                                         card += "search_gift_image_top_"+i;
-                                                        card +=`"class="gift_image" src="" alt="" style="width:100%;height:125px;border-radius: 20px;">
+                                                        card +=`"class="gift_image" src="" alt="" style="width:100%;height:154px;object-fit:cover;border-radius: 20px;">
                                                 </div>
                                                 <div class="card__content" style="height:45px;">
                                                         <ul class="list" style="background-image:none;background:transparent;margin-top:-13px;">
@@ -100,13 +100,11 @@ function myFavoriteGift(){
                                 </div>
                                 `;
                                 $('#myFavoriteGift').append(card);
-                                $('.gift_image').height($('.gift_image').width());
                                 searchgiftUserGet(gift_user_id,i);
                                 searchgiftImageGetTop(gift_uid,i);
                                 searchgiftUserImageTop(gift_user_id,i);
                                 searchgift_favorite_check(gift_uid,i);
                         }
-                        
                         syoryaku();
                 })
                 .catch(function(err){

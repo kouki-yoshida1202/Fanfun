@@ -20,7 +20,7 @@
                     <span>1.写真を変更する</span>
                 </div>
                 <div class="" style="width: 60%; margin: 0 auto;margin-top:3px;background-color: white;border-radius: 20px;border:1px solid #898989;">
-                    <img id="image_edit" src="img/imagePlus.png" alt="" style="width:100%;height:auto;border-radius:20px;">
+                    <img id="image_edit" src="img/human.png" alt="" style="width:100%;height:auto;border-radius:20px;">
                     <input type="file" id="file-data" hidden>
                     <hr>
                     <p style="font-size: 80%;padding-right:10px;padding-left:10px;">※正方形の写真をアップロードしてください</p>
@@ -31,7 +31,7 @@
                     <span>2.IDと表示名</span>
                 </div>
                 <div class="" style="width: 100%; margin: 0 auto;margin-top:3px;">
-                    <input type="text" id="current_user_name_profile" class="text-input" placeholder="表示名(必須/20文字以内)" style="background-color: white;border-radius:20px;width:100%;font-size:14px;border:1px solid #898989;height:30px;padding-left:3%;margin-bottom:7px;">
+                    <input type="text" id="current_user_name_profile" class="text-input" placeholder="表示名(必須/20文字以内)" style="background-color: white;border-radius:20px;width:100%;font-size:14px;border:1px solid #898989;height:30px;padding-left:3%;margin-bottom:7px;"maxlength="20" required>
                 </div>
             </div>
             <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:20px;">
@@ -39,7 +39,7 @@
                     <span>3.プロフィール文章</span>
                 </div>
                 <div class="" style="width: 100%; margin: 0 auto;margin-top:3px;">
-                    <textarea id="current_text_profile"class="textarea" rows="7" placeholder="プロフィール(任意/200文字以内)" style="background-color: white;border-radius:20px;width:100%;border:1px solid #898989;padding:10px;font-size:14px;"></textarea>
+                    <textarea id="current_text_profile"class="textarea" rows="7" placeholder="プロフィール(必須/160文字以内)" style="background-color: white;border-radius:20px;width:100%;border:1px solid #898989;padding:10px;font-size:14px;" required maxlength="160"></textarea>
                 </div>
             </div>
             <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:20px;">

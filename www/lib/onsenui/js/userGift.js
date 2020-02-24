@@ -57,7 +57,7 @@ function MyGift(){
                                         <div class="card__content" style="height:auto;">
                                                 <img id="`;
                                                 card += "gift_image_"+i;
-                                                card +=`"class="gift_image" src="" alt="" style="width:100%;height:125px;border-radius: 20px;">
+                                                card +=`"class="gift_image" src="" alt="" style="width:100%;height:157px;object-fit:cover;border-radius: 20px;">
                                         </div>
                                         <div class="card__content" style="height:45px;">
                                                 <ul class="list" style="background-image:none;background:transparent;margin-top:-13px;">
@@ -104,9 +104,6 @@ function MyGift(){
                         </div>
                         `;
                         $('#myGiftList').append(card);
-                        $('.gift_image').height($('.gift_image').width());
-                        
-                        
                         $('.current_user_name').html(userName);
                         giftImageGet(gift_uid,i);
                         giftUserImage(objectId,i);

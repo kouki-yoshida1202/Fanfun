@@ -19,7 +19,7 @@
                         </span>
                     </div>
                     <div class="card__content" style="height:auto;">
-                        <img id="gift_detail_image_other" class="gift_image_detail" src="" alt="" style="width:100%;height:auto;border-radius: 20px;">
+                        <img id="gift_detail_image_other" class="gift_image_detail" src="" alt="" style="width:100%;height:auto;object-fit:cover;border-radius: 20px;">
                     </div>
                     <div class="card__content" style="height:auto;z-index:100;margin-top:-20px;">
                         <ul class="list" style="background-image:none;">
@@ -121,6 +121,8 @@
             function houkokuModalClose(){
                 $('#houkoku_modal').slideUp();
             }
+            var gift_image_detail = $('.gift_image_detail').width();
+            $('.gift_image_detail').height(gift_image_detail).css('object-fit','cover');
         </script>
         <style>
         .favorite_on{

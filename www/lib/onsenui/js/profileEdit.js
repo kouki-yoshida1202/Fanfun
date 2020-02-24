@@ -34,7 +34,7 @@ function profileEdit(){
                         .catch(function(err) {
                         // エラー
                                 alert('更新が失敗しました。');
-                                document.getElementById('navi').popPage();
+                                // document.getElementById('navi').popPage();
                         });               
         }else{
                 alert('メールアドレスが正しい形ではありません');

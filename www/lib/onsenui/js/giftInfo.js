@@ -149,7 +149,6 @@ function giftNowInfo(){
                 var rieki = gift_price - tesuryou;
                 $('.tesuryou').text(tesuryou);
                 $('.rieki').text(rieki);
-                $('#gift_image_edit').height($('#gift_image_edit').width());
 
                 ncmb.File.download(gift_uid, "blob")
                 .then(function(fileData) {
