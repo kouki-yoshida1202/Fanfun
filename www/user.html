@@ -85,34 +85,23 @@
         </div> -->
     </div>
     <div class="action-sheet-mask"></div>
-    <div class="action-sheet">
+    <div class="action-sheet modal1">
         <button class="action-sheet-button" onclick="userShare();">共有</button>
         <button class="action-sheet-button" onclick="myFavoriteGift();">Myいいねギフト一覧</button>
         <button class="action-sheet-button" onclick="logout();">ログアウト</button>
         <button class="action-sheet-button" onclick="userActionClose();">Cancel</button>
     </div>
 
-    <div class="modal">
-        <div class="modal__content">
-            <div style="height: 200px; padding: 1px 0 0 0;">
-                <div class="card">
-                    <div class="card__content">
-                        <button class="button "style="width:100%;padding-top:10px;padding-bottom:10px;line-height:20px;border-radius:30px;font-size:100%;margin:0 auto;height:40px;background:#1DA1F2;margin-top:20px;"><a onclick="location.href = 'http://twitter.com/share?text='+encodeURIComponent(document.title)+'&url='+encodeURIComponent(location.href);" style="color:white;">Tweet</a></button>
-                        <button class="button "style="width:100%;padding-top:10px;padding-bottom:10px;line-height:20px;border-radius:30px;font-size:100%;margin:0 auto;height:40px;background:#3B5998;margin-top:20px;"><a onclick="location.href = 'http://www.facebook.com/sharer.php?u='+encodeURIComponent(location.href);" style="color:white;">Facebook</a></button>
-                        <button class="button "style="width:100%;padding-top:10px;padding-bottom:10px;line-height:20px;border-radius:30px;font-size:100%;margin:0 auto;height:40px;background:#00B900;margin-top:20px;"><a onclick="location.href = 'http://line.me/R/msg/text/?'+encodeURIComponent(document.title)+'%20'+encodeURIComponent(location.href);" style="color:white;">LINE</a></button>
-                        <button class="button "style="width:100%;padding-top:10px;padding-bottom:10px;line-height:20px;border-radius:30px;font-size:100%;margin:0 auto;height:40px;background:lightgray;margin-top:20px;" id="copy-page" onclick="copyPage();">URLコピー</button>
-                        <br><br>
-                        <p class="modal_close" style="text-align: center;font-size: 120%;" onclick="modalClose();">close</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="action-sheet-mask"></div>
+    <div class="action-sheet modal2">
+        <button class="action-sheet-button" onclick="aiueo('http://twitter.com/share?text='+encodeURIComponent(document.title)+'&url='+encodeURIComponent(location.href));">Tweet</button>
+        <button class="action-sheet-button" onclick="userActionClose();">Cancel</button>
     </div>
     <script>
-        $('.action-sheet-mask,.action-sheet,.modal').hide();
+        $('.action-sheet-mask,.action-sheet').hide();
         
         function userActionOpen(){
-            $('.action-sheet-mask,.action-sheet').slideDown();
+            $('.action-sheet-mask,.modal1').slideDown();
         }
         
         function userActionClose(){
@@ -120,12 +109,8 @@
         }
 
         function userShare(){
-            $('.action-sheet-mask,.action-sheet').slideUp();
-            $('.modal').slideDown();
-        }
-
-        function modalClose(){
-            $('.modal').slideUp();
+            $('.modal1').slideUp();
+            $('.modal2').slideDown();
         }
     </script>
     <style>

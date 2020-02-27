@@ -40,12 +40,12 @@
                         <br>
                         <span id="my_gift_favorite_count" style="font-size:14px;color:#898989;">0</span>
                     </div>
-                    <div class="" style="width:33%;float:left;text-align: center;" onclick="myGiftShareModalOpen();">
+                    <div class="" style="width:33%;float:left;text-align: center;" onclick="mygiftShare();">
                         <i class="fab fa-hubspot" style="font-size:20px;color:gray;"></i>
                         <br>
                         <span style="font-size:14px;color:#898989;">共有</span>
                     </div>
-                    <div class="" style="width:33%;float:left;text-align: center;" onclick="myGiftHoukokuModalOpen();">
+                    <div class="" style="width:33%;float:left;text-align: center;" onclick="mygiftHoukoku();">
                         <i class="fab fa-font-awesome-flag"style="font-size:20px;color:gray;"></i>
                         <br>
                         <span style="font-size:14px;color:#898989;">報告</span>
@@ -69,57 +69,44 @@
             </button>
         </div>
     </div>
-    <div id="my_share_modal" class="modal">
-        <div class="modal__content">
-            <div style="height: 200px; padding: 1px 0 0 0;">
-                <div class="card">
-                    <div class="card__content">
-                        <button class="button "style="width:100%;padding-top:10px;padding-bottom:10px;line-height:20px;border-radius:30px;font-size:100%;margin:0 auto;height:40px;background:#1DA1F2;margin-top:20px;"><a onclick="location.href = 'http://twitter.com/share?text='+encodeURIComponent(document.title)+'&url='+encodeURIComponent(location.href);" style="color:white;">Tweet</a></button>
-                        <button class="button "style="width:100%;padding-top:10px;padding-bottom:10px;line-height:20px;border-radius:30px;font-size:100%;margin:0 auto;height:40px;background:#3B5998;margin-top:20px;"><a onclick="location.href = 'http://www.facebook.com/sharer.php?u='+encodeURIComponent(location.href);" style="color:white;">Facebook</a></button>
-                        <button class="button "style="width:100%;padding-top:10px;padding-bottom:10px;line-height:20px;border-radius:30px;font-size:100%;margin:0 auto;height:40px;background:#00B900;margin-top:20px;"><a onclick="location.href = 'http://line.me/R/msg/text/?'+encodeURIComponent(document.title)+'%20'+encodeURIComponent(location.href);" style="color:white;">LINE</a></button>
-                        <button class="button "style="width:100%;padding-top:10px;padding-bottom:10px;line-height:20px;border-radius:30px;font-size:100%;margin:0 auto;height:40px;background:lightgray;margin-top:20px;" id="copy-page" onclick="copyPage();">URLコピー</button>
-                        <br><br>
-                        <p class="modal_close" style="text-align: center;font-size: 120%;" onclick="myGiftShareModalClose();">close</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="action-sheet-mask mygift_mask"></div>
+    <div class="action-sheet mygift_modal">
+        <button class="action-sheet-button" onclick="aiueo('http://twitter.com/share?text='+encodeURIComponent(document.title)+'&url='+encodeURIComponent(location.href));">Tweet</button>
+        <button class="action-sheet-button" onclick="mygiftShareClose();">Cancel</button>
     </div>
-    <div id="my_houkoku_modal" class="modal">
-        <div class="modal__content">
-            <div style="height: 200px; padding: 1px 0 0 0;">
-                <div class="card">
-                    <div class="card__content">
-                        <p>報告内容 <span style="text-align: right;float:right;font-size:130%;" onclick="myGiftHoukokuModalClose();">×</span> </p>
-                        
-                        <div style="width:80%;margin:0 auto;">
-                            <textarea id="houkoku_text"class="textarea" rows="10" placeholder="メッセージ本文" style="background-color: white;border-radius:20px;width:100%;border:1px solid #898989;padding:10px;font-size:14px;"></textarea>
-                        </div>
-                        <br>
-                        <div style="width:80%;margin:0 auto;">
-                            <button class="button "style="width:100%;padding-top:0px;padding-bottom:0px;line-height:auto;border-radius:30px;font-size:100%;margin:0 auto;height:45px;"onclick="houkokuSend()">送信</button>
-                        </div>
-                        <br>
-                    </div>
+    <div class="action-sheet-mask mygift_houkoku_mask"></div>
+    <div id="houkoku_modal" class="action-sheet mygift_houkoku_modal">
+        <div class="card">
+            <div class="card__content">
+                <p>報告内容 <span style="text-align: right;float:right;font-size:130%;" onclick="mygiftHoukokuClose();">×</span> </p>
+                
+                <div style="width:80%;margin:0 auto;">
+                    <textarea id="houkoku_text"class="textarea" rows="10" placeholder="メッセージ本文" style="background-color: white;border-radius:20px;width:100%;border:1px solid #898989;padding:10px;font-size:14px;"></textarea>
                 </div>
+                <br>
+                <div style="width:80%;margin:0 auto;">
+                    <button class="button "style="width:100%;padding-top:0px;padding-bottom:0px;line-height:auto;border-radius:30px;font-size:100%;margin:0 auto;height:45px;"onclick="houkokuSend()">送信</button>
+                </div>
+                <br>
             </div>
         </div>
     </div>
     <script>
-        $('.modal').hide();
-        function myGiftShareModalOpen(){
-            $('#my_share_modal').slideDown();
+        $('.mygift_mask,.mygift_modal,.mygift_houkoku_mask,.mygift_houkoku_modal').hide();
+        
+        function mygiftHoukoku(){
+            $('.mygift_houkoku_mask,.mygift_houkoku_modal').slideDown();
         }
-        function myGiftShareModalClose(){
-            $('#my_share_modal').slideUp();
-        }
-
-        function myGiftHoukokuModalOpen(){
-            $('#my_houkoku_modal').slideDown();
+        function mygiftHoukokuClose(){
+            $('.mygift_houkoku_mask,.mygift_houkoku_modal').slideUp();
         }
 
-        function myGiftHoukokuModalClose(){
-            $('#my_houkoku_modal').slideUp();
+        function mygiftShare(){
+            $('.mygift_mask,.mygift_modal').slideDown();
+        }
+        
+        function mygiftShareClose(){
+            $('.mygift_mask,.mygift_modal').slideUp();
         }
         var gift_image_detail = $('.gift_image_detail').width();
         $('.gift_image_detail').height(gift_image_detail).css('object-fit','cover');

@@ -32,6 +32,7 @@ function searchGift(search_way){
                                         .in('userId',search_user_id)
                                         .fetchAll()                
                                         .then(function(results){
+                                                console.log(results);
                                                 var object = results;
                                                 for(var i=0;i<object.length;i++){
                                                         var gift_title = object[i].get("giftTitle");
@@ -126,7 +127,7 @@ function searchGift(search_way){
                 if(genre ==""){
                         alert("カテゴリを1つ以上選択してください。");
                 }else{
-                        
+                        document.getElementById('navi').pushPage('searchpage.html');
                         var currentUser = ncmb.User.getCurrentUser();
                         var objectId = currentUser.get("objectId");
                         $('.current_user_id').val(objectId);
@@ -139,6 +140,7 @@ function searchGift(search_way){
                         .inArray("Genre",genre)
                         .fetchAll()
                         .then(function(results){
+                                console.log(results);
                                 var object = results;
                                 if(object.length>0){
                                         search_user_id=[];
@@ -159,7 +161,7 @@ function searchGift(search_way){
                                         .fetchAll()                
                                         .then(function(results){
                                                 if(results.length>0){
-                                                        document.getElementById('navi').pushPage('searchpage.html');
+                                                        
                                                         var object = results;
                                                         for(var i=0;i<object.length;i++){
                                                                 var gift_title = object[i].get("giftTitle");
@@ -269,6 +271,7 @@ function searchgiftUserGet(gift_user_id,i){
 }
 
 function searchgiftImageGetTop(giftUid,i){
+        console.log(giftUid,i);
         ncmb.File.download(giftUid, "blob")
         .then(function(fileData) {
                 var reader = new FileReader();
@@ -290,6 +293,7 @@ function searchgiftUserImageTop(gift_user_id,i){
         ncmb.File.download(gift_user_id, "blob")
         .then(function(fileData) {
                 var reader = new FileReader();
+                console.log(reader);
                 reader.onloadend = function() {
                         var gift_userimage = "search_gift_user_image_top_"+i;
                         var img = document.getElementById(gift_userimage);
