@@ -16,7 +16,7 @@ function buypage(){
                 var giftText = object.get("giftText");
                 var price = object.get("price");
                 $('#buypage_price_number').val(price);
-                price_kakou = "¥"+price+"(税込)";
+                price_kakou = "¥"+price+"";
                 $('#buypage_title').html(giftTitle);
                 $('#buypage_price').html(price_kakou);
                 $('#buypage_gift_uid').val(gift_uid);

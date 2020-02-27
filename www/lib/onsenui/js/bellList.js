@@ -100,7 +100,7 @@ function messageDetail(messageTitle,messageText,messageGiftId,NotificationObject
                             .then(function(giftresult){
                                     var giftTitle = giftresult.get("giftTitle");
                                     var giftText = giftresult.get("giftText");
-                                    var price = "¥"+ giftresult.get("price") + "(税込)";
+                                    var price = "¥"+ giftresult.get("price") + "";
                                     var giftUid = giftresult.get("giftUid");
                                     
                                     $('#message_title').html(messageTitle);

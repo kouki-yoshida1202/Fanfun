@@ -61,8 +61,8 @@
                         <li class="list-item">
                             <div class="list-item__center" style="font-size: 80%;">
                             <div style="width:100%;">ギフト内容</div>
-                            <div style="width:100%;color:#898989;margin-left:10px;margin-top:5px;">メッセージ動画をプレゼント！</div>
-                            <div style="width:100%;color:#898989;margin-left:10px;margin-top:5px;">¥2,100（税込）</div>
+                            <div id="check_gift_title_div"style="width:100%;color:#898989;margin-left:10px;margin-top:5px;"></div>
+                            <div id="check_price_div"style="width:100%;color:#898989;margin-left:10px;margin-top:5px;"></div>
                             </div>
                         </li>
                     </ul>
@@ -93,7 +93,7 @@
             var mailaddress = currentUser.get("mailAddress");
             var objectId = currentUser.get("objectId");
             var gift_title = $('#check_gift_title').val();
-            var price = $('#check_price').val();
+            var price = $('#check_price').val()*1.04;
             var gift_uid = $('#check_gift_uid').val();
             var send_human = $('#send_human').html();
             var nickname = $('#nickname').html();
