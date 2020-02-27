@@ -19,7 +19,7 @@ function giftInsert() {
                 alert("ギフト価格が未入力です");
         }else if(gift_stock == ""){
                 alert("ギフト在庫数が未入力です");
-        }else if(!Number.isInteger(gift_stock) || !Number.isInteger(gift_price) || gift_price < 1 || gift_stock < 1){
+        }else if(!Number.isInteger(Number(gift_stock)) || !Number.isInteger(Number(gift_price)) || gift_price < 1 || gift_stock < 1){
                 alert("数値を1以上の整数で入力してください");
         }else{
                 var currentUser = ncmb.User.getCurrentUser();
@@ -30,7 +30,7 @@ function giftInsert() {
                 var uid = new Date().getTime().toString(16)  + Math.floor(strong*Math.random()).toString(16)
                 // データストアへの登録
                 var giftData = new GiftData();
-
+                console.log(objectId,gift_title,gift_text,gift_price,gift_stock,uid)
                 giftData.set("userId", objectId)
                         .set("giftTitle", gift_title)
                         .set("giftText", gift_text)
@@ -100,7 +100,7 @@ function giftEdit() {
                 alert("価格を100円単位で設定してください")
         }else if(gift_stock == ""){
                 alert("ギフト在庫数が未入力です");
-        }else if(!Number.isInteger(gift_stock) || !Number.isInteger(gift_price) || gift_price < 1 || gift_stock < 1){
+        }else if(!Number.isInteger(Number(gift_stock)) || !Number.isInteger(Number(gift_price)) || gift_price < 1 || gift_stock < 1){
                 alert("数値を1以上の整数で入力してください");
         }else{
                 var currentUser = ncmb.User.getCurrentUser();
@@ -140,6 +140,7 @@ function giftNowInfo(){
         var gift_price = $('#gift_detail_price').html();
         var gift_price = Number(gift_price.slice(1));
         var gift_uid = $('#my_gift_id').val();
+        var gift_stock = $('#my_stock').html();
         setTimeout(function() {
                 $('.gift_uid_edit').val(gift_uid);
                 $('#gift_title_edit').val(gift_title);
@@ -149,6 +150,7 @@ function giftNowInfo(){
                 var rieki = gift_price - tesuryou;
                 $('.tesuryou').text(tesuryou);
                 $('.rieki').text(rieki);
+                $('#gift_stock_edit').val(gift_stock);
 
                 ncmb.File.download(gift_uid, "blob")
                 .then(function(fileData) {

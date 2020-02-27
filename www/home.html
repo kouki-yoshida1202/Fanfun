@@ -47,7 +47,7 @@
   <script src="lib/onsenui/js/orderEnd.js"></script>
   <script src="lib/onsenui/js/myFavoriteGift.js"></script>
   <script src="lib/onsenui/js/orderCheck.js"></script>
-  <script src="lib/onsenui/js/pull-to-reload.js"></script>
+  <!-- <script src="lib/onsenui/js/pull-to-reload.js"></script> -->
   <script src="lib/onsenui/js/log.js"></script>
   <script src="lib/onsenui/js/test.js"></script>
 
@@ -57,14 +57,14 @@
       $('#topPageTab').click();
     });
     $(document).ready(function(){
-    var ptr = new PullToReload({ 
-        'callback-loading': function(){
-            setTimeout(function(){
-                ptr.loadingEnd();
-                $('#swiper_menu').show();
-            }, 3000);
-        }
-    });
+    // var ptr = new PullToReload({ 
+    //     'callback-loading': function(){
+    //         setTimeout(function(){
+    //             ptr.loadingEnd();
+    //             $('#swiper_menu').show();
+    //         }, 3000);
+    //     }
+    // });
 });
     // ギフト一覧のロード完了に時間がかかるので、最初に数秒間ロードのグルグルアイコンを入れている
     $(function() {

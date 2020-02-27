@@ -5,16 +5,22 @@ function loginInfo(){
         var mailaddress = currentUser.get("mailAddress");
         var text = currentUser.get('Text');
         var objectId = currentUser.get("objectId");
-        var Review = currentUser.get("Review");
+        var Genre = currentUser.get("Genre");
         var BoughtCount = "("+currentUser.get("BoughtCount")+")";
         
         // if(objectId == "V5wsDER2rALwDReh"){
         //         $('#kanrisyabox').show();
         // }
+        console.log(Genre);
+        if(Genre){
+                for(var n=0;n<Genre.length;n++){
+                        $('#myGenre').append(" #"+Genre[n]);
+                }
+        }
         $('.current_user_name').html(userName);
         $('.current_text').html(text);
         $('.current_user_id').val(objectId);
-        
+        // $('#myGenre').html(Genre);
         // var star = `<i class="fas fa-star" style="font-size: 12px;color:#FFBB00;"></i>`;
         // var no_star = `<i class="fas fa-star" style="font-size: 12px;color:gray;"></i>`;
         // $('#myReview').empty();

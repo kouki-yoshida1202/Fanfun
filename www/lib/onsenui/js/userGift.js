@@ -130,7 +130,7 @@ function giftUserImage(objectId,i){
         })
         .catch(function(err){
                 // エラー処理
-                alert('error = ' + err);
+                console.log('error = ' + err);
         });
 }
 function giftImageGet(giftUid,i){
@@ -148,7 +148,7 @@ function giftImageGet(giftUid,i){
         })
         .catch(function(err){
         // エラー処理
-        alert('error = ' + err);
+        console.log('error = ' + err);
         });
 }
 
@@ -184,7 +184,7 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
                         })
                         .catch(function(err){
                         // エラー処理
-                                alert('error = ' + err);
+                                console.log('error = ' + err);
                         });
                 
                         // 画像ダウンロード
@@ -200,7 +200,7 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
                         })
                         .catch(function(err){
                         // エラー処理
-                                alert('error = ' + err);
+                                console.log('error = ' + err);
                         });
                         // 各テキストを入れる
                         setTimeout(function() {
@@ -239,7 +239,7 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
                         })
                         .catch(function(err){
                         // エラー処理
-                                alert('error = ' + err);
+                                console.log('error = ' + err);
                         });
                 
                         // 画像ダウンロード
@@ -255,7 +255,7 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
                         })
                         .catch(function(err){
                         // エラー処理
-                                alert('error = ' + err);
+                                console.log('error = ' + err);
                         });
                         // 各テキストを入れる
                         setTimeout(function() {
