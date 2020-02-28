@@ -16,6 +16,8 @@
   <script src="lib/onsenui/js/createuser.js"></script>
   <script src="lib/onsenui/js/cloudLogin.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="lib/onsenui/js/contactForm.js"></script>
+  <script src="lib/onsenui/js/requestForm.js"></script>
   <script>
     ons.ready(function() {
       // バックグラウンドログイン
@@ -26,7 +28,11 @@
       document.documentElement.setAttribute('onsflag-iphonex-portrait', '');
       document.documentElement.setAttribute('onsflag-iphonex-landscape', '');
     }
-    
+    function aiueo(link){
+      // どっちか使う
+      window.open(link, '_blank', 'location=yes');
+      return false;
+    }
 
     // $(function() {
     //   setTimeout(function(){
@@ -57,10 +63,6 @@
   
   .text-input--material:focus{
     background-image: linear-gradient(#FF1048, #FFAA95),linear-gradient(to top,transparent 1px,#afafaf 1px);
-  }
-  .login_input{
-    height:40px;
-    margin:20px;
   }
   
   .back-button__icon{
