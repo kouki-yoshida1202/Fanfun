@@ -7,6 +7,7 @@ function loginInfo(){
         var objectId = currentUser.get("objectId");
         var Genre = currentUser.get("Genre");
         var BoughtCount = "("+currentUser.get("BoughtCount")+")";
+        $('#myGenre').empty();
         
         // if(objectId == "V5wsDER2rALwDReh"){
         //         $('#kanrisyabox').show();
