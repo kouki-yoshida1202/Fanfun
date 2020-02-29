@@ -6,7 +6,7 @@
             width:85%;
             margin:0 auto;
             text-align: center;
-            color:hsl(0, 0%, 54%);
+            color:white;
             margin-top:30px;
             margin-bottom:30px;
         }
@@ -14,37 +14,48 @@
             content: "";
             flex-grow: 1;
             height: 1px; /* 線の太さを変えたいときはここを変える */
-            background: #898989; /* 線の色を変えたいときはここを変える */
+            background: white; /* 線の色を変えたいときはここを変える */
             margin:0 .4em; /* 文字と線の余白用 なくても良い */
         }
+        .background {
+            position: absolute;
+            display: block;
+            top: 0;
+            left: 0;
+            z-index: 0;
+        }
+
+        .page__background{
+            background-color:#2C2342;
+        }
     </style>
-    <div style="text-align: center;background-color:white;height:100%;width:100%">
+    <div style="text-align: center;background-color:transparent;height:100%;width:100%;vertical-align: middle;display: flex;justify-content: center;align-items: center;">
         <!-- <div class="start" style="text-align: center;background-color:white;height:100%;width:100%">
             <img src="img/first3.png" alt=""></img>
         </div> -->
-        <div style="text-align: center;background-color:white;height:100%;width:100%">
-            <div style="width:100%;" style="margin-top:20%;margin-bottom:10%;">
-            <img src="img/logo.png" alt="" style="width:50%;height:auto;margin-top:20%;">
-            </div>
-            <div class="login_input" style="margin:20px;margin-bottom:40px;">
-                <i class="fas fa-user" style="color:#898989;font-size: 20px;"></i>
-                <input id="login_mail"class="text-input text-input--material" placeholder="mailaddress" type="text" required>
+        <div style="text-align: center;background-color: rgba(0,0,0,0.6);height:80%;width:80%;border-radius:20px;">
+            <!-- <div style="width:100%;" style="margin-top:20%;margin-bottom:10%;">
+            <img src="img/whitelogo.png" alt="" style="width:40%;height:auto;margin-top:10px;">
+            </div> -->
+            <div class="login_input" style="margin:20px;margin-bottom:40px;margin-top:25%;">
+                <i class="fas fa-envelope" style="color:white;font-size: 20px;"></i>
+                <input id="login_mail"class="text-input text-input--material" style="color:white;" placeholder="Mailaddress" type="text" required>
             </div>
             <div class="login_input" style="margin:20px;margin-bottom:30px;">
-                <i class="fas fa-key" style="color:#898989;font-size: 20px;"></i>
-                <input id="login_pass"class="text-input text-input--material" placeholder="Password" type="password" required>
+                <i class="fas fa-key" style="color:white;font-size: 20px;"></i>
+                <input id="login_pass"class="text-input text-input--material" style="color:white;" placeholder="Password" type="password" required>
                 <br>
-                <p style="margin-top:10px;font-size:12px;color:#898989;"onclick="document.getElementById('login').pushPage('forget.html')">
+                <p style="margin-top:15px;font-size:14px;color:#898989;"onclick="document.getElementById('login').pushPage('forget.html')">
                     パスワードを忘れた方はこちら
                 </p>
             </div>
             
             <p style="margin-top: 15px;" >
-            <button class="button" onclick="loginCheck()" style="width:50%;">L O G I N</button>
+            <button class="button" onclick="loginCheck()" style="width:50%;background:rgba(255,96,112) !important;">L O G I N</button>
             </p>
             <p class="ORborder">OR</p>
             <p>
-            <button class="button"style="width:auto;background: -moz-linear-gradient(bottom left, #00C6FB, #005BEA);background: -webkit-linear-gradient(bottom left, #00C6FB, #005BEA);background: linear-gradient(to top right, #00C6FB, #005BEA);" onclick="document.getElementById('login').pushPage('kiyaku.html')">
+            <button class="button"style="width:auto;background:transparent;border: 1px solid white;color:white;" onclick="document.getElementById('login').pushPage('kiyaku.html')">
                 アカウント新規作成
             </button> 
             </p>
@@ -62,16 +73,26 @@
             </div>
             </div> -->
             
-            <p style="margin-top:15px;font-size:12px;color:#898989;"onclick="jumpContactForm('beforeLogin');">
+            <p style="margin-top:15px;font-size:14px;color:white;"onclick="jumpContactForm('beforeLogin');">
                 改善・お問い合わせ
             </p>
             <br><br>
-            <script>
-                function openMonaca(url) {
-                  window.open(url, '_blank', 'location=yes');
-                  return false;
-                }
-            </script>
         </div>
     </div>
+    <canvas class="background"></canvas>
+    <script>
+        function openMonaca(url) {
+          window.open(url, '_blank', 'location=yes');
+          return false;
+        }
+        window.onload = function() {
+            Particles.init({
+                selector: '.background',
+                sizeVariations: 30,
+                color: [
+                'rgba(255,96,112,.5)', 'rgba(255,96,112,.2)'
+                ]
+            });
+        };
+    </script>
 </ons-page>
