@@ -21,6 +21,7 @@ function myHoukokuSend() {
             .then(function(){
                     // 保存後の処理
                     alert("送信OK");
+                    mygiftHoukokuClose();
             })
             .catch(function(err){
                     // エラー処理
@@ -52,6 +53,7 @@ function houkokuSend() {
                 .then(function(){
                         // 保存後の処理
                         alert("送信OK");
+                        detailHoukokuClose();
                 })
                 .catch(function(err){
                         // エラー処理
