@@ -40,7 +40,17 @@ function contactFormSend(){
                                 .save()
                                 .then(function(gameScore){
                                 // 保存後の処理
-                                        aiueo('https://fanfun2020.xsrv.jp/contactSend.html?text='+text+'&mailaddress='+mailaddress);
+                                        $.ajax({
+                                                type: 'post',
+                                                url: 'https://fanfun2020.xsrv.jp/contactSend.html',
+                                                data: {
+                                                        'text': text,
+                                                        'mailaddress':mailaddress,
+                                                },
+                                                success: function(data){
+                                                        console.log("----success.----");
+                                                }
+                                        });
                                 })
                                 .catch(function(err){
                                 // エラー処理

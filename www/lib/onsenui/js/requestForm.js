@@ -27,7 +27,17 @@ function requestFormSend(){
                         .save()
                         .then(function(gameScore){
                         // 保存後の処理
-                                aiueo('https://fanfun2020.xsrv.jp/requestSend.html?requestName='+requestName+'&requestFormTextarea='+requestFormTextarea);
+                                $.ajax({
+                                        type: 'post',
+                                        url: 'https://fanfun2020.xsrv.jp/requestSend.html',
+                                        data: {
+                                                'username': requestName,
+                                                'requestFormTextarea':requestFormTextarea,
+                                        },
+                                        success: function(data){
+                                                console.log("----success.----");
+                                        }
+                                });
                                 // alert("送信しました。");
                         })
                         .catch(function(err){
