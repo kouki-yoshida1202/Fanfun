@@ -7,8 +7,8 @@
             margin:0 auto;
             text-align: center;
             color:white;
-            margin-top:30px;
-            margin-bottom:30px;
+            margin-top:50px;
+            margin-bottom:50px;
         }
         .ORborder:before, .ORborder:after {
             content: "";
@@ -46,12 +46,12 @@
                 <i class="fas fa-key" style="color:white;font-size: 20px;"></i>
                 <input id="login_pass"class="text-input text-input--material" style="color:white;" placeholder="Password" type="password" required>
                 <br>
-                <p style="margin-top:15px;font-size:14px;color:#898989;"onclick="document.getElementById('login').pushPage('forget.html')">
+                <p style="margin-top:25px;font-size:14px;color:#898989;"onclick="document.getElementById('login').pushPage('forget.html')">
                     パスワードを忘れた方はこちら
                 </p>
             </div>
             
-            <p style="margin-top: 15px;" >
+            <p style="margin-top: 20px;" >
             <button class="button" onclick="loginCheck()" style="width:50%;background:#FF6070;">L O G I N</button>
             </p>
             <p class="ORborder">OR</p>
@@ -74,7 +74,7 @@
             </div>
             </div> -->
             
-            <p style="margin-top:15px;font-size:14px;color:white;"onclick="jumpContactForm('beforeLogin');">
+            <p style="margin-top:25px;font-size:14px;color:white;"onclick="jumpContactForm('beforeLogin');">
                 改善・お問い合わせ
             </p>
             <br><br>
@@ -86,14 +86,22 @@
           window.open(url, '_blank', 'location=yes');
           return false;
         }
-        window.onload = function() {
-            Particles.init({
-                selector: '.background',
-                sizeVariations: 30,
-                color: [
-                'rgba(255,96,112,.5)', 'rgba(255,96,112,.2)'
-                ]
-            });
-        };
+
+        Particles.init({
+                    selector: '.background',
+                    sizeVariations: 30,
+                    color: [
+                    'rgba(255,96,112,.5)', 'rgba(255,96,112,.2)'
+                    ]
+                });
+            // setTimeout(() => {
+            //     Particles.init({
+            //         selector: '.background',
+            //         sizeVariations: 30,
+            //         color: [
+            //         'rgba(255,96,112,.5)', 'rgba(255,96,112,.2)'
+            //         ]
+            //     });
+            // }, 500);
     </script>
 </ons-page>

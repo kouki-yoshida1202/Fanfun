@@ -8,6 +8,7 @@ function influencerChange(){
 
         var currentUser = ncmb.User.getCurrentUser();
         var objectId = currentUser.get('objectId');
+        var userName = currentUser.get("userName");
         var user = new ncmb.User();
         var genre = $('.checkbox__input:checked').map(function() {
                 return $(this).val();
@@ -23,8 +24,16 @@ function influencerChange(){
         .then(function(data) {
                 // 更新完了
                 // 運営へ通知
-                mailSend("ub7192f4b-a9c9-4379-b492-d7e0f40bfd43","インフルエンサー申請")
-                
+                $.ajax({
+                        type: 'post',
+                        url: 'https://fanfun2020.xsrv.jp/influencerOrder.html',
+                        data: {
+                                'username': userName,
+                        },
+                        success: function(data){
+                                console.log("----success.----");
+                        }
+                });
                 alert('申請が完了致しました。運営より登録頂いたメールアドレスに後ほどご連絡致します。');
         })
         .catch(function(err) {
@@ -32,15 +41,4 @@ function influencerChange(){
                 alert('更新が失敗しました。');
         });               
         
-}
-
-function mailSend(userOid,templateName){
-        console.log(userOid,templateName);
-        monaca.cloud.Mailer.sendMail(userOid, templateName, null)
-        .done(function(result) {
-                alert("Send mail success");
-        })
-        .fail(function(err) {
-                alert("Mail Err#" + err.code +": " + err.message);
-        });
 }
