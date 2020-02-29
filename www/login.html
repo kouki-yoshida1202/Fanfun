@@ -6,15 +6,15 @@
             width:85%;
             margin:0 auto;
             text-align: center;
-            color:white;
-            margin-top:50px;
-            margin-bottom:50px;
+            color:#898989;
+            margin-top:7%;
+            margin-bottom:7%;
         }
         .ORborder:before, .ORborder:after {
             content: "";
             flex-grow: 1;
             height: 1px; /* 線の太さを変えたいときはここを変える */
-            background: white; /* 線の色を変えたいときはここを変える */
+            background: #898989; /* 線の色を変えたいときはここを変える */
             margin:0 .4em; /* 文字と線の余白用 なくても良い */
         }
         .background {
@@ -34,29 +34,29 @@
         <!-- <div class="start" style="text-align: center;background-color:white;height:100%;width:100%">
             <img src="img/first3.png" alt=""></img>
         </div> -->
-        <div style="text-align: center;background-color: rgba(0,0,0,0.6);height:80%;width:80%;border-radius:20px;">
+        <div style="text-align: center;background-color: rgba(0,0,0,0.6);height:75%;width:80%;border-radius:20px;">
             <!-- <div style="width:100%;" style="margin-top:20%;margin-bottom:10%;">
             <img src="img/whitelogo.png" alt="" style="width:40%;height:auto;margin-top:10px;">
             </div> -->
-            <div class="login_input" style="margin:20px;margin-bottom:40px;margin-top:25%;">
+            <div class="login_input" style="margin:20px;margin-bottom:15%;margin-top:25%;">
                 <i class="fas fa-envelope" style="color:white;font-size: 20px;"></i>
                 <input id="login_mail"class="text-input text-input--material" style="color:white;" placeholder="Mailaddress" type="text" required>
             </div>
-            <div class="login_input" style="margin:20px;margin-bottom:30px;">
+            <div class="login_input" style="margin:20px;margin-bottom:10%;">
                 <i class="fas fa-key" style="color:white;font-size: 20px;"></i>
                 <input id="login_pass"class="text-input text-input--material" style="color:white;" placeholder="Password" type="password" required>
                 <br>
-                <p style="margin-top:25px;font-size:14px;color:#898989;"onclick="document.getElementById('login').pushPage('forget.html')">
+                <p style="margin-top:10%;font-size:14px;color:#898989;"onclick="document.getElementById('login').pushPage('forget.html')">
                     パスワードを忘れた方はこちら
                 </p>
             </div>
             
-            <p style="margin-top: 20px;" >
-            <button class="button" onclick="loginCheck()" style="width:50%;background:#FF6070;">L O G I N</button>
+            <p style="margin-top: 20%;" >
+            <button class="button" onclick="loginCheck()" style="width:65%;background:#FF6070;">L O G I N</button>
             </p>
             <p class="ORborder">OR</p>
             <p>
-            <button class="button"style="width:auto;background:transparent;border: 1px solid white;color:white;" onclick="document.getElementById('login').pushPage('kiyaku.html')">
+            <button class="button"style="width:65%;background:transparent;border: 1px solid white;color:white;" onclick="document.getElementById('login').pushPage('kiyaku.html')">
                 アカウント新規作成
             </button> 
             </p>
@@ -74,7 +74,7 @@
             </div>
             </div> -->
             
-            <p style="margin-top:25px;font-size:14px;color:white;"onclick="jumpContactForm('beforeLogin');">
+            <p style="margin-top:10%;font-size:14px;color:white;"onclick="jumpContactForm('beforeLogin');">
                 改善・お問い合わせ
             </p>
             <br><br>
