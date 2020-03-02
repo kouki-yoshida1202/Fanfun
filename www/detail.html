@@ -25,7 +25,7 @@
                         <ul class="list" style="background-image:none;">
                         <li class="list-item" style="padding:0px;">
                             <div class="list-item__left" style="padding:0px;" onclick="document.getElementById('navi').pushPage('otherpage.html');otherPage();">
-                                <img id="gift_detail_user_image_other" class="list-item__thumbnail" src="" alt="Cute kitten" style="border-radius: 50%;width:60px;height:60px;">
+                                <img id="gift_detail_user_image_other" class="list-item__thumbnail" src="" alt="" style="border-radius: 50%;width:60px;height:60px;">
                             </div>
                         
                             <div class="list-item__center" style="padding:0px; padding-left:10px;">
@@ -89,8 +89,29 @@
                 </div>
             </div>
         </div>
+        <div class="alert-dialog-mask houkoku_dialog_mask"></div>
+        <div class="alert-dialog houkoku_dialog">
+            <div class="alert-dialog-container">
+                <div class="alert-dialog-title">送信完了</div>
+                <div class="alert-dialog-footer">
+                    <button class="alert-dialog-button alert-dialog-button--primal" onclick="houkokuCheckClose();">OK</button>
+                </div>
+            </div>
+        </div>
+        <div class="alert-dialog-mask houkoku_dialog_miss_mask"></div>
+        <div class="alert-dialog houkoku_miss_dialog">
+            <div class="alert-dialog-container">
+                <div class="alert-dialog-title">送信失敗</div>
+                <div class="alert-dialog-content">
+                    再度送信頂くか、お問い合わせください。
+                </div>
+                <div class="alert-dialog-footer">
+                    <button class="alert-dialog-button alert-dialog-button--primal" onclick="houkokuMissClose();">OK</button>
+                </div>
+            </div>
+        </div>
         <script>
-            $('.detail_mask,.detail_modal,.detail_houkoku_mask,.detail_houkoku_modal').hide();
+            $('.detail_mask,.detail_modal,.detail_houkoku_mask,.detail_houkoku_modal,.houkoku_dialog_mask,.houkoku_dialog,.houkoku_dialog_miss_mask,.houkoku_miss_dialog').hide();
             
             function detailHoukoku(){
                 $('.detail_houkoku_mask,.detail_houkoku_modal').slideDown();
@@ -105,6 +126,22 @@
             
             function detailShareClose(){
                 $('.detail_mask,.detail_modal').slideUp();
+            }
+
+            function houkokuCheckOpen(){
+                $('.houkoku_dialog_mask,.houkoku_dialog').slideDown();
+            }
+
+            function houkokuCheckClose(){
+                $('.houkoku_dialog_mask,.houkoku_dialog').slideUp();
+            }
+
+            function houkokuMissOpen(){
+                $('.houkoku_dialog_miss_mask,.houkoku_miss_dialog').slideDown();
+            }
+            
+            function houkokuMissClose(){
+                $('.houkoku_dialog_miss_mask,.houkoku_miss_dialog').slideUp();
             }
             var gift_image_detail = $('.gift_image_detail').width();
             $('.gift_image_detail').height(gift_image_detail).css('object-fit','cover');

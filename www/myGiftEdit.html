@@ -49,7 +49,7 @@
                                 </span>
                             </div>
                         </li>
-                        <li class="list-item">
+                        <li class="list-item" style="display:none;">
                             <div class="list-item__center" style="color:#898989;font-size: 80%;">
                             販売手数料
                             </div>
@@ -83,7 +83,25 @@
     <div id="giftEditButton" class="tabbar" style="background-color: #FF6070;position: fixed;bottom:0;left:0;text-align: center;color:white;">
         <span id="giftEditButton2"style="text-align: center;width:100%;padding-top:10px;font-size:20px;" onclick="giftEdit();">変更する</span>
     </div>
+    <div class="alert-dialog-mask kakaku_edit_dialog_mask"></div>
+    <div class="alert-dialog kakaku_edit_dialog">
+        <div class="alert-dialog-container">
+            <div class="alert-dialog-title">100円単位で設定してください</div>
+            <div class="alert-dialog-footer">
+                <button class="alert-dialog-button alert-dialog-button--primal" onclick="kakakuEditCheckClose();">OK</button>
+            </div>
+        </div>
+    </div>
     <script>
+        $('.kakaku_edit_dialog_mask,.kakaku_edit_dialog').hide();
+        
+        function kakakuEditCheckOpen(){
+            $('.kakaku_edit_dialog_mask,.kakaku_edit_dialog').slideDown();
+            $('.kakaku_edit_dialog').css('top',"80%");
+        }
+        function kakakuEditCheckClose(){
+            $('.kakaku_edit_dialog_mask,.kakaku_edit_dialog').slideUp();
+        }
         // ギフト出品時の価格設定時に価格に応じて、手数料と利益が表示されるようにしている
         $('.kakaku').change(function(){
           var kakaku = $('.kakaku').val();
@@ -95,7 +113,7 @@
             $("#giftEditButton").css("background-color","#FF6070");
             $("#giftEditButton2").prop("disabled",false);
           }else{
-            alert("100円単位で設定してください");
+            kakakuEditCheckOpen();
             $("#giftEditButton").css("background-color","gray");
             $("#giftEditButton2").prop("disabled",true);
           }

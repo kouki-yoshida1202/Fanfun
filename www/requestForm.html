@@ -56,7 +56,7 @@
         </style>
         <ons-toolbar class="toolbar" style="background-color: white;">
                 <div class="left" style="padding-left: 3%;">
-                        <ons-back-button></ons-back-button>
+                        <ons-back-button id="requestFormBackButton"></ons-back-button>
                 </div>
                 <div class="center" style="color:#898989;">
                         インフルエンサーリクエスト
@@ -84,4 +84,44 @@
                 </div>
                 
         </div>
+        <div class="alert-dialog-mask request_dialog_mask"></div>
+        <div class="alert-dialog request_dialog">
+            <div class="alert-dialog-container">
+                <div class="alert-dialog-title">送信完了</div>
+                <div class="alert-dialog-footer">
+                    <button class="alert-dialog-button alert-dialog-button--primal" onclick="requestCheckClose();">OK</button>
+                </div>
+            </div>
+        </div>
+        <div class="alert-dialog-mask request_dialog_miss_mask"></div>
+        <div class="alert-dialog request_miss_dialog">
+            <div class="alert-dialog-container">
+                <div class="alert-dialog-title">送信失敗</div>
+                <div class="alert-dialog-content">
+                    再度送信頂くか、お問い合わせください。
+                </div>
+                <div class="alert-dialog-footer">
+                    <button class="alert-dialog-button alert-dialog-button--primal" onclick="requestMissClose();">OK</button>
+                </div>
+            </div>
+        </div>
+        <script>
+                $('.request_dialog_mask,.request_dialog,.request_dialog_miss_mask,.request_miss_dialog').hide();
+                function requestCheckOpen(){
+                        $('.request_dialog_mask,.request_dialog').slideDown();
+                }
+
+                function requestCheckClose(){
+                        $('.request_dialog_mask,.request_dialog').slideUp();
+                        $('#requestFormBackButton').click();
+                }
+
+                function requestMissOpen(){
+                        $('.request_dialog_miss_mask,.request_miss_dialog').slideDown();
+                }
+                
+                function requestMissClose(){
+                        $('.request_dialog_miss_mask,.request_miss_dialog').slideUp();
+                }
+        </script>
 </ons-page>

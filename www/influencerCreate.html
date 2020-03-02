@@ -12,7 +12,7 @@
         <div class="card__content">
           <div style="width:100%;margin:0 auto;">
             <i class="fas fa-user" style="color:#898989;font-size: 20px;"></i>
-            <input id="form_name" class="text-input text-input--material" placeholder="ユーザーネーム" type="text" style="width:90%;font-size:100%;height:45px;" required>
+            <input id="form_name" class="text-input text-input--material" placeholder="表示名(必須/20文字以内)" type="text" style="width:90%;font-size:100%;height:45px;" maxlength="20" required>
             <p style="font-size:90%;color:#898989;">※表示名として使用されます。</p>
           </div>
           <div style="width:100%;margin:0 auto;">
@@ -150,6 +150,70 @@
       </button>
     </div>
   </div>
+  <div class="alert-dialog-mask userCreate_dialog_mask"></div>
+  <div class="alert-dialog userCreate_dialog">
+      <div class="alert-dialog-container">
+          <div class="alert-dialog-title">送信完了</div>
+          <div class="alert-dialog-content">
+              認証メールを送信しました。メールに記載のURL押下後、登録が完了します。<br>
+              また運営より登録頂いたメールアドレスに後ほどご連絡致します。それまでは一般ユーザとして利用できます。
+          </div>
+          <div class="alert-dialog-footer">
+              <button class="alert-dialog-button alert-dialog-button--primal" onclick="userCreateCheckClose();">OK</button>
+          </div>
+      </div>
+  </div>
+  <div class="alert-dialog-mask userCreate_dialog_miss_mask"></div>
+  <div class="alert-dialog userCreate_miss_dialog">
+      <div class="alert-dialog-container">
+          <div class="alert-dialog-title">送信失敗</div>
+          <div class="alert-dialog-content">
+              ユーザ名かメールアドレスが既に使用されています。
+          </div>
+          <div class="alert-dialog-footer">
+              <button class="alert-dialog-button alert-dialog-button--primal" onclick="userCreateMissClose();">OK</button>
+          </div>
+      </div>
+  </div>
+  <div class="alert-dialog-mask userCreate_dialog_mail_miss_mask"></div>
+  <div class="alert-dialog userCreate_mail_miss_dialog">
+      <div class="alert-dialog-container">
+          <div class="alert-dialog-title">送信失敗</div>
+          <div class="alert-dialog-content">
+              メールアドレスが正しくありません。
+          </div>
+          <div class="alert-dialog-footer">
+              <button class="alert-dialog-button alert-dialog-button--primal" onclick="userCreateMissClose();">OK</button>
+          </div>
+      </div>
+  </div>
+  <script>
+          $('.userCreate_dialog_mask,.userCreate_dialog,.userCreate_dialog_miss_mask,.userCreate_miss_dialog,.userCreate_dialog_mail_miss_mask,.userCreate_mail_miss_dialog').hide();
+          function userCreateCheckOpen(){
+                  $('.userCreate_dialog_mask,.userCreate_dialog').slideDown();
+          }
+
+          function userCreateCheckClose(){
+                  $('.userCreate_dialog_mask,.userCreate_dialog').slideUp();
+                  window.location.href = 'index.html';
+          }
+
+          function userCreateMissOpen(){
+                  $('.userCreate_dialog_miss_mask,.userCreate_miss_dialog').slideDown();
+          }
+          
+          function userCreateMissClose(){
+                  $('.userCreate_dialog_miss_mask,.userCreate_miss_dialog').slideUp();
+          }
+
+          function userCreateMailMissOpen(){
+                  $('.userCreate_dialog_mail_miss_mask,.userCreate_mail_miss_dialog').slideDown();
+          }
+          
+          function userCreateMailMissClose(){
+                  $('.userCreate_dialog_mail_miss_mask,.userCreate_mail_miss_dialog').slideUp();
+          }
+  </script>
   <script>
   $(function () {
     $('.checkbox__input').prop('checked', false);

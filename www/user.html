@@ -4,9 +4,7 @@
             <span class="current_user_name" style="color:#898989;"></span> 
         </div>
         <div class="right" style="padding-right: 5%;"onclick="userActionOpen();">
-            
-              <i class="fas fa-ellipsis-h"></i>
-            
+            <i class="fas fa-ellipsis-h"></i>
         </div>
     </ons-toolbar>
     <input type="hidden" class="current_user_id">
@@ -108,10 +106,16 @@
         
         function userActionOpen(){
             $('.action-sheet-mask,.modal1').slideDown();
+            // スクロールを無効にする
+            $(window).on('touchmove.noScroll', function(e) {
+                e.preventDefault();
+            });
         }
         
         function userActionClose(){
             $('.action-sheet-mask,.action-sheet').slideUp();
+            // スクロール無効を解除する
+            $(window).off('.noScroll');
         }
 
         function userShare(){

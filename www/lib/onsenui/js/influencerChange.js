@@ -34,11 +34,11 @@ function influencerChange(){
                                 console.log("----success.----");
                         }
                 });
-                alert('申請が完了致しました。運営より登録頂いたメールアドレスに後ほどご連絡致します。');
+                influencerChangeCheckOpen();
         })
         .catch(function(err) {
         // エラー
-                alert('更新が失敗しました。');
+                influencerChangeMissOpen();
         });               
         
 }

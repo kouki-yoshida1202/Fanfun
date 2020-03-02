@@ -10,6 +10,14 @@ function MyGift(){
                 $('#exhibition_button').prop("disabled",false);
                 var userNameTitle = currentUser.get("userName") + " <i class='far fa-check-circle' style='color:#FF6070;'></i>";
                 $('#influencerTouroku').hide();
+        }else if(influencer==true && authentication!="OK"){
+                var userNameTitle = currentUser.get("userName");
+                $('#myGiftList').hide();
+
+                var influencer_button = `
+                <button id="influencer_button" class="button "style="width:70%;padding-top:0px;padding-bottom:0px;line-height:auto;border-radius:30px;font-size:16px;margin:0 auto;" disabled>インフルエンサー申請中</button>
+                `;
+                $('#influencerTouroku').html(influencer_button);
         }else{
                 var userNameTitle = currentUser.get("userName");
                 $('#myGiftList').hide();

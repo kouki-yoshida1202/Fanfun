@@ -1,33 +1,34 @@
 function myHoukokuSend() {
-    //ユーザーの入力したデータを変数にセットする
-    var houkoku_text = $("#houkoku_text").val();
-    var currentUser = ncmb.User.getCurrentUser();
-    var sendUserId = currentUser.get("objectId");
-    var houkoku_gift_id = $("#my_gift_id").val();
-    //入力規則およびデータをフィールドにセットする
-    if(houkoku_text == ""){
-            alert("入力されていません");
-    }else{
-            // クラスのTestClassを作成
-            var Houkoku = ncmb.DataStore("Houkoku");
-            // データストアへの登録
-            var houkoku = new Houkoku();
+        //ユーザーの入力したデータを変数にセットする
+        var houkoku_text = $("#houkoku_text").val();
+        var currentUser = ncmb.User.getCurrentUser();
+        var sendUserId = currentUser.get("objectId");
+        var houkoku_gift_id = $("#my_gift_id").val();
+        //入力規則およびデータをフィールドにセットする
+        if(houkoku_text == ""){
+                alert("入力されていません");
+        }else{
+                // クラスのTestClassを作成
+                var Houkoku = ncmb.DataStore("Houkoku");
+                // データストアへの登録
+                var houkoku = new Houkoku();
 
-            houkoku
-            .set("sendUserId", sendUserId)
-            .set("houkokuText", houkoku_text)
-            .set("houkokuGiftId", houkoku_gift_id)
-            .save()
-            .then(function(){
-                    // 保存後の処理
-                    alert("送信OK");
-                    mygiftHoukokuClose();
-            })
-            .catch(function(err){
-                    // エラー処理
-                    alert("失敗");
-            });
-    }
+                houkoku
+                .set("sendUserId", sendUserId)
+                .set("houkokuText", houkoku_text)
+                .set("houkokuGiftId", houkoku_gift_id)
+                .save()
+                .then(function(){
+                        // 保存後の処理
+                        houkokuCheckOpen();
+                        mygiftHoukokuClose();
+                        houkokuMailSend(houkoku_gift_id,houkoku_text);
+                })
+                .catch(function(err){
+                        // エラー処理
+                        houkokuMissClose();
+                });
+        }
 }
 
 function houkokuSend() {
@@ -44,7 +45,7 @@ function houkokuSend() {
                 var Houkoku = ncmb.DataStore("Houkoku");
                 // データストアへの登録
                 var houkoku = new Houkoku();
-    
+
                 houkoku
                 .set("sendUserId", sendUserId)
                 .set("houkokuText", houkoku_text)
@@ -52,12 +53,27 @@ function houkokuSend() {
                 .save()
                 .then(function(){
                         // 保存後の処理
-                        alert("送信OK");
+                        houkokuCheckOpen();
                         detailHoukokuClose();
+                        houkokuMailSend(houkoku_gift_id,houkoku_text);
                 })
                 .catch(function(err){
                         // エラー処理
-                        alert("失敗");
+                        houkokuMissClose();
                 });
         }
-    }
+}
+
+function houkokuMailSend(gift_id,houkoku_text){
+        $.ajax({
+                type: 'post',
+                url: 'https://fanfun2020.xsrv.jp/houkokuMail.html',
+                data: {
+                        'gift_id': gift_id,
+                        'houkoku_text':houkoku_text
+                },
+                success: function(data){
+                        console.log("----success.----");
+                }
+        });
+}

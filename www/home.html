@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="lib/onsenui/css/onsenui.css">
   <link rel="stylesheet" href="lib/onsenui/css/onsen-css-components.css">
   <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/modal.css">
+  <!-- <link rel="stylesheet" href="css/modal.css"> -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.css">
   <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css">
@@ -23,33 +23,31 @@
   <script src="lib/onsenui/js/logout.js"></script>
   <script src="lib/onsenui/js/currentuser.js"></script>
   <script src="lib/onsenui/js/profileEdit.js"></script>
-  <script src="lib/onsenui/js/profileImage.js"></script>
   <script src="lib/onsenui/js/giftInfo.js"></script>
   <script src="lib/onsenui/js/userGift.js"></script>
   <!-- <script src="lib/onsenui/js/kyujosyo.js"></script>/ -->
   <script src="lib/onsenui/js/shintyaku.js"></script>
   <script src="lib/onsenui/js/followGiftList.js"></script>
   <script src="lib/onsenui/js/otherPage.js"></script>
-  <script src="lib/onsenui/js/follow.js"></script>
-  <script src="lib/onsenui/js/bellList.js"></script>
+  <!-- <script src="lib/onsenui/js/follow.js"></script>
+  <script src="lib/onsenui/js/bellList.js"></script> -->
   <script src="lib/onsenui/js/gift_favorite.js"></script>
   <script src="lib/onsenui/js/other_gift_favorite.js"></script>
-  <script src="lib/onsenui/js/message.js"></script>
-  <script src="lib/onsenui/js/modal.js"></script>
+  <!-- <script src="lib/onsenui/js/message.js"></script> -->
+  <!-- <script src="lib/onsenui/js/modal.js"></script> -->
   <script src="lib/onsenui/js/houkoku.js"></script>
   <script src="lib/onsenui/js/instagram.js"></script>
   <script src="lib/onsenui/js/searchGift.js"></script>
   <script src="lib/onsenui/js/buypage.js"></script>
-  <script src="lib/onsenui/js/baseJump.js"></script>
   <script src="lib/onsenui/js/influencerChangeKiyaku.js"></script>
   <script src="lib/onsenui/js/influencerChange.js"></script>
-  <script src="lib/onsenui/js/mailSend.js"></script>
-  <script src="lib/onsenui/js/orderEnd.js"></script>
+  <!-- <script src="lib/onsenui/js/mailSend.js"></script> -->
+  <!-- <script src="lib/onsenui/js/orderEnd.js"></script> -->
   <script src="lib/onsenui/js/myFavoriteGift.js"></script>
   <script src="lib/onsenui/js/orderCheck.js"></script>
   <!-- <script src="lib/onsenui/js/pull-to-reload.js"></script> -->
-  <script src="lib/onsenui/js/log.js"></script>
-  <script src="lib/onsenui/js/test.js"></script>
+  <!-- <script src="lib/onsenui/js/log.js"></script> -->
+  <!-- <script src="lib/onsenui/js/test.js"></script> -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.1/TweenMax.min.js"></script>
   <script src="lib/onsenui/js/wavify.js"></script>
@@ -62,16 +60,6 @@
     ons.ready(function() {
       $('#topPageTab').click();
     });
-    $(document).ready(function(){
-    // var ptr = new PullToReload({ 
-    //     'callback-loading': function(){
-    //         setTimeout(function(){
-    //             ptr.loadingEnd();
-    //             $('#swiper_menu').show();
-    //         }, 3000);
-    //     }
-    // });
-});
     // ギフト一覧のロード完了に時間がかかるので、最初に数秒間ロードのグルグルアイコンを入れている
     $(function() {
       setTimeout(function(){
@@ -152,19 +140,6 @@
             },250);
           });
           
-          // ギフト出品時の価格設定時に価格に応じて、手数料と利益が表示されるようにしている
-          $('.kakaku').change(function(){
-            var kakaku = $('.kakaku').val();
-            var tesuryou = Math.floor(kakaku*0.1);
-            var rieki = kakaku - tesuryou;
-            $('.tesuryou').text(tesuryou);
-            $('.rieki').text(rieki);
-          });
-
-          // このあたりは全て、ギフト写真を正方形に表示するための処理
-          // 横幅を取得して、それと同じ高さを画像に指定している
-          
-
           var header_icon = $('.toolbar').height();
           header_icon = header_icon -5;
           $('.header_icon').width(header_icon);
@@ -186,7 +161,9 @@
     *{
       -webkit-overflow-scrolling: touch;
     }
-    
+    .alert-dialog-mask{
+      position:fixed;
+    }
     .card{
       padding:5px 10px 5px 10px;
     }

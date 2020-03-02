@@ -33,16 +33,15 @@ function insertUser() {
                 .then(function(){
                     //   登録後処理
                     //  保存に成功した場合の処理
-                    alert("認証メールを送信しました。メールに記載のURL押下後、登録が完了します。");
-                    window.location.href = 'index.html';
+                    userCreateCheckOpen();
                 })
                 .catch(function(err){
                     //   エラー処理
                     //  保存に失敗した場合の処理
-                    alert("ユーザ名かメールアドレスが既に使用されています");
+                    userCreateMissOpen();
                 });
         }else{
-            alert("メールアドレスが正しくありません");
+            userCreateMailMissOpen();
         }
     }
 }
@@ -98,17 +97,15 @@ function insertInfluencer() {
                                 console.log("----success.----");
                         }
                     });
-                    alert('申請が完了致しました。運営より登録頂いたメールアドレスに後ほどご連絡致します。それまでは一般ユーザとして利用できます。');
-
-                    window.location.href = 'index.html';
+                    userCreateCheckOpen();
                 })
                 .catch(function(err){
                     //   エラー処理
                     //  保存に失敗した場合の処理
-                    alert("ユーザ名かメールアドレスが既に使用されています");
+                    userCreateMissOpen();
                 });
         }else{
-            alert("メールアドレスが正しくありません");
+            userCreateMailMissOpen();
         }
     }
 }

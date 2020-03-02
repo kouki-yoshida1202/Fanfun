@@ -7,7 +7,7 @@
             ギフト出品画面
         </div>
     </ons-toolbar>
-    <div class="container contents" style="background-color:#efeff4;padding-bottom:100px;">
+    <div id="giftScrollZone"class="container contents" style="background-color:#efeff4;padding-bottom:100px;">
         <!-- カードリスト部分 -->
         <div class="" style="width:100%;height: auto; padding: 1px 0 0 0;display: inline-block;">
             <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:15px;">
@@ -19,7 +19,6 @@
                     <input type="file" id="file-data-gift" hidden>
                     <hr>
                     <p style="font-size: 80%;padding-right:10px;padding-left:10px;">※正方形の写真をアップロードしてください</p>
-                    <!-- <button class="button "style="width:100%;padding-top:0px;padding-bottom:0px;line-height:40px;border-radius:30px;font-size:16px;margin:0 auto;" onclick="onFormSendGift();">変更</button> -->
                 </div>
             </div>
             <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:20px;">
@@ -50,7 +49,7 @@
                                 </span>
                             </div>
                         </li>
-                        <li class="list-item">
+                        <li class="list-item" style="display:none;">
                             <div class="list-item__center" style="color:#898989;font-size: 80%;">
                             販売手数料
                             </div>
@@ -84,22 +83,46 @@
     <div id="giftInsertButton"class="tabbar" style="background-color: gray;position: fixed;bottom:0;left:0;text-align: center;color:white;">
         <span id="giftInsertButton2" style="text-align: center;width:100%;padding-top:10px;font-size:20px;"onclick="giftInsert();" disabled>出品する</span>
     </div>
+    <div class="alert-dialog-mask kakaku_dialog_mask"></div>
+    <div class="alert-dialog kakaku_dialog">
+        <div class="alert-dialog-container">
+            <div class="alert-dialog-title">100円単位で設定してください</div>
+            <div class="alert-dialog-footer">
+                <button class="alert-dialog-button alert-dialog-button--primal" onclick="kakakuCheckClose();">OK</button>
+            </div>
+        </div>
+    </div>
     <script>
+    $('.kakaku_dialog_mask,.kakaku_dialog').hide();
+        
+    function kakakuCheckOpen(){
+        $('.kakaku_dialog_mask,.kakaku_dialog').slideDown();
+        // var fullHeight = $('body').height();
+        // var scrollPercent = (scrollHeight/fullHeight + 0.5) * 100 + "%";
+        // console.log(scrollHeight);
+        // console.log(fullHeight);
+        // console.log(scrollPercent);
+        $('.kakaku_dialog').css('top',"80%");
+    }
+    function kakakuCheckClose(){
+        $('.kakaku_dialog_mask,.kakaku_dialog').slideUp();
+    }
     // ギフト出品時の価格設定時に価格に応じて、手数料と利益が表示されるようにしている
     $('.kakaku').change(function(){
-      var kakaku = $('.kakaku').val();
-      if(kakaku%100==0 && kakaku!=0){
-        var tesuryou = Math.floor(kakaku*0.2);
-        var rieki = kakaku - tesuryou;
-        $('.tesuryou').text(tesuryou);
-        $('.rieki').text(rieki);
-        $("#giftInsertButton").css("background-color","#FF6070");
-        $("#giftInsertButton2").prop("disabled",false);
-      }else{
-        alert("100円単位で設定してください");
-        $("#giftInsertButton").css("background-color","gray");
-        $("#giftInsertButton2").prop("disabled",true);
-      }
+        // var scrollHeight = $('.page__content').scrollTop();
+        var kakaku = $('.kakaku').val();
+        if(kakaku%100==0 && kakaku!=0){
+            var tesuryou = Math.floor(kakaku*0.2);
+            var rieki = kakaku - tesuryou;
+            $('.tesuryou').text(tesuryou);
+            $('.rieki').text(rieki);
+            $("#giftInsertButton").css("background-color","#FF6070");
+            $("#giftInsertButton2").prop("disabled",false);
+        }else{
+            kakakuCheckOpen();
+            $("#giftInsertButton").css("background-color","gray");
+            $("#giftInsertButton2").prop("disabled",true);
+        }
     });
 
     $('#file-data-gift').on('change', function (e) {

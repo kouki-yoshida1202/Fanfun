@@ -35,14 +35,15 @@ function requestFormSend(){
                                                 'requestFormTextarea':requestFormTextarea,
                                         },
                                         success: function(data){
-                                                console.log("----success.----");
+                                                console.log(data);
                                         }
                                 });
-                                // alert("送信しました。");
+                                requestCheckOpen();
+
                         })
                         .catch(function(err){
                         // エラー処理
-                                alert("送信失敗しました。");
+                                requestMissOpen();
                         });
         }
 }

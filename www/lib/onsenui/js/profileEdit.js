@@ -29,7 +29,19 @@ function profileEdit(){
                         .then(function(data) {
                         // 更新完了
                                 alert('更新が完了しました。');
-                                onFormSend();
+                                var currentUser = ncmb.User.getCurrentUser();
+                                var fileData = document.getElementById("file-data").files[0];
+
+                                ncmb.File
+                                .upload(objectId,fileData)
+                                .then(function(res){
+                                        // アップロード後処理
+                                        window.location.href = 'home.html';
+                                })
+                                .catch(function(err){
+                                        // エラー処理
+                                        alert('更新が失敗しました。');
+                                });
                         })
                         .catch(function(err) {
                         // エラー

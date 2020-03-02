@@ -11,10 +11,13 @@ function giftInsert() {
         var gift_text = $("#gift_text").val();     
         var gift_price = $("#gift_price").val(); 
         var gift_stock = $("#gift_stock").val(); 
+        var gift_image = $('#file-data-gift').val().length;
         if(gift_title ==''){
                 alert("ギフトタイトルが未入力です");
         }else if(gift_text == ""){
                 alert("ギフト説明文が未入力です");
+        }else if(gift_image == ""){
+                alert("ギフト画像が未登録です");
         }else if(gift_price == ""){
                 alert("ギフト価格が未入力です");
         }else if(gift_stock == ""){
@@ -39,50 +42,27 @@ function giftInsert() {
                         .set("stock",gift_stock)
                         .save()
                         .then(function(gameScore){
-                        // 保存後の処理
-                                onFormSendGift(uid);
-                                alert("ギフト出品成功");
-                                window.location.href = 'home.html';
+                                // 保存後の処理
+                                var fileData = document.getElementById("file-data-gift").files[0];
+                                ncmb.File
+                                .upload(uid,fileData)
+                                .then(function(res){
+                                        // アップロード後処理
+                                        alert("ギフト出品成功");
+                                        window.location.href = 'home.html';
+                                })
+                                .catch(function(err){
+                                        // エラー処理
+                                        alert("ギフト画像の登録が失敗しました。もう一度やり直すか、お手数ですがお問い合わせください。");
+                                });
                         })
                         .catch(function(err){
                         // エラー処理
-                        console.log(err)
+                                alert("ギフト出品が失敗しました。もう一度やり直すか、お手数ですがお問い合わせください。");
                         });
         }
 }
 
-// function giftInfo(){
-//         var gift_uid = $('.gift_uid').val();
-//         setTimeout(function() {
-//                 $('.gift_uid_edit').val(gift_uid);
-                
-        
-//         // クラスのTestClassを作成
-//         var GiftData = ncmb.DataStore("giftData");
-//         // データストアへの登録
-//         GiftData.equalTo("giftUid", gift_uid)
-//                 .fetch()                
-//                 .then(function(results){
-//                         var object = results;
-//                         var gift_objectId = object.get("objectId");
-//                         var gift_title_now = object.get("giftTitle");
-//                         var gift_text_now = object.get("giftText");
-//                         var gift_price_now = object.get("price");
-//                         $('#gift_title_edit').val(gift_title_now);
-//                         $('#gift_text_edit').val(gift_text_now);
-//                         $('#gift_price_edit').val(gift_price_now);
-//                         var kakaku = $('.kakaku').val();
-//                         var tesuryou = Math.floor(kakaku*0.1);
-//                         var rieki = kakaku - tesuryou;
-//                         $('.tesuryou').text(tesuryou);
-//                         $('.rieki').text(rieki);
-//                 })
-//                 .catch(function(err){
-//                         console.log(err);
-//                 });
-//         }, 500);
-// }
-// -------[Demo1]データをmBaaSに保存する -------//
 function giftEdit() {
         
         //ユーザーの入力したデータを変数にセットする
@@ -90,10 +70,13 @@ function giftEdit() {
         var gift_text = $("#gift_text_edit").val();     //メールアドレス
         var gift_price = $("#gift_price_edit").val();      //パスワード
         var gift_stock = $("#gift_stock_edit").val();
+        var gift_image = $('#file-data-gift-edit').val().length;
         if(gift_title ==''){
                 alert("ギフトタイトルが未入力です");
         }else if(gift_text == ""){
                 alert("ギフト説明文が未入力です");
+        }else if(gift_image == ""){
+                alert("ギフト画像が未登録です");
         }else if(gift_price == ""){
                 alert("ギフト価格が未入力です");
         }else if(gift_price % 100 != 0){
@@ -107,10 +90,8 @@ function giftEdit() {
                 var objectId = currentUser.get("objectId");
                 // クラスのTestClassを作成
                 var uid = $('.gift_uid_edit').val();
-                console.log(uid);
                 // データストアへの登録
                 var GiftData = ncmb.DataStore("giftData");
-                var giftData = new GiftData();
 
                 GiftData.equalTo("giftUid", uid)
                         .fetch()                
@@ -124,12 +105,22 @@ function giftEdit() {
                                         .set("stock",gift_stock)
                                         .update();
 
-                                onFormSendGiftEdit(uid);
-                                alert("更新しました");
-                                window.location.href = 'home.html';
+                                var fileData = document.getElementById("file-data-gift-edit").files[0];
+
+                                ncmb.File
+                                .upload(uid,fileData)
+                                .then(function(res){
+                                        // アップロード後処理
+                                        alert("更新しました");
+                                        window.location.href = 'home.html';
+                                })
+                                .catch(function(err){
+                                        // エラー処理
+                                        alert("ギフト画像の変更が失敗しました。もう一度やり直すか、お手数ですがお問い合わせください。");
+                                });
                         })
                         .catch(function(err){
-                                console.log(err);
+                                alert("ギフト出品が失敗しました。もう一度やり直すか、お手数ですがお問い合わせください。");
                         });
         }
 }
