@@ -1,4 +1,42 @@
 <ons-page>
+  <style>
+    .cp_iptxt {
+            position: relative;
+            margin: 10px 3%;
+    }
+    .cp_iptxt input {
+            font: 15px/24px sans-serif;
+            box-sizing: border-box;
+            width: 100%;
+            margin: 8px 0;
+            padding: 0.3em;
+            transition: 0.3s;
+            border: 1px solid #1b2538;
+            border-radius: 5px;
+            outline: none;
+    }
+    .cp_iptxt input:focus {
+            border-color: #FF6070;
+    }
+    .cp_iptxt input {
+            padding-left: 40px;
+    }
+    .cp_iptxt i {
+            position: absolute;
+            top: 11px;
+            left: 0;
+            padding: 9px 8px;
+            transition: 0.3s;
+            color: #aaaaaa;
+    }
+    .cp_iptxt input:focus + i {
+            color: #FF6070;
+    }
+
+    .alert-dialog{
+      top:85%;
+    }
+  </style>
   <ons-toolbar class="toolbar" style="background-color: white;">
       <div class="left" style="padding-left: 3%;">
           <ons-back-button></ons-back-button>
@@ -10,22 +48,22 @@
   <div style="background-color: #efeff4;height:auto;padding-top:20px;padding-bottom:40px;">
     <div class="card" style="width:85%;margin:0 auto;padding-top:20px;padding-bottom:20px;border-radius: 30px;">
         <div class="card__content">
-          <div style="width:100%;margin:0 auto;">
-            <i class="fas fa-user" style="color:#898989;font-size: 20px;"></i>
-            <input id="form_name" class="text-input text-input--material" placeholder="表示名(必須/20文字以内)" type="text" style="width:90%;font-size:100%;height:45px;" maxlength="20" required>
-            <p style="font-size:90%;color:#898989;">※表示名として使用されます。</p>
+          <div class="cp_iptxt">
+              <input type="text" placeholder="ユーザー名(必須/20文字以内)" id="form_name" maxlength="20"required>
+              <i class="fas fa-user fa-lg fa-fw" aria-hidden="true"></i>
+              <br>
+              <span style="color:#FF6070;">※表示名として使用されます。</span>
           </div>
-          <div style="width:100%;margin:0 auto;">
-            <i class="fas fa-envelope" style="color:#898989;font-size: 20px;"></i>
-            <input id="form_mailaddress" class="text-input text-input--material" placeholder="メールアドレス" type="email" style="width:90%;font-size:100%;height:45px;" required>
-            <p style="font-size:90%;color:#898989;">※本人確認のためのやり取りで使用して頂きます。</p>
+          <div class="cp_iptxt">
+              <input type="email" placeholder="メールアドレス" id="form_mailaddress"required>
+              <i class="fa fa-envelope fa-lg fa-fw" aria-hidden="true"></i>
+              <span style="color:#FF6070;">※本人確認のためのやり取りで使用して頂きます。</span>
+          </div>
+          <div class="cp_iptxt">
+              <input type="password" placeholder="パスワード" id="form_password"required>
+              <i class="fas fa-key fa-lg fa-fw" aria-hidden="true"></i>
           </div>
           
-          <div style="width:100%;margin:0 auto;">
-            <i class="fas fa-key" style="color:#898989;font-size: 20px;"></i>
-            <input id="form_password" class="text-input text-input--material" placeholder="パスワード" type="password" style="width:90%;font-size:100%;height:45px;" required>
-          </div>
-          <br>
           <p>以下から主要な活動を<span style="color:#FF6070;">3つまで</span>選択してください。</p>
           <ul class="list">
             <li class="list-item list-item--tappable">
@@ -140,14 +178,13 @@
             </li>
           </ul>
           <p style="font-size:80%;color:#898989;">※「ライバー」はライブ配信アプリで活動されているインフルエンサー様を指します。</p>
+          <br><br>
+          <div style="width:80%;margin:0 auto;">
+            <button id="influenceButton"class="button "style="width:100%;padding-top:5px;padding-bottom:5px;line-height:auto;border-radius:30px;font-size:100%;margin:0 auto;height:45px;" onclick="insertInfluencer()" disabled>
+              アカウント登録
+            </button>
+          </div>
         </div>
-    </div>
-    <br><br>
-
-    <div style="width:80%;margin:0 auto;">
-      <button id="influenceButton"class="button "style="width:100%;padding-top:5px;padding-bottom:5px;line-height:auto;border-radius:30px;font-size:100%;margin:0 auto;height:45px;" onclick="insertInfluencer()" disabled>
-        アカウント登録
-      </button>
     </div>
   </div>
   <div class="alert-dialog-mask userCreate_dialog_mask"></div>
@@ -215,8 +252,7 @@
       </div>
   </div>
   <script>
-          $('.userCreate_dialog_mask,.userCreate_dialog,.userCreate_dialog_miss_mask,.userCreate_miss_dialog,.userCreate_dialog_mail_miss_mask,.userCreate_mail_miss_dialog,.userNameNo_dialog_mask,.userNameNo_dialog,.mailaddressNo_dialog_mask,.mailaddressNo_dialog,.passwordNo_dialog_mask,.passwordNo_dialog').hide();
-
+          $('.userCreate_dialog_mask,.userCreate_dialog,.userCreate_dialog_miss_mask,.userCreate_miss_dialog,.userCreate_dialog_mail_miss_mask,.userCreate_mail_miss_dialog,.userNameNo_dialog_mask,.userNameNo_dialog,.mailaddressNo_dialog_mask,.mailaddressNo_dialog,.passwordNo_dialog_mask,.passwordNo_dialog').hide();          
           function userNameNoOpen(){
                   $('.userNameNo_dialog_mask,.userNameNo_dialog').slideDown();
           }

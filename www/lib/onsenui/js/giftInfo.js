@@ -22,7 +22,7 @@ function giftInsert() {
                 alert("ギフト価格が未入力です");
         }else if(gift_stock == ""){
                 alert("ギフト在庫数が未入力です");
-        }else if(!Number.isInteger(Number(gift_stock)) || !Number.isInteger(Number(gift_price)) || gift_price < 1 || gift_stock < 1){
+        }else if(!Number.isInteger(Number(gift_stock)) || !Number.isInteger(Number(gift_price)) || gift_price < 1 || gift_stock < 0){
                 alert("数値を1以上の整数で入力してください");
         }else{
                 var currentUser = ncmb.User.getCurrentUser();
@@ -75,15 +75,13 @@ function giftEdit() {
                 alert("ギフトタイトルが未入力です");
         }else if(gift_text == ""){
                 alert("ギフト説明文が未入力です");
-        }else if(gift_image == ""){
-                alert("ギフト画像が未登録です");
         }else if(gift_price == ""){
                 alert("ギフト価格が未入力です");
         }else if(gift_price % 100 != 0){
                 alert("価格を100円単位で設定してください")
         }else if(gift_stock == ""){
                 alert("ギフト在庫数が未入力です");
-        }else if(!Number.isInteger(Number(gift_stock)) || !Number.isInteger(Number(gift_price)) || gift_price < 1 || gift_stock < 1){
+        }else if(!Number.isInteger(Number(gift_stock)) || !Number.isInteger(Number(gift_price)) || gift_price < 1 || gift_stock < 0){
                 alert("数値を1以上の整数で入力してください");
         }else{
                 var currentUser = ncmb.User.getCurrentUser();
@@ -105,19 +103,24 @@ function giftEdit() {
                                         .set("stock",gift_stock)
                                         .update();
 
-                                var fileData = document.getElementById("file-data-gift-edit").files[0];
+                                if(gift_image != ""){
+                                        var fileData = document.getElementById("file-data-gift-edit").files[0];
 
-                                ncmb.File
-                                .upload(uid,fileData)
-                                .then(function(res){
-                                        // アップロード後処理
+                                        ncmb.File
+                                        .upload(uid,fileData)
+                                        .then(function(res){
+                                                // アップロード後処理
+                                                alert("更新しました");
+                                                window.location.href = 'home.html';
+                                        })
+                                        .catch(function(err){
+                                                // エラー処理
+                                                alert("ギフト画像の変更が失敗しました。もう一度やり直すか、お手数ですがお問い合わせください。");
+                                        });
+                                }else{
                                         alert("更新しました");
                                         window.location.href = 'home.html';
-                                })
-                                .catch(function(err){
-                                        // エラー処理
-                                        alert("ギフト画像の変更が失敗しました。もう一度やり直すか、お手数ですがお問い合わせください。");
-                                });
+                                }
                         })
                         .catch(function(err){
                                 alert("ギフト出品が失敗しました。もう一度やり直すか、お手数ですがお問い合わせください。");
