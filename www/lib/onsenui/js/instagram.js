@@ -38,7 +38,7 @@ function instaPush() {
 }
 function aiueo(link){
         // どっちか使う
-        window.open('https://www.instagram.com/p/B6tGEpvp0kR/?utm_source=ig_web_copy_link', '_system', 'location=yes');
+        window.open(link, '_system', 'location=yes');
         return false;
 }
 function InstagramNews(){
