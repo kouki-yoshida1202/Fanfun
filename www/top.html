@@ -54,4 +54,24 @@
             </div>
         </div>
     </div>
+    <div class="alert-dialog-mask searchKeywordNo_dialog_mask" style="z-index:1000;"></div>
+    <div class="alert-dialog searchKeywordNo_dialog" style="z-index: 1001;">
+        <div class="alert-dialog-container">
+            <div class="alert-dialog-title">検索キーワードを入力してください</div>
+            <div class="alert-dialog-footer">
+                <button class="alert-dialog-button alert-dialog-button--primal" onclick="searchKeywordNoClose();">OK</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        $('.searchKeywordNo_dialog_mask,.searchKeywordNo_dialog').hide();
+        
+        function searchKeywordNoOpen(){
+            $('.searchKeywordNo_dialog_mask,.searchKeywordNo_dialog').slideDown();
+        }
+        function searchKeywordNoClose(){
+            $('.searchKeywordNo_dialog_mask,.searchKeywordNo_dialog').slideUp();
+        }
+
+    </script>
 </ons-page>

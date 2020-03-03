@@ -10,11 +10,11 @@ function orderCheck(){
         var price = $('#buypage_price_number').val();
         var gift_uid = $('#buypage_gift_uid').val();
         if(send_human==""){
-                alert("送り先が選択されていません");
+                sendHumanNoMissOpen();
         }else if(nickname_input==""){
-                alert("ニックネームが入力されていません");
+                nicknameNoMissOpen();
         }else if(request_message_input==""){
-                alert("リクエストが入力されていません");
+                requestMessageNoMissOpen();
         }else{
                 document.getElementById('navi').pushPage('ordercheck.html');
                 setTimeout(function(){

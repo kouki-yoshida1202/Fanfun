@@ -105,8 +105,17 @@
                 </div>
             </div>
         </div>
+        <div class="alert-dialog-mask influencerRequestNo_dialog_mask"></div>
+        <div class="alert-dialog influencerRequestNo_dialog">
+            <div class="alert-dialog-container">
+                <div class="alert-dialog-title">インフルエンサー名が未入力です。</div>
+                <div class="alert-dialog-footer">
+                    <button class="alert-dialog-button alert-dialog-button--primal" onclick="influencerRequestNoClose();">OK</button>
+                </div>
+            </div>
+        </div>
         <script>
-                $('.request_dialog_mask,.request_dialog,.request_dialog_miss_mask,.request_miss_dialog').hide();
+                $('.request_dialog_mask,.request_dialog,.request_dialog_miss_mask,.request_miss_dialog,.influencerRequestNo_dialog_mask,.influencerRequestNo_dialog').hide();
                 function requestCheckOpen(){
                         $('.request_dialog_mask,.request_dialog').slideDown();
                 }
@@ -122,6 +131,14 @@
                 
                 function requestMissClose(){
                         $('.request_dialog_miss_mask,.request_miss_dialog').slideUp();
+                }
+
+                function influencerRequestNoOpen(){
+                        $('.influencerRequestNo_dialog_mask,.influencerRequestNo_dialog').slideDown();
+                }
+                
+                function influencerRequestNoClose(){
+                        $('.influencerRequestNo_dialog_mask,.influencerRequestNo_dialog').slideUp();
                 }
         </script>
 </ons-page>

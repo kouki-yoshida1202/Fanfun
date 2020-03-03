@@ -12,7 +12,6 @@ function loginInfo(){
         // if(objectId == "V5wsDER2rALwDReh"){
         //         $('#kanrisyabox').show();
         // }
-        console.log(Genre);
         if(Genre){
                 for(var n=0;n<Genre.length;n++){
                         $('#myGenre').append(" #"+Genre[n]);

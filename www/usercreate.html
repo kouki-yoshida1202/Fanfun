@@ -66,12 +66,64 @@
               メールアドレスが正しくありません。
           </div>
           <div class="alert-dialog-footer">
-              <button class="alert-dialog-button alert-dialog-button--primal" onclick="userCreateMissClose();">OK</button>
+              <button class="alert-dialog-button alert-dialog-button--primal" onclick="userCreateMailMissClose();">OK</button>
+          </div>
+      </div>
+  </div>
+  <div class="alert-dialog-mask userNameNo_dialog_mask"></div>
+  <div class="alert-dialog userNameNo_dialog">
+      <div class="alert-dialog-container">
+          <div class="alert-dialog-title">表示名が入力されていません</div>
+          <div class="alert-dialog-footer">
+              <button class="alert-dialog-button alert-dialog-button--primal" onclick="userNameNoClose();">OK</button>
+          </div>
+      </div>
+  </div>
+  <div class="alert-dialog-mask mailaddressNo_dialog_mask"></div>
+  <div class="alert-dialog mailaddressNo_dialog">
+      <div class="alert-dialog-container">
+          <div class="alert-dialog-title">メールアドレスが入力されていません</div>
+          <div class="alert-dialog-footer">
+              <button class="alert-dialog-button alert-dialog-button--primal" onclick="mailaddressNoClose();">OK</button>
+          </div>
+      </div>
+  </div>
+  <div class="alert-dialog-mask passwordNo_dialog_mask"></div>
+  <div class="alert-dialog passwordNo_dialog">
+      <div class="alert-dialog-container">
+          <div class="alert-dialog-title">パスワードが入力されていません</div>
+          <div class="alert-dialog-footer">
+              <button class="alert-dialog-button alert-dialog-button--primal" onclick="passwordNoClose();">OK</button>
           </div>
       </div>
   </div>
   <script>
-          $('.userCreate_dialog_mask,.userCreate_dialog,.userCreate_dialog_miss_mask,.userCreate_miss_dialog,.userCreate_dialog_mail_miss_mask,.userCreate_mail_miss_dialog').hide();
+          $('.userCreate_dialog_mask,.userCreate_dialog,.userCreate_dialog_miss_mask,.userCreate_miss_dialog,.userCreate_dialog_mail_miss_mask,.userCreate_mail_miss_dialog,.userNameNo_dialog_mask,.userNameNo_dialog,.mailaddressNo_dialog_mask,.mailaddressNo_dialog,.passwordNo_dialog_mask,.passwordNo_dialog').hide();
+
+          function userNameNoOpen(){
+                  $('.userNameNo_dialog_mask,.userNameNo_dialog').slideDown();
+          }
+          
+          function userNameNoClose(){
+                  $('.userNameNo_dialog_mask,.userNameNo_dialog').slideUp();
+          }
+
+          function mailaddressNoOpen(){
+                  $('.mailaddressNo_dialog_mask,.mailaddressNo_dialog').slideDown();
+          }
+          
+          function mailaddressNoClose(){
+                  $('.mailaddressNo_dialog_mask,.mailaddressNo_dialog').slideUp();
+          }
+
+          function passwordNoOpen(){
+                  $('.passwordNo_dialog_mask,.passwordNo_dialog').slideDown();
+          }
+          
+          function passwordNoClose(){
+                  $('.passwordNo_dialog_mask,.passwordNo_dialog').slideUp();
+          }
+
           function userCreateCheckOpen(){
                   $('.userCreate_dialog_mask,.userCreate_dialog').slideDown();
           }

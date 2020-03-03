@@ -95,6 +95,15 @@
                 </div>
             </div>
         </div>
+        <div class="alert-dialog-mask contactNo_dialog_mask" style="z-index: 1000;"></div>
+        <div class="alert-dialog contactNo_dialog" style="z-index: 1001;">
+            <div class="alert-dialog-container">
+                <div class="alert-dialog-title">未入力の項目があります</div>
+                <div class="alert-dialog-footer">
+                    <button class="alert-dialog-button alert-dialog-button--primal" onclick="contactNoClose();">OK</button>
+                </div>
+            </div>
+        </div>
         <div class="alert-dialog-mask contact_dialog_miss_mask"></div>
         <div class="alert-dialog contact_miss_dialog">
             <div class="alert-dialog-container">
@@ -108,7 +117,7 @@
             </div>
         </div>
         <script>
-                $('.contact_dialog_mask,.contact_dialog,.contact_dialog_miss_mask,.contact_miss_dialog').hide();
+                $('.contact_dialog_mask,.contact_dialog,.contact_dialog_miss_mask,.contact_miss_dialog,.contactNo_dialog_mask,.contactNo_dialog').hide();
                 function contactCheckOpen(){
                         $('.contact_dialog_mask,.contact_dialog').slideDown();
                 }
@@ -124,6 +133,14 @@
                 
                 function contactMissClose(){
                         $('.contact_dialog_miss_mask,.contact_miss_dialog').slideUp();
+                }
+
+                function contactNoOpen(){
+                        $('.contactNo_dialog_mask,.contactNo_dialog').slideDown();
+                }
+                
+                function contactNoClose(){
+                        $('.contactNo_dialog_mask,.contactNo_dialog').slideUp();
                 }
         </script>
 </ons-page>

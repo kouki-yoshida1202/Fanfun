@@ -11,4 +11,43 @@
             
         </div>
     </div>
+    <div class="alert-dialog-mask searchUserNo_dialog_mask"></div>
+    <div class="alert-dialog searchUserNo_dialog">
+        <div class="alert-dialog-container">
+            <div class="alert-dialog-title">
+                該当するユーザーがいませんでした
+            </div>
+            <div class="alert-dialog-footer">
+                <button class="alert-dialog-button alert-dialog-button--primal" onclick="searchUserNoClose();">OK</button>
+            </div>
+        </div>
+    </div>
+    <div class="alert-dialog-mask searchGiftNo_dialog_mask"></div>
+    <div class="alert-dialog searchGiftNo_dialog">
+        <div class="alert-dialog-container">
+            <div class="alert-dialog-title">
+                ギフトが1件もありませんでした
+            </div>
+            <div class="alert-dialog-footer">
+                <button class="alert-dialog-button alert-dialog-button--primal" onclick="searchGiftNoClose();">OK</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        $('.searchUserNo_dialog_mask,.searchUserNo_dialog,.searchGiftNo_dialog_mask,.searchGiftNo_dialog').hide();
+        
+        function searchUserNoOpen(){
+            $('.searchUserNo_dialog_mask,.searchUserNo_dialog').slideDown();
+        }
+        function searchUserNoClose(){
+            $('.searchUserNo_dialog_mask,.searchUserNo_dialog').slideUp();
+        }
+        
+        function searchGiftNoOpen(){
+            $('.searchGiftNo_dialog_mask,.searchGiftNo_dialog').slideDown();
+        }
+        function searchGiftNoClose(){
+            $('.searchGiftNo_dialog_mask,.searchGiftNo_dialog').slideUp();
+        }
+    </script>
 </ons-page>

@@ -2,7 +2,7 @@ function searchGift(search_way){
         if(search_way=="キーワード検索"){
                 var user_name = $('#user_name_search').val();
                 if(!user_name || user_name == ""){
-                        alert("検索キーワードを入力してください。");
+                        searchKeywordNoOpen();
                 }else{
                         document.getElementById('navi').pushPage('searchpage.html');
                         $('#searchGift').empty();
@@ -125,7 +125,7 @@ function searchGift(search_way){
                 }).get();
                 console.log(genre);
                 if(genre ==""){
-                        alert("カテゴリを1つ以上選択してください。");
+                        categoryNoOpen();
                 }else{
                         document.getElementById('navi').pushPage('searchpage.html');
                         var currentUser = ncmb.User.getCurrentUser();
@@ -242,14 +242,14 @@ function searchGift(search_way){
                                                         
                                                         syoryaku();
                                                 }else{
-                                                        alert("ギフトが1件もありません");
+                                                        searchGiftNoOpen();
                                                 }
                                         })
                                         .catch(function(err){
                                                 console.log(err);
                                         });
                                 }else{
-                                        alert("該当するユーザがいません");
+                                        searchUserNoOpen();
                                 }
                         });
                 }

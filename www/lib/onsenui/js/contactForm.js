@@ -29,7 +29,7 @@ function contactFormSend(){
 
         if(status == "afterLogin"){
                 if(mailaddress == "" || text == ""){
-                        alert("未入力の項目があります。");
+                        contactNoOpen();
                 }else{
                         var contactForm = ncmb.DataStore("contactForm");
                         // データストアへの登録
@@ -60,7 +60,7 @@ function contactFormSend(){
                 }
         }else if(status == "beforeLogin"){
                 if(mailaddress == "" || text == ""){
-                        alert("未入力の項目があります。");
+                        contactNoOpen();
                 }else{
                         var contactForm = ncmb.DataStore("contactForm");
                         // データストアへの登録

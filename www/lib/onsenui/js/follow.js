@@ -17,7 +17,7 @@ function follow() {
                 .then(function(results){
                         // 保存後の処理
                         results.delete();
-                        alert("削除成功");
+                        followOffOpen();
                         $('#other_follow_button').removeClass("follow_on").html("フォロー");
                 })
                 .catch(function(err){
@@ -36,7 +36,7 @@ function follow() {
                 .save()
                 .then(function(){
                         // 保存後の処理
-                        alert("フォロー成功");
+                        followOnOpen();
                         $('#other_follow_button').addClass("follow_on").html("フォロー中");
                         
                 })
@@ -61,7 +61,7 @@ function ichiranFollow(user_id) {
                 .then(function(results){
                         // 保存後の処理
                         results.delete();
-                        alert("削除成功");
+                        followOffOpen();
                         $('#'+button_id).removeClass("follow_on").addClass("follow_off").html("フォロー");
                 })
                 .catch(function(err){
@@ -80,7 +80,7 @@ function ichiranFollow(user_id) {
                 .save()
                 .then(function(){
                         // 保存後の処理
-                        alert("フォロー成功");
+                        followOnOpen();
                         $('#'+button_id).addClass("follow_on").removeClass("follow_off").html("フォロー中");
                         
                 })
@@ -275,7 +275,7 @@ function followUserImage(objectId,j){
         })
         .catch(function(err){
                 // エラー処理
-                alert('error = ' + err);
+                console.log('error = ' + err);
         });
 }
 // フォロワー一覧でユーザ画像を表示
@@ -506,7 +506,7 @@ function giftUserImageFollow(objectId,i){
         })
         .catch(function(err){
                 // エラー処理
-                alert('error = ' + err);
+                console.log('error = ' + err);
         });
 }
 function giftImageGetFollow(giftUid,i){
@@ -524,7 +524,7 @@ function giftImageGetFollow(giftUid,i){
         })
         .catch(function(err){
         // エラー処理
-        alert('error = ' + err);
+        console.log('error = ' + err);
         });
 }
 // ユーザ画面にてフォロー解除の処理
@@ -544,7 +544,7 @@ function followDelete() {
                 .then(function(results){
                         // 保存後の処理
                         results.delete();
-                        alert("削除成功");
+                        followOffOpen();
                         $('#other_follow_button').removeClass("follow_on").html("フォロー");
                 })
                 .catch(function(err){
@@ -563,7 +563,7 @@ function followDelete() {
                 .save()
                 .then(function(){
                         // 保存後の処理
-                        alert("フォロー成功");
+                        followOnOpen();
                         $('#other_follow_button').addClass("follow_on").html("フォロー中");
                         
                 })

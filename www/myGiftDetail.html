@@ -120,6 +120,15 @@
             </div>
         </div>
     </div>
+    <div class="alert-dialog-mask houkokuNo_dialog_mask" style="z-index: 1000;"></div>
+    <div class="alert-dialog houkokuNo_dialog" style="z-index: 1001;">
+        <div class="alert-dialog-container">
+            <div class="alert-dialog-title">入力されていません</div>
+            <div class="alert-dialog-footer">
+                <button class="alert-dialog-button alert-dialog-button--primal" onclick="houkokuNoClose();">OK</button>
+            </div>
+        </div>
+    </div>
     <div class="alert-dialog-mask houkoku_dialog_miss_mask"></div>
     <div class="alert-dialog houkoku_miss_dialog">
         <div class="alert-dialog-container">
@@ -154,7 +163,7 @@
         </div>
     </div>
     <script>
-        $('.mygift_mask,.mygift_modal,.mygift_houkoku_mask,.mygift_houkoku_modal,.mygift_delete_mask,.mygift_delete_modal,.gift_delete_dialog_mask,.gift_delete_dialog,.houkoku_dialog_mask,.houkoku_dialog,.houkoku_dialog_miss_mask,.houkoku_miss_dialog,.deleteEnd_dialog_mask,.deleteEnd_dialog,.deleteEndMiss_dialog_mask,.deleteEndMiss_dialog').hide();
+        $('.mygift_mask,.mygift_modal,.mygift_houkoku_mask,.mygift_houkoku_modal,.houkokuNo_dialog_mask,.houkokuNo_dialog,.mygift_delete_mask,.mygift_delete_modal,.gift_delete_dialog_mask,.gift_delete_dialog,.houkoku_dialog_mask,.houkoku_dialog,.houkoku_dialog_miss_mask,.houkoku_miss_dialog,.deleteEnd_dialog_mask,.deleteEnd_dialog,.deleteEndMiss_dialog_mask,.deleteEndMiss_dialog').hide();
         
         function mygiftHoukoku(){
             $('.mygift_houkoku_mask,.mygift_houkoku_modal').slideDown();
@@ -162,7 +171,13 @@
         function mygiftHoukokuClose(){
             $('.mygift_houkoku_mask,.mygift_houkoku_modal').slideUp();
         }
+        function houkokuNoOpen(){
+            $('.houkokuNo_dialog_mask,.houkokuNo_dialog').slideDown();
+        }
 
+        function houkokuNoClose(){
+            $('.houkokuNo_dialog_mask,.houkokuNo_dialog').slideUp();
+        }
         function mygiftShare(){
             $('.mygift_mask,.mygift_modal').slideDown();
         }

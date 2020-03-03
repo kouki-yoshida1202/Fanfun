@@ -6,7 +6,7 @@ function myHoukokuSend() {
         var houkoku_gift_id = $("#my_gift_id").val();
         //入力規則およびデータをフィールドにセットする
         if(houkoku_text == ""){
-                alert("入力されていません");
+                houkokuNoOpen();
         }else{
                 // クラスのTestClassを作成
                 var Houkoku = ncmb.DataStore("Houkoku");
@@ -39,7 +39,7 @@ function houkokuSend() {
         var houkoku_gift_id = $("#gift_id").val();
         //入力規則およびデータをフィールドにセットする
         if(houkoku_text == ""){
-                alert("入力されていません");
+                houkokuNoOpen();
         }else{
                 // クラスのTestClassを作成
                 var Houkoku = ncmb.DataStore("Houkoku");

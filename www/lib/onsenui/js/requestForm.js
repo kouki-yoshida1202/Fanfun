@@ -16,7 +16,7 @@ function requestFormSend(){
         var requestFormTextarea = $('#requestFormTextarea').val();
 
         if(requestName == ""){
-                alert("インフルエンサー名が未入力です。");
+                influencerRequestNoOpen();
         }else{
                 var requestForm = ncmb.DataStore("requestForm");
                 // データストアへの登録

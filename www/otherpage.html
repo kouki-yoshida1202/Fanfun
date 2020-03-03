@@ -77,4 +77,40 @@
             <!-- カードリスト部分 -->
         </div>
     </div>
+    <div class="alert-dialog-mask followOn_dialog_mask"></div>
+    <div class="alert-dialog followOn_dialog">
+        <div class="alert-dialog-container">
+            <div class="alert-dialog-title">フォローしました</div>
+            <div class="alert-dialog-footer">
+                <button class="alert-dialog-button alert-dialog-button--primal" onclick="followOnClose();">OK</button>
+            </div>
+        </div>
+    </div>
+    <div class="alert-dialog-mask followOff_dialog_miss_mask"></div>
+    <div class="alert-dialog followOff_miss_dialog">
+        <div class="alert-dialog-container">
+            <div class="alert-dialog-title">フォロー解除しました</div>
+            <div class="alert-dialog-footer">
+                <button class="alert-dialog-button alert-dialog-button--primal" onclick="followOffClose();">OK</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        $('.followOn_dialog_mask,.followOn_dialog,.followOff_dialog_miss_mask,.followOff_miss_dialog').hide();
+        
+        function followOnOpen(){
+            $('.followOn_dialog_mask,.followOn_dialog').slideDown();
+        }
+        function followOnClose(){
+            $('.followOn_dialog_mask,.followOn_dialog').slideUp();
+        }
+
+        function followOffOpen(){
+            $('.followOff_dialog_miss_mask,.followOff_miss_dialog').slideDown();
+        }
+        
+        function followOffClose(){
+            $('.followOff_dialog_miss_mask,.followOff_miss_dialog').slideUp();
+        }
+    </script>
 </ons-page>

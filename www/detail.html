@@ -98,6 +98,15 @@
                 </div>
             </div>
         </div>
+        <div class="alert-dialog-mask houkokuNo_dialog_mask" style="z-index: 1000;"></div>
+        <div class="alert-dialog houkokuNo_dialog" style="z-index: 1001;">
+            <div class="alert-dialog-container">
+                <div class="alert-dialog-title">入力されていません</div>
+                <div class="alert-dialog-footer">
+                    <button class="alert-dialog-button alert-dialog-button--primal" onclick="houkokuNoClose();">OK</button>
+                </div>
+            </div>
+        </div>
         <div class="alert-dialog-mask houkoku_dialog_miss_mask"></div>
         <div class="alert-dialog houkoku_miss_dialog">
             <div class="alert-dialog-container">
@@ -111,7 +120,7 @@
             </div>
         </div>
         <script>
-            $('.detail_mask,.detail_modal,.detail_houkoku_mask,.detail_houkoku_modal,.houkoku_dialog_mask,.houkoku_dialog,.houkoku_dialog_miss_mask,.houkoku_miss_dialog').hide();
+            $('.detail_mask,.detail_modal,.detail_houkoku_mask,.detail_houkoku_modal,.houkoku_dialog_mask,.houkoku_dialog,.houkokuNo_dialog_mask,.houkokuNo_dialog,.houkoku_dialog_miss_mask,.houkoku_miss_dialog').hide();
             
             function detailHoukoku(){
                 $('.detail_houkoku_mask,.detail_houkoku_modal').slideDown();
@@ -135,7 +144,13 @@
             function houkokuCheckClose(){
                 $('.houkoku_dialog_mask,.houkoku_dialog').slideUp();
             }
+            function houkokuNoOpen(){
+                $('.houkokuNo_dialog_mask,.houkokuNo_dialog').slideDown();
+            }
 
+            function houkokuNoClose(){
+                $('.houkokuNo_dialog_mask,.houkokuNo_dialog').slideUp();
+            }
             function houkokuMissOpen(){
                 $('.houkoku_dialog_miss_mask,.houkoku_miss_dialog').slideDown();
             }

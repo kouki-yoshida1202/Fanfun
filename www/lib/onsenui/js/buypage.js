@@ -33,7 +33,7 @@ function buypage(){
                 })
                 .catch(function(err){
                 // エラー処理
-                alert('error = ' + err);
+                console.log('error = ' + err);
                 });
         })
         .catch(function(err){

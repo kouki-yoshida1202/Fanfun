@@ -63,7 +63,69 @@
             </div>
         </div>
     </div>
+    <div class="alert-dialog-mask profileImageEditMiss_dialog_mask"></div>
+    <div class="alert-dialog profileImageEditMiss_dialog">
+        <div class="alert-dialog-container">
+            <div class="alert-dialog-title">
+                画像の更新に失敗しました。
+            </div>
+            <div class="alert-dialog-content">
+                再度送信頂くか、お問い合わせください。
+            </div>
+            <div class="alert-dialog-footer">
+                <button class="alert-dialog-button alert-dialog-button--primal" onclick="profileImageEditMissClose();">OK</button>
+            </div>
+        </div>
+    </div>
+    <div class="alert-dialog-mask profileEditMiss_dialog_mask"></div>
+    <div class="alert-dialog profileEditMiss_dialog">
+        <div class="alert-dialog-container">
+            <div class="alert-dialog-title">
+                更新に失敗しました。
+            </div>
+            <div class="alert-dialog-content">
+                再度送信頂くか、お問い合わせください。
+            </div>
+            <div class="alert-dialog-footer">
+                <button class="alert-dialog-button alert-dialog-button--primal" onclick="profileEditMissClose();">OK</button>
+            </div>
+        </div>
+    </div>
+    <div class="alert-dialog-mask profileMailaddressEditMiss_dialog_mask"></div>
+    <div class="alert-dialog profileMailaddressEditMiss_dialog">
+        <div class="alert-dialog-container">
+            <div class="alert-dialog-title">
+                メールアドレスが正しくありません。
+            </div>
+            <div class="alert-dialog-footer">
+                <button class="alert-dialog-button alert-dialog-button--primal" onclick="profileMailaddressEditMissClose();">OK</button>
+            </div>
+        </div>
+    </div>
     <script>
+        $('.profileImageEditMiss_dialog_mask,.profileImageEditMiss_dialog,.profileEditMiss_dialog_mask,.profileEditMiss_dialog,.profileMailaddressEditMiss_dialog_mask,.profileMailaddressEditMiss_dialog').hide();
+        
+        function profileImageEditMissOpen(){
+            $('.profileImageEditMiss_dialog_mask,.profileImageEditMiss_dialog').slideDown();
+        }
+        function profileImageEditMissClose(){
+            $('.profileImageEditMiss_dialog_mask,.profileImageEditMiss_dialog').slideUp();
+        }
+        
+        function profileEditMissOpen(){
+            $('.profileEditMiss_dialog_mask,.profileEditMiss_dialog').slideDown();
+        }
+        function profileEditMissClose(){
+            $('.profileEditMiss_dialog_mask,.profileEditMiss_dialog').slideUp();
+        }
+
+        function profileMailaddressEditMissOpen(){
+            $('.profileMailaddressEditMiss_dialog_mask,.profileMailaddressEditMiss_dialog').slideDown();
+        }
+        function profileMailaddressEditMissClose(){
+            $('.profileMailaddressEditMiss_dialog_mask,.profileMailaddressEditMiss_dialog').slideUp();
+        }
+
         $('#file-data').on('change', function (e) {
             var reader = new FileReader();
             reader.onload = function (e) {

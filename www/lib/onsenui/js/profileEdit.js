@@ -28,7 +28,7 @@ function profileEdit(){
                         .update()
                         .then(function(data) {
                         // 更新完了
-                                alert('更新が完了しました。');
+                                
                                 var currentUser = ncmb.User.getCurrentUser();
                                 var fileData = document.getElementById("file-data").files[0];
 
@@ -40,16 +40,15 @@ function profileEdit(){
                                 })
                                 .catch(function(err){
                                         // エラー処理
-                                        alert('更新が失敗しました。');
+                                        profileImageEditMissOpen();
                                 });
                         })
                         .catch(function(err) {
                         // エラー
-                                alert('更新が失敗しました。');
-                                // document.getElementById('navi').popPage();
+                                profileEditMissOpen();
                         });               
         }else{
-                alert('メールアドレスが正しい形ではありません');
+                profileMailaddressEditMissOpen();
         }
 }
 

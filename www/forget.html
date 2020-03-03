@@ -17,4 +17,45 @@
         <button class="button "style="width:100%;padding-top:0px;padding-bottom:0px;line-height:auto;border-radius:30px;font-size:100%;margin:0 auto;height:45px;" onclick="passwordReminder()">送信</button>
         </div>
     </div>
+    <div class="alert-dialog-mask reminderMailMiss_dialog_mask"></div>
+    <div class="alert-dialog reminderMailMiss_dialog">
+        <div class="alert-dialog-container">
+            <div class="alert-dialog-title">メールアドレスが正しくありません</div>
+            <div class="alert-dialog-footer">
+                <button class="alert-dialog-button alert-dialog-button--primal" onclick="reminderMailMissClose();">OK</button>
+            </div>
+        </div>
+    </div>
+    <div class="alert-dialog-mask reminderMail_dialog_mask"></div>
+    <div class="alert-dialog reminderMail_dialog">
+            <div class="alert-dialog houkoku_miss_dialog">
+        <div class="alert-dialog-container">
+            <div class="alert-dialog-title">送信しました</div>
+            <div class="alert-dialog-content">
+                上記メールアドレスにメールを送信しました。ご確認ください。
+            </div>
+            <div class="alert-dialog-footer">
+                <button class="alert-dialog-button alert-dialog-button--primal" onclick="reminderMailClose();">OK</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        $('.reminderMailMiss_dialog_mask,.reminderMailMiss_dialog,.reminderMail_dialog_mask,.reminderMail_dialog').hide();
+        
+        function reminderMailMissOpen(){
+                $('.reminderMailMiss_dialog_mask,.reminderMailMiss_dialog').slideDown();
+        }
+        
+        function reminderMailMissClose(){
+                $('.reminderMailMiss_dialog_mask,.reminderMailMiss_dialog').slideUp();
+        }
+
+        function reminderMailOpen(){
+                $('.reminderMail_dialog_mask,.reminderMail_dialog').slideDown();
+        }
+        
+        function reminderMailClose(){
+                $('.reminderMail_dialog_mask,.reminderMail_dialog').slideUp();
+        }
+    </script>
 </ons-page>

@@ -177,4 +177,24 @@
             <button class="button "style="width:100%;padding-top:0px;padding-bottom:0px;line-height:auto;border-radius:30px;font-size:16px;line-height:35px;"onclick="searchGift('カテゴリ検索');">検索</button>
         </div>
     </div>
+    <div class="alert-dialog-mask categoryNo_dialog_mask"></div>
+    <div class="alert-dialog categoryNo_dialog">
+        <div class="alert-dialog-container">
+            <div class="alert-dialog-title">カテゴリを1つ以上選択してください。</div>
+            <div class="alert-dialog-footer">
+                <button class="alert-dialog-button alert-dialog-button--primal" onclick="categoryNoClose();">OK</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        $('.categoryNo_dialog_mask,.categoryNo_dialog').hide();
+        
+        function categoryNoOpen(){
+            $('.categoryNo_dialog_mask,.categoryNo_dialog').slideDown();
+        }
+        function categoryNoClose(){
+            $('.categoryNo_dialog_mask,.categoryNo_dialog').slideUp();
+        }
+        
+    </script>
 </ons-page>

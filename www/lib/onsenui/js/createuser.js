@@ -12,11 +12,11 @@ function insertUser() {
     var password = $("#form_password").val();      //パスワード
     //入力規則およびデータをフィールドにセットする
     if(username == ""){
-        alert("お名前が入力されていません");
+        userNameNoOpen();
     }else if(mailaddress == ""){
-        alert("メールアドレスが入力されていません");
+        mailaddressNoOpen();
     }else if(password == ""){
-        alert("パスワードが入力されていません");
+        passwordNoOpen();
     }else{
         var user = new ncmb.User();
         // ユーザー名・パスワードを設定
@@ -57,11 +57,11 @@ function insertInfluencer() {
     }).get();
     //入力規則およびデータをフィールドにセットする
     if(username == ""){
-        alert("お名前が入力されていません");
+        userNameNoOpen();
     }else if(mailaddress == ""){
-        alert("メールアドレスが入力されていません");
+        mailaddressNoOpen();
     }else if(password == ""){
-        alert("パスワードが入力されていません");
+        passwordNoOpen();
     }else{
         var user = new ncmb.User();
         // ユーザー名・パスワードを設定
@@ -139,7 +139,7 @@ function loginCheck(){
     })
     .catch(function(err){
         // エラー処理
-        alert("メールアドレスかパスワードが間違っています");
+        loginMissOpen();
     });
 }
 
@@ -154,7 +154,7 @@ function passwordReminder(){
         user.requestPasswordReset()
             .then(function(data){
                 // 送信後処理
-                alert("上記メールアドレスにメールを送信しました。ご確認ください。");
+                
                 window.location.href = 'index.html';
             })
             .catch(function(err){
@@ -162,6 +162,6 @@ function passwordReminder(){
                 alert("受付エラーです。お問い合わせください。");
             });
     }else{
-        alert("メールアドレスが正しくありません");
+        reminderMailMissOpen();
     }
 }
