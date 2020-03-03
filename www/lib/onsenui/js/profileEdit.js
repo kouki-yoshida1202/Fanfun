@@ -28,20 +28,25 @@ function profileEdit(){
                         .update()
                         .then(function(data) {
                         // 更新完了
-                                
-                                var currentUser = ncmb.User.getCurrentUser();
-                                var fileData = document.getElementById("file-data").files[0];
+                                var gift_image = $('#file-data').val().length;
+                                if(gift_image != ""){
+                                        var fileData = document.getElementById("file-data").files[0];
 
-                                ncmb.File
-                                .upload(objectId,fileData)
-                                .then(function(res){
+                                        ncmb.File
+                                        .upload(objectId,fileData)
+                                        .then(function(res){
+                                                // アップロード後処理
+                                                window.location.href = 'home.html';
+                                        })
+                                        .catch(function(err){
+                                                // エラー処理
+                                                profileImageEditMissOpen();
+                                        });
+                                        window.location.href = 'home.html';
+                                }else{
                                         // アップロード後処理
                                         window.location.href = 'home.html';
-                                })
-                                .catch(function(err){
-                                        // エラー処理
-                                        profileImageEditMissOpen();
-                                });
+                                }
                         })
                         .catch(function(err) {
                         // エラー

@@ -1,4 +1,62 @@
 <ons-page>
+    <style>
+        .cp_iptxt {
+                position: relative;
+        }
+        .cp_iptxt input {
+                font: 15px/24px sans-serif;
+                box-sizing: border-box;
+                width: 100%;
+                margin: 8px 0;
+                padding: 0.3em;
+                transition: 0.3s;
+                border: 1px solid #898989;
+                border-radius: 5px;
+                outline: none;
+        }
+        .cp_iptxt input:focus {
+                border-color: #FF6070;
+        }
+
+        #gift_price:focus{
+            background-image: linear-gradient(#FF6070,#FF6070),linear-gradient(to top,transparent 1px,#afafaf 1px);
+        }
+        .cp_iptxt input {
+                padding-left: 40px;
+        }
+        .cp_iptxt i {
+                position: absolute;
+                top: 11px;
+                left: 0;
+                padding: 9px 8px;
+                transition: 0.3s;
+                color: #aaaaaa;
+        }
+        .cp_iptxt input:focus + i {
+                color: #FF6070;
+        }
+        .cp_iptxt textarea[type=text] {
+                font: 15px/24px sans-serif;
+                box-sizing: border-box;
+                width: 100%;
+                margin: 8px 0;
+                padding: 0.3em;
+                transition: 0.3s;
+                border: 1px solid #898989;
+                border-radius: 4px;
+                outline: none;
+                resize: none;
+        }
+        .cp_iptxt textarea[type=text]:focus {
+                border-color: #FF6070;
+        }
+        .cp_iptxt textarea[type=text] {
+                padding-left: 40px;
+        }
+        .cp_iptxt textarea[type=text]:focus + i {
+                color: #FF6070;
+        }
+    </style>
     <ons-toolbar class="toolbar" style="background-color: white;position: fixed;">
         <div class="left" style="padding-left: 3%;">
             <ons-back-button></ons-back-button>
@@ -7,47 +65,54 @@
             プロフィール変更画面
         </div>
     </ons-toolbar>
-    <style>
-    input{
-        height:40px !important;
-    }
-    </style>
     <div class="container contents" style="background-color:#efeff4;padding-bottom:100px;">
         <!-- カードリスト部分 -->
         <div class="" style="width:100%;height: auto; padding: 1px 0 0 0;display: inline-block;">
             <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:15px;">
                 <div>
                     <span>1.写真を変更する</span>
+                    <br>
+                    <span style="font-size:12px;color:#FF6070;">※正方形の写真をアップロードしてください</span>
                 </div>
                 <div class="" style="width: 60%; margin: 0 auto;margin-top:3px;background-color: white;border-radius: 20px;border:1px solid #898989;">
                     <img id="image_edit" src="img/human.png" alt="" style="width:100%;height:auto;border-radius:20px;">
                     <input type="file" id="file-data" hidden>
-                    <hr>
-                    <p style="font-size: 80%;padding-right:10px;padding-left:10px;">※正方形の写真をアップロードしてください</p>
                 </div>
             </div>
             <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:20px;">
                 <div>
-                    <span>2.IDと表示名</span>
+                    <span>2.表示名</span>
                 </div>
-                <div class="" style="width: 100%; margin: 0 auto;margin-top:3px;">
+                <div class="cp_iptxt">
+                    <input type="text" placeholder="表示名(必須/20文字以内)" id="current_user_name_profile" maxlength="20"required>
+                    <i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
+                </div>
+                <!-- <div class="" style="width: 100%; margin: 0 auto;margin-top:3px;">
                     <input type="text" id="current_user_name_profile" class="text-input" placeholder="表示名(必須/20文字以内)" style="background-color: white;border-radius:20px;width:100%;font-size:14px;border:1px solid #898989;height:30px;padding-left:3%;margin-bottom:7px;"maxlength="20" required>
-                </div>
+                </div> -->
             </div>
             <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:20px;">
                 <div>
                     <span>3.プロフィール文章</span>
                 </div>
-                <div class="" style="width: 100%; margin: 0 auto;margin-top:3px;">
+                <!-- <div class="" style="width: 100%; margin: 0 auto;margin-top:3px;">
                     <textarea id="current_text_profile"class="textarea" rows="7" placeholder="プロフィール(必須/160文字以内)" style="background-color: white;border-radius:20px;width:100%;border:1px solid #898989;padding:10px;font-size:14px;" required maxlength="160"></textarea>
+                </div> -->
+                <div class="cp_iptxt">
+                        <textarea type="text" rows="7"placeholder="プロフィール(必須/160文字以内)" id="current_text_profile" required maxlength="160"></textarea>
+                        <i class="fas fa-comment-alt fa-lg fa-fw" aria-hidden="true"></i>
                 </div>
             </div>
             <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:20px;">
                 <div>
                     <span>4.メールアドレス</span>
                 </div>
-                <div class="" style="width: 100%; margin: 0 auto;margin-top:3px;">
+                <!-- <div class="" style="width: 100%; margin: 0 auto;margin-top:3px;">
                     <input type="email" id="current_mailaddress_profile" class="text-input" placeholder="メールアドレス" style="background-color: white;border-radius:20px;width:100%;font-size:14px;border:1px solid #898989;height:30px;padding-left:3%;margin-bottom:7px;">
+                </div> -->
+                <div class="cp_iptxt">
+                    <input type="email" placeholder="メールアドレス" id="current_mailaddress_profile"required>
+                    <i class="fa fa-envelope fa-lg fa-fw" aria-hidden="true"></i>
                 </div>
             </div>
             <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:20px;">
