@@ -142,17 +142,9 @@
           
           $('.sp-slide').click(function(){
             var index = $('.sp-slide').index(this);
-            swiperNavigation.slideTo(index, 500, false);
-            swiperContents.slideTo(index, 500, false);
-            setTimeout(function(){
-              if(index == 0){
-                //新着にメニューがうつると、新着ギフトをロード
-                shintyaku();
-              }else{
-                followUserGift();
-              }
-            }, 700);
+            swiperContents.slideTo(index, 100, false);
           });
+          
           var header_icon = $('.toolbar').height();
           header_icon = header_icon -5;
           $('.header_icon').width(header_icon);
