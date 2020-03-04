@@ -76,8 +76,11 @@
                 </div>
                 <div class="" style="width: 60%; margin: 0 auto;margin-top:3px;background-color: white;border-radius: 5px;border:1px solid #898989;">
                     <img id="gift_image_insert" class="buypage_img"src="img/imagePlus.png" alt="" style="width:100%;height:auto;object-fit:cover;border-radius: 20px;">
-                    <input type="file" id="file-data-gift" hidden>
                 </div>
+                <div style="width:60%;margin:0 auto;margin-top:5px;">
+                    <button id="giftPhotoInputButton"class="button "style="width:100%;padding-top:0px;padding-bottom:0px;line-height:30px;border-radius:30px;font-size:16px;margin:0 auto;background:gray;color:white;">写真を登録</button>
+                </div>
+                <input type="file" id="file-data-gift" hidden>
             </div>
             <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:20px;">
                 <div>
@@ -211,7 +214,7 @@
         reader.readAsDataURL(e.target.files[0]);
     });
 
-    $('#gift_image_insert').click(function(){
+    $('#giftPhotoInputButton').click(function(){
         $('#file-data-gift').click();
     });
     </script>

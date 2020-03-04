@@ -77,8 +77,11 @@
                 </div>
                 <div class="" style="width: 60%; margin: 0 auto;margin-top:3px;background-color: white;border-radius: 20px;border:1px solid #898989;">
                     <img id="gift_image_edit" class="buypage_img"src="img/imagePlus.png" alt="" style="width:100%;height:auto;border-radius: 20px;">
-                    <input type="file" id="file-data-gift-edit" hidden>
                 </div>
+                <div style="width:60%;margin:0 auto;margin-top:5px;">
+                    <button id="giftPhotoEditButton"class="button "style="width:100%;padding-top:0px;padding-bottom:0px;line-height:30px;border-radius:30px;font-size:16px;margin:0 auto;background:gray;color:white;">写真を変更</button>
+                </div>
+                <input type="file" id="file-data-gift-edit" hidden>
             </div>
             <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:20px;">
                 <div>
@@ -209,7 +212,7 @@
             $('#gift_image_edit').height($('#gift_image_edit').width());
         });
 
-        $('#gift_image_edit').click(function(){
+        $('#giftPhotoEditButton').click(function(){
             $('#file-data-gift-edit').click();
         });
     </script>

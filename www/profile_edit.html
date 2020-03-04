@@ -77,7 +77,10 @@
                 <div id="profile_image_area"class="" style="width: 60%; margin: 0 auto;margin-top:3px;background-color: white;border-radius: 20px;border:1px solid #898989;">
                     <img id="image_edit" src="img/human.png" alt="" style="width:100%;height:auto;border-radius:20px;">
                 </div>
-                <input type="file" id="file-data">
+                <div style="width:60%;margin:0 auto;margin-top:5px;">
+                    <button id="profilePhotoEditButton"class="button "style="width:100%;padding-top:0px;padding-bottom:0px;line-height:30px;border-radius:30px;font-size:16px;margin:0 auto;background:gray;color:white;">写真を変更</button>
+                </div>
+                <input type="file" id="file-data" hidden>
             </div>
             <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:20px;">
                 <div>
@@ -200,7 +203,7 @@
             $('#image_edit').height($('#image_edit').width());
         });
 
-        $('#profile_image_area').click(function(){
+        $('#profilePhotoEditButton').click(function(){
             $('#file-data').click();
         });
     </script>
