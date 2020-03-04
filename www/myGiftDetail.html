@@ -28,7 +28,7 @@
                     <ul class="list" style="background-image:none;">
                     <li class="list-item" style="padding:0px;">
                         <div class="list-item__left" style="padding:0px;">
-                            <img id="gift_detail_user_image"class="list-item__thumbnail" src="" alt="" style="border-radius: 50%;width:60px;height:60px;">
+                            <img id="gift_detail_user_image"class="list-item__thumbnail" src="img/human.png" alt="" style="border-radius: 50%;width:60px;height:60px;">
                         </div>
                     
                         <div class="list-item__center" style="padding:0px; padding-left:10px;">
@@ -75,23 +75,6 @@
         <button class="action-sheet-button" onclick="aiueo('http://twitter.com/share?text='+encodeURIComponent(document.title)+'&url='+encodeURIComponent(location.href));">Tweet</button>
         <button class="action-sheet-button" onclick="mygiftShareClose();">Cancel</button>
     </div>
-    <div class="action-sheet-mask mygift_houkoku_mask"></div>
-    <div id="houkoku_modal" class="action-sheet mygift_houkoku_modal">
-        <div class="card">
-            <div class="card__content">
-                <p>報告内容 <span style="text-align: right;float:right;font-size:130%;" onclick="mygiftHoukokuClose();">×</span> </p>
-                
-                <div style="width:80%;margin:0 auto;">
-                    <textarea id="houkoku_text"class="textarea" rows="10" placeholder="メッセージ本文" style="background-color: white;border-radius:20px;width:100%;border:1px solid #898989;padding:10px;font-size:14px;"></textarea>
-                </div>
-                <br>
-                <div style="width:80%;margin:0 auto;">
-                    <button class="button "style="width:100%;padding-top:0px;padding-bottom:0px;line-height:auto;border-radius:30px;font-size:100%;margin:0 auto;height:45px;"onclick="myHoukokuSend()">送信</button>
-                </div>
-                <br>
-            </div>
-        </div>
-    </div>
     <div class="action-sheet-mask mygift_delete_mask"></div>
     <div id="delete_modal" class="action-sheet mygift_delete_modal">
         <button class="action-sheet-button" onclick="deleteCheck();">ギフト削除</button>
@@ -103,41 +86,9 @@
             <div class="alert-dialog-content">
                 本当に削除しますか？
             </div>
-
             <div class="alert-dialog-footer">
             <button class="alert-dialog-button" onclick="mygiftDelete();">Yes</button>
             <button class="alert-dialog-button alert-dialog-button--primal" onclick="deleteCheckClose();">No</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="alert-dialog-mask houkoku_dialog_mask"></div>
-    <div class="alert-dialog houkoku_dialog">
-        <div class="alert-dialog-container">
-            <div class="alert-dialog-title">送信完了</div>
-            <div class="alert-dialog-footer">
-                <button class="alert-dialog-button alert-dialog-button--primal" onclick="houkokuCheckClose();">OK</button>
-            </div>
-        </div>
-    </div>
-    <div class="alert-dialog-mask houkokuNo_dialog_mask" style="z-index: 1000;"></div>
-    <div class="alert-dialog houkokuNo_dialog" style="z-index: 1001;">
-        <div class="alert-dialog-container">
-            <div class="alert-dialog-title">入力されていません</div>
-            <div class="alert-dialog-footer">
-                <button class="alert-dialog-button alert-dialog-button--primal" onclick="houkokuNoClose();">OK</button>
-            </div>
-        </div>
-    </div>
-    <div class="alert-dialog-mask houkoku_dialog_miss_mask"></div>
-    <div class="alert-dialog houkoku_miss_dialog">
-        <div class="alert-dialog-container">
-            <div class="alert-dialog-title">送信失敗</div>
-            <div class="alert-dialog-content">
-                再度送信頂くか、お問い合わせください。
-            </div>
-            <div class="alert-dialog-footer">
-                <button class="alert-dialog-button alert-dialog-button--primal" onclick="houkokuMissClose();">OK</button>
             </div>
         </div>
     </div>
@@ -163,21 +114,15 @@
         </div>
     </div>
     <script>
-        $('.mygift_mask,.mygift_modal,.mygift_houkoku_mask,.mygift_houkoku_modal,.houkokuNo_dialog_mask,.houkokuNo_dialog,.mygift_delete_mask,.mygift_delete_modal,.gift_delete_dialog_mask,.gift_delete_dialog,.houkoku_dialog_mask,.houkoku_dialog,.houkoku_dialog_miss_mask,.houkoku_miss_dialog,.deleteEnd_dialog_mask,.deleteEnd_dialog,.deleteEndMiss_dialog_mask,.deleteEndMiss_dialog').hide();
+        $('.mygift_mask,.mygift_modal,.mygift_delete_mask,.mygift_delete_modal,.gift_delete_dialog_mask,.gift_delete_dialog,.deleteEnd_dialog_mask,.deleteEnd_dialog,.deleteEndMiss_dialog_mask,.deleteEndMiss_dialog').hide();
         
         function mygiftHoukoku(){
-            $('.mygift_houkoku_mask,.mygift_houkoku_modal').slideDown();
+            document.getElementById('navi').pushPage('houkokuForm.html');
+            setTimeout(function(){
+                $('#houkokuform_gift_id').val($('#my_gift_id').val());
+            }, 500);
         }
-        function mygiftHoukokuClose(){
-            $('.mygift_houkoku_mask,.mygift_houkoku_modal').slideUp();
-        }
-        function houkokuNoOpen(){
-            $('.houkokuNo_dialog_mask,.houkokuNo_dialog').slideDown();
-        }
-
-        function houkokuNoClose(){
-            $('.houkokuNo_dialog_mask,.houkokuNo_dialog').slideUp();
-        }
+        
         function mygiftShare(){
             $('.mygift_mask,.mygift_modal').slideDown();
         }
@@ -200,22 +145,6 @@
 
         function deleteCheckClose(){
             $('.gift_delete_dialog_mask,.gift_delete_dialog').slideUp();
-        }
-
-        function houkokuCheckOpen(){
-            $('.houkoku_dialog_mask,.houkoku_dialog').slideDown();
-        }
-
-        function houkokuCheckClose(){
-            $('.houkoku_dialog_mask,.houkoku_dialog').slideUp();
-        }
-
-        function houkokuMissOpen(){
-            $('.houkoku_dialog_miss_mask,.houkoku_miss_dialog').slideDown();
-        }
-        
-        function houkokuMissClose(){
-            $('.houkoku_dialog_miss_mask,.houkoku_miss_dialog').slideUp();
         }
 
         function deleteEndOpen(){

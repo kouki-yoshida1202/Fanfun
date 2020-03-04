@@ -186,7 +186,7 @@
         // ギフト出品時の価格設定時に価格に応じて、手数料と利益が表示されるようにしている
         $('.kakaku').change(function(){
           var kakaku = $('.kakaku').val();
-          if(kakaku%100==0 && kakaku!=0){
+          if(kakaku%100==0 && kakaku!=0 && kakaku<9999999 && kakaku > 0){
             var tesuryou = Math.floor(kakaku*0.2);
             var rieki = kakaku - tesuryou;
             $('.tesuryou').text(tesuryou);

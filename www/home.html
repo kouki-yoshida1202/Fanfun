@@ -140,6 +140,19 @@
             },250);
           });
           
+          $('.sp-slide').click(function(){
+            var index = $('.sp-slide').index(this);
+            swiperNavigation.slideTo(index, 500, false);
+            swiperContents.slideTo(index, 500, false);
+            setTimeout(function(){
+              if(index == 0){
+                //新着にメニューがうつると、新着ギフトをロード
+                shintyaku();
+              }else{
+                followUserGift();
+              }
+            }, 700);
+          });
           var header_icon = $('.toolbar').height();
           header_icon = header_icon -5;
           $('.header_icon').width(header_icon);
@@ -190,7 +203,8 @@
     }
     .segment__button{
       margin:0 auto;
-      width:80%;
+      width:100%;
+      font: 15px/24px sans-serif;
       border-radius: 20px !important;
       border:none;
       color:#898989;
@@ -265,7 +279,7 @@
   </style>
 </head>
 <body>
-  <ons-navigator  id = "navi">
+  <ons-navigator id="navi" swipeable="force">
     <ons-page>
       <ons-tabbar position="bottom">
           <ons-tab id="topPageTab"page="top.html" label="ホーム"icon="home" onclick="shintyaku();" active></ons-tab>

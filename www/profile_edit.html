@@ -74,17 +74,17 @@
                     <br>
                     <span style="font-size:12px;color:#FF6070;">※正方形の写真をアップロードしてください</span>
                 </div>
-                <div class="" style="width: 60%; margin: 0 auto;margin-top:3px;background-color: white;border-radius: 20px;border:1px solid #898989;">
+                <div id="profile_image_area"class="" style="width: 60%; margin: 0 auto;margin-top:3px;background-color: white;border-radius: 20px;border:1px solid #898989;">
                     <img id="image_edit" src="img/human.png" alt="" style="width:100%;height:auto;border-radius:20px;">
-                    <input type="file" id="file-data" hidden>
                 </div>
+                <input type="file" id="file-data">
             </div>
             <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:20px;">
                 <div>
                     <span>2.表示名</span>
                 </div>
                 <div class="cp_iptxt">
-                    <input type="text" placeholder="表示名(必須/20文字以内)" id="current_user_name_profile" maxlength="20"required>
+                    <input type="text" placeholder="表示名(20文字以内)" id="current_user_name_profile" maxlength="20"required>
                     <i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
                 </div>
                 <!-- <div class="" style="width: 100%; margin: 0 auto;margin-top:3px;">
@@ -99,7 +99,7 @@
                     <textarea id="current_text_profile"class="textarea" rows="7" placeholder="プロフィール(必須/160文字以内)" style="background-color: white;border-radius:20px;width:100%;border:1px solid #898989;padding:10px;font-size:14px;" required maxlength="160"></textarea>
                 </div> -->
                 <div class="cp_iptxt">
-                        <textarea type="text" rows="7"placeholder="プロフィール(必須/160文字以内)" id="current_text_profile" required maxlength="160"></textarea>
+                        <textarea type="text" rows="7"placeholder="プロフィール(160文字以内)" id="current_text_profile" required maxlength="160"></textarea>
                         <i class="fas fa-comment-alt fa-lg fa-fw" aria-hidden="true"></i>
                 </div>
             </div>
@@ -200,7 +200,7 @@
             $('#image_edit').height($('#image_edit').width());
         });
 
-        $('#image_edit').click(function(){
+        $('#profile_image_area').click(function(){
             $('#file-data').click();
         });
     </script>

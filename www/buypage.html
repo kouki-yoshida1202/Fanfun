@@ -1,4 +1,62 @@
 <ons-page>
+    <style>
+        .cp_iptxt {
+                position: relative;
+        }
+        .cp_iptxt input {
+                font: 15px/24px sans-serif;
+                box-sizing: border-box;
+                width: 100%;
+                margin: 8px 0;
+                padding: 0.3em;
+                transition: 0.3s;
+                border: 1px solid #898989;
+                border-radius: 5px;
+                outline: none;
+        }
+        .cp_iptxt input:focus {
+                border-color: #FF6070;
+        }
+
+        #gift_price:focus{
+            background-image: linear-gradient(#FF6070,#FF6070),linear-gradient(to top,transparent 1px,#afafaf 1px);
+        }
+        .cp_iptxt input {
+                padding-left: 40px;
+        }
+        .cp_iptxt i {
+                position: absolute;
+                top: 11px;
+                left: 0;
+                padding: 9px 8px;
+                transition: 0.3s;
+                color: #aaaaaa;
+        }
+        .cp_iptxt input:focus + i {
+                color: #FF6070;
+        }
+        .cp_iptxt textarea[type=text] {
+                font: 15px/24px sans-serif;
+                box-sizing: border-box;
+                width: 100%;
+                margin: 8px 0;
+                padding: 0.3em;
+                transition: 0.3s;
+                border: 1px solid #898989;
+                border-radius: 4px;
+                outline: none;
+                resize: none;
+        }
+        .cp_iptxt textarea[type=text]:focus {
+                border-color: #FF6070;
+        }
+        .cp_iptxt textarea[type=text] {
+                padding-left: 40px;
+        }
+        .cp_iptxt textarea[type=text]:focus + i {
+                color: #FF6070;
+        }
+    </style>
     <ons-toolbar class="toolbar" style="background-color: white;position: fixed;">
         <div class="left" style="padding-left: 3%;">
             <ons-back-button></ons-back-button>
@@ -9,7 +67,7 @@
     </ons-toolbar>
     <input type="hidden" id="buypage_gift_uid">
     <input type="hidden" id="buypage_price_number">
-    <div class="container contents" style="padding-bottom:50px;">
+    <div class="container contents" style="padding-bottom:20px;">
         <!-- カードリスト部分 -->
         <div class="" style="width:100%;height: auto; padding: 1px 0 0 0;display: inline-block;">
             <div class="card" style="height:100px;margin:0 auto;border-radius:20px;padding:0px;width:90%;margin-top:10px;">
@@ -51,17 +109,25 @@
             <div>
                 <span>送り先のニックネームは？</span>
             </div>
-            <div class="" style="width: 100%; margin: 0 auto;margin-top:3px;">
-                <input id="nickname_input"type="text" class="text-input" placeholder="ギフト内で使用する呼び名になります。" style="background-color: white;border-radius:20px;width:100%;font-size:14px;border:1px solid #898989;height:30px;padding-left:3%;" required>
+            <div class="cp_iptxt">
+                <input type="text" placeholder="ギフト内で使用する呼び名になります。" id="nickname_input" required>
+                <i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
             </div>
+            <!-- <div class="" style="width: 100%; margin: 0 auto;margin-top:3px;">
+                <input id="nickname_input"type="text" class="text-input" placeholder="ギフト内で使用する呼び名になります。" style="background-color: white;border-radius:20px;width:100%;font-size:14px;border:1px solid #898989;height:30px;padding-left:3%;" required>
+            </div> -->
         </div>
         <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:20px;">
             <div>
                 <span>リクエスト内容</span>
             </div>
-            <div class="" style="width: 100%; margin: 0 auto;margin-top:3px;">
-                <textarea id="request_message_input"class="textarea" rows="7" placeholder="知人との関係性、話してほしいセリフ、お渡しするシチュエーションなど、できるだけ具体的にご記入ください。" style="background-color: white;border-radius:20px;width:100%;border:1px solid #898989;padding:10px;font-size:14px;" required></textarea>
+            <div class="cp_iptxt">
+                <textarea type="text" rows="7"placeholder="知人との関係性、話してほしいセリフ、お渡しするシチュエーションなど、できるだけ具体的にご記入ください。" id="request_message_input" required></textarea>
+                <i class="fas fa-comment-alt fa-lg fa-fw" aria-hidden="true"></i>
             </div>
+            <!-- <div class="" style="width: 100%; margin: 0 auto;margin-top:3px;">
+                <textarea id="request_message_input"class="textarea" rows="7" placeholder="" style="background-color: white;border-radius:20px;width:100%;border:1px solid #898989;padding:10px;font-size:14px;" required></textarea>
+            </div> -->
         </div>
     </div>
     <div style="height:200px;margin:0 auto;padding:0px;width:90%;">

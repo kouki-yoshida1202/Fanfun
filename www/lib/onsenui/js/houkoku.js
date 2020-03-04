@@ -3,7 +3,7 @@ function myHoukokuSend() {
         var houkoku_text = $("#houkoku_text").val();
         var currentUser = ncmb.User.getCurrentUser();
         var sendUserId = currentUser.get("objectId");
-        var houkoku_gift_id = $("#my_gift_id").val();
+        var houkoku_gift_id = $("#houkokuform_gift_id").val();
         //入力規則およびデータをフィールドにセットする
         if(houkoku_text == ""){
                 houkokuNoOpen();
@@ -21,7 +21,6 @@ function myHoukokuSend() {
                 .then(function(){
                         // 保存後の処理
                         houkokuCheckOpen();
-                        mygiftHoukokuClose();
                         houkokuMailSend(houkoku_gift_id,houkoku_text);
                 })
                 .catch(function(err){
@@ -36,7 +35,7 @@ function houkokuSend() {
         var houkoku_text = $("#houkoku_text").val();
         var currentUser = ncmb.User.getCurrentUser();
         var sendUserId = currentUser.get("objectId");
-        var houkoku_gift_id = $("#gift_id").val();
+        var houkoku_gift_id = $("#houkokuform_gift_id").val();
         //入力規則およびデータをフィールドにセットする
         if(houkoku_text == ""){
                 houkokuNoOpen();
@@ -54,7 +53,6 @@ function houkokuSend() {
                 .then(function(){
                         // 保存後の処理
                         houkokuCheckOpen();
-                        detailHoukokuClose();
                         houkokuMailSend(houkoku_gift_id,houkoku_text);
                 })
                 .catch(function(err){
