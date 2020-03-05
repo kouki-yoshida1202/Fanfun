@@ -241,6 +241,7 @@
             var reader = new FileReader();
             reader.onload = function (e) {
                 $("#image_edit").attr('src', e.target.result);
+                $('#image_edit').height($('#image_edit').width());
             }
             reader.readAsDataURL(e.target.files[0]);
             $('#image_edit').height($('#image_edit').width());

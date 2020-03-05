@@ -281,9 +281,9 @@
             var reader = new FileReader();
             reader.onload = function (e) {
                 $("#gift_image_edit").attr('src', e.target.result);
+                $("#gift_image_edit").height($("#gift_image_edit").width());
             }
             reader.readAsDataURL(e.target.files[0]);
-            $('#gift_image_edit').height($('#gift_image_edit').width());
         });
     </script>
 </ons-page>

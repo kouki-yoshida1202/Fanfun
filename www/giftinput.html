@@ -284,6 +284,7 @@
         var reader = new FileReader();
         reader.onload = function (e) {
             $("#gift_image_insert").attr('src', e.target.result);
+            $("#gift_image_insert").height($("#gift_image_insert").width());
         }
         reader.readAsDataURL(e.target.files[0]);
     });
