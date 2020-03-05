@@ -22,6 +22,8 @@ function giftInsert() {
                 alert("ギフト価格が未入力です");
         }else if(gift_stock == ""){
                 alert("ギフト在庫数が未入力です");
+        }else if(gift_stock > 999){
+                alert("ギフト在庫数は0~999です");
         }else if(!Number.isInteger(Number(gift_stock)) || !Number.isInteger(Number(gift_price)) || gift_price < 1 || gift_stock < 0){
                 alert("数値を1以上の整数で入力してください");
         }else{
@@ -48,17 +50,16 @@ function giftInsert() {
                                 .upload(uid,fileData)
                                 .then(function(res){
                                         // アップロード後処理
-                                        alert("ギフト出品成功");
-                                        window.location.href = 'home.html';
+                                        giftInputOpen();
                                 })
                                 .catch(function(err){
                                         // エラー処理
-                                        alert("ギフト画像の登録が失敗しました。もう一度やり直すか、お手数ですがお問い合わせください。");
+                                        giftInputImageMissOpen();
                                 });
                         })
                         .catch(function(err){
                         // エラー処理
-                                alert("ギフト出品が失敗しました。もう一度やり直すか、お手数ですがお問い合わせください。");
+                                giftInputMissOpen();
                         });
         }
 }
@@ -81,6 +82,8 @@ function giftEdit() {
                 alert("価格を100円単位で設定してください")
         }else if(gift_stock == ""){
                 alert("ギフト在庫数が未入力です");
+        }else if(gift_stock > 999){
+                alert("ギフト在庫数は0~999です");
         }else if(!Number.isInteger(Number(gift_stock)) || !Number.isInteger(Number(gift_price)) || gift_price < 1 || gift_stock < 0){
                 alert("数値を1以上の整数で入力してください");
         }else{
@@ -110,20 +113,18 @@ function giftEdit() {
                                         .upload(uid,fileData)
                                         .then(function(res){
                                                 // アップロード後処理
-                                                alert("更新しました");
-                                                window.location.href = 'home.html';
+                                                giftEditOpen();
                                         })
                                         .catch(function(err){
                                                 // エラー処理
-                                                alert("ギフト画像の変更が失敗しました。もう一度やり直すか、お手数ですがお問い合わせください。");
+                                                giftEditImageMissOpen();
                                         });
                                 }else{
-                                        alert("更新しました");
-                                        window.location.href = 'home.html';
+                                        giftEditOpen();
                                 }
                         })
                         .catch(function(err){
-                                alert("ギフト出品が失敗しました。もう一度やり直すか、お手数ですがお問い合わせください。");
+                                giftEditMissOpen();
                         });
         }
 }

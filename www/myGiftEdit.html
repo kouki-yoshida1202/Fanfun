@@ -157,7 +157,7 @@
                     <input id="gift_stock_edit"type="tel" class="text-input" placeholder="1以上の整数で入力してください" style="background-color: white;border-radius:20px;width:100%;font-size:14px;border:1px solid #898989;height:30px;padding-left:3%;margin-bottom:7px;">
                 </div> -->
                 <div class="cp_iptxt">
-                    <input type="tel" placeholder="0以上の整数で入力してください" id="gift_stock_edit"required>
+                    <input type="tel" placeholder="0~999の整数で入力してください" id="gift_stock_edit"required>
                     <i class="fas fa-box fa-lg fa-fw" aria-hidden="true"></i>
                 </div>
             </div>
@@ -173,6 +173,45 @@
     <!-- <div id="giftEditButton" class="tabbar" style="background-color: #FF6070;position: fixed;bottom:0;left:0;text-align: center;color:white;">
         <span id="giftEditButton2"style="text-align: center;width:100%;padding-top:10px;font-size:20px;" onclick="giftEdit();">変更する</span>
     </div> -->
+    <div class="alert-dialog-mask giftEdit_dialog_mask"></div>
+    <div class="alert-dialog giftEdit_dialog">
+        <div class="alert-dialog-container">
+            <div class="alert-dialog-title">
+                出品しました。
+            </div>
+            <div class="alert-dialog-footer">
+                <button class="alert-dialog-button alert-dialog-button--primal" onclick="giftEditClose();">OK</button>
+            </div>
+        </div>
+    </div>
+    <div class="alert-dialog-mask giftEditMiss_dialog_mask"></div>
+    <div class="alert-dialog giftEditMiss_dialog">
+        <div class="alert-dialog-container">
+            <div class="alert-dialog-title">
+                出品が失敗しました。
+            </div>
+            <div class="alert-dialog-content">
+                再度送信頂くか、お問い合わせください。
+            </div>
+            <div class="alert-dialog-footer">
+                <button class="alert-dialog-button alert-dialog-button--primal" onclick="giftEditMissClose();">OK</button>
+            </div>
+        </div>
+    </div>
+    <div class="alert-dialog-mask giftEditImageMiss_dialog_mask"></div>
+    <div class="alert-dialog giftEditImageMiss_dialog">
+        <div class="alert-dialog-container">
+            <div class="alert-dialog-title">
+                画像の保存が失敗しました。
+            </div>
+            <div class="alert-dialog-content">
+                再度送信頂くか、お問い合わせください。
+            </div>
+            <div class="alert-dialog-footer">
+                <button class="alert-dialog-button alert-dialog-button--primal" onclick="giftEditImageMissClose();">OK</button>
+            </div>
+        </div>
+    </div>
     <div class="alert-dialog-mask kakaku_edit_dialog_mask"></div>
     <div class="alert-dialog kakaku_edit_dialog">
         <div class="alert-dialog-container">
@@ -183,8 +222,37 @@
         </div>
     </div>
     <script>
-        $('.kakaku_edit_dialog_mask,.kakaku_edit_dialog').hide();
-        
+        $('.giftEdit_dialog_mask,.giftEdit_dialog,.giftEditMiss_dialog_mask,.giftEditImageMiss_dialog_mask,.giftEditImageMiss_dialog,.giftEditMiss_dialog,.kakaku_edit_dialog_mask,.kakaku_edit_dialog').hide();
+        function giftEditOpen(){
+            $('.giftEdit_dialog_mask,.giftEdit_dialog').slideDown();
+        }
+
+        function giftEditClose(){
+            $('.giftEdit_dialog_mask,.giftEdit_dialog').slideUp();
+            setTimeout(function(){
+                window.location.href = 'home.html';
+            }, 500);
+        }
+
+        function giftEditMissOpen(){
+            $('.giftEditMiss_dialog_mask,.giftEditMiss_dialog').slideDown();
+        }
+
+        function giftEditMissClose(){
+            $('.giftEditMiss_dialog_mask,.giftEditMiss_dialog').slideUp();
+        }
+
+        function giftEditImageMissOpen(){
+            $('.giftEditImageMiss_dialog_mask,.giftEditImageMiss_dialog').slideDown();
+        }
+
+        function giftEditImageMissClose(){
+            $('.giftEditImageMiss_dialog_mask,.giftEditImageMiss_dialog').slideUp();
+            setTimeout(function(){
+                window.location.href = 'home.html';
+            }, 500);
+        }
+
         function kakakuEditCheckOpen(){
             $('.kakaku_edit_dialog_mask,.kakaku_edit_dialog').slideDown();
             $('.kakaku_edit_dialog').css('top',"80%");
