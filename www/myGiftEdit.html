@@ -79,8 +79,8 @@
                     <br>
                     <span style="font-size:12px;color:#FF6070;">※正方形の写真をアップロードしてください</span>
                 </div>
-                <div class="" style="width: 60%; margin: 0 auto;margin-top:3px;background-color: white;border-radius: 20px;border:1px solid #898989;">
-                    <img id="gift_image_edit" class="buypage_img"src="img/imagePlus.png" alt="" style="width:100%;height:auto;border-radius: 20px;">
+                <div id="image_edit_div"class="" style="width: 60%; margin: 0 auto;margin-top:3px;background-color: white;border-radius: 20px;border:1px solid #898989;">
+                    <img id="gift_image_edit" class="buypage_img"src="img/imagePlus.png" alt="" style="width:100%;height:auto;object-fit:cover;border-radius: 20px;">
                 </div>
                 <div style="width:60%;margin:0 auto;margin-top:5px;">
                     <label for="file-data-gift-edit" class="button" style="border-radius:20px;background:gray;color:white;width:100%;line-height:30px;text-align: center;">
@@ -215,7 +215,10 @@
     <div class="alert-dialog-mask kakaku_edit_dialog_mask"></div>
     <div class="alert-dialog kakaku_edit_dialog">
         <div class="alert-dialog-container">
-            <div class="alert-dialog-title">100円単位で設定してください</div>
+            <div class="alert-dialog-title">価格が正しくありません。</div>
+            <div class="alert-dialog-content">
+                100~9999999円の範囲で、100円単位(下2桁が00)になるよう設定してください。
+            </div>
             <div class="alert-dialog-footer">
                 <button class="alert-dialog-button alert-dialog-button--primal" onclick="kakakuEditCheckClose();">OK</button>
             </div>
@@ -282,8 +285,13 @@
             reader.onload = function (e) {
                 $("#gift_image_edit").attr('src', e.target.result);
                 $("#gift_image_edit").height($("#gift_image_edit").width());
+                $("#image_edit_div").height($("#image_edit_div").width());
             }
             reader.readAsDataURL(e.target.files[0]);
+            $("#gift_image_edit").height($("#gift_image_edit").width());
+            $("#image_edit_div").height($("#image_edit_div").width());
         });
+        $("#image_edit_div").height($("#image_edit_div").width());
+        $("#gift_image_edit").height($("#gift_image_edit").width());
     </script>
 </ons-page>
