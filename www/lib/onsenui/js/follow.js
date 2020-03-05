@@ -97,6 +97,7 @@ function followList(){
         var FollowData = ncmb.DataStore("follow");
         FollowData
         .equalTo("followId", userId)
+        .order('createDate', true)
         .fetchAll()               
         .then(function(results){
                 var object = results;
@@ -125,7 +126,7 @@ function followList(){
                                                 <img id="follow_user_image_`;
                                                 follow_list += j+`"`;
                                                 follow_list +=`
-                                                class="list-item__thumbnail list-item--material__thumbnail follow_thumbnanil" src="">
+                                                class="list-item__thumbnail list-item--material__thumbnail follow_thumbnanil" src="img/human.png">
                                         </div>
                                         <div class="list-item__center list-item--material__center">
                                                 <p>`;
@@ -163,6 +164,7 @@ function followerList(){
         var FollowData = ncmb.DataStore("follow");
         FollowData
         .equalTo("followerId", userId)
+        .order('createDate', true)
         .fetchAll()               
         .then(function(results){
                 var object = results;
@@ -180,7 +182,7 @@ function followerList(){
                                         <img id="follower_user_image_`;
                                         follower_list += object_id+`"`;
                                         follower_list +=`
-                                        class="list-item__thumbnail list-item--material__thumbnail follow_thumbnanil" src="">
+                                        class="list-item__thumbnail list-item--material__thumbnail follow_thumbnanil" src="img/human.png">
                                 </div>
                                 <div class="list-item__center list-item--material__center">
                                         <p id="follower_user_name_`;

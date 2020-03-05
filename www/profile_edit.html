@@ -56,6 +56,10 @@
         .cp_iptxt textarea[type=text]:focus + i {
                 color: #FF6070;
         }
+
+        .alert-dialog{
+            top:100%;
+        }
     </style>
     <ons-toolbar class="toolbar" style="background-color: white;position: fixed;">
         <div class="left" style="padding-left: 3%;">
@@ -131,6 +135,21 @@
             </div>
             <div style="width:90%;text-align:center;margin:0 auto;margin-top:20px;margin-bottom:10px;">
                 <button class="button "style="width:100%;padding-top:0px;padding-bottom:0px;line-height:40px;border-radius:30px;font-size:16px;margin:0 auto;" onclick="profileEdit();">変更する</button>
+                <p style="color:#FF6070;">※変更後、ログアウトします。</p>
+            </div>
+        </div>
+    </div>
+    <div class="alert-dialog-mask profileEdit_dialog_mask"></div>
+    <div class="alert-dialog profileEdit_dialog">
+        <div class="alert-dialog-container">
+            <div class="alert-dialog-title">
+                更新しました。
+            </div>
+            <div class="alert-dialog-content">
+                登録したメールアドレスに確認メールをお送りしました。記載URLから認証後、ログインが可能になります。
+            </div>
+            <div class="alert-dialog-footer">
+                <button class="alert-dialog-button alert-dialog-button--primal" onclick="profileEditClose();">OK</button>
             </div>
         </div>
     </div>
@@ -174,13 +193,34 @@
         </div>
     </div>
     <script>
-        $('.profileImageEditMiss_dialog_mask,.profileImageEditMiss_dialog,.profileEditMiss_dialog_mask,.profileEditMiss_dialog,.profileMailaddressEditMiss_dialog_mask,.profileMailaddressEditMiss_dialog').hide();
+        $('.profileEdit_dialog_mask,.profileEdit_dialog,.profileImageEditMiss_dialog_mask,.profileImageEditMiss_dialog,.profileEditMiss_dialog_mask,.profileEditMiss_dialog,.profileMailaddressEditMiss_dialog_mask,.profileMailaddressEditMiss_dialog').hide();
         
+        function profileEditOpen(){
+            $('.profileEdit_dialog_mask,.profileEdit_dialog').slideDown();
+        }
+
+        function profileEditClose(){
+            $('.profileEdit_dialog_mask,.profileEdit_dialog').slideUp();
+            window.location.href = 'index.html';
+        }
+
         function profileImageEditMissOpen(){
             $('.profileImageEditMiss_dialog_mask,.profileImageEditMiss_dialog').slideDown();
         }
         function profileImageEditMissClose(){
             $('.profileImageEditMiss_dialog_mask,.profileImageEditMiss_dialog').slideUp();
+            var mailaddress = $('#current_mailaddress_profile').val();
+            var currentUser = ncmb.User.getCurrentUser();
+            var password = currentUser.get("password");
+            ncmb.User.logout();
+            setTimeout(function(){
+                // メールアドレスとパスワードでログイン
+                ncmb.User.loginWithMailAddress(mailaddress,password)
+                .then(function(data){
+                    // ログイン後処理
+                    window.location.href = 'home.html';
+                });
+            }, 1000);
         }
         
         function profileEditMissOpen(){

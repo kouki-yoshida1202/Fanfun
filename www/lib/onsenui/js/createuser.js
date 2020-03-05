@@ -143,7 +143,6 @@ function loginCheck(){
     });
 }
 
-
 function passwordReminder(){
     var reminder_mail = $('#reminder_mail').val();
     var user = new ncmb.User();

@@ -31,21 +31,19 @@ function profileEdit(){
                                 var gift_image = $('#file-data').val().length;
                                 if(gift_image != ""){
                                         var fileData = document.getElementById("file-data").files[0];
-
                                         ncmb.File
                                         .upload(objectId,fileData)
                                         .then(function(res){
                                                 // アップロード後処理
-                                                window.location.href = 'home.html';
+                                                profileEditOpen();
                                         })
                                         .catch(function(err){
                                                 // エラー処理
                                                 profileImageEditMissOpen();
                                         });
-                                        window.location.href = 'home.html';
                                 }else{
                                         // アップロード後処理
-                                        window.location.href = 'home.html';
+                                        profileEditOpen();
                                 }
                         })
                         .catch(function(err) {
