@@ -21,8 +21,8 @@
                         残り：<span id="my_stock"></span>
                     </span>
                 </div>
-                <div class="card__content" style="height:auto;">
-                    <img id="gift_detail_image"class="gift_image_detail" src="" alt="" style="width:100%;height:auto;border-radius: 20px;">
+                <div id="gift_detail_image_zone" class="card__content" style="height:auto;">
+                    <img id="gift_detail_image"class="gift_image_detail" src="" alt="" style="width:100%;height:auto;object-fit:cover;border-radius: 20px;">
                 </div>
                 <div class="card__content" style="height:auto;z-index:100;margin-top:-20px;">
                     <ul class="list" style="background-image:none;">
@@ -54,7 +54,7 @@
                         <span style="font-size:14px;color:#898989;">報告</span>
                     </div>
                 </div>
-                <div id="gift_detail_title"class="gift_title" style="height:auto;font-size:14px;padding:10px 5px 10px 5px;"></div>
+                <div id="gift_detail_title"class="gift_title" style="height:auto;font-size:16px;font-weight:bold;padding:10px 5px 10px 5px;"></div>
                 <div id="gift_detail_text"class="gift_text" style="height:auto;font-size:14px;padding:10px 5px 10px 5px;"></div>
                 <div id="gift_detail_time"class="gift_time" style="text-align:right;height:auto;font-size:10px;padding:10px 5px 10px 5px;"></div>
             </div>
@@ -198,7 +198,8 @@
             });
         }
         var gift_image_detail = $('.gift_image_detail').width();
-        $('.gift_image_detail').height(gift_image_detail).css('object-fit','cover');
+        $('.gift_image_detail').height(gift_image_detail);
+        $('#gift_detail_image_zone').height($('#gift_detail_image_zone').width());
     </script>
     <style>
         .favorite_on{

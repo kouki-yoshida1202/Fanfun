@@ -58,7 +58,7 @@
         }
 
         .alert-dialog{
-            top:100%;
+            top:120%;
         }
     </style>
     <ons-toolbar class="toolbar" style="background-color: white;position: fixed;">
@@ -69,7 +69,7 @@
             プロフィール変更画面
         </div>
     </ons-toolbar>
-    <div class="container contents" style="background-color:#efeff4;padding-bottom:100px;">
+    <div class="container contents" style="background-color:#efeff4;padding-bottom:200px;">
         <!-- カードリスト部分 -->
         <div class="" style="width:100%;height: auto; padding: 1px 0 0 0;display: inline-block;">
             <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:15px;">
@@ -109,7 +109,7 @@
                     <textarea id="current_text_profile"class="textarea" rows="7" placeholder="プロフィール(必須/160文字以内)" style="background-color: white;border-radius:20px;width:100%;border:1px solid #898989;padding:10px;font-size:14px;" required maxlength="160"></textarea>
                 </div> -->
                 <div class="cp_iptxt">
-                        <textarea type="text" rows="7"placeholder="プロフィール(160文字以内)" id="current_text_profile" required maxlength="160"></textarea>
+                        <textarea type="text" rows="7"placeholder="プロフィール(120文字以内)" id="current_text_profile" required maxlength="120"></textarea>
                         <i class="fas fa-comment-alt fa-lg fa-fw" aria-hidden="true"></i>
                 </div>
             </div>
@@ -143,8 +143,8 @@
                     <p style="color:#005BEA;" onclick="document.getElementById('navi').pushPage('forget.html')">パスワード再設定画面へ</a>    
                 </div>
             </div>
-            <div style="width:90%;text-align:center;margin:0 auto;margin-top:20px;margin-bottom:10px;">
-                <button class="button "style="width:100%;padding-top:0px;padding-bottom:0px;line-height:40px;border-radius:30px;font-size:16px;margin:0 auto;" onclick="profileEdit();">変更する</button>
+            <div id="profileEditButtonDiv" style="width:90%;text-align:center;margin:0 auto;margin-top:20px;margin-bottom:10px;">
+                <button id="profileEditButton"class="button"style="width:100%;padding-top:0px;padding-bottom:0px;line-height:40px;border-radius:30px;font-size:16px;margin:0 auto;" onclick="profileEdit();">変更する</button>
                 <p style="color:#FF6070;">※変更後、ログアウトします。</p>
             </div>
         </div>
@@ -155,11 +155,22 @@
             <div class="alert-dialog-title">
                 更新しました。
             </div>
+            <div class="alert-dialog-footer">
+                <button class="alert-dialog-button alert-dialog-button--primal" onclick="profileEditClose();">OK</button>
+            </div>
+        </div>
+    </div>
+    <div class="alert-dialog-mask profileMailEdit_dialog_mask"></div>
+    <div class="alert-dialog profileMailEdit_dialog">
+        <div class="alert-dialog-container">
+            <div class="alert-dialog-title">
+                更新しました。
+            </div>
             <div class="alert-dialog-content">
                 登録したメールアドレスに確認メールをお送りしました。記載URLから認証後、ログインが可能になります。
             </div>
             <div class="alert-dialog-footer">
-                <button class="alert-dialog-button alert-dialog-button--primal" onclick="profileEditClose();">OK</button>
+                <button class="alert-dialog-button alert-dialog-button--primal" onclick="profileMailEditClose();">OK</button>
             </div>
         </div>
     </div>
@@ -203,12 +214,10 @@
         </div>
     </div>
     <script>
-        $('.profileEdit_dialog_mask,.profileEdit_dialog,.profileImageEditMiss_dialog_mask,.profileImageEditMiss_dialog,.profileEditMiss_dialog_mask,.profileEditMiss_dialog,.profileMailaddressEditMiss_dialog_mask,.profileMailaddressEditMiss_dialog').hide();
+        $('.profileEdit_dialog_mask,.profileEdit_dialog,.profileMailEdit_dialog_mask,.profileMailEdit_dialog,.profileImageEditMiss_dialog_mask,.profileImageEditMiss_dialog,.profileEditMiss_dialog_mask,.profileEditMiss_dialog,.profileMailaddressEditMiss_dialog_mask,.profileMailaddressEditMiss_dialog').hide();
         $('input[name="mailaddress-radio"]').change(function () {
             // value値取得
             var val = $(this).val();
-            // コンソールログで確認
-            console.log(val);
 
             if(val=="onChange"){
                 $('#current_mailaddress_profile').prop("disabled",false);
@@ -222,33 +231,46 @@
 
         function profileEditClose(){
             $('.profileEdit_dialog_mask,.profileEdit_dialog').slideUp();
-            var mailaddress_radio = $('input[name="mailaddress-radio"]').val();
-            if(mailaddress_radio == "onChange"){
-                window.location.href = 'index.html';
-            }else{
-                var mailaddress = $('#current_mailaddress_profile').val();
-                var currentUser = ncmb.User.getCurrentUser();
-                var password = currentUser.get("password");
-                ncmb.User.logout();
-                setTimeout(function(){
-                    // メールアドレスとパスワードでログイン
-                    ncmb.User.loginWithMailAddress(mailaddress,password)
-                    .then(function(data){
-                        // ログイン後処理
-                        window.location.href = 'home.html';
-                    });
-                }, 1000);
-            }
-            
+            showLoad();
+            var mailaddress = $('#current_mailaddress_profile').val();
+            var currentUser = ncmb.User.getCurrentUser();
+            var password = currentUser.get("password");
+            ncmb.User.logout();
+            setTimeout(function(){
+                // メールアドレスとパスワードでログイン
+                ncmb.User.loginWithMailAddress(mailaddress,password)
+                .then(function(data){
+                    // ログイン後処理
+                    hideLoad();
+                    window.location.href = 'home.html';
+                });
+            }, 1000);
         }
 
+        function profileMailEditOpen(){
+            $('.profileMailEdit_dialog_mask,.profileMailEdit_dialog').slideDown();
+        }
+
+        function profileMailEditClose(){
+            $('.profileMailEdit_dialog_mask,.profileMailEdit_dialog').slideUp();
+            showLoad();
+            setTimeout(function(){
+                hideLoad();
+                window.location.href = 'index.html';
+            }, 1000);
+            
+        }
         function profileImageEditMissOpen(){
             $('.profileImageEditMiss_dialog_mask,.profileImageEditMiss_dialog').slideDown();
         }
         function profileImageEditMissClose(){
             $('.profileImageEditMiss_dialog_mask,.profileImageEditMiss_dialog').slideUp();
+            showLoad();
             if(mailaddress_radio == "onChange"){
-                window.location.href = 'index.html';
+                setTimeout(function(){
+                    hideLoad();
+                    window.location.href = 'index.html';
+                }, 1000);
             }else{
                 var mailaddress = $('#current_mailaddress_profile').val();
                 var currentUser = ncmb.User.getCurrentUser();
@@ -259,6 +281,7 @@
                     ncmb.User.loginWithMailAddress(mailaddress,password)
                     .then(function(data){
                         // ログイン後処理
+                        hideLoad();
                         window.location.href = 'home.html';
                     });
                 }, 1000);

@@ -1,5 +1,6 @@
 function profileEdit(){
-
+        showLoad();
+            
         //APIキーの設定とSDKの初期化
         var appKey    = "2a769bb0b55358cb641215e139e1e4c409bfba09b1177e468e736635af5c7f58";
         var clientKey = "e007abb894e7e571efd683ba05b19e90ed4bb3633cf8e693f287451bb4d1db06";
@@ -16,7 +17,8 @@ function profileEdit(){
         var username_edit = $("#current_user_name_profile").val();            //お名前
         var mailaddress_edit = $("#current_mailaddress_profile").val();     //メールアドレス
         var text_edit = $("#current_text_profile").val();
-        var mailAddress_changeOnOff = $('input[name="mailaddress-radio"]').val();
+        var mailAddress_changeOnOff = $('input[name="mailaddress-radio"]:checked').val();
+        console.log(mailAddress_changeOnOff);
         if(mailAddress_changeOnOff == "onChange"){
                 var mailcheck = MailCheck(mailaddress_edit);
                 //更新処理開始
@@ -36,22 +38,27 @@ function profileEdit(){
                                                 .upload(objectId,fileData)
                                                 .then(function(res){
                                                         // アップロード後処理
-                                                        profileEditOpen();
+                                                        hideLoad();
+                                                        profileMailEditOpen();
                                                 })
                                                 .catch(function(err){
                                                         // エラー処理
+                                                        hideLoad();
                                                         profileImageEditMissOpen();
                                                 });
                                         }else{
                                                 // アップロード後処理
-                                                profileEditOpen();
+                                                hideLoad();
+                                                profileMailEditOpen();
                                         }
                                 })
                                 .catch(function(err) {
                                 // エラー
+                                        hideLoad();
                                         profileEditMissOpen();
                                 });               
                 }else{
+                        hideLoad();
                         profileMailaddressEditMissOpen();
                 }
         }else{
@@ -69,19 +76,23 @@ function profileEdit(){
                                 .upload(objectId,fileData)
                                 .then(function(res){
                                         // アップロード後処理
+                                        hideLoad();
                                         profileEditOpen();
                                 })
                                 .catch(function(err){
                                         // エラー処理
+                                        hideLoad();
                                         profileImageEditMissOpen();
                                 });
                         }else{
                                 // アップロード後処理
+                                hideLoad();
                                 profileEditOpen();
                         }
                 })
                 .catch(function(err) {
                 // エラー
+                        hideLoad();
                         profileEditMissOpen();
                 });               
         }
@@ -103,3 +114,14 @@ function MailCheck(mail) {
             return false;
         }
 }
+
+function showLoad(){
+        $("#profileEditButtonDiv").LoadingOverlay("show", {
+                image       : "",
+                fontawesome : "fa fa-refresh fa-spin",
+        });
+}
+
+function hideLoad() {
+        $("#profileEditButtonDiv").LoadingOverlay("hide");
+};

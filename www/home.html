@@ -54,21 +54,14 @@
   <script src="lib/onsenui/js/jquery.wavify.js"></script>
   <script src="lib/onsenui/js/contactForm.js"></script>
   <script src="lib/onsenui/js/requestForm.js"></script>
+  <script src="lib/onsenui/js/loadingoverlay.min.js"></script>
 
   <script>
     // ログインしたらまずTopページにくるようにTopのアイコンを押す
     ons.ready(function() {
       $('#topPageTab').click();
     });
-    // ギフト一覧のロード完了に時間がかかるので、最初に数秒間ロードのグルグルアイコンを入れている
-    $(function() {
-      setTimeout(function(){
-        $('.homestart svg').fadeIn(1600);
-      },500);
-      setTimeout(function(){
-        $('.homestart').fadeOut(500);
-      },2500);
-    });
+
 
     // フォローリスト、フォロワーリストから、フォローやフォロワーを解除するダイアログ表示用
     var createAlertDialog = function() {
@@ -92,6 +85,16 @@
       window.location.href = 'home.html'
     }
 
+    function showContentLoad(){
+        $("#content").LoadingOverlay("show", {
+                image       : "",
+                fontawesome : "fa fa-refresh fa-spin",
+        });
+    }
+
+    function hideContentLoad() {
+            $("#content").LoadingOverlay("hide");
+    };
     
     if (ons.platform.isIPhoneX()) {
       document.documentElement.setAttribute('onsflag-iphonex-portrait', '');
