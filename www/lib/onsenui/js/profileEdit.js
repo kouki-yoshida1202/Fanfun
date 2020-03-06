@@ -16,42 +16,74 @@ function profileEdit(){
         var username_edit = $("#current_user_name_profile").val();            //お名前
         var mailaddress_edit = $("#current_mailaddress_profile").val();     //メールアドレス
         var text_edit = $("#current_text_profile").val();
-
-        var mailcheck = MailCheck(mailaddress_edit);
-        //更新処理開始
-        if(mailcheck){
-                        user
-                        .set('objectId', objectId)
-                        .set('userName', username_edit)
-                        .set('mailAddress',mailaddress_edit)
-                        .set('Text',text_edit)
-                        .update()
-                        .then(function(data) {
-                        // 更新完了
-                                var gift_image = $('#file-data').val().length;
-                                if(gift_image != ""){
-                                        var fileData = document.getElementById("file-data").files[0];
-                                        ncmb.File
-                                        .upload(objectId,fileData)
-                                        .then(function(res){
+        var mailAddress_changeOnOff = $('input[name="mailaddress-radio"]').val();
+        if(mailAddress_changeOnOff == "onChange"){
+                var mailcheck = MailCheck(mailaddress_edit);
+                //更新処理開始
+                if(mailcheck){
+                                user
+                                .set('objectId', objectId)
+                                .set('userName', username_edit)
+                                .set('mailAddress',mailaddress_edit)
+                                .set('Text',text_edit)
+                                .update()
+                                .then(function(data) {
+                                // 更新完了
+                                        var gift_image = $('#file-data').val().length;
+                                        if(gift_image != ""){
+                                                var fileData = document.getElementById("file-data").files[0];
+                                                ncmb.File
+                                                .upload(objectId,fileData)
+                                                .then(function(res){
+                                                        // アップロード後処理
+                                                        profileEditOpen();
+                                                })
+                                                .catch(function(err){
+                                                        // エラー処理
+                                                        profileImageEditMissOpen();
+                                                });
+                                        }else{
                                                 // アップロード後処理
                                                 profileEditOpen();
-                                        })
-                                        .catch(function(err){
-                                                // エラー処理
-                                                profileImageEditMissOpen();
-                                        });
-                                }else{
+                                        }
+                                })
+                                .catch(function(err) {
+                                // エラー
+                                        profileEditMissOpen();
+                                });               
+                }else{
+                        profileMailaddressEditMissOpen();
+                }
+        }else{
+                user
+                .set('objectId', objectId)
+                .set('userName', username_edit)
+                .set('Text',text_edit)
+                .update()
+                .then(function(data) {
+                // 更新完了
+                        var gift_image = $('#file-data').val().length;
+                        if(gift_image != ""){
+                                var fileData = document.getElementById("file-data").files[0];
+                                ncmb.File
+                                .upload(objectId,fileData)
+                                .then(function(res){
                                         // アップロード後処理
                                         profileEditOpen();
-                                }
-                        })
-                        .catch(function(err) {
-                        // エラー
-                                profileEditMissOpen();
-                        });               
-        }else{
-                profileMailaddressEditMissOpen();
+                                })
+                                .catch(function(err){
+                                        // エラー処理
+                                        profileImageEditMissOpen();
+                                });
+                        }else{
+                                // アップロード後処理
+                                profileEditOpen();
+                        }
+                })
+                .catch(function(err) {
+                // エラー
+                        profileEditMissOpen();
+                });               
         }
 }
 

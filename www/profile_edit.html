@@ -94,7 +94,7 @@
                     <span>2.表示名</span>
                 </div>
                 <div class="cp_iptxt">
-                    <input type="text" placeholder="表示名(20文字以内)" id="current_user_name_profile" maxlength="20"required>
+                    <input type="text" placeholder="表示名(14文字以内)" id="current_user_name_profile" maxlength="14"required>
                     <i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
                 </div>
                 <!-- <div class="" style="width: 100%; margin: 0 auto;margin-top:3px;">
@@ -120,8 +120,18 @@
                 <!-- <div class="" style="width: 100%; margin: 0 auto;margin-top:3px;">
                     <input type="email" id="current_mailaddress_profile" class="text-input" placeholder="メールアドレス" style="background-color: white;border-radius:20px;width:100%;font-size:14px;border:1px solid #898989;height:30px;padding-left:3%;margin-bottom:7px;">
                 </div> -->
+                <div style="width:100%;">
+                    <div class="segment__item" style="width:50%;float:left;">
+                        <input type="radio" class="segment__input" name="mailaddress-radio" value="noChange"checked>
+                        <div class="segment__button">変更しない</div>
+                    </div>
+                    <div class="segment__item" style="width:50%;">
+                        <input type="radio" class="segment__input" name="mailaddress-radio" value="onChange">
+                        <div class="segment__button">変更する</div>
+                    </div>
+                </div>
                 <div class="cp_iptxt">
-                    <input type="email" placeholder="メールアドレス" id="current_mailaddress_profile"required>
+                    <input type="email" placeholder="メールアドレス" id="current_mailaddress_profile"required disabled>
                     <i class="fa fa-envelope fa-lg fa-fw" aria-hidden="true"></i>
                 </div>
             </div>
@@ -194,14 +204,42 @@
     </div>
     <script>
         $('.profileEdit_dialog_mask,.profileEdit_dialog,.profileImageEditMiss_dialog_mask,.profileImageEditMiss_dialog,.profileEditMiss_dialog_mask,.profileEditMiss_dialog,.profileMailaddressEditMiss_dialog_mask,.profileMailaddressEditMiss_dialog').hide();
-        
+        $('input[name="mailaddress-radio"]').change(function () {
+            // value値取得
+            var val = $(this).val();
+            // コンソールログで確認
+            console.log(val);
+
+            if(val=="onChange"){
+                $('#current_mailaddress_profile').prop("disabled",false);
+            }else{
+                $('#current_mailaddress_profile').prop("disabled",true);
+            }
+        });
         function profileEditOpen(){
             $('.profileEdit_dialog_mask,.profileEdit_dialog').slideDown();
         }
 
         function profileEditClose(){
             $('.profileEdit_dialog_mask,.profileEdit_dialog').slideUp();
-            window.location.href = 'index.html';
+            var mailaddress_radio = $('input[name="mailaddress-radio"]').val();
+            if(mailaddress_radio == "onChange"){
+                window.location.href = 'index.html';
+            }else{
+                var mailaddress = $('#current_mailaddress_profile').val();
+                var currentUser = ncmb.User.getCurrentUser();
+                var password = currentUser.get("password");
+                ncmb.User.logout();
+                setTimeout(function(){
+                    // メールアドレスとパスワードでログイン
+                    ncmb.User.loginWithMailAddress(mailaddress,password)
+                    .then(function(data){
+                        // ログイン後処理
+                        window.location.href = 'home.html';
+                    });
+                }, 1000);
+            }
+            
         }
 
         function profileImageEditMissOpen(){
@@ -209,18 +247,22 @@
         }
         function profileImageEditMissClose(){
             $('.profileImageEditMiss_dialog_mask,.profileImageEditMiss_dialog').slideUp();
-            var mailaddress = $('#current_mailaddress_profile').val();
-            var currentUser = ncmb.User.getCurrentUser();
-            var password = currentUser.get("password");
-            ncmb.User.logout();
-            setTimeout(function(){
-                // メールアドレスとパスワードでログイン
-                ncmb.User.loginWithMailAddress(mailaddress,password)
-                .then(function(data){
-                    // ログイン後処理
-                    window.location.href = 'home.html';
-                });
-            }, 1000);
+            if(mailaddress_radio == "onChange"){
+                window.location.href = 'index.html';
+            }else{
+                var mailaddress = $('#current_mailaddress_profile').val();
+                var currentUser = ncmb.User.getCurrentUser();
+                var password = currentUser.get("password");
+                ncmb.User.logout();
+                setTimeout(function(){
+                    // メールアドレスとパスワードでログイン
+                    ncmb.User.loginWithMailAddress(mailaddress,password)
+                    .then(function(data){
+                        // ログイン後処理
+                        window.location.href = 'home.html';
+                    });
+                }, 1000);
+            }
         }
         
         function profileEditMissOpen(){
@@ -243,7 +285,6 @@
                 $("#image_edit").attr('src', e.target.result);
                 $('#image_edit').height($('#image_edit').width());
                 $('#profile_image_area').height($('#profile_image_area').width());
-                
             }
             reader.readAsDataURL(e.target.files[0]);
             $('#image_edit').height($('#image_edit').width());
