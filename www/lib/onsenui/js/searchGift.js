@@ -4,7 +4,7 @@ function searchGift(search_way){
                 if(!user_name || user_name == ""){
                         searchKeywordNoOpen();
                 }else{
-                        document.getElementById('navi').pushPage('searchpage.html');
+                        document.getElementById('navi').bringPageTop('searchpage.html');
                         $('#searchGift').empty();
                 
                         var currentUser = ncmb.User.getCurrentUser();
@@ -127,7 +127,7 @@ function searchGift(search_way){
                 if(genre ==""){
                         categoryNoOpen();
                 }else{
-                        document.getElementById('navi').pushPage('searchpage.html');
+                        document.getElementById('navi').bringPageTop('searchpage.html');
                         var currentUser = ncmb.User.getCurrentUser();
                         var objectId = currentUser.get("objectId");
                         $('.current_user_id').val(objectId);

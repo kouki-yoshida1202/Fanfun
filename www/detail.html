@@ -18,12 +18,12 @@
                             残り：<span id="stock"></span>
                         </span>
                     </div>
-                    <div id="gift_detail_image_other_zone"class="card__content" style="height:auto;">
+                    <div id="gift_detail_image_other_zone"class="card__content" style="width:100% !important;">
                         <img id="gift_detail_image_other" class="gift_image_detail" src="" alt="" style="width:100%;height:auto;object-fit:cover;border-radius: 20px;">
                     </div>
                     <div class="card__content" style="height:auto;z-index:100;margin-top:-20px;">
                         <ul class="list" style="background-image:none;">
-                        <li class="list-item" style="padding:0px;"onclick="document.getElementById('navi').pushPage('otherpage.html');otherPage();">
+                        <li class="list-item" style="padding:0px;"onclick="document.getElementById('navi').bringPageTop('otherpage.html');otherPage();">
                             <div class="list-item__left" style="padding:0px;">
                                 <img id="gift_detail_user_image_other" class="list-item__thumbnail" src="img/human.png" alt="" style="border-radius: 50%;width:60px;height:60px;">
                             </div>
@@ -76,7 +76,7 @@
             $('.detail_mask,.detail_modal').hide();
             
             function detailHoukoku(){
-                document.getElementById('navi').pushPage('houkokuForm.html');
+                document.getElementById('navi').bringPageTop('houkokuForm.html');
                 setTimeout(function(){
                     $('#houkokuform_gift_id').val($('#gift_id').val());
                 }, 500);
@@ -89,9 +89,14 @@
             function detailShareClose(){
                 $('.detail_mask,.detail_modal').slideUp();
             }
-            var gift_image_detail = $('.gift_image_detail').width();
-            $('.gift_image_detail').height(gift_image_detail);
-            $('.gift_image_detail_zone').height($('.gift_image_detail_zone').width());
+
+            setTimeout(function(){
+                var gift_image_detail = $('.gift_image_detail').width();
+                $('.gift_image_detail').height(gift_image_detail);
+                var gift_detail_image_other_zone = $('#gift_detail_image_other_zone').width();
+                $('#gift_detail_image_other_zone').height(gift_detail_image_other_zone);
+            },1000)
+            
         </script>
         <style>
         .favorite_on{

@@ -1,5 +1,5 @@
 function buypage(){
-        document.getElementById('navi').pushPage('buypage.html');
+        document.getElementById('navi').bringPageTop('buypage.html');
         var gift_uid = $('#gift_id').val();
 
         var currentUser = ncmb.User.getCurrentUser();

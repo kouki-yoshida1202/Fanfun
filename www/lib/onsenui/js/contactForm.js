@@ -5,7 +5,7 @@ function jumpContactForm(status){
                 var mailaddress = currentUser.get("mailAddress");
                 var objectId = currentUser.get("objectId");
 
-                document.getElementById('navi').pushPage('contactForm.html');
+                document.getElementById('navi').bringPageTop('contactForm.html');
                 // $('#searchGift').empty();
                 setTimeout(function(){
                         $('#contactFormUserObjectId').val(objectId);
@@ -13,7 +13,7 @@ function jumpContactForm(status){
                         $('#contactFormStatus').val(status);
                 }, 500);
         }else if(status == "beforeLogin"){
-                document.getElementById('login').pushPage('contactForm.html');
+                document.getElementById('login').bringPageTop('contactForm.html');
                 setTimeout(function(){
                         $('#contactFormStatus').val(status);
                 }, 500);

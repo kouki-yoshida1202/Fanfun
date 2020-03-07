@@ -23,7 +23,7 @@ function MyGift(){
                 $('#myGiftList').hide();
 
                 var influencer_button = `
-                <button id="influencer_button" class="button "style="width:70%;padding-top:0px;padding-bottom:0px;line-height:auto;border-radius:30px;font-size:16px;margin:0 auto;"onclick="document.getElementById('navi').pushPage('influencerChangeKiyaku.html');influencerChangeKiyaku();">インフルエンサー申請</button>
+                <button id="influencer_button" class="button "style="width:70%;padding-top:0px;padding-bottom:0px;line-height:auto;border-radius:30px;font-size:16px;margin:0 auto;"onclick="document.getElementById('navi').bringPageTop('influencerChangeKiyaku.html');influencerChangeKiyaku();">インフルエンサー申請</button>
                 `;
                 $('#influencerTouroku').html(influencer_button);
         }
@@ -162,14 +162,14 @@ function giftImageGet(giftUid,i){
 
 function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date,price,gift_user_id,gift_stock){
         // 日付のフォーマット変換
-        
+        console.log(gift_uid,userName,gift_title,gift_text,objectId,create_date,price,gift_user_id,gift_stock);
         ncmb.User
         .equalTo("objectId", gift_user_id)
         .fetch()
         .then(function(results){
                 var gift_user_name = results.get("userName");
                 if(gift_user_id == objectId){
-                        document.getElementById('navi').pushPage('myGiftDetail.html');
+                        document.getElementById('navi').bringPageTop('myGiftDetail.html');
                         function formatDate(date) {
                                 const y = date.getFullYear()
                                 const m = date.getMonth() + 1
@@ -224,7 +224,8 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
                                 my_gift_favorite_check_detail(gift_uid);
                         },500);
                 }else{
-                        document.getElementById('navi').pushPage('detail.html');
+                        console.log("detail");
+                        document.getElementById('navi').bringPageTop('detail.html');
                         function formatDate(date) {
                                 const y = date.getFullYear()
                                 const m = date.getMonth() + 1
@@ -234,40 +235,10 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
                         }
                         const date = new Date(create_date);
                 
-                        // 画像ダウンロード
-                        ncmb.File.download(gift_uid, "blob")
-                        .then(function(fileData) {
-                                var reader = new FileReader();
-                                reader.onloadend = function() {
-                                        var img = document.getElementById("gift_detail_image_other");
-                                        img.src = reader.result;
-                                }
-                                // DataURLとして読み込む
-                                reader.readAsDataURL(fileData);
-                        })
-                        .catch(function(err){
-                        // エラー処理
-                                console.log('error = ' + err);
-                        });
-                
-                        // 画像ダウンロード
-                        ncmb.File.download(gift_user_id, "blob")
-                        .then(function(fileData) {
-                                var reader = new FileReader();
-                                reader.onloadend = function() {
-                                        var img = document.getElementById("gift_detail_user_image_other");
-                                        img.src = reader.result;
-                                }
-                                // DataURLとして読み込む
-                                reader.readAsDataURL(fileData);
-                        })
-                        .catch(function(err){
-                        // エラー処理
-                                console.log('error = ' + err);
-                        });
                         // 各テキストを入れる
                         setTimeout(function() {
                                 gift_price = "¥"+price;
+                                console.log(gift_user_name,gift_price,gift_title,gift_text);
                                 $('#gift_detail_username_other').html(gift_user_name);
                                 $('#gift_detail_title_other').html(gift_title);
                                 $('#gift_detail_text_other').html(gift_text);
@@ -281,6 +252,37 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
                                         $('#ReleaseStatusButton').prop("disabled",true);
                                         $('#ReleaseStatusButton').html("在庫切れ");
                                 }
+                                // 画像ダウンロード
+                                ncmb.File.download(gift_uid, "blob")
+                                .then(function(fileData) {
+                                        var reader = new FileReader();
+                                        reader.onloadend = function() {
+                                                var img = document.getElementById("gift_detail_image_other");
+                                                img.src = reader.result;
+                                        }
+                                        // DataURLとして読み込む
+                                        reader.readAsDataURL(fileData);
+                                })
+                                .catch(function(err){
+                                // エラー処理
+                                        console.log('error = ' + err);
+                                });
+                        
+                                // 画像ダウンロード
+                                ncmb.File.download(gift_user_id, "blob")
+                                .then(function(fileData) {
+                                        var reader = new FileReader();
+                                        reader.onloadend = function() {
+                                                var img = document.getElementById("gift_detail_user_image_other");
+                                                img.src = reader.result;
+                                        }
+                                        // DataURLとして読み込む
+                                        reader.readAsDataURL(fileData);
+                                })
+                                .catch(function(err){
+                                // エラー処理
+                                        console.log('error = ' + err);
+                                });
                         },500);
                 }
         });

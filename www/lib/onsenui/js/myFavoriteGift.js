@@ -1,5 +1,5 @@
 function myFavoriteGift(){
-        document.getElementById('navi').pushPage('myFavoriteGift.html');
+        document.getElementById('navi').bringPageTop('myFavoriteGift.html');
         $('#myFavoriteGift').empty();
 
         var currentUser = ncmb.User.getCurrentUser();

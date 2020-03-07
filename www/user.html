@@ -17,14 +17,14 @@
                 <div class="list-item__center list-item--material__center">
                     <div class="list-item__subtitle list-item--material__subtitle" style="height:100%;">
                         <div style="width:49%;text-align: center;float: left;height:100%;">
-                            <p style="line-height: 100%;" onclick="document.getElementById('navi').pushPage('follow.html');followList();">
+                            <p style="line-height: 100%;" onclick="document.getElementById('navi').bringPageTop('follow.html');followList();">
                                 <span id="my_follow_number" style="font-weight: bold;font-size:24px;">0</span>
                                 <br>
                                 <span style="color:#898989;">フォロー</span>
                             </p> 
                         </div>
                         <div style="width:49%;text-align: center;float: right;height:100%;border-left:1px solid #ddd;">
-                            <p style="line-height: 100%;" onclick="document.getElementById('navi').pushPage('follower.html');followerList();">
+                            <p style="line-height: 100%;" onclick="document.getElementById('navi').bringPageTop('follower.html');followerList();">
                                 <span id="my_follower_number" style="font-weight: bold;font-size:24px;">0</span>
                                 <br>
                                 <span style="color:#898989;">フォロワー</span>
@@ -63,10 +63,10 @@
         </div>
         <div style="margin-bottom:20px;height:20px;">
             <div style="width:49%;text-align:center;float:left;">
-                <button id="exhibition_button" class="button "style="width:90%;padding-top:0px;padding-bottom:0px;line-height:auto;border-radius:30px;font-size:16px;margin:0 auto;"onclick="document.getElementById('navi').pushPage('giftinput.html')" disabled>出品する</button>
+                <button id="exhibition_button" class="button "style="width:90%;padding-top:0px;padding-bottom:0px;line-height:auto;border-radius:30px;font-size:16px;margin:0 auto;"onclick="document.getElementById('navi').bringPageTop('giftinput.html')" disabled>出品する</button>
             </div>
             <div style="width:49%;text-align:center;float:right;">
-                <button class="button "style="width:90%;padding-top:0px;padding-bottom:0px;line-height:auto;border-radius:30px;font-size:16px;margin:0 auto;background: -moz-linear-gradient(bottom left, #00C6FB, #005BEA);background: -webkit-linear-gradient(bottom left, #00C6FB, #005BEA);background: linear-gradient(to top right, #00C6FB, #005BEA);"onclick="document.getElementById('navi').pushPage('profile_edit.html');profilePage();loginImageEdit();">プロフィール編集</button>
+                <button class="button "style="width:90%;padding-top:0px;padding-bottom:0px;line-height:auto;border-radius:30px;font-size:16px;margin:0 auto;background: -moz-linear-gradient(bottom left, #00C6FB, #005BEA);background: -webkit-linear-gradient(bottom left, #00C6FB, #005BEA);background: linear-gradient(to top right, #00C6FB, #005BEA);"onclick="document.getElementById('navi').bringPageTop('profile_edit.html');profilePage();loginImageEdit();">プロフィール編集</button>
             </div>
         </div>
         <div style="width:100%;text-align:center;margin-top:20px;height:25px;">
@@ -91,7 +91,7 @@
     <div class="action-sheet modal1">
         <button class="action-sheet-button" onclick="userShare();">共有</button>
         <button class="action-sheet-button" onclick="myFavoriteGift();">Myいいねギフト一覧</button>
-        <button class="action-sheet-button" onclick="document.getElementById('navi').pushPage('guideList.html');">ガイド</button>
+        <button class="action-sheet-button" onclick="document.getElementById('navi').bringPageTop('guideList.html');">ガイド</button>
         <button class="action-sheet-button" onclick="logout();">ログアウト</button>
         <button class="action-sheet-button" onclick="userActionClose();">Cancel</button>
     </div>

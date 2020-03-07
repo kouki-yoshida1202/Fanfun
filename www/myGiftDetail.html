@@ -21,7 +21,7 @@
                         残り：<span id="my_stock"></span>
                     </span>
                 </div>
-                <div id="gift_detail_image_zone" class="card__content" style="height:auto;">
+                <div id="gift_detail_image_zone" class="card__content" style="">
                     <img id="gift_detail_image"class="gift_image_detail" src="" alt="" style="width:100%;height:auto;object-fit:cover;border-radius: 20px;">
                 </div>
                 <div class="card__content" style="height:auto;z-index:100;margin-top:-20px;">
@@ -65,7 +65,7 @@
             <span id="gift_detail_price" style="font-size: 24px;line-height:45px;"></span>
         </div>
         <div class="right" style="width:40%;padding-right:7%;">
-            <button class="button" style="background-color: #FF6070;width:100%;"onclick="document.getElementById('navi').pushPage('myGiftEdit.html');giftNowInfo();">
+            <button class="button" style="background-color: #FF6070;width:100%;"onclick="document.getElementById('navi').bringPageTop('myGiftEdit.html');giftNowInfo();">
                 編集する
             </button>
         </div>
@@ -117,7 +117,7 @@
         $('.mygift_mask,.mygift_modal,.mygift_delete_mask,.mygift_delete_modal,.gift_delete_dialog_mask,.gift_delete_dialog,.deleteEnd_dialog_mask,.deleteEnd_dialog,.deleteEndMiss_dialog_mask,.deleteEndMiss_dialog').hide();
         
         function mygiftHoukoku(){
-            document.getElementById('navi').pushPage('houkokuForm.html');
+            document.getElementById('navi').bringPageTop('houkokuForm.html');
             setTimeout(function(){
                 $('#houkokuform_gift_id').val($('#my_gift_id').val());
             }, 500);

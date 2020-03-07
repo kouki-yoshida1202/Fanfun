@@ -118,7 +118,7 @@ function followList(){
                                 }
                                 var follow_list = `
                                 <li class="list-item list-item--material">
-                                        <div class="list-item__left list-item--material__left" onclick="document.getElementById('navi').pushPage('otherpage.html');
+                                        <div class="list-item__left list-item--material__left" onclick="document.getElementById('navi').bringPageTop('otherpage.html');
                                         `;
                                         follow_list += "toOtherPageFromFollowList('"+object_id+"');";
                                         follow_list +=`
@@ -174,7 +174,7 @@ function followerList(){
                         var object_id = object[j].get("followId");
                         var follower_list = `
                         <li class="list-item list-item--material">
-                                <div class="list-item__left list-item--material__left" onclick="document.getElementById('navi').pushPage('otherpage.html');
+                                <div class="list-item__left list-item--material__left" onclick="document.getElementById('navi').bringPageTop('otherpage.html');
                                 `;
                                 follower_list += "toOtherPageFromFollowList('"+object_id+"');";
                                 follower_list +=`

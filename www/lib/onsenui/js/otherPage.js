@@ -7,7 +7,6 @@ function otherPage(){
         }else{
                 var other_user_id = $('#other_user_id').val();
         }
-
         ncmb.User
         .equalTo("objectId", other_user_id)
         .fetch()
@@ -70,6 +69,8 @@ function otherPage(){
                 .then(function(results){
                         var object = results;
                         var syuppinnsu = "&emsp;"+object.length+" 出品&emsp;"
+                        var currentUser = ncmb.User.getCurrentUser();
+                        var objectId = currentUser.get('objectId');
                         $('#otherGiftLength').html(syuppinnsu);
                         for(var i=0;i<object.length;i++){
                                 var gift_title = object[i].get("giftTitle");
@@ -85,7 +86,7 @@ function otherPage(){
                                 var card = `
                                 <div class="gift-card" style="width:49%;height: auto; padding: 1px 0 0 0;display: inline-block;margin-top:5px;"onclick="
                                 `;
-                                card += "giftIdJudge('"+gift_uid+"','"+other_user_name+"','"+gift_title+"','"+gift_text+"','"+other_user_id+"','"+create_date+"','"+gift_price+"','"+gift_user_id+"','"+gift_stock+"');";
+                                card += "giftIdJudge('"+gift_uid+"','"+other_user_name+"','"+gift_title+"','"+gift_text+"','"+objectId+"','"+create_date+"','"+gift_price+"','"+gift_user_id+"','"+gift_stock+"');";
                                 card +=`
                                 ">
                                         <input class="gift_uid" type="" value="`;

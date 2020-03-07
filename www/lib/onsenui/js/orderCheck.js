@@ -16,7 +16,7 @@ function orderCheck(){
         }else if(request_message_input==""){
                 requestMessageNoMissOpen();
         }else{
-                document.getElementById('navi').pushPage('ordercheck.html');
+                document.getElementById('navi').bringPageTop('ordercheck.html');
                 setTimeout(function(){
                         $('#check_gift_title').val(gift_title);
                         $('#check_price').val(price);
