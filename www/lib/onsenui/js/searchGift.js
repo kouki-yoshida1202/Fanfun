@@ -1,4 +1,8 @@
 function searchGift(search_way){
+        showLoad();
+        setTimeout(function(){
+                hideLoad();
+        }, 1500);
         if(search_way=="キーワード検索"){
                 var user_name = $('#user_name_search').val();
                 if(!user_name || user_name == ""){
@@ -32,7 +36,6 @@ function searchGift(search_way){
                                         .in('userId',search_user_id)
                                         .fetchAll()                
                                         .then(function(results){
-                                                console.log(results);
                                                 var object = results;
                                                 for(var i=0;i<object.length;i++){
                                                         var gift_title = object[i].get("giftTitle");
@@ -42,6 +45,7 @@ function searchGift(search_way){
                                                         var gift_uid = object[i].get("giftUid");
                                                         var gift_price = object[i].get("price");
                                                         var gift_user_id = object[i].get("userId");
+                                                        var gift_stock = object[i].get("stock");
                                                         // ユーザ名の取得
                                                         
                                                 
@@ -49,7 +53,7 @@ function searchGift(search_way){
                                                         var card = `
                                                         <div class="gift-card" style="width:48%;height: auto; padding: 1px 0 0 0;display: inline-block;margin-top:5px;"onclick="
                                                         `;
-                                                        card += "giftIdJudge('"+gift_uid+"','"+userName+"','"+gift_title+"','"+gift_text+"','"+objectId+"','"+create_date+"','"+gift_price+"','"+gift_user_id+"');";
+                                                        card += "giftIdJudge('"+gift_uid+"','"+userName+"','"+gift_title+"','"+gift_text+"','"+objectId+"','"+create_date+"','"+gift_price+"','"+gift_user_id+"','"+gift_stock+"');";
                                                         card +=`
                                                         ">
                                                                 <input class="gift_uid" type="" value="`;
@@ -93,6 +97,11 @@ function searchGift(search_way){
                                                                                         card += "search_gift_favorite_span_"+i;
                                                                                         card +=`"class="favorite_off">0</span>
                                                                                 </button>
+                                                                                <button class="toolbar-button" style="font-size:12px;padding:0px;">
+                                                                                        <span style="font-size:12px;color:gray">残:`;
+                                                                                        card += gift_stock;
+                                                                                        card +=`</span>
+                                                                                </button>
                                                                                 <button class="toolbar-button" style="font-size:12px;padding:0px;float: right;">
                                                                                         <span style="color:#898989">
                                                                                         `;
@@ -123,7 +132,6 @@ function searchGift(search_way){
                 var genre = $('.checkbox__input:checked').map(function() {
                         return $(this).val();
                 }).get();
-                console.log(genre);
                 if(genre ==""){
                         categoryNoOpen();
                 }else{
@@ -140,7 +148,6 @@ function searchGift(search_way){
                         .inArray("Genre",genre)
                         .fetchAll()
                         .then(function(results){
-                                console.log(results);
                                 var object = results;
                                 if(object.length>0){
                                         search_user_id=[];
@@ -171,6 +178,7 @@ function searchGift(search_way){
                                                                 var gift_uid = object[i].get("giftUid");
                                                                 var gift_price = object[i].get("price");
                                                                 var gift_user_id = object[i].get("userId");
+                                                                var gift_stock = object[i].get("stock");
                                                                 // ユーザ名の取得
                                                                 
                                                         
@@ -178,7 +186,7 @@ function searchGift(search_way){
                                                                 var card = `
                                                                 <div class="gift-card" style="width:48%;height: auto; padding: 1px 0 0 0;display: inline-block;margin-top:5px;"onclick="
                                                                 `;
-                                                                card += "giftIdJudge('"+gift_uid+"','"+userName+"','"+gift_title+"','"+gift_text+"','"+objectId+"','"+create_date+"','"+gift_price+"','"+gift_user_id+"');";
+                                                                card += "giftIdJudge('"+gift_uid+"','"+userName+"','"+gift_title+"','"+gift_text+"','"+objectId+"','"+create_date+"','"+gift_price+"','"+gift_user_id+"','"+gift_stock+"');";
                                                                 card +=`
                                                                 ">
                                                                         <input class="gift_uid" type="" value="`;
@@ -189,7 +197,7 @@ function searchGift(search_way){
                                                                                 <div class="card__content" style="height:auto;">
                                                                                         <img id="`;
                                                                                         card += "search_gift_image_top_"+i;
-                                                                                        card +=`"class="gift_image" src="img/loading.png" alt="" style="width:100%;height:154px;border-radius: 20px;">
+                                                                                        card +=`"class="gift_image" src="img/loading.png" alt="" style="width:100%;height:154px;object-fit:cover;border-radius: 20px;">
                                                                                 </div>
                                                                                 <div class="card__content" style="height:45px;">
                                                                                         <ul class="list" style="background-image:none;background:transparent;margin-top:-13px;">
@@ -221,6 +229,11 @@ function searchGift(search_way){
                                                                                                 card +=`"class="fas fa-heart favorite_off" style="font-size:12px;"></i> <span id="`;
                                                                                                 card += "search_gift_favorite_span_"+i;
                                                                                                 card +=`"class="favorite_off">0</span>
+                                                                                        </button>
+                                                                                        <button class="toolbar-button" style="font-size:12px;padding:0px;">
+                                                                                                <span style="font-size:12px;color:gray">残:`;
+                                                                                                card += gift_stock;
+                                                                                                card +=`</span>
                                                                                         </button>
                                                                                         <button class="toolbar-button" style="font-size:12px;padding:0px;float: right;">
                                                                                                 <span style="color:#898989">
@@ -257,12 +270,10 @@ function searchGift(search_way){
 }
 
 function searchgiftUserGet(gift_user_id,i){
-        console.log(gift_user_id);
         ncmb.User
         .equalTo("objectId", gift_user_id)
         .fetch()
         .then(function(results){
-                console.log(results);
                 var gift_user_name = results.get("userName");
                 var gift_user_name_top = "search_gift_user_name_top_"+i;
                 // document.getElementById(gift_user_name_top).innerHTML = gift_user_name;
@@ -271,7 +282,6 @@ function searchgiftUserGet(gift_user_id,i){
 }
 
 function searchgiftImageGetTop(giftUid,i){
-        console.log(giftUid,i);
         ncmb.File.download(giftUid, "blob")
         .then(function(fileData) {
                 var reader = new FileReader();
@@ -293,7 +303,6 @@ function searchgiftUserImageTop(gift_user_id,i){
         ncmb.File.download(gift_user_id, "blob")
         .then(function(fileData) {
                 var reader = new FileReader();
-                console.log(reader);
                 reader.onloadend = function() {
                         var gift_userimage = "search_gift_user_image_top_"+i;
                         var img = document.getElementById(gift_userimage);

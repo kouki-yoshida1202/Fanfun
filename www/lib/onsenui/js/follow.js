@@ -400,7 +400,7 @@ function toOtherPageFromFollowList(jumpToUserId){
                                                                         </div>
                                                                 
                                                                         <div class="list-item__center" style="padding:0px; padding-left:5px;">
-                                                                        <div class="current_user_name" style="text-align: left;"></div>
+                                                                        <div class="current_user_name follow_page_user_name" style="text-align: left;"></div>
                                                                         </div>
                                                                 </li>
                                                                 </ul>
@@ -435,7 +435,7 @@ function toOtherPageFromFollowList(jumpToUserId){
                                         </div>
                                         `;
                                         $('#otherGiftList').append(card);
-                                        $('.current_user_name').html(other_user_name);
+                                        $('.follow_page_user_name').html(other_user_name);
                                         giftImageGetFollow(gift_uid,i);
                                         giftUserImageFollow(jumpToUserId,i);
                                         gift_favorite_check(gift_uid,i);

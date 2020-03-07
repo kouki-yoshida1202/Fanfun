@@ -17,7 +17,7 @@ function loginInfo(){
                         $('#myGenre').append(" #"+Genre[n]);
                 }
         }
-        $('.current_user_name').html(userName);
+        $('#mypage_user_name').html(userName);
         $('.current_text').html(text);
         $('.current_user_id').val(objectId);
         // $('#myGenre').html(Genre);

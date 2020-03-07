@@ -77,7 +77,7 @@ function MyGift(){
                                                         </div>
                                                 
                                                         <div class="list-item__center" style="padding:0px; padding-left:5px;">
-                                                        <div class="current_user_name" style="text-align: left;"></div>
+                                                        <div class="current_user_name my_page_user_name" style="text-align: left;"></div>
                                                         </div>
                                                 </li>
                                                 </ul>
@@ -112,7 +112,7 @@ function MyGift(){
                         </div>
                         `;
                         $('#myGiftList').append(card);
-                        $('.current_user_name').html(userName);
+                        $('.my_page_user_name').html(userName);
                         giftImageGet(gift_uid,i);
                         giftUserImage(objectId,i);
                         my_gift_favorite_check(gift_uid,i);
@@ -232,7 +232,37 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
                                 return `${y}年${m}月${d}日 (${day})`;
                         }
                         const date = new Date(create_date);
+                        // 画像ダウンロード
+                        ncmb.File.download(gift_uid, "blob")
+                        .then(function(fileData) {
+                                var reader = new FileReader();
+                                reader.onloadend = function() {
+                                        var img = document.getElementById("gift_detail_image_other");
+                                        img.src = reader.result;
+                                }
+                                // DataURLとして読み込む
+                                reader.readAsDataURL(fileData);
+                        })
+                        .catch(function(err){
+                        // エラー処理
+                                console.log('error = ' + err);
+                        });
                 
+                        // 画像ダウンロード
+                        ncmb.File.download(gift_user_id, "blob")
+                        .then(function(fileData) {
+                                var reader = new FileReader();
+                                reader.onloadend = function() {
+                                        var img = document.getElementById("gift_detail_user_image_other");
+                                        img.src = reader.result;
+                                }
+                                // DataURLとして読み込む
+                                reader.readAsDataURL(fileData);
+                        })
+                        .catch(function(err){
+                        // エラー処理
+                                console.log('error = ' + err);
+                        });
                         // 各テキストを入れる
                         setTimeout(function() {
                                 gift_price = "¥"+price;
@@ -249,37 +279,6 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
                                         $('#ReleaseStatusButton').prop("disabled",true);
                                         $('#ReleaseStatusButton').html("在庫切れ");
                                 }
-                                // 画像ダウンロード
-                                ncmb.File.download(gift_uid, "blob")
-                                .then(function(fileData) {
-                                        var reader = new FileReader();
-                                        reader.onloadend = function() {
-                                                var img = document.getElementById("gift_detail_image_other");
-                                                img.src = reader.result;
-                                        }
-                                        // DataURLとして読み込む
-                                        reader.readAsDataURL(fileData);
-                                })
-                                .catch(function(err){
-                                // エラー処理
-                                        console.log('error = ' + err);
-                                });
-                        
-                                // 画像ダウンロード
-                                ncmb.File.download(gift_user_id, "blob")
-                                .then(function(fileData) {
-                                        var reader = new FileReader();
-                                        reader.onloadend = function() {
-                                                var img = document.getElementById("gift_detail_user_image_other");
-                                                img.src = reader.result;
-                                        }
-                                        // DataURLとして読み込む
-                                        reader.readAsDataURL(fileData);
-                                })
-                                .catch(function(err){
-                                // エラー処理
-                                        console.log('error = ' + err);
-                                });
                         },500);
                 }
         });

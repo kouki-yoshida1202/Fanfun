@@ -109,7 +109,7 @@ function otherPage(){
                                                                 </div>
                                                         
                                                                 <div class="list-item__center" style="padding:0px; padding-left:5px;">
-                                                                <div class="current_user_name" style="text-align: left;"></div>
+                                                                <div class="current_user_name other_page_user_name" style="text-align: left;"></div>
                                                                 </div>
                                                         </li>
                                                         </ul>
@@ -144,7 +144,7 @@ function otherPage(){
                                 </div>
                                 `;
                                 $('#otherGiftList').append(card);
-                                $('.current_user_name').html(other_user_name);
+                                $('.other_page_user_name').html(other_user_name);
                                 giftImageGet(gift_uid,i);
                                 giftUserImage(other_user_id,i);
                         }
