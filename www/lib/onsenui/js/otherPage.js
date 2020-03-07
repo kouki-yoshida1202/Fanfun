@@ -1,5 +1,5 @@
 function otherPage(){
-        
+        $('#otherGiftList').empty();
         if($('#other_user_id').val() == null || $('#other_user_id').val() == ""){
                 var other_user_id = $('#my_user_id').val();
         }else if($('#other_user_id').val() == null || $('#other_user_id').val() == ""){

@@ -2,7 +2,7 @@ function jumpRequestForm(){
         var currentUser = ncmb.User.getCurrentUser();
         var objectId = currentUser.get("objectId");
 
-        document.getElementById('navi').pushPage('requestForm.html');
+        document.getElementById('navi').bringPageTop('requestForm.html');
         // $('#searchGift').empty();
         setTimeout(function(){
                 $('#requestFormUserObjectId').val(objectId);
