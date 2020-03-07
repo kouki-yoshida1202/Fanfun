@@ -222,7 +222,11 @@
             </div>
         </div>
     </div>
+    <canvas id="giftInputCanvas" width="0" height="0" style="display:none;"></canvas>
     <script>
+    $('#file-data-gift').change(function() {
+        fileChange("giftInputCanvas","file-data-gift");
+    });
     $('.giftInput_dialog_mask,.giftInput_dialog,.giftInputMiss_dialog_mask,.giftInputImageMiss_dialog_mask,.giftInputImageMiss_dialog,.giftInputMiss_dialog,.kakaku_dialog_mask,.kakaku_dialog').hide();
         
     function giftInputOpen(){

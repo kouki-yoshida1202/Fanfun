@@ -213,7 +213,13 @@
             </div>
         </div>
     </div>
+    
+    <!-- サムネイル表示領域 -->
+    <canvas id="profileCanvas" width="0" height="0" style="display:none;"></canvas>
     <script>
+        $('#file-data').change(function() {
+            fileChange("profileCanvas","file-data");
+        });
         $('.profileEdit_dialog_mask,.profileEdit_dialog,.profileMailEdit_dialog_mask,.profileMailEdit_dialog,.profileImageEditMiss_dialog_mask,.profileImageEditMiss_dialog,.profileEditMiss_dialog_mask,.profileEditMiss_dialog,.profileMailaddressEditMiss_dialog_mask,.profileMailaddressEditMiss_dialog').hide();
         $('input[name="mailaddress-radio"]').change(function () {
             // value値取得
@@ -266,6 +272,7 @@
         function profileImageEditMissClose(){
             $('.profileImageEditMiss_dialog_mask,.profileImageEditMiss_dialog').slideUp();
             showLoad();
+            var mailaddress_radio = $('input[name="mailaddress-radio"]:checked').val();
             if(mailaddress_radio == "onChange"){
                 setTimeout(function(){
                     hideLoad();

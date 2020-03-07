@@ -224,7 +224,11 @@
             </div>
         </div>
     </div>
+    <canvas id="giftEditCanvas" width="0" height="0" style="display:none;"></canvas>
     <script>
+        $('#file-data-gift-edit').change(function() {
+            fileChange("giftEditCanvas","file-data-gift-edit");
+        });
         $('.giftEdit_dialog_mask,.giftEdit_dialog,.giftEditMiss_dialog_mask,.giftEditImageMiss_dialog_mask,.giftEditImageMiss_dialog,.giftEditMiss_dialog,.kakaku_edit_dialog_mask,.kakaku_edit_dialog').hide();
         function giftEditOpen(){
             $('.giftEdit_dialog_mask,.giftEdit_dialog').slideDown();

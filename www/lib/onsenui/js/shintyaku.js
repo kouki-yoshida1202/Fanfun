@@ -3,7 +3,7 @@ function shintyaku(){
         showContentLoad();
         setTimeout(function(){
                 hideContentLoad();
-        }, 3000);
+        }, 1500);
         
         // カレントユーザー情報の取得
         var currentUser = ncmb.User.getCurrentUser();

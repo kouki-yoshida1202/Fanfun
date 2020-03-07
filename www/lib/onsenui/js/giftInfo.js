@@ -39,7 +39,7 @@ function giftInsert() {
                 // クラスのTestClassを作成
                 var GiftData = ncmb.DataStore("giftData");
                 var strong = 1000;
-                var uid = new Date().getTime().toString(16)  + Math.floor(strong*Math.random()).toString(16)
+                var uid = new Date().getTime().toString(16)  + Math.floor(strong*Math.random()).toString(16);
                 // データストアへの登録
                 var giftData = new GiftData();
                 console.log(objectId,gift_title,gift_text,gift_price,gift_stock,uid)
@@ -52,19 +52,36 @@ function giftInsert() {
                         .save()
                         .then(function(gameScore){
                                 // 保存後の処理
-                                var fileData = document.getElementById("file-data-gift").files[0];
-                                ncmb.File
-                                .upload(uid,fileData)
-                                .then(function(res){
-                                        // アップロード後処理
-                                        hideGiftInsertLoad();
-                                        giftInputOpen();
-                                })
-                                .catch(function(err){
-                                        // エラー処理
+                                // var fileData = document.getElementById("file-data-gift").files[0];
+                                if(!blob) {
                                         hideGiftInsertLoad();
                                         giftInputImageMissOpen();
-                                });
+                                }else{
+                                        ncmb.File
+                                        .upload(uid,blob)
+                                        .then(function(res){
+                                                // アップロード後処理
+                                                hideGiftInsertLoad();
+                                                giftInputOpen();
+                                        })
+                                        .catch(function(err){
+                                                // エラー処理
+                                                hideGiftInsertLoad();
+                                                giftInputImageMissOpen();
+                                        });
+                                }
+                                // ncmb.File
+                                // .upload(uid,fileData)
+                                // .then(function(res){
+                                //         // アップロード後処理
+                                //         hideGiftInsertLoad();
+                                //         giftInputOpen();
+                                // })
+                                // .catch(function(err){
+                                //         // エラー処理
+                                //         hideGiftInsertLoad();
+                                //         giftInputImageMissOpen();
+                                // });
                         })
                         .catch(function(err){
                         // エラー処理
@@ -124,20 +141,37 @@ function giftEdit() {
                                         .update();
 
                                 if(gift_image != ""){
-                                        var fileData = document.getElementById("file-data-gift-edit").files[0];
-
-                                        ncmb.File
-                                        .upload(uid,fileData)
-                                        .then(function(res){
-                                                // アップロード後処理
-                                                hideGiftEditLoad();
-                                                giftEditOpen();
-                                        })
-                                        .catch(function(err){
-                                                // エラー処理
+                                        if(!blob) {
                                                 hideGiftEditLoad();
                                                 giftEditImageMissOpen();
-                                        });
+                                        }else{
+                                                ncmb.File
+                                                .upload(uid,blob)
+                                                .then(function(res){
+                                                        // アップロード後処理
+                                                        hideGiftEditLoad();
+                                                        giftEditOpen();
+                                                })
+                                                .catch(function(err){
+                                                        // エラー処理
+                                                        hideGiftEditLoad();
+                                                        giftEditImageMissOpen();
+                                                });
+                                        }
+                                        // var fileData = document.getElementById("file-data-gift-edit").files[0];
+                                        // console.log(fileData);
+                                        // ncmb.File
+                                        // .upload(uid,fileData)
+                                        // .then(function(res){
+                                        //         // アップロード後処理
+                                        //         hideGiftEditLoad();
+                                        //         giftEditOpen();
+                                        // })
+                                        // .catch(function(err){
+                                        //         // エラー処理
+                                        //         hideGiftEditLoad();
+                                        //         giftEditImageMissOpen();
+                                        // });
                                 }else{
                                         hideGiftEditLoad();
                                         giftEditOpen();
