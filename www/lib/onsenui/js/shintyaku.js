@@ -1,8 +1,8 @@
 function shintyaku(){
         $("#shintyakuList").empty();
-        showContentLoad();
+        showLoad();
         setTimeout(function(){
-                hideContentLoad();
+                hideLoad();
         }, 1500);
         
         // カレントユーザー情報の取得

@@ -1,7 +1,7 @@
 var file = null; // 選択されるファイル
 var blob = null; // 画像(BLOBデータ)
-const THUMBNAIL_WIDTH = 400; // 画像リサイズ後の横の長さの最大値
-const THUMBNAIL_HEIGHT = 400; // 画像リサイズ後の縦の長さの最大値
+const THUMBNAIL_WIDTH = 800; // 画像リサイズ後の横の長さの最大値
+const THUMBNAIL_HEIGHT = 800; // 画像リサイズ後の縦の長さの最大値
 
 function fileChange(canvasId,fileId){
 

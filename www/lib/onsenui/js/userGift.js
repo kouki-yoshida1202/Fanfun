@@ -162,7 +162,6 @@ function giftImageGet(giftUid,i){
 
 function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date,price,gift_user_id,gift_stock){
         // 日付のフォーマット変換
-        console.log(gift_uid,userName,gift_title,gift_text,objectId,create_date,price,gift_user_id,gift_stock);
         ncmb.User
         .equalTo("objectId", gift_user_id)
         .fetch()
@@ -224,7 +223,6 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
                                 my_gift_favorite_check_detail(gift_uid);
                         },500);
                 }else{
-                        console.log("detail");
                         document.getElementById('navi').bringPageTop('detail.html');
                         function formatDate(date) {
                                 const y = date.getFullYear()
@@ -238,7 +236,6 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
                         // 各テキストを入れる
                         setTimeout(function() {
                                 gift_price = "¥"+price;
-                                console.log(gift_user_name,gift_price,gift_title,gift_text);
                                 $('#gift_detail_username_other').html(gift_user_name);
                                 $('#gift_detail_title_other').html(gift_title);
                                 $('#gift_detail_text_other').html(gift_text);

@@ -1,8 +1,8 @@
 function followUserGift(){
         $("#followGiftList").empty();
-        showContentLoad();
+        showLoad();
         setTimeout(function(){
-                hideContentLoad();
+                hideLoad();
         }, 1500);
         // カレントユーザー情報の取得
         var currentUser = ncmb.User.getCurrentUser();

@@ -73,7 +73,7 @@ function profileEdit(){
                                 })
                                 .catch(function(err) {
                                 // エラー
-                                        hideLoad();
+                                hideLoad();
                                         profileEditMissOpen();
                                 });               
                 }else{
@@ -136,15 +136,4 @@ function MailCheck(mail) {
         } else {
             return false;
         }
-}
-
-function showLoad(){
-        $("#profileEditButtonDiv").LoadingOverlay("show", {
-                image       : "",
-                fontawesome : "fa fa-refresh fa-spin",
-        });
-}
-
-function hideLoad() {
-        $("#profileEditButtonDiv").LoadingOverlay("hide");
 }
