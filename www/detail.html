@@ -69,12 +69,19 @@
         </div>
         <div class="action-sheet-mask detail_mask"></div>
         <div class="action-sheet detail_modal">
-            <button class="action-sheet-button" onclick="aiueo('http://twitter.com/share?url=fanfun://'+location.href);">Tweet</button>
+            <button class="action-sheet-button" onclick="tweetOtherGift();">Tweet</button>
             <button class="action-sheet-button" onclick="detailShareClose();">Cancel</button>
         </div>
         <script>
             $('.detail_mask,.detail_modal').hide();
-            
+
+            function tweetOtherGift(){
+                // どっちか使う
+                var userName = $('#gift_detail_username_other').html();
+                var link = 'http://twitter.com/share?url=fanfun://&text=ユーザー名：「'+userName+'」で検索！';
+                window.open(link, '_blank', 'location=yes');
+                return false;
+            }
             function detailHoukoku(){
                 document.getElementById('navi').bringPageTop('houkokuForm.html');
                 setTimeout(function(){

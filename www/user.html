@@ -98,14 +98,21 @@
     
     <div class="action-sheet-mask"></div>
     <div class="action-sheet modal2">
-        <button class="action-sheet-button" onclick="aiueo('http://twitter.com/share?text='+encodeURIComponent(document.title)+'&url='+encodeURIComponent(location.href));">Tweet</button>
+        <button class="action-sheet-button" onclick="tweetMyPage();">Tweet</button>
         <button class="action-sheet-button" onclick="userActionClose();">Cancel</button>
     </div>
     
     <!-- 以下、javascript -->
     <script type="text/javascript">
         $('.action-sheet-mask,.action-sheet').hide();
-        
+
+        function tweetMyGift(){
+            // どっちか使う
+            var userName = $('#mypage_user_name').html();
+            var link = 'http://twitter.com/share?url=fanfun://&text=ユーザー名：「'+userName+'」で検索！';
+            window.open(link, '_blank', 'location=yes');
+            return false;
+        }
         function userActionOpen(){
             $('.action-sheet-mask,.modal1').slideDown();
             // スクロールを無効にする

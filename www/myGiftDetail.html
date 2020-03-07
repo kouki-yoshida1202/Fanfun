@@ -72,7 +72,7 @@
     </div>
     <div class="action-sheet-mask mygift_mask"></div>
     <div class="action-sheet mygift_modal">
-        <button class="action-sheet-button" onclick="aiueo('http://twitter.com/share?text='+encodeURIComponent(document.title)+'&url='+encodeURIComponent(location.href));">Tweet</button>
+        <button class="action-sheet-button" onclick="tweetMyGift();">Tweet</button>
         <button class="action-sheet-button" onclick="mygiftShareClose();">Cancel</button>
     </div>
     <div class="action-sheet-mask mygift_delete_mask"></div>
@@ -115,7 +115,13 @@
     </div>
     <script>
         $('.mygift_mask,.mygift_modal,.mygift_delete_mask,.mygift_delete_modal,.gift_delete_dialog_mask,.gift_delete_dialog,.deleteEnd_dialog_mask,.deleteEnd_dialog,.deleteEndMiss_dialog_mask,.deleteEndMiss_dialog').hide();
-        
+        function tweetMyGift(){
+            // どっちか使う
+            var userName = $('#gift_detail_username').html();
+            var link = 'http://twitter.com/share?url=fanfun://&text=ユーザー名：「'+userName+'」で検索！';
+            window.open(link, '_blank', 'location=yes');
+            return false;
+        }
         function mygiftHoukoku(){
             document.getElementById('navi').bringPageTop('houkokuForm.html');
             setTimeout(function(){
