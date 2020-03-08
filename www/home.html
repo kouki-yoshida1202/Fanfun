@@ -65,9 +65,9 @@
     function handleOpenURL(url) {
       setTimeout(function() {
         var strValue = url;
-        strValue = strValue.replace('fanfun://','');
+        strValue = strValue.replace('https://fanfun/','');
         // アラートで確認
-        alert(strValue);
+        // alert(strValue);
       }, 0);
     }
 
@@ -109,6 +109,19 @@
       document.documentElement.setAttribute('onsflag-iphonex-landscape', '');
     }
 
+    function share(userName){
+        navigator.screenshot.URI(function(error,res){
+          if(error){
+            console.error(error);
+            return;
+          }
+          window.plugins.socialsharing.share(
+            'ユーザー名「'+userName+'」で検索！',          // ツイートなどのシェアするテキスト
+            'ファイル名',                // Androidの場合はファイル名を指定する
+            res.URI,                  // base64エンコードされたスクショ画像
+            null);                    // シェアするURL
+        });
+      }
     
     document.addEventListener("init", function(event) {
 

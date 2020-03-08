@@ -89,7 +89,7 @@
     </div>
     <div class="action-sheet-mask"></div>
     <div class="action-sheet modal1">
-        <button class="action-sheet-button" onclick="userShare();">共有</button>
+        <!-- <button class="action-sheet-button" onclick="userShare();">共有</button> -->
         <button class="action-sheet-button" onclick="myFavoriteGift();">Myいいねギフト一覧</button>
         <button class="action-sheet-button" onclick="document.getElementById('navi').bringPageTop('guideList.html');">ガイド</button>
         <button class="action-sheet-button" onclick="logout();">ログアウト</button>
@@ -109,7 +109,7 @@
         function tweetMyGift(){
             // どっちか使う
             var userName = $('#mypage_user_name').html();
-            var link = 'http://twitter.com/share?url=fanfun://&text=ユーザー名：「'+userName+'」で検索！';
+            var link = 'http://twitter.com/share?url=https://fanfun/&text=ユーザー名：「'+userName+'」で検索！';
             window.open(link, '_system', 'location=yes');
             return false;
         }

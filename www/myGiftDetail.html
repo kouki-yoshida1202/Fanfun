@@ -43,7 +43,7 @@
                         <br>
                         <span id="my_gift_favorite_count" style="font-size:14px;color:#898989;">0</span>
                     </div>
-                    <div class="" style="width:33%;float:left;text-align: center;" onclick="mygiftShare();">
+                    <div class="" style="width:33%;float:left;text-align: center;" onclick="share($('#gift_detail_username').html());">
                         <i class="fab fa-hubspot" style="font-size:20px;color:gray;"></i>
                         <br>
                         <span style="font-size:14px;color:#898989;">共有</span>
@@ -118,7 +118,7 @@
         function tweetMyGift(){
             // どっちか使う
             var userName = $('#gift_detail_username').html();
-            var link = 'http://twitter.com/share?url=fanfun://&text=ユーザー名：「'+userName+'」で検索！';
+            var link = 'http://twitter.com/share?url=https://fanfun/&text=ユーザー名：「'+userName+'」で検索！';
             window.open(link, '_system', 'location=yes');
             return false;
         }
