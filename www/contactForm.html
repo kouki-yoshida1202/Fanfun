@@ -32,7 +32,7 @@
                 .cp_iptxt input[type=email]:focus + i {
                         color: #FF6070;
                 }
-                .cp_iptxt textarea[type=email] {
+                .cp_iptxt textarea[type=text] {
                         font: 15px/24px sans-serif;
                         box-sizing: border-box;
                         width: 100%;
@@ -104,6 +104,15 @@
                 </div>
             </div>
         </div>
+        <div class="alert-dialog-mask contactMailMiss_dialog_mask"></div>
+        <div class="alert-dialog contactMailMiss_dialog">
+                <div class="alert-dialog-container">
+                <div class="alert-dialog-title">メールアドレスが<br>正しくありません</div>
+                <div class="alert-dialog-footer">
+                        <button class="alert-dialog-button alert-dialog-button--primal" onclick="contactMailMissClose();">OK</button>
+                </div>
+                </div>
+        </div>
         <div class="alert-dialog-mask contact_dialog_miss_mask"></div>
         <div class="alert-dialog contact_miss_dialog">
             <div class="alert-dialog-container">
@@ -117,7 +126,7 @@
             </div>
         </div>
         <script>
-                $('.contact_dialog_mask,.contact_dialog,.contact_dialog_miss_mask,.contact_miss_dialog,.contactNo_dialog_mask,.contactNo_dialog').hide();
+                $('.contact_dialog_mask,.contact_dialog,.contactMailMiss_dialog_mask,.contactMailMiss_dialog,.contact_dialog_miss_mask,.contact_miss_dialog,.contactNo_dialog_mask,.contactNo_dialog').hide();
                 function contactCheckOpen(){
                         $('.contact_dialog_mask,.contact_dialog').slideDown();
                 }
@@ -133,6 +142,14 @@
                 
                 function contactMissClose(){
                         $('.contact_dialog_miss_mask,.contact_miss_dialog').slideUp();
+                }
+
+                function contactMailMissOpen(){
+                        $('.contactMailMiss_dialog_mask,.contactMailMiss_dialog').slideDown();
+                }
+                
+                function contactMailMissClose(){
+                        $('.contactMailMiss_dialog_mask,.contactMailMiss_dialog').slideUp();
                 }
 
                 function contactNoOpen(){

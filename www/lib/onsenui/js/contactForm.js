@@ -18,7 +18,6 @@ function jumpContactForm(status){
                         $('#contactFormStatus').val(status);
                 }, 500);
         }
-        
 }
 
 function contactFormSend(){
@@ -26,68 +25,73 @@ function contactFormSend(){
         var mailaddress = $('#contactFormUserMailaddress').val();
         var text = $('#contactFormTextarea').val();
         var status = $('#contactFormStatus').val();
+        var mailcheck = MailCheck(mailaddress);
 
-        if(status == "afterLogin"){
-                if(mailaddress == "" || text == ""){
-                        contactNoOpen();
-                }else{
-                        var contactForm = ncmb.DataStore("contactForm");
-                        // データストアへの登録
-                        var contactForm = new contactForm();
-                        contactForm.set("userObjectId", objectId)
-                                .set("mailaddress", mailaddress)
-                                .set("text",text)
-                                .save()
-                                .then(function(gameScore){
-                                // 保存後の処理
-                                        $.ajax({
-                                                type: 'post',
-                                                url: 'https://fanfun2020.xsrv.jp/contactSend.html',
-                                                data: {
-                                                        'text': text,
-                                                        'mailaddress':mailaddress,
-                                                },
-                                                success: function(data){
-                                                        console.log(data);
-                                                }
+        if(mailcheck){
+                if(status == "afterLogin"){
+                        if(mailaddress == "" || text == ""){
+                                contactNoOpen();
+                        }else{
+                                
+                                var contactForm = ncmb.DataStore("contactForm");
+                                // データストアへの登録
+                                var contactForm = new contactForm();
+                                contactForm.set("userObjectId", objectId)
+                                        .set("mailaddress", mailaddress)
+                                        .set("text",text)
+                                        .save()
+                                        .then(function(gameScore){
+                                        // 保存後の処理
+                                                $.ajax({
+                                                        type: 'post',
+                                                        url: 'https://fanfun2020.xsrv.jp/contactSend.html',
+                                                        data: {
+                                                                'text': text,
+                                                                'mailaddress':mailaddress,
+                                                        },
+                                                        success: function(data){
+                                                                console.log(data);
+                                                        }
+                                                });
+                                                contactCheckOpen();
+                                        })
+                                        .catch(function(err){
+                                        // エラー処理
+                                                contactCheckOpen();
                                         });
-                                        contactCheckOpen();
-                                })
-                                .catch(function(err){
-                                // エラー処理
-                                        contactCheckOpen();
-                                });
-                }
-        }else if(status == "beforeLogin"){
-                if(mailaddress == "" || text == ""){
-                        contactNoOpen();
-                }else{
-                        var contactForm = ncmb.DataStore("contactForm");
-                        // データストアへの登録
-                        var contactForm = new contactForm();
-                        contactForm.set("mailaddress", mailaddress)
-                                .set("text",text)
-                                .save()
-                                .then(function(gameScore){
-                                // 保存後の処理
-                                        $.ajax({
-                                                type: 'post',
-                                                url: 'https://fanfun2020.xsrv.jp/contactSend.html',
-                                                data: {
-                                                        'text': text,
-                                                        'mailaddress':mailaddress,
-                                                },
-                                                success: function(data){
-                                                        console.log(data);
-                                                }
+                        }
+                }else if(status == "beforeLogin"){
+                        if(mailaddress == "" || text == ""){
+                                contactNoOpen();
+                        }else{
+                                var contactForm = ncmb.DataStore("contactForm");
+                                // データストアへの登録
+                                var contactForm = new contactForm();
+                                contactForm.set("mailaddress", mailaddress)
+                                        .set("text",text)
+                                        .save()
+                                        .then(function(gameScore){
+                                        // 保存後の処理
+                                                $.ajax({
+                                                        type: 'post',
+                                                        url: 'https://fanfun2020.xsrv.jp/contactSend.html',
+                                                        data: {
+                                                                'text': text,
+                                                                'mailaddress':mailaddress,
+                                                        },
+                                                        success: function(data){
+                                                                console.log(data);
+                                                        }
+                                                });
+                                                contactCheckOpen();
+                                        })
+                                        .catch(function(err){
+                                        // エラー処理
+                                                contactCheckOpen();
                                         });
-                                        contactCheckOpen();
-                                })
-                                .catch(function(err){
-                                // エラー処理
-                                        contactCheckOpen();
-                                });
+                        }
                 }
+        }else{
+                contactMailMissOpen();
         }
-
 }
