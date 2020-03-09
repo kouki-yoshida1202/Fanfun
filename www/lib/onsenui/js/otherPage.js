@@ -96,14 +96,14 @@ function otherPage(){
                                         <div class="card" style="height:99%;margin:3px;border-radius:20px;">
                                                 <div class="card__content" style="height:auto;">
                                                         <img id="`;
-                                                        card += "gift_image_"+i;
+                                                        card += "other_gift_image_"+i;
                                                         card +=`"class="other_gift_image" src="" alt="" style="width:100%;height:154px;object-fit:cover;border-radius: 20px;">
                                                 </div>
                                                 <div class="card__content" style="height:45px;">
                                                         <ul class="list" style="background-image:none;background:transparent;margin-top:-13px;">
                                                         <li class="list-item" style="padding:0px;">
                                                                 <div class="list-item__left" style="padding:0px;">
-                                                                <img class="list-item__thumbnail" id="gift_user_image_`;
+                                                                <img class="list-item__thumbnail" id="other_gift_user_image_`;
                                                                 card += i;
                                                                 card +=`" src="img/human.png" alt="" style="border-radius: 50%;object-fit:cover;">
                                                                 </div>
@@ -145,8 +145,8 @@ function otherPage(){
                                 `;
                                 $('#otherGiftList').append(card);
                                 $('.other_page_user_name').html(other_user_name);
-                                giftImageGet(gift_uid,i);
-                                giftUserImage(other_user_id,i);
+                                otherGiftImageGet(gift_uid,i);
+                                otherGiftUserImage(other_user_id,i);
                         }
                         
                         syoryaku();
@@ -211,4 +211,40 @@ function followerNumber(){
                         .catch(function(err){
                                 console.log(err);
                         });  
+}
+
+function otherGiftUserImage(objectId,i){
+        ncmb.File.download(objectId, "blob")
+        .then(function(fileData) {
+                var reader = new FileReader();
+                reader.onloadend = function() {
+                        var gift_userimage = "other_gift_user_image_"+i;
+                        var img = document.getElementById(gift_userimage);
+                        img.src = reader.result;
+                }
+                // DataURLとして読み込む
+                reader.readAsDataURL(fileData);
+        })
+        .catch(function(err){
+                // エラー処理
+                console.log('error = ' + err);
+        });
+}
+function otherGiftImageGet(giftUid,i){
+        ncmb.File.download(giftUid, "blob")
+        .then(function(fileData) {
+                var reader = new FileReader();
+                reader.onloadend = function() {
+                        var gift_image_place = "other_gift_image_"+i;
+                        
+                        var img = document.getElementById(gift_image_place);
+                        img.src = reader.result;
+                }
+                // DataURLとして読み込む
+                reader.readAsDataURL(fileData);
+        })
+        .catch(function(err){
+        // エラー処理
+        console.log('error = ' + err);
+        });
 }

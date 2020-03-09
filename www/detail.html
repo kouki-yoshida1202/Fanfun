@@ -97,13 +97,10 @@
                 $('.detail_mask,.detail_modal').slideUp();
             }
 
-            setTimeout(function(){
-                var gift_image_detail = $('.gift_image_detail').width();
-                $('.gift_image_detail').height(gift_image_detail);
-                var gift_detail_image_other_zone = $('#gift_detail_image_other_zone').width();
-                $('#gift_detail_image_other_zone').height(gift_detail_image_other_zone);
-            },1000)
-            
+            var gift_image_detail = $('.gift_image_detail').width();
+            $('.gift_image_detail').height(gift_image_detail);
+            var gift_detail_image_other_zone = $('#gift_detail_image_other_zone').width();
+            $('#gift_detail_image_other_zone').height(gift_detail_image_other_zone);
         </script>
         <style>
         .favorite_on{
