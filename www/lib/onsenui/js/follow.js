@@ -61,7 +61,7 @@ function ichiranFollow(user_id) {
                 .then(function(results){
                         // 保存後の処理
                         results.delete();
-                        followOffOpen();
+                        followerListFollowOffOpen();
                         $('#'+button_id).removeClass("follow_on").addClass("follow_off").html("フォロー");
                 })
                 .catch(function(err){
@@ -80,7 +80,7 @@ function ichiranFollow(user_id) {
                 .save()
                 .then(function(){
                         // 保存後の処理
-                        followOnOpen();
+                        followerListFollowOnOpen();
                         $('#'+button_id).addClass("follow_on").removeClass("follow_off").html("フォロー中");
                         
                 })
