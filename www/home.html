@@ -118,7 +118,26 @@
         null);                    //shareするURL
       });
     }
-    
+    function passwordReminder(){
+        var reminder_mail = $('#reminder_mail').val();
+        var user = new ncmb.User();
+
+        var mailcheck = MailCheck(reminder_mail);
+        if(mailcheck){
+            user.set("mailAddress", reminder_mail);
+            user.requestPasswordReset()
+                .then(function(data){
+                    // 送信後処理
+                    reminderMailOpen();
+                })
+                .catch(function(err){
+                    // エラー処理
+                    alert("受付エラーです。お問い合わせください。");
+                });
+        }else{
+            reminderMailMissOpen();
+        }
+    }
     document.addEventListener("init", function(event) {
 
           // トップページにて、上下スクロール中は上部のメニューを非表示

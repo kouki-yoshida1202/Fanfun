@@ -153,8 +153,7 @@ function passwordReminder(){
         user.requestPasswordReset()
             .then(function(data){
                 // 送信後処理
-                
-                window.location.href = 'index.html';
+                reminderMailOpen();
             })
             .catch(function(err){
                 // エラー処理
