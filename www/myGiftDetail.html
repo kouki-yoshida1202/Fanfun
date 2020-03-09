@@ -126,6 +126,8 @@
             document.getElementById('navi').bringPageTop('houkokuForm.html');
             setTimeout(function(){
                 $('#houkokuform_gift_id').val($('#my_gift_id').val());
+                $('#houkokuform_gift_name').val($('#gift_detail_title').html());
+                $('#houkokuform_gift_username').val($('#gift_detail_username').html());
             }, 500);
         }
         

@@ -64,7 +64,7 @@ function followUserGift(){
                                                                 <div class="list-item__left" style="padding:0px;">
                                                                 <img class="list-item__thumbnail" id="follow_gift_user_image_top_`;
                                                                 card += i;
-                                                                card +=`" src="img/human.png" alt="" style="border-radius: 50%;">
+                                                                card +=`" src="img/human.png" alt="" style="border-radius: 50%;object-fit:cover;">
                                                                 </div>
                                                         
                                                                 <div class="list-item__center" style="padding:0px; padding-left:5px;">

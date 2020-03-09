@@ -27,12 +27,17 @@ function requestFormSend(){
                         .save()
                         .then(function(gameScore){
                         // 保存後の処理
+                                var currentUser = ncmb.User.getCurrentUser();
+                                var userName = currentUser.get("userName");
+                                var mailaddress = currentUser.get("mailAddress");
                                 $.ajax({
                                         type: 'post',
                                         url: 'https://fanfun2020.xsrv.jp/requestSend.html',
                                         data: {
-                                                'username': requestName,
+                                                'requestName': requestName,
                                                 'requestFormTextarea':requestFormTextarea,
+                                                'userName':userName,
+                                                'mailaddress':mailaddress
                                         },
                                         success: function(data){
                                                 console.log(data);
