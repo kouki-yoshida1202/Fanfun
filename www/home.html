@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
-  <meta http-equiv="Content-Security-Policy" content="default-src * coolapp: data:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+  <meta http-equiv="Content-Security-Policy" content="default-src * data: gap: https://ssl.gstatic.com; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
   <script src="components/loader.js"></script>
   <script src="https://smtpjs.com/v3/smtp.js"></script>
   <script src="lib/onsenui/js/onsenui.min.js"></script>
@@ -62,14 +62,6 @@
     ons.ready(function() {
       $('#topPageTab').click();
     });
-    function handleOpenURL(url) {
-      setTimeout(function() {
-        var strValue = url;
-        strValue = strValue.replace('https://fanfun/','');
-        // アラートで確認
-        // alert(strValue);
-      }, 0);
-    }
 
     // フォローリスト、フォロワーリストから、フォローやフォロワーを解除するダイアログ表示用
     var createAlertDialog = function() {
@@ -108,20 +100,24 @@
       document.documentElement.setAttribute('onsflag-iphonex-portrait', '');
       document.documentElement.setAttribute('onsflag-iphonex-landscape', '');
     }
-
+    function aiueo(link){
+      // どっちか使う
+      window.open(link, '_blank', 'location=yes');
+      return false;
+    }
     function share(userName){
-        navigator.screenshot.URI(function(error,res){
-          if(error){
-            console.error(error);
-            return;
-          }
-          window.plugins.socialsharing.share(
-            'ユーザー名「'+userName+'」で検索！',          // ツイートなどのシェアするテキスト
-            'ファイル名',                // Androidの場合はファイル名を指定する
-            res.URI,                  // base64エンコードされたスクショ画像
-            null);                    // シェアするURL
-        });
-      }
+      navigator.screenshot.URI(function(error,res){
+        if(error){
+          console.error(error);
+          return;
+        }
+        window.plugins.socialsharing.share(
+        'ユーザー名「'+userName+'」で検索！',          // ツイートなどのシェアするテキスト
+        'ファイル名',                // Androidの場合はファイル名を指定する
+        res.URI,                  // base64エンコードされたスクショ画像
+        null);                    //shareするURL
+      });
+    }
     
     document.addEventListener("init", function(event) {
 

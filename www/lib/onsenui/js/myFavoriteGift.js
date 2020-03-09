@@ -63,7 +63,7 @@ function myFavoriteGift(){
                                                                 <div class="list-item__left" style="padding:0px;">
                                                                 <img class="list-item__thumbnail" id="search_gift_user_image_top_`;
                                                                 card += i;
-                                                                card +=`" src="" alt="" style="border-radius: 50%;">
+                                                                card +=`" src="" alt="" style="border-radius: 50%;object-fit:cover;">
                                                                 </div>
                                                         
                                                                 <div class="list-item__center" style="padding:0px; padding-left:5px;">
@@ -87,6 +87,11 @@ function myFavoriteGift(){
                                                                 card +=`"class="fas fa-heart favorite_off" style="font-size:12px;"></i> <span id="`;
                                                                 card += "search_gift_favorite_span_"+i;
                                                                 card +=`"class="favorite_off">0</span>
+                                                        </button>
+                                                        <button class="toolbar-button" style="font-size:12px;padding:0px;">
+                                                                <span style="font-size:12px;color:gray">残:`;
+                                                                card += gift_stock;
+                                                                card +=`</span>
                                                         </button>
                                                         <button class="toolbar-button" style="font-size:12px;padding:0px;float: right;">
                                                                 <span style="color:#898989">

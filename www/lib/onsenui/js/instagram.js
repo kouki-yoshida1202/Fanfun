@@ -36,7 +36,7 @@ function instaPush() {
                 });
         }
 }
-function aiueo(link){
+function instagramOpen(link){
         // どっちか使う
         window.open(link, '_system', 'location=yes');
         return false;
@@ -48,7 +48,7 @@ function InstagramNews(){
                 
                 $.each(insta.data,function (photos,src) {
                         if ( photos === 10 ) { return false; } //上限設定
-                        $('<div class="gift-card" style="width:48%;height: auto; padding: 1px 0 0 0;display: inline-block;margin-top:5px;"><div class="card" style="height:99%;margin:3px;border-radius:20px;"><div class="card__content" style="height:auto;"><img src="'+src.images.standard_resolution.url+'"onclick="aiueo(`'+src.link+'`);" class="gift_image"alt="" style="width:100%;height:154px;object-fit:cover;border-radius: 20px;"></div></div></div>').appendTo('#js-instalib');
+                        $('<div class="gift-card" style="width:48%;height: auto; padding: 1px 0 0 0;display: inline-block;margin-top:5px;"><div class="card" style="height:99%;margin:3px;border-radius:20px;"><div class="card__content" style="height:auto;"><img src="'+src.images.standard_resolution.url+'"onclick="instagramOpen(`'+src.link+'`);" class="gift_image"alt="" style="width:100%;height:154px;object-fit:cover;border-radius: 20px;"></div></div></div>').appendTo('#js-instalib');
                 });
         });        
 }

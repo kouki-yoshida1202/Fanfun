@@ -126,7 +126,7 @@ function followList(){
                                                 <img id="follow_user_image_`;
                                                 follow_list += j+`"`;
                                                 follow_list +=`
-                                                class="list-item__thumbnail list-item--material__thumbnail follow_thumbnanil" src="img/human.png">
+                                                class="list-item__thumbnail list-item--material__thumbnail follow_thumbnanil" src="img/human.png" style="object-fit:cover;">
                                         </div>
                                         <div class="list-item__center list-item--material__center">
                                                 <p>`;
@@ -182,7 +182,7 @@ function followerList(){
                                         <img id="follower_user_image_`;
                                         follower_list += object_id+`"`;
                                         follower_list +=`
-                                        class="list-item__thumbnail list-item--material__thumbnail follow_thumbnanil" src="img/human.png">
+                                        class="list-item__thumbnail list-item--material__thumbnail follow_thumbnanil" src="img/human.png"style="object-fit:cover;">
                                 </div>
                                 <div class="list-item__center list-item--material__center">
                                         <p id="follower_user_name_`;
@@ -396,7 +396,7 @@ function toOtherPageFromFollowList(jumpToUserId){
                                                                         <div class="list-item__left" style="padding:0px;">
                                                                         <img class="list-item__thumbnail" id="gift_user_image_follow_`;
                                                                         card += i;
-                                                                        card +=`" src="" alt="" style="border-radius: 50%;">
+                                                                        card +=`" src="" alt="" style="border-radius: 50%;object-fit:cover;">
                                                                         </div>
                                                                 
                                                                         <div class="list-item__center" style="padding:0px; padding-left:5px;">
