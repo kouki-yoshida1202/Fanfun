@@ -101,11 +101,9 @@
         <button class="action-sheet-button" onclick="tweetMyPage();">Tweet</button>
         <button class="action-sheet-button" onclick="userActionClose();">Cancel</button>
     </div>
-    
     <!-- 以下、javascript -->
     <script type="text/javascript">
         $('.action-sheet-mask,.action-sheet').hide();
-
         function tweetMyGift(){
             // どっちか使う
             var userName = $('#mypage_user_name').html();
@@ -132,6 +130,8 @@
             $('.modal1').slideUp();
             $('.modal2').slideDown();
         }
+
+        
     </script>
     <style>
         .favorite_on{

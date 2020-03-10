@@ -11,14 +11,14 @@ function giftInsert() {
         var gift_text = $("#gift_text").val();     
         var gift_price = $("#gift_price").val(); 
         var gift_stock = $("#gift_stock").val(); 
-        var gift_image = $('#file-data-gift').val().length;
+        var profileGiftInputStatus = $('#profileGiftInputStatus').val();
         if(gift_title ==''){
                 hideGiftInsertLoad();
                 alert("ギフトタイトルが未入力です");
         }else if(gift_text == ""){
                 hideGiftInsertLoad();
                 alert("ギフト説明文が未入力です");
-        }else if(gift_image == ""){
+        }else if(profileGiftInputStatus == 0){
                 hideGiftInsertLoad();
                 alert("ギフト画像が未登録です");
         }else if(gift_price == ""){
@@ -42,7 +42,7 @@ function giftInsert() {
                 var uid = new Date().getTime().toString(16)  + Math.floor(strong*Math.random()).toString(16);
                 // データストアへの登録
                 var giftData = new GiftData();
-                console.log(objectId,gift_title,gift_text,gift_price,gift_stock,uid)
+                
                 giftData.set("userId", objectId)
                         .set("giftTitle", gift_title)
                         .set("giftText", gift_text)
@@ -52,36 +52,22 @@ function giftInsert() {
                         .save()
                         .then(function(gameScore){
                                 // 保存後の処理
-                                // var fileData = document.getElementById("file-data-gift").files[0];
-                                if(!blob) {
+                                var img = document.getElementById('gift_image_insert');
+                                var dataURI = img.getAttribute('src');
+                                // dataURIをBlobに変換する
+                                var blob = toBlob(dataURI);
+                                ncmb.File
+                                .upload(uid,blob)
+                                .then(function(res){
+                                        // アップロード後処理
+                                        hideGiftInsertLoad();
+                                        giftInputOpen();
+                                })
+                                .catch(function(err){
+                                        // エラー処理
                                         hideGiftInsertLoad();
                                         giftInputImageMissOpen();
-                                }else{
-                                        ncmb.File
-                                        .upload(uid,blob)
-                                        .then(function(res){
-                                                // アップロード後処理
-                                                hideGiftInsertLoad();
-                                                giftInputOpen();
-                                        })
-                                        .catch(function(err){
-                                                // エラー処理
-                                                hideGiftInsertLoad();
-                                                giftInputImageMissOpen();
-                                        });
-                                }
-                                // ncmb.File
-                                // .upload(uid,fileData)
-                                // .then(function(res){
-                                //         // アップロード後処理
-                                //         hideGiftInsertLoad();
-                                //         giftInputOpen();
-                                // })
-                                // .catch(function(err){
-                                //         // エラー処理
-                                //         hideGiftInsertLoad();
-                                //         giftInputImageMissOpen();
-                                // });
+                                });
                         })
                         .catch(function(err){
                         // エラー処理
@@ -98,7 +84,7 @@ function giftEdit() {
         var gift_text = $("#gift_text_edit").val();     //メールアドレス
         var gift_price = $("#gift_price_edit").val();      //パスワード
         var gift_stock = $("#gift_stock_edit").val();
-        var gift_image = $('#file-data-gift-edit').val().length;
+        var profileGiftEditStatus = $('#profileGiftEditStatus').val();
         if(gift_title ==''){
                 hideGiftEditLoad();
                 alert("ギフトタイトルが未入力です");
@@ -140,38 +126,24 @@ function giftEdit() {
                                         .set("stock",gift_stock)
                                         .update();
 
-                                if(gift_image != ""){
-                                        if(!blob) {
+                                if(profileGiftEditStatus != 0){
+                                        // 保存後の処理
+                                        var img = document.getElementById('gift_image_edit');
+                                        var dataURI = img.getAttribute('src');
+                                        // dataURIをBlobに変換する
+                                        var blob = toBlob(dataURI);
+                                        ncmb.File
+                                        .upload(uid,blob)
+                                        .then(function(res){
+                                                // アップロード後処理
+                                                hideGiftEditLoad();
+                                                giftEditOpen();
+                                        })
+                                        .catch(function(err){
+                                                // エラー処理
                                                 hideGiftEditLoad();
                                                 giftEditImageMissOpen();
-                                        }else{
-                                                ncmb.File
-                                                .upload(uid,blob)
-                                                .then(function(res){
-                                                        // アップロード後処理
-                                                        hideGiftEditLoad();
-                                                        giftEditOpen();
-                                                })
-                                                .catch(function(err){
-                                                        // エラー処理
-                                                        hideGiftEditLoad();
-                                                        giftEditImageMissOpen();
-                                                });
-                                        }
-                                        // var fileData = document.getElementById("file-data-gift-edit").files[0];
-                                        // console.log(fileData);
-                                        // ncmb.File
-                                        // .upload(uid,fileData)
-                                        // .then(function(res){
-                                        //         // アップロード後処理
-                                        //         hideGiftEditLoad();
-                                        //         giftEditOpen();
-                                        // })
-                                        // .catch(function(err){
-                                        //         // エラー処理
-                                        //         hideGiftEditLoad();
-                                        //         giftEditImageMissOpen();
-                                        // });
+                                        });
                                 }else{
                                         hideGiftEditLoad();
                                         giftEditOpen();

@@ -1,5 +1,9 @@
 function MyGift(){
         $("#myGiftList").empty();
+        // showLoad();
+        // setTimeout(function(){
+        //         hideLoad();
+        // }, 1000);
         // カレントユーザー情報の取得
         var currentUser = ncmb.User.getCurrentUser();
         var objectId = currentUser.get("objectId");

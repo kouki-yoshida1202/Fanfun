@@ -81,10 +81,10 @@
                 <div id="profile_image_area"class="" style="width: 60%; margin: 0 auto;margin-top:3px;background-color: white;border-radius: 20px;border:1px solid #898989;">
                     <img id="image_edit" src="img/human.png" alt="" style="width:100%;height:auto;object-fit:cover;border-radius:20px;">
                 </div>
-                <div style="width:60%;margin:0 auto;margin-top:5px;">
-                    <label for="file-data" class="button" style="border-radius:20px;background:gray;color:white;width:100%;line-height:30px;text-align: center;">
+                <div style="width:60%;margin:0 auto;margin-top:5px;" onclick="profileCamera();">
+                    <label class="button" style="border-radius:20px;background:gray;color:white;width:100%;line-height:30px;text-align: center;">
                         写真を変更
-                        <input type="file" id="file-data" style="display: none;">
+                        <input type="hidden" id="profileImageEditStatus" val="0">
                     </label>
                 </div>
                 
@@ -97,17 +97,11 @@
                     <input type="text" placeholder="表示名(14文字以内)" id="current_user_name_profile" maxlength="14"required>
                     <i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
                 </div>
-                <!-- <div class="" style="width: 100%; margin: 0 auto;margin-top:3px;">
-                    <input type="text" id="current_user_name_profile" class="text-input" placeholder="表示名(必須/20文字以内)" style="background-color: white;border-radius:20px;width:100%;font-size:14px;border:1px solid #898989;height:30px;padding-left:3%;margin-bottom:7px;"maxlength="20" required>
-                </div> -->
             </div>
             <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:20px;">
                 <div>
                     <span>3.プロフィール文章</span>
                 </div>
-                <!-- <div class="" style="width: 100%; margin: 0 auto;margin-top:3px;">
-                    <textarea id="current_text_profile"class="textarea" rows="7" placeholder="プロフィール(必須/160文字以内)" style="background-color: white;border-radius:20px;width:100%;border:1px solid #898989;padding:10px;font-size:14px;" required maxlength="160"></textarea>
-                </div> -->
                 <div class="cp_iptxt">
                         <textarea type="text" rows="7"placeholder="プロフィール(120文字以内)" id="current_text_profile" required maxlength="120"></textarea>
                         <i class="fas fa-comment-alt fa-lg fa-fw" aria-hidden="true"></i>
@@ -117,9 +111,6 @@
                 <div>
                     <span>4.メールアドレス</span>
                 </div>
-                <!-- <div class="" style="width: 100%; margin: 0 auto;margin-top:3px;">
-                    <input type="email" id="current_mailaddress_profile" class="text-input" placeholder="メールアドレス" style="background-color: white;border-radius:20px;width:100%;font-size:14px;border:1px solid #898989;height:30px;padding-left:3%;margin-bottom:7px;">
-                </div> -->
                 <div style="width:100%;margin-top:5px;">
                     <div class="segment__item" style="width:50%;float:left;">
                         <input type="radio" class="segment__input" name="mailaddress-radio" value="noChange"checked>
@@ -213,13 +204,24 @@
             </div>
         </div>
     </div>
-    
-    <!-- サムネイル表示領域 -->
-    <canvas id="profileCanvas" width="0" height="0" style="display:none;"></canvas>
     <script>
-        $('#file-data').change(function() {
-            fileChange("profileCanvas","file-data");
-        });
+
+        function profileCamera(){
+            window.navigator.camera.getPicture((imageData) => {
+                //成功時
+                document.getElementById('image_edit').src = 'data:image/jpeg;base64,' + imageData;
+                $('#profileImageEditStatus').val("1");
+                }, (error) => {
+                // 失敗時
+                    alert("写真取得に失敗しました");
+                }, {
+                // 各種設定
+                sourceType: window.navigator.camera.PictureSourceType.SAVEDPHOTOALBUM,
+                destinationType: window.navigator.camera.DestinationType.DATA_URL,
+                targetWidth: 800,
+                targetHeight: 800
+            });
+        }
         $('.profileEdit_dialog_mask,.profileEdit_dialog,.profileMailEdit_dialog_mask,.profileMailEdit_dialog,.profileImageEditMiss_dialog_mask,.profileImageEditMiss_dialog,.profileEditMiss_dialog_mask,.profileEditMiss_dialog,.profileMailaddressEditMiss_dialog_mask,.profileMailaddressEditMiss_dialog').hide();
         $('input[name="mailaddress-radio"]').change(function () {
             // value値取得

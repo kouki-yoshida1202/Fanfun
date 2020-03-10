@@ -55,14 +55,24 @@
   <script src="lib/onsenui/js/contactForm.js"></script>
   <script src="lib/onsenui/js/requestForm.js"></script>
   <script src="lib/onsenui/js/loadingoverlay.min.js"></script>
-  <script src="lib/onsenui/js/fileUpload.js"></script>
+  <!-- <script src="lib/onsenui/js/fileUpload.js"></script> -->
 
   <script>
     // ログインしたらまずTopページにくるようにTopのアイコンを押す
     ons.ready(function() {
       $('#topPageTab').click();
     });
-
+    // dataURIをBlobに変換する関数
+    function toBlob(dataURI){
+        const byteString = atob( dataURI.split( "," )[1] ) ;
+        const mimeType = dataURI.match( /(:)([a-z\/]+)(;)/ )[2] ;
+        for( var i=0, l=byteString.length, content=new Uint8Array( l ); l>i; i++ ) {
+            content[i] = byteString.charCodeAt( i ) ;
+        }
+        return new Blob( [ content ], {
+            type: mimeType ,
+        }) ;
+    }
     // フォローリスト、フォロワーリストから、フォローやフォロワーを解除するダイアログ表示用
     var createAlertDialog = function() {
       var dialog = document.getElementById('my-alert-dialog');
@@ -290,8 +300,12 @@
     }
 
     .sp-navi > .selected > span{
-      color:#FF6070;
-      border-bottom:0.5px solid #FF6070;
+      color:white;
+      /* border-bottom:0.5px solid #FF6070; */
+      background: #FF6070;
+      border-radius: 30px;
+      padding-top:3px;
+      padding-bottom:3px;
     }
 
     .footer{

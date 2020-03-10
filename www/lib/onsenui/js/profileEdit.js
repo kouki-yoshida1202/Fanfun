@@ -1,6 +1,5 @@
 function profileEdit(){
         showLoad();
-            
         //APIキーの設定とSDKの初期化
         var appKey    = "2a769bb0b55358cb641215e139e1e4c409bfba09b1177e468e736635af5c7f58";
         var clientKey = "e007abb894e7e571efd683ba05b19e90ed4bb3633cf8e693f287451bb4d1db06";
@@ -30,50 +29,34 @@ function profileEdit(){
                                 .update()
                                 .then(function(data) {
                                 // 更新完了
-                                        
-                                        
-                                        var gift_image = $('#file-data').val().length;
-                                        if(gift_image != ""){
-                                                // fileUpload(objectId);
-                                                if(!blob) {
+                                        var profileImageEditStatus = $('#profileImageEditStatus').val();
+                                        if(profileImageEditStatus != 0){
+                                                var img = document.getElementById('image_edit');
+                                                var dataURI = img.getAttribute('src');
+                                                // dataURIをBlobに変換する
+                                                var blob = toBlob(dataURI);
+                                                // ファイル名を取得
+                                                ncmb.File
+                                                .upload(objectId,blob)
+                                                .then(function(res){
+                                                        // アップロード後処理
+                                                        hideLoad();
+                                                        profileMailEditOpen();
+                                                })
+                                                .catch(function(err){
+                                                        // エラー処理
                                                         hideLoad();
                                                         profileImageEditMissOpen();
-                                                }else{
-                                                        ncmb.File
-                                                        .upload(objectId,blob)
-                                                        .then(function(res){
-                                                                // アップロード後処理
-                                                                hideLoad();
-                                                                profileMailEditOpen();
-                                                        })
-                                                        .catch(function(err){
-                                                                // エラー処理
-                                                                hideLoad();
-                                                                profileImageEditMissOpen();
-                                                        });
-                                                }
-                                                // var fileData = document.getElementById("file-data").files[0];
-                                                // ncmb.File
-                                                // .upload(objectId,fileData)
-                                                // .then(function(res){
-                                                //         // アップロード後処理
-                                                //         hideLoad();
-                                                //         profileMailEditOpen();
-                                                // })
-                                                // .catch(function(err){
-                                                //         // エラー処理
-                                                //         hideLoad();
-                                                //         profileImageEditMissOpen();
-                                                // });
+                                                });
                                         }else{
                                                 // // アップロード後処理
-                                                // hideLoad();
-                                                // profileMailEditOpen();
+                                                hideLoad();
+                                                profileMailEditOpen();
                                         }
                                 })
                                 .catch(function(err) {
                                 // エラー
-                                hideLoad();
+                                        hideLoad();
                                         profileEditMissOpen();
                                 });               
                 }else{
@@ -88,25 +71,24 @@ function profileEdit(){
                 .update()
                 .then(function(data) {
                 // 更新完了
-                        var gift_image = $('#file-data').val().length;
-                        if(gift_image != ""){
-                                if(!blob) {
+                        var profileImageEditStatus = $('#profileImageEditStatus').val();
+                        if(profileImageEditStatus != 0){
+                                var img = document.getElementById('image_edit');
+                                var dataURI = img.getAttribute('src');
+                                // dataURIをBlobに変換する
+                                var blob = toBlob(dataURI);
+                                ncmb.File
+                                .upload(objectId,blob)
+                                .then(function(res){
+                                        // アップロード後処理
+                                        hideLoad();
+                                        profileEditOpen();
+                                })
+                                .catch(function(err){
+                                        // エラー処理
                                         hideLoad();
                                         profileImageEditMissOpen();
-                                }else{
-                                        ncmb.File
-                                        .upload(objectId,blob)
-                                        .then(function(res){
-                                                // アップロード後処理
-                                                hideLoad();
-                                                profileEditOpen();
-                                        })
-                                        .catch(function(err){
-                                                // エラー処理
-                                                hideLoad();
-                                                profileImageEditMissOpen();
-                                        });
-                                }
+                                });
                         }else{
                                 // アップロード後処理
                                 hideLoad();
@@ -129,11 +111,11 @@ function MailCheck(mail) {
         var mail_regex2 = new RegExp( '^[^\@]+\@[^\@]+$' );
         if(mail.match(mail_regex1)&&mail.match(mail_regex2)){
             // 全角チェック
-            if( mail.match( /[^a-zA-Z0-9\!\"\#\$\%\&\'\(\)\=\~\|\-\^\\\@\[\;\:\]\,\.\/\\\<\>\?\_\`\{\+\*\} ]/ ) ) { return false; }
-            // 末尾TLDチェック（〜.co,jpなどの末尾ミスチェック用）
-            if( !mail.match( /\.[a-z]+$/ ) ) { return false; }
-            return true;
+                if( mail.match( /[^a-zA-Z0-9\!\"\#\$\%\&\'\(\)\=\~\|\-\^\\\@\[\;\:\]\,\.\/\\\<\>\?\_\`\{\+\*\} ]/ ) ) { return false; }
+                // 末尾TLDチェック（〜.co,jpなどの末尾ミスチェック用）
+                if( !mail.match( /\.[a-z]+$/ ) ) { return false; }
+                return true;
         } else {
-            return false;
+                return false;
         }
 }
