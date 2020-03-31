@@ -45,7 +45,9 @@ function follow() {
                         console.log(err)
                 });
         }
-}//一覧画面でフォローか外すかの処理
+}
+
+//一覧画面でフォローか外すかの処理
 function ichiranFollow(user_id) {
         var currentUser = ncmb.User.getCurrentUser();
         var my_id = currentUser.get("objectId");
