@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<widget xmlns="http://www.w3.org/ns/widgets" id="com.monaca.fanfun.20200309" version="1.0.4" android-versionCode="102">
+<widget xmlns="http://www.w3.org/ns/widgets" id="com.monaca.fanfun.20200309" version="1.0.6" android-versionCode="101">
   <name>Fanfun</name>
   <description>Made with Monaca (http://monaca.mobi)</description>
   <author/>
@@ -82,7 +82,7 @@
   <preference name="monaca:AndroidIsPackageNameSeparate" value="false"/>
   <preference name="Orientation" value="portrait"/>
   <preference name="SplashScreenDelay" value="1000"/>
-  <preference name="Fullscreen" value="true"/>
+  <preference name="Fullscreen" value="false"/>
   <preference name="ios-XCBuildConfiguration-TARGETED_DEVICE_FAMILY" value="1"/>
   <preference name="AutoHideSplashScreen" value="true"/>
   <preference name="FadeSplashScreen" value="true"/>

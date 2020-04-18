@@ -41,16 +41,16 @@ function followUserGift(){
                                 var gift_stock = object[i].get("stock");
                                 var gift_user_id = object[i].get("userId");
                                 var BlockList = ncmb.DataStore("BlockList");
-                                BlockList
-                                .equalTo("blockerId", objectId)
-                                .equalTo("blockedId", gift_user_id)
-                                .fetchAll()               
-                                .then(function(results){
-                                        var block_object = results;
-                                        var block_check = block_object.length;
-                                        if(block_check > 0){
+                                // BlockList
+                                // .equalTo("blockerId", objectId)
+                                // .equalTo("blockedId", gift_user_id)
+                                // .fetchAll()               
+                                // .then(function(results){
+                                //         var block_object = results;
+                                //         var block_check = block_object.length;
+                                //         if(block_check > 0){
                                                 
-                                        }else{
+                                //         }else{
                                                 //カードに出力していく
                                                 var card = `
                                                 <div class="gift-card" style="width:48%;height: auto; padding: 1px 0 0 0;display: inline-block;margin-top:5px;"onclick="
@@ -121,11 +121,11 @@ function followUserGift(){
                                                 followgiftImageGetTop(gift_uid,i);
                                                 followgiftUserImageTop(gift_user_id,i);
                                                 followgift_favorite_check(gift_uid,i);
-                                        }
-                                })
-                                .catch(function(err){
-                                        console.log(err);
-                                }); 
+                                //         }
+                                // })
+                                // .catch(function(err){
+                                //         console.log(err);
+                                // }); 
                         }
                         
                         syoryaku();

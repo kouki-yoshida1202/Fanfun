@@ -13,12 +13,13 @@
             
         </script>
         <ons-toolbar class="toolbar" style="background-color: white;">
-            <div class="right" style="padding-right:5%;">
+            <div class="right" style="padding-right:5px;float:right;">
                 <button class="button" style="border-radius:30px;background: gray;height:80%;line-height: initial;vertical-align: middle;font-size:12px;margin-bottom:3px;" onclick="searchGift('キーワード検索');">検索</button>
                 <button class="button" style="border-radius:30px;background: transparent;height:80%;line-height: initial;vertical-align: middle;font-size:12px;" onclick="document.getElementById('navi').bringPageTop('search.html')"><i class="fas fa-filter fa-lg" style="color:gray;"></i></button>
-                
             </div>
-            <div class="center" style="width:120%;margin-left:-10%;">
+            <div class="center" style="width:0%;">
+            </div>
+            <div class="left" style="width:80%;float:left;max-width: 80%;">
                 <input id="user_name_search"type="search" value="" placeholder="ユーザー名で検索" class="search-input" style="width:100%;border-radius: 20px;margin-top:5px;" required>
             </div>
         </ons-toolbar>
