@@ -104,7 +104,7 @@ function loginImage(){
                 // エラー処理
                 console.log('error = ' + err);
                 });
-        }, 500);
+        }, 2000);
         
 }
 

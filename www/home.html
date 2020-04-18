@@ -17,9 +17,9 @@
   <!-- <link rel="stylesheet" href="css/modal.css"> -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.css">
-  <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css">
+  <!-- <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css"> -->
   <script src="https://unpkg.com/swiper/js/swiper.js"></script>
-  <script src="https://unpkg.com/swiper/js/swiper.min.js"></script>
+  <!-- <script src="https://unpkg.com/swiper/js/swiper.min.js"></script> -->
   <script src="lib/onsenui/js/logout.js"></script>
   <script src="lib/onsenui/js/currentuser.js"></script>
   <script src="lib/onsenui/js/profileEdit.js"></script>
@@ -114,6 +114,10 @@
       // どっちか使う
       window.open(link, '_blank', 'location=yes');
       return false;
+    }
+    function androidWindow(link) {
+      console.log("android");
+      window.open(link, "_system", 'location=yes');
     }
     function share(userName){
       navigator.screenshot.URI(function(error,res){

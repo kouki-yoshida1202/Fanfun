@@ -92,7 +92,22 @@
             var send_human = $('#send_human').html();
             var nickname = $('#nickname').html();
             var request = $('#request_message').html();
-            aiueo('https://fanfun2020.xsrv.jp/paybutton.html?objectId='+objectId+'&giftUid='+gift_uid+'&price='+price+'&userName='+userName+'&giftTitle='+gift_title+'&mailaddress='+mailaddress+'&sendHuman='+send_human+'&nickName='+nickname+'&request='+request);
+            var osVer;
+            osVer = "Android";
+            /*
+            以下の文字列でユーザーエージェントを判別します
+            osVer = "iPhone";
+            osVer = "Android";
+            osVer = "iPod";
+            osVer = "iPad";
+            */
+            if(navigator.userAgent.indexOf(osVer)>0){
+                console.log("android");
+                androidWindow('https://fanfun2020.xsrv.jp/paybutton.html?objectId='+objectId+'&giftUid='+gift_uid+'&price='+price+'&userName='+userName+'&giftTitle='+gift_title+'&mailaddress='+mailaddress+'&sendHuman='+send_human+'&nickName='+nickname+'&request='+request);/*特定の端末だった時に呼ばれる関数*/
+            }else{
+                console.log("androidじゃない");
+                aiueo('https://fanfun2020.xsrv.jp/paybutton.html?objectId='+objectId+'&giftUid='+gift_uid+'&price='+price+'&userName='+userName+'&giftTitle='+gift_title+'&mailaddress='+mailaddress+'&sendHuman='+send_human+'&nickName='+nickname+'&request='+request);
+            }
         }
     
 
