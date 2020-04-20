@@ -134,7 +134,10 @@
             $('.blockOn_dialog_mask,.blockOn_dialog').slideDown();
         }
         function blockOnClose(){
-            $('.blockOn_dialog_mask,.blockOn_dialog').slideUp();
+            $('.blockOn_dialog').slideUp();
+            setTimeout(function(){
+                $('.blockOn_dialog_mask').slideUp();
+            },500);
         }
 
         function blockOffOpen(){
@@ -142,10 +145,16 @@
         }
         
         function blockOffClose(){
-            $('.blockOff_dialog_miss_mask,.blockOff_miss_dialog').slideUp();
+            $('.blockOff_miss_dialog').slideUp();
+            setTimeout(function(){
+                $('.blockOff_dialog_miss_mask').slideUp();
+            },500);
         }
         function otherActionClose(){
-            $('.action-sheet-mask,.action-sheet').slideUp();
+            $('.action-sheet').slideUp();
+            setTimeout(function(){
+                $('.action-sheet-mask').slideUp();
+            },500);
             // スクロール無効を解除する
             $(window).off('.noScroll');
         }
@@ -153,7 +162,10 @@
             $('.followOn_dialog_mask,.followOn_dialog').slideDown();
         }
         function followOnClose(){
-            $('.followOn_dialog_mask,.followOn_dialog').slideUp();
+            $('.followOn_dialog').slideUp();
+            setTimeout(function(){
+                $('.followOn_dialog_mask').slideUp();
+            },500);
         }
 
         function followOffOpen(){
@@ -161,7 +173,10 @@
         }
         
         function followOffClose(){
-            $('.followOff_dialog_miss_mask,.followOff_miss_dialog').slideUp();
+            $('.followOff_miss_dialog').slideUp();
+            setTimeout(function(){
+                $('.followOff_dialog_miss_mask').slideUp();
+            },500);
         }
 
         //ユーザ画面でフォローか外すかの処理

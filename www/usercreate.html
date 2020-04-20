@@ -138,7 +138,10 @@
             }
             
             function userNameNoClose(){
-                    $('.userNameNo_dialog_mask,.userNameNo_dialog').slideUp();
+                    $('.userNameNo_dialog').slideUp();
+                    setTimeout(function(){
+                        $('.userNameNo_dialog_mask').slideUp();
+                    },500);
             }
 
             function mailaddressNoOpen(){
@@ -146,7 +149,10 @@
             }
             
             function mailaddressNoClose(){
-                    $('.mailaddressNo_dialog_mask,.mailaddressNo_dialog').slideUp();
+                    $('.mailaddressNo_dialog').slideUp();
+                    setTimeout(function(){
+                        $('.mailaddressNo_dialog_mask').slideUp();
+                    },500);
             }
 
             function passwordNoOpen(){
@@ -154,7 +160,10 @@
             }
             
             function passwordNoClose(){
-                    $('.passwordNo_dialog_mask,.passwordNo_dialog').slideUp();
+                    $('.passwordNo_dialog').slideUp();
+                    setTimeout(function(){
+                        $('.passwordNo_dialog_mask').slideUp();
+                    },500);
             }
 
             function userCreateCheckOpen(){
@@ -162,8 +171,11 @@
             }
 
             function userCreateCheckClose(){
-                    $('.userCreate_dialog_mask,.userCreate_dialog').slideUp();
-                    window.location.href = 'index.html';
+                    $('.userCreate_dialog').slideUp();
+                    setTimeout(function(){
+                        $('.userCreate_dialog_mask').slideUp();
+                        window.location.href = 'index.html';
+                    },500);
             }
 
             function userCreateMissOpen(){
@@ -171,7 +183,10 @@
             }
             
             function userCreateMissClose(){
-                    $('.userCreate_dialog_miss_mask,.userCreate_miss_dialog').slideUp();
+                    $('.userCreate_miss_dialog').slideUp();
+                    setTimeout(function(){
+                        $('.userCreate_dialog_miss_mask').slideUp();
+                    },500);
             }
 
             function userCreateMailMissOpen(){
@@ -179,7 +194,10 @@
             }
             
             function userCreateMailMissClose(){
-                    $('.userCreate_dialog_mail_miss_mask,.userCreate_mail_miss_dialog').slideUp();
+                    $('.userCreate_mail_miss_dialog').slideUp();
+                    setTimeout(function(){
+                        $('.userCreate_dialog_mail_miss_mask').slideUp();
+                    },500);
             }
     </script>
 </ons-page>

@@ -122,7 +122,7 @@
                 <span>リクエスト内容</span>
             </div>
             <div class="cp_iptxt">
-                <textarea type="text" rows="7"placeholder="知人との関係性、話してほしいセリフ、お渡しするシチュエーションなど、できるだけ具体的にご記入ください。" id="request_message_input" required></textarea>
+                <textarea type="text" rows="7"placeholder="知人との関係性、話してほしいセリフ、お渡しするシチュエーションなど、できるだけ具体的にご記入ください。(500文字以内)" id="request_message_input" maxlength="500" required></textarea>
                 <i class="fas fa-comment-alt fa-lg fa-fw" aria-hidden="true"></i>
             </div>
             <!-- <div class="" style="width: 100%; margin: 0 auto;margin-top:3px;">
@@ -184,21 +184,30 @@
             $('.sendHumanNoMiss_dialog_mask,.sendHumanNoMiss_dialog').slideDown();
         }
         function sendHumanNoMissClose(){
-            $('.sendHumanNoMiss_dialog_mask,.sendHumanNoMiss_dialog').slideUp();
+            $('.sendHumanNoMiss_dialog').slideUp();
+            setTimeout(function(){
+                $('.sendHumanNoMiss_dialog_mask').slideUp();
+            },500);
         }
         
         function nicknameNoMissOpen(){
             $('.nicknameNoMiss_dialog_mask,.nicknameNoMiss_dialog').slideDown();
         }
         function nicknameNoMissClose(){
-            $('.nicknameNoMiss_dialog_mask,.nicknameNoMiss_dialog').slideUp();
+            $('.nicknameNoMiss_dialog').slideUp();
+            setTimeout(function(){
+                $('.nicknameNoMiss_dialog_mask').slideUp();
+            },500);
         }
 
         function requestMessageNoMissOpen(){
             $('.requestMessageNoMiss_dialog_mask,.requestMessageNoMiss_dialog').slideDown();
         }
         function requestMessageNoMissClose(){
-            $('.requestMessageNoMiss_dialog_mask,.requestMessageNoMiss_dialog').slideUp();
+            $('.requestMessageNoMiss_dialog').slideUp();
+            setTimeout(function(){
+                $('.requestMessageNoMiss_dialog_mask').slideUp();
+            },500);
         }
     </script>
 </ons-page>

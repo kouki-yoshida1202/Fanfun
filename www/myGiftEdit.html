@@ -236,8 +236,9 @@
         }
 
         function giftEditClose(){
-            $('.giftEdit_dialog_mask,.giftEdit_dialog').slideUp();
+            $('.giftEdit_dialog').slideUp();
             setTimeout(function(){
+                $('.giftEdit_dialog_mask').slideUp();
                 window.location.href = 'home.html';
             }, 500);
         }
@@ -247,7 +248,10 @@
         }
 
         function giftEditMissClose(){
-            $('.giftEditMiss_dialog_mask,.giftEditMiss_dialog').slideUp();
+            $('.giftEditMiss_dialog').slideUp();
+            setTimeout(function(){
+                $('.giftEditMiss_dialog_mask').slideUp();
+            },500);
         }
 
         function giftEditImageMissOpen(){
@@ -255,8 +259,9 @@
         }
 
         function giftEditImageMissClose(){
-            $('.giftEditImageMiss_dialog_mask,.giftEditImageMiss_dialog').slideUp();
+            $('.giftEditImageMiss_dialog').slideUp();
             setTimeout(function(){
+                $('.giftEditImageMiss_dialog_mask').slideUp();
                 window.location.href = 'home.html';
             }, 500);
         }
@@ -266,7 +271,10 @@
             $('.kakaku_edit_dialog').css('top',"80%");
         }
         function kakakuEditCheckClose(){
-            $('.kakaku_edit_dialog_mask,.kakaku_edit_dialog').slideUp();
+            $('.kakaku_edit_dialog').slideUp();
+            setTimeout(function(){
+                $('.kakaku_edit_dialog_mask').slideUp();
+            },500);
         }
         // ギフト出品時の価格設定時に価格に応じて、手数料と利益が表示されるようにしている
         $('.kakaku').change(function(){

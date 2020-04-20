@@ -8,7 +8,8 @@ function giftInsert() {
         showGiftInsertLoad();
         //ユーザーの入力したデータを変数にセットする
         var gift_title = $("#gift_title").val();            
-        var gift_text = $("#gift_text").val();     
+        var gift_text = $("#gift_text").val();
+        var gift_text = gift_text.replace(/\r?\n/g,'');
         var gift_price = $("#gift_price").val(); 
         var gift_stock = $("#gift_stock").val(); 
         var profileGiftInputStatus = $('#profileGiftInputStatus').val();
@@ -82,6 +83,7 @@ function giftEdit() {
         //ユーザーの入力したデータを変数にセットする
         var gift_title = $("#gift_title_edit").val();            //お名前
         var gift_text = $("#gift_text_edit").val();     //メールアドレス
+        var gift_text = gift_text.replace(/\r?\n/g,'');
         var gift_price = $("#gift_price_edit").val();      //パスワード
         var gift_stock = $("#gift_stock_edit").val();
         var profileGiftEditStatus = $('#profileGiftEditStatus').val();

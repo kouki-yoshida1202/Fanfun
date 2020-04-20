@@ -19,7 +19,7 @@
             </div>
             <div class="center" style="width:0%;">
             </div>
-            <div class="left" style="width:80%;float:left;max-width: 80%;">
+            <div class="left" style="width:80%;float:left;max-width: 80%;padding-left:10px;">
                 <input id="user_name_search"type="search" value="" placeholder="ユーザー名で検索" class="search-input" style="width:100%;border-radius: 20px;margin-top:5px;" required>
             </div>
         </ons-toolbar>
@@ -64,7 +64,10 @@
             $('.searchKeywordNo_dialog_mask,.searchKeywordNo_dialog').slideDown();
         }
         function searchKeywordNoClose(){
-            $('.searchKeywordNo_dialog_mask,.searchKeywordNo_dialog').slideUp();
+            $('.searchKeywordNo_dialog').slideUp();
+            setTimeout(function(){
+                $('.searchKeywordNo_dialog_mask').slideUp();
+            },500);
         }
 
     </script>

@@ -28,7 +28,10 @@
         }
         
         function followerListFollowOffClose(){
-            $('.followerListFollowOff_dialog_mask,.followerListFollowOff_dialog').slideUp();
+            $('.followerListFollowOff_dialog').slideUp();
+            setTimeout(function(){
+                $('.followerListFollowOff_dialog_mask').slideUp();
+            },500);
         }
     </script>
 </ons-page>

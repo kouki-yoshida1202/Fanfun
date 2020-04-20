@@ -92,6 +92,7 @@ function insertInfluencer() {
                         url: 'https://fanfun2020.xsrv.jp/influencerOrder.html',
                         data: {
                                 'username': username,
+                                'mailaddress':mailaddress
                         },
                         success: function(data){
                                 console.log("----success.----");
@@ -135,7 +136,24 @@ function loginCheck(){
     ncmb.User.loginWithMailAddress(mailaddress,password)
     .then(function(data){
         // ログイン後処理
-        window.location.href = 'home.html';
+        //現在の登録ユーザー取得
+        var user = ncmb.User.getCurrentUser();
+        //ACLの設定を行う
+        var acl = new ncmb.Acl();
+        //登録ユーザーに対するアクセス制御(読み込みと更新可能)
+        acl.setUserWriteAccess(user,true);
+        acl.setUserReadAccess(user,true);
+        //全員に対するアクセス制御(読み込み可能のみ)
+        acl.setPublicReadAccess(true);
+        user.set("acl", acl);
+        user.update()
+            .then(function(obj){
+                window.location.href = 'home.html';
+            })
+            .catch(function(error){
+                console.log("error:" + error.message);
+            });
+        
     })
     .catch(function(err){
         // エラー処理

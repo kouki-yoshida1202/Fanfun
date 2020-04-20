@@ -132,8 +132,11 @@
                 }
 
                 function contactCheckClose(){
-                        $('.contact_dialog_mask,.contact_dialog').slideUp();
-                        $('#contactFormBackButton').click();
+                        $('.contact_dialog').slideUp();
+                        setTimeout(function(){
+                                $('.contact_dialog_mask').slideUp();
+                                $('#contactFormBackButton').click();
+                        },500);
                 }
 
                 function contactMissOpen(){
@@ -141,7 +144,10 @@
                 }
                 
                 function contactMissClose(){
-                        $('.contact_dialog_miss_mask,.contact_miss_dialog').slideUp();
+                        $('.contact_miss_dialog').slideUp();
+                        setTimeout(function(){
+                                $('.contact_dialog_miss_mask').slideUp();
+                        },500);
                 }
 
                 function contactMailMissOpen(){
@@ -149,7 +155,10 @@
                 }
                 
                 function contactMailMissClose(){
-                        $('.contactMailMiss_dialog_mask,.contactMailMiss_dialog').slideUp();
+                        $('.contactMailMiss_dialog').slideUp();
+                        setTimeout(function(){
+                                $('.contactMailMiss_dialog_mask').slideUp();
+                        },500);
                 }
 
                 function contactNoOpen(){
@@ -157,7 +166,10 @@
                 }
                 
                 function contactNoClose(){
-                        $('.contactNo_dialog_mask,.contactNo_dialog').slideUp();
+                        $('.contactNo_dialog').slideUp();
+                        setTimeout(function(){
+                                $('.contactNo_dialog_mask').slideUp();
+                        },500);
                 }
         </script>
 </ons-page>

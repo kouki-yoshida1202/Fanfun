@@ -120,7 +120,10 @@
         }
         
         function userActionClose(){
-            $('.action-sheet-mask,.action-sheet').slideUp();
+            $('.action-sheet').slideUp();
+            setTimeout(function(){
+                $('.action-sheet-mask').slideUp();
+            },500);
             // スクロール無効を解除する
             $(window).off('.noScroll');
         }

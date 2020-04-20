@@ -121,8 +121,11 @@
                 }
 
                 function requestCheckClose(){
-                        $('.request_dialog_mask,.request_dialog').slideUp();
-                        $('#requestFormBackButton').click();
+                        $('.request_dialog').slideUp();
+                        setTimeout(function(){
+                                $('.request_dialog_mask').slideUp();
+                                $('#requestFormBackButton').click();
+                        },500);
                 }
 
                 function requestMissOpen(){
@@ -130,7 +133,10 @@
                 }
                 
                 function requestMissClose(){
-                        $('.request_dialog_miss_mask,.request_miss_dialog').slideUp();
+                        $('.request_miss_dialog').slideUp();
+                        setTimeout(function(){
+                                $('.request_dialog_miss_mask').slideUp();
+                        },500);
                 }
 
                 function influencerRequestNoOpen(){
@@ -138,7 +144,10 @@
                 }
                 
                 function influencerRequestNoClose(){
-                        $('.influencerRequestNo_dialog_mask,.influencerRequestNo_dialog').slideUp();
+                        $('.influencerRequestNo_dialog').slideUp();
+                        setTimeout(function(){
+                                $('.influencerRequestNo_dialog_mask').slideUp();
+                        },500);
                 }
         </script>
 </ons-page>

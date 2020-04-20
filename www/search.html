@@ -193,7 +193,10 @@
             $('.categoryNo_dialog_mask,.categoryNo_dialog').slideDown();
         }
         function categoryNoClose(){
-            $('.categoryNo_dialog_mask,.categoryNo_dialog').slideUp();
+            $('.categoryNo_dialog').slideUp();
+            setTimeout(function(){
+                $('.categoryNo_dialog_mask').slideUp();
+            },500);
         }
         
     </script>

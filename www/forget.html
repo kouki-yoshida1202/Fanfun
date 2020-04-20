@@ -52,7 +52,10 @@
         }
         
         function reminderMailMissClose(){
-                $('.reminderMailMiss_dialog_mask,.reminderMailMiss_dialog').slideUp();
+                $('.reminderMailMiss_dialog').slideUp();
+                setTimeout(function(){
+                    $('.reminderMailMiss_dialog_mask').slideUp();
+                },500);
         }
 
         function reminderMailOpen(){
@@ -60,8 +63,12 @@
         }
         
         function reminderMailClose(){
-                $('.reminderMail_dialog_mask,.reminderMail_dialog').slideUp();
-                window.location.href = 'index.html';
+                $('.reminderMail_dialog').slideUp();
+                setTimeout(function(){
+                    $('.reminderMail_dialog_mask').slideUp();
+                    window.location.href = 'index.html';
+                },500);
+                
         }
     </script>
 </ons-page>

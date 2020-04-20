@@ -40,14 +40,20 @@
             $('.searchUserNo_dialog_mask,.searchUserNo_dialog').slideDown();
         }
         function searchUserNoClose(){
-            $('.searchUserNo_dialog_mask,.searchUserNo_dialog').slideUp();
+            $('.searchUserNo_dialog').slideUp();
+            setTimeout(function(){
+                $('.searchUserNo_dialog_mask').slideUp();
+            },500);
         }
         
         function searchGiftNoOpen(){
             $('.searchGiftNo_dialog_mask,.searchGiftNo_dialog').slideDown();
         }
         function searchGiftNoClose(){
-            $('.searchGiftNo_dialog_mask,.searchGiftNo_dialog').slideUp();
+            $('.searchGiftNo_dialog').slideUp();
+            setTimeout(function(){
+                $('.searchGiftNo_dialog_mask').slideUp();
+            },500);
         }
     </script>
 </ons-page>

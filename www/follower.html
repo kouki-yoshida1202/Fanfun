@@ -37,7 +37,10 @@
             $('.followerListFollowOn_dialog_mask,.followerListFollowOn_dialog').slideDown();
         }
         function followerListFollowOnClose(){
-            $('.followerListFollowOn_dialog_mask,.followerListFollowOn_dialog').slideUp();
+            $('.followerListFollowOn_dialog').slideUp();
+            setTimeout(function(){
+                $('.followerListFollowOn_dialog_mask').slideUp();
+            },500);
         }
 
         function followerListFollowOffOpen(){
@@ -45,7 +48,10 @@
         }
         
         function followerListFollowOffClose(){
-            $('.followerListFollowOff_dialog_mask,.followerListFollowOff_dialog').slideUp();
+            $('.followerListFollowOff_dialog').slideUp();
+            setTimeout(function(){
+                $('.followerListFollowOff_dialog_mask').slideUp();
+            },500);
         }
     </script>
 </ons-page>

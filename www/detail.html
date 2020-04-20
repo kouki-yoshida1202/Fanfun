@@ -96,7 +96,10 @@
             }
             
             function detailShareClose(){
-                $('.detail_mask,.detail_modal').slideUp();
+                $('.detail_modal').slideUp();
+                setTimeout(function(){
+                    $('.detail_mask').slideUp();
+                },500);
             }
 
             var gift_image_detail = $('.gift_image_detail').width();

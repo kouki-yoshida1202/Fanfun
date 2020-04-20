@@ -119,7 +119,10 @@
                 }
 
                 function houkokuNoClose(){
-                        $('.houkokuNo_dialog_mask,.houkokuNo_dialog').slideUp();
+                        $('.houkokuNo_dialog').slideUp();
+                        setTimeout(function(){
+                                $('.houkokuNo_dialog_mask').slideUp();
+                        },500);
                 }
 
                 function houkokuCheckOpen(){
@@ -127,8 +130,11 @@
                 }
 
                 function houkokuCheckClose(){
-                        $('.houkoku_dialog_mask,.houkoku_dialog').slideUp();
-                        document.getElementById('navi').popPage();
+                        $('.houkoku_dialog').slideUp();
+                        setTimeout(function(){
+                                $('.houkoku_dialog_mask').slideUp();
+                                document.getElementById('navi').popPage();
+                        },500);
                 }
 
                 function houkokuMissOpen(){
@@ -136,7 +142,10 @@
                 }
                 
                 function houkokuMissClose(){
-                        $('.houkoku_dialog_miss_mask,.houkoku_miss_dialog').slideUp();
+                        $('.houkoku_miss_dialog').slideUp();
+                        setTimeout(function(){
+                                $('.houkoku_dialog_miss_mask').slideUp();
+                        },500);
                 }
         </script>
 </ons-page>

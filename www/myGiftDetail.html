@@ -136,23 +136,35 @@
         }
         
         function mygiftShareClose(){
-            $('.mygift_mask,.mygift_modal').slideUp();
+            $('.mygift_modal').slideUp();
+            setTimeout(function(){
+                $('.mygift_mask').slideUp();
+            },500);
         }
         function mygiftAction(){
             $('.mygift_delete_mask,.mygift_delete_modal').slideDown();
         }
         
         function mygiftActionClose(){
-            $('.mygift_delete_mask,.mygift_delete_modal').slideUp();
+            $('.mygift_delete_modal').slideUp();
+            setTimeout(function(){
+                $('.mygift_delete_mask').slideUp();
+            },500);
         }
 
         function deleteCheck(){
-            $('.mygift_delete_mask,.mygift_delete_modal').slideUp();
-            $('.gift_delete_dialog_mask,.gift_delete_dialog').slideDown();
+            $('.mygift_delete_modal').slideUp();
+            setTimeout(function(){
+                $('.mygift_delete_mask').slideUp();
+                $('.gift_delete_dialog_mask,.gift_delete_dialog').slideDown();
+            },500);
         }
 
         function deleteCheckClose(){
-            $('.gift_delete_dialog_mask,.gift_delete_dialog').slideUp();
+            $('.gift_delete_dialog').slideUp();
+            setTimeout(function(){
+                $('.gift_delete_dialog_mask').slideUp();
+            },500);
         }
 
         function deleteEndOpen(){
@@ -161,16 +173,22 @@
         }
 
         function deleteEndClose(){
-            $('.deleteEnd_dialog_mask,.deleteEnd_dialog').slideUp();
-            window.location.href = 'home.html';
+            $('.deleteEnd_dialog').slideUp();
+            setTimeout(function(){
+                $('.deleteEnd_dialog_mask').slideUp();
+                window.location.href = 'home.html';
+            },500);
         }
         function deleteEndMissOpen(){
             $('.deleteEndMiss_dialog_mask,.deleteEndMiss_dialog').slideDown();
         }
 
         function deleteEndMissClose(){
-            $('.deleteEndMiss_dialog_mask,.deleteEndMiss_dialog').slideUp();
-            window.location.href = 'home.html';
+            $('.deleteEndMiss_dialog').slideUp();
+            setTimeout(function(){
+                $('.deleteEndMiss_dialog_mask').slideUp();
+                window.location.href = 'home.html';
+            },500);
         }
         function mygiftDelete(){
             deleteCheckClose();

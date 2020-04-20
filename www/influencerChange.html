@@ -167,8 +167,11 @@
           }
 
           function influencerChangeCheckClose(){
-                  $('.influencerChange_dialog_mask,.influencerChange_dialog').slideUp();
-                  $('#influencerChangeBackButton').click();
+                  $('.influencerChange_dialog').slideUp();
+                  setTimeout(function(){
+                          $('.influencerChange_dialog_mask').slideUp();
+                          $('#influencerChangeBackButton').click();
+                  },500);
           }
 
           function influencerChangeMissOpen(){
@@ -176,7 +179,10 @@
           }
 
           function influencerChangeMissClose(){
-                  $('.influencerChange_miss_dialog_mask,.influencerChange_miss_dialog').slideUp();
+                  $('.influencerChange_miss_dialog').slideUp();
+                  setTimeout(function(){
+                          $('.influencerChange_miss_dialog_mask').slideUp();
+                  },500);
           }
   </script>
   <script>

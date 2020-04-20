@@ -238,13 +238,14 @@
         }
 
         function profileEditClose(){
-            $('.profileEdit_dialog_mask,.profileEdit_dialog').slideUp();
+            $('.profileEdit_dialog').slideUp();
             showLoad();
             var mailaddress = $('#current_mailaddress_profile').val();
             var currentUser = ncmb.User.getCurrentUser();
             var password = currentUser.get("password");
             ncmb.User.logout();
             setTimeout(function(){
+                $('.profileEdit_dialog_mask').slideUp();
                 // メールアドレスとパスワードでログイン
                 ncmb.User.loginWithMailAddress(mailaddress,password)
                 .then(function(data){
@@ -260,9 +261,10 @@
         }
 
         function profileMailEditClose(){
-            $('.profileMailEdit_dialog_mask,.profileMailEdit_dialog').slideUp();
+            $('.profileMailEdit_dialog').slideUp();
             showLoad();
             setTimeout(function(){
+                $('.profileMailEdit_dialog_mask').slideUp();
                 hideLoad();
                 window.location.href = 'index.html';
             }, 1000);
@@ -272,11 +274,12 @@
             $('.profileImageEditMiss_dialog_mask,.profileImageEditMiss_dialog').slideDown();
         }
         function profileImageEditMissClose(){
-            $('.profileImageEditMiss_dialog_mask,.profileImageEditMiss_dialog').slideUp();
+            $('.profileImageEditMiss_dialog').slideUp();
             showLoad();
             var mailaddress_radio = $('input[name="mailaddress-radio"]:checked').val();
             if(mailaddress_radio == "onChange"){
                 setTimeout(function(){
+                    $('.profileImageEditMiss_dialog_mask').slideUp();
                     hideLoad();
                     window.location.href = 'index.html';
                 }, 1000);
@@ -301,14 +304,20 @@
             $('.profileEditMiss_dialog_mask,.profileEditMiss_dialog').slideDown();
         }
         function profileEditMissClose(){
-            $('.profileEditMiss_dialog_mask,.profileEditMiss_dialog').slideUp();
+            $('.profileEditMiss_dialog').slideUp();
+            setTimeout(function(){
+                $('.profileEditMiss_dialog_mask').slideUp();
+            },500);
         }
 
         function profileMailaddressEditMissOpen(){
             $('.profileMailaddressEditMiss_dialog_mask,.profileMailaddressEditMiss_dialog').slideDown();
         }
         function profileMailaddressEditMissClose(){
-            $('.profileMailaddressEditMiss_dialog_mask,.profileMailaddressEditMiss_dialog').slideUp();
+            $('.profileMailaddressEditMiss_dialog').slideUp();
+            setTimeout(function(){
+                $('.profileMailaddressEditMiss_dialog_mask').slideUp();
+            },500);
         }
 
         $('#file-data').on('change', function (e) {
