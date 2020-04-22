@@ -167,13 +167,13 @@
           }
           swiperNavigation = new Swiper('.swiper-navigation', {
             slidesPerView: 'auto',
-            pagination: {
-              clickable: true
-            },
-            freeMode: true,
+            allowTouchMove: false,
+            freeMode: false,
             loop: false,
             autoplay: false
           });
+
+
           swiperContents = new Swiper('.swiper-contents', {
             direction: 'horizontal',
             loop: false,
@@ -182,21 +182,16 @@
           swiperContents.on('slideChange', function() {
             setTimeout(function(){
               var index = $('div.sp-content > div.swiper-slide-active').index();
-              if(index == 0){
-                //新着にメニューがうつると、新着ギフトをロード
-                shintyaku();
-              }else{
-                followUserGift();
-              }
+              slideControl(index);
               setCurrentSlide($('.swiper-navigation .swiper-slide').eq(index), index);
-              swiperNavigation.slideTo(index, 500, false);
+              // swiperNavigation.slideTo(index, 500, false);
             },250);
           });
           
-          $('.sp-slide').click(function(){
-            var index = $('.sp-slide').index(this);
-            swiperContents.slideTo(index, 100, false);
-          });
+          // $('.sp-slide').click(function(){
+          //   var index = $('.sp-slide').index(this);
+          //   swiperContents.slideTo(index, 100, false);
+          // });
           
           var header_icon = $('.toolbar').height();
           header_icon = header_icon -5;
@@ -214,6 +209,34 @@
 
           loginImage();
       });
+      function homeJudge(){
+        setTimeout(function(){
+          var index = $('.selected').index('div.sp-navi div');
+          if(index == 0){
+            shintyaku();
+          }else if(index==1){
+            followUserGift();
+          }
+        },500);
+      }
+
+      var slideCounter = 0;
+      function slideControl(index){
+        slideCounter++;
+        console.log(slideCounter);
+        if(slideCounter == 1){
+          if(index == 0){
+            //新着にメニューがうつると、新着ギフトをロード
+            shintyaku();
+          }else if(index==1){
+            followUserGift();
+          }
+        }
+        setTimeout(function(){
+          slideCounter = 0;
+          console.log(slideCounter);
+        },1000)        
+      }
   </script>
   <style>
     *{
@@ -245,7 +268,7 @@
       border-radius:20px;
     }
     .navi-menu{
-      padding:2px 20px 2px 20px;
+      padding:5px 20px 3px 20px;
       font-size:80%;
       line-height:35px;
       color:#898989;
@@ -304,12 +327,12 @@
     }
 
     .sp-navi > .selected > span{
-      color:white;
+      color:#FF6070;
+      border-bottom: 2px solid #FF6070;
+      font-weight: bold;
       /* border-bottom:0.5px solid #FF6070; */
-      background: #FF6070;
-      border-radius: 30px;
-      padding-top:3px;
-      padding-bottom:3px;
+      /* background: #FF6070; */
+      /* border-radius: 30px; */
     }
 
     .footer{
@@ -339,7 +362,7 @@
   <ons-navigator id="navi" swipeable="force">
     <ons-page>
       <ons-tabbar position="bottom">
-          <ons-tab id="topPageTab"page="top.html" label="ホーム"icon="home" onclick="shintyaku();" active></ons-tab>
+          <ons-tab id="topPageTab"page="top.html" label="ホーム"icon="home" onclick="homeJudge();" active></ons-tab>
           <ons-tab page="instagram.html" label="ニュース"icon="instagram" onclick="InstagramNews();"></ons-tab>
           <!-- <ons-tab page="pointList.html" label="ショップ"icon="ticket" onclick=""></ons-tab> -->
           <ons-tab label="コンタクト"page="request.html" icon="fa-rocketchat" onclick=""></ons-tab>

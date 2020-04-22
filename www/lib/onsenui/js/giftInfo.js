@@ -15,7 +15,7 @@ function giftInsert() {
         var profileGiftInputStatus = $('#profileGiftInputStatus').val();
         if(gift_title ==''){
                 hideGiftInsertLoad();
-                alert("ギフトタイトルが未入力です");
+                giftTitleCheckOpen();
         }else if(gift_text == ""){
                 hideGiftInsertLoad();
                 alert("ギフト説明文が未入力です");

@@ -210,6 +210,15 @@
             </div>
         </div>
     </div>
+    <div class="alert-dialog-mask giftTitle_dialog_mask"></div>
+    <div class="alert-dialog giftTitle_dialog">
+        <div class="alert-dialog-container">
+            <div class="alert-dialog-title">ギフトタイトルが未入力です。</div>
+            <div class="alert-dialog-footer">
+                <button class="alert-dialog-button alert-dialog-button--primal" onclick="giftTitleCheckClose();">OK</button>
+            </div>
+        </div>
+    </div>
     
     <script>
     function giftInputCamera(){
@@ -228,7 +237,7 @@
             targetHeight: 800
         });
     }
-    $('.giftInput_dialog_mask,.giftInput_dialog,.giftInputMiss_dialog_mask,.giftInputImageMiss_dialog_mask,.giftInputImageMiss_dialog,.giftInputMiss_dialog,.kakaku_dialog_mask,.kakaku_dialog').hide();
+    $('.giftInput_dialog_mask,.giftInput_dialog,.giftInputMiss_dialog_mask,.giftInputImageMiss_dialog_mask,.giftInputImageMiss_dialog,.giftInputMiss_dialog,.kakaku_dialog_mask,.kakaku_dialog,.giftTitle_dialog_mask,.giftTitle_dialog').hide();
         
     function giftInputOpen(){
         $('.giftInput_dialog_mask,.giftInput_dialog').slideDown();
@@ -273,6 +282,16 @@
         $('.kakaku_dialog').slideUp();
         setTimeout(function(){
             $('.kakaku_dialog_mask').slideUp();
+        },500);
+    }
+    function giftTitleCheckOpen(){
+        $('.giftTitle_dialog_mask,.giftTitle_dialog').slideDown();
+        $('.giftTitle_dialog').css('top',"85%");
+    }
+    function giftTitleCheckClose(){
+        $('.giftTitle_dialog').slideUp();
+        setTimeout(function(){
+            $('.giftTitle_dialog_mask').slideUp();
         },500);
     }
     // ギフト出品時の価格設定時に価格に応じて、手数料と利益が表示されるようにしている
