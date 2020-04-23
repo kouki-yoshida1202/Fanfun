@@ -12,41 +12,104 @@ function insertUser() {
     var password = $("#form_password").val();      //パスワード
     //入力規則およびデータをフィールドにセットする
     if(username == ""){
-        alert("お名前が入力されていません");
+        userNameNoOpen();
     }else if(mailaddress == ""){
-        alert("メールアドレスが入力されていません");
+        mailaddressNoOpen();
     }else if(password == ""){
-        alert("パスワードが入力されていません");
+        passwordNoOpen();
     }else{
         var user = new ncmb.User();
         // ユーザー名・パスワードを設定
         var mailcheck = MailCheck(mailaddress);
         if(mailcheck){
-            // プレイヤーがTaroのスコアを降順で取得
             user.set("userName", username) /* ユーザー名 */
             .set("password", password) /* パスワード */
             .set("mailAddress", mailaddress) /* 任意フィールドも追加可能 */
             .set("BoughtCount",0)
-            .set("Review",0);
+            .set("Review",0)
+            .set("Influencer",false);
             //   ユーザーの新規登録処理
             user.signUpByAccount()
                 .then(function(){
                     //   登録後処理
                     //  保存に成功した場合の処理
-                    alert("認証メールを送信しました。メールに記載のURL押下後、登録が完了します。");
-                    window.location.href = 'index.html';
+                    userCreateCheckOpen();
                 })
                 .catch(function(err){
                     //   エラー処理
                     //  保存に失敗した場合の処理
-                    alert("ユーザ名かメールアドレスが既に使用されています");
+                    userCreateMissOpen();
                 });
         }else{
-            alert("メールアドレスが正しくありません");
+            userCreateMailMissOpen();
         }
     }
 }
-
+// -------[Demo1]データをmBaaSに保存する -------//
+function insertInfluencer() {
+        
+    //ユーザーの入力したデータを変数にセットする
+    var username = $("#form_name").val();            //お名前
+    var mailaddress = $("#form_mailaddress").val();     //メールアドレス
+    var password = $("#form_password").val();      //パスワード
+    var genre = $('.checkbox__input:checked').map(function() {
+        return $(this).val();
+    }).get();
+    //入力規則およびデータをフィールドにセットする
+    if(username == ""){
+        userNameNoOpen();
+    }else if(mailaddress == ""){
+        mailaddressNoOpen();
+    }else if(password == ""){
+        passwordNoOpen();
+    }else{
+        var user = new ncmb.User();
+        // ユーザー名・パスワードを設定
+        var mailcheck = MailCheck(mailaddress);
+        if(mailcheck){
+            user.set("userName", username) /* ユーザー名 */
+            .set("password", password) /* パスワード */
+            .set("mailAddress", mailaddress) /* 任意フィールドも追加可能 */
+            .set("BoughtCount",0)
+            .set("Review",0)
+            .set("Genre",genre)
+            .set("Influencer",true);
+            //   ユーザーの新規登録処理
+            user.signUpByAccount()
+                .then(function(){
+                    //   登録後処理
+                    
+                    // // 運営へ通知
+                    // monaca.cloud.Mailer.sendMail("oid", "template_name", null)
+                    // .done(function(result) {
+                    //     console.log("Send mail success");
+                    // })
+                    // .fail(function(err) {
+                    //     console.log("Mail Err#" + err.code +": " + err.message);
+                    // });
+                    $.ajax({
+                        type: 'post',
+                        url: 'https://fanfun2020.xsrv.jp/influencerOrder.html',
+                        data: {
+                                'username': username,
+                                'mailaddress':mailaddress
+                        },
+                        success: function(data){
+                                console.log("----success.----");
+                        }
+                    });
+                    userCreateCheckOpen();
+                })
+                .catch(function(err){
+                    //   エラー処理
+                    //  保存に失敗した場合の処理
+                    userCreateMissOpen();
+                });
+        }else{
+            userCreateMailMissOpen();
+        }
+    }
+}
 // -------------------------------------------------------------------
 // メールアドレスチェック関数
 // -------------------------------------------------------------------
@@ -73,14 +136,30 @@ function loginCheck(){
     ncmb.User.loginWithMailAddress(mailaddress,password)
     .then(function(data){
         // ログイン後処理
-        window.location.href = 'home.html';
+        //現在の登録ユーザー取得
+        var user = ncmb.User.getCurrentUser();
+        //ACLの設定を行う
+        var acl = new ncmb.Acl();
+        //登録ユーザーに対するアクセス制御(読み込みと更新可能)
+        acl.setUserWriteAccess(user,true);
+        acl.setUserReadAccess(user,true);
+        //全員に対するアクセス制御(読み込み可能のみ)
+        acl.setPublicReadAccess(true);
+        user.set("acl", acl);
+        user.update()
+            .then(function(obj){
+                window.location.href = 'home.html';
+            })
+            .catch(function(error){
+                console.log("error:" + error.message);
+            });
+        
     })
     .catch(function(err){
         // エラー処理
-        alert("メールアドレスかパスワードが間違っています");
+        loginMissOpen();
     });
 }
-
 
 function passwordReminder(){
     var reminder_mail = $('#reminder_mail').val();
@@ -92,14 +171,13 @@ function passwordReminder(){
         user.requestPasswordReset()
             .then(function(data){
                 // 送信後処理
-                alert("上記メールアドレスにメールを送信しました。ご確認ください。");
-                window.location.href = 'index.html';
+                reminderMailOpen();
             })
             .catch(function(err){
                 // エラー処理
                 alert("受付エラーです。お問い合わせください。");
             });
     }else{
-        alert("メールアドレスが正しくありません");
+        reminderMailMissOpen();
     }
 }

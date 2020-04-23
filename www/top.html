@@ -10,25 +10,23 @@
             }
         </style>
         <script>
-            // kyujosyo();
+            
         </script>
-        <div class="homestart" style="text-align: center;background-color:white;height:100%;width:100%">
-            <svg id="loading"class="progress-circular progress-circular--indeterminate">
-                <circle class="progress-circular__background"/>
-                <circle class="progress-circular__primary progress-circular--indeterminate__primary"/>
-                <circle class="progress-circular__secondary progress-circular--indeterminate__secondary"/>
-            </svg>
-        </div>
         <ons-toolbar class="toolbar" style="background-color: white;">
-            <div class="right" style="padding-right:5%;" onclick="searchGift();">
-                <button class="button" style="border-radius:30px;background: gray;height:80%;line-height: initial;vertical-align: middle;font-size:12px;" onclick="searchGift();">検索</button>
+            <div class="right" style="padding-right:5px;float:right;">
+                <button class="button" style="border-radius:30px;background: gray;height:80%;line-height: initial;vertical-align: middle;font-size:12px;margin-bottom:3px;" onclick="searchGift('キーワード検索');">検索</button>
+                <button class="button" style="border-radius:30px;background: transparent;height:80%;line-height: initial;vertical-align: middle;font-size:12px;" onclick="document.getElementById('navi').bringPageTop('search.html')"><i class="fas fa-filter fa-lg" style="color:gray;"></i></button>
             </div>
-            <div class="center" style="width:120%;margin-left:-10%;">
+            <div class="center" style="width:0%;">
+            </div>
+            <div class="left" style="width:80%;float:left;max-width: 80%;padding-left:10px;">
                 <input id="user_name_search"type="search" value="" placeholder="ユーザー名で検索" class="search-input" style="width:100%;border-radius: 20px;margin-top:5px;" required>
             </div>
         </ons-toolbar>
-        <div class="container contents top-container" style="position:relative;">
-            <div class="swiper-container swiper-navigation" style="position: fixed;left:0px;width:100%;height:35px;background-color: white;z-index:100;">
+        <div id="ptr">
+        </div>
+        <div id="content" class="container contents top-container" style="position:relative;">
+            <div id="swiper_menu"class="swiper-container swiper-navigation" style="position: fixed;left:0px;width:100%;height:35px;background-color: white;z-index:100;">
                 <div class="swiper-wrapper sp-navi">
                     <div class="swiper-slide selected sp-slide">
                         <span class="navi-menu">新着</span>
@@ -38,7 +36,7 @@
                     </div>
                 </div>
             </div>
-            <div class="swiper-container swiper-contents">
+            <div class="swiper-container swiper-contents" style="min-height: 650px;">
                 <div class="swiper-wrapper sp-content" style="margin-top:35px;">
                     <div class="swiper-slide">
                         <div id="shintyakuList"></div>
@@ -50,4 +48,27 @@
             </div>
         </div>
     </div>
+    <div class="alert-dialog-mask searchKeywordNo_dialog_mask" style="z-index:1000;"></div>
+    <div class="alert-dialog searchKeywordNo_dialog" style="z-index: 1001;">
+        <div class="alert-dialog-container">
+            <div class="alert-dialog-title">検索キーワードを<br>入力してください</div>
+            <div class="alert-dialog-footer">
+                <button class="alert-dialog-button alert-dialog-button--primal" onclick="searchKeywordNoClose();">OK</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        $('.searchKeywordNo_dialog_mask,.searchKeywordNo_dialog').hide();
+        
+        function searchKeywordNoOpen(){
+            $('.searchKeywordNo_dialog_mask,.searchKeywordNo_dialog').slideDown();
+        }
+        function searchKeywordNoClose(){
+            $('.searchKeywordNo_dialog').slideUp();
+            setTimeout(function(){
+                $('.searchKeywordNo_dialog_mask').slideUp();
+            },500);
+        }
+
+    </script>
 </ons-page>

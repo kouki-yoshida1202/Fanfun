@@ -1,9 +1,37 @@
 function MyGift(){
         $("#myGiftList").empty();
+        // showLoad();
+        // setTimeout(function(){
+        //         hideLoad();
+        // }, 1000);
         // カレントユーザー情報の取得
         var currentUser = ncmb.User.getCurrentUser();
         var objectId = currentUser.get("objectId");
         $('.current_user_id').val(objectId);
+        var influencer = currentUser.get("Influencer");
+        var authentication = currentUser.get("Authentication");
+        if(influencer==true && authentication=="OK"){
+                $('#exhibition_button').prop("disabled",false);
+                var userNameTitle = currentUser.get("userName") + " <i class='far fa-check-circle' style='color:#FF6070;'></i>";
+                $('#influencerTouroku').hide();
+        }else if(influencer==true && authentication!="OK"){
+                var userNameTitle = currentUser.get("userName");
+                $('#myGiftList').hide();
+
+                var influencer_button = `
+                <button id="influencer_button" class="button "style="width:70%;padding-top:0px;padding-bottom:0px;line-height:auto;border-radius:30px;font-size:16px;margin:0 auto;" disabled>インフルエンサー申請中</button>
+                `;
+                $('#influencerTouroku').html(influencer_button);
+        }else{
+                var userNameTitle = currentUser.get("userName");
+                $('#myGiftList').hide();
+
+                var influencer_button = `
+                <button id="influencer_button" class="button "style="width:70%;padding-top:0px;padding-bottom:0px;line-height:auto;border-radius:30px;font-size:16px;margin:0 auto;"onclick="document.getElementById('navi').bringPageTop('influencerChangeKiyaku.html');influencerChangeKiyaku();">インフルエンサー申請</button>
+                `;
+                $('#influencerTouroku').html(influencer_button);
+        }
+        $('.user_name_title').html(userNameTitle);
         var userName = currentUser.get("userName");
         //データストアから取得して、1件表示する
         var GiftData = ncmb.DataStore("giftData");
@@ -22,14 +50,15 @@ function MyGift(){
                         var create_date = object[i].get("createDate");
                         var time = jikanCulc(create_date);
                         var gift_uid = object[i].get("giftUid");
+                        var gift_stock = object[i].get("stock");
                         var gift_price = object[i].get("price");
                         var gift_user_id = object[i].get("userId");
-                        var ReleaseStatus = object[i].get("ReleaseStatus");
+                        
                         //カードに出力していく
                         var card = `
                         <div class="gift-card" style="width:49%;height: auto; padding: 1px 0 0 0;display: inline-block;margin-top:5px;"onclick="
                         `;
-                        card += "giftIdJudge('"+gift_uid+"','"+userName+"','"+gift_title+"','"+gift_text+"','"+objectId+"','"+create_date+"','"+gift_price+"','"+gift_user_id+"','"+ReleaseStatus+"');";
+                        card += "giftIdJudge('"+gift_uid+"','"+userName+"','"+gift_title+"','"+gift_text+"','"+objectId+"','"+create_date+"','"+gift_price+"','"+gift_user_id+"','"+gift_stock+"');";
                         card +=`
                         ">
                                 <input class="gift_uid" type="" value="`;
@@ -40,7 +69,7 @@ function MyGift(){
                                         <div class="card__content" style="height:auto;">
                                                 <img id="`;
                                                 card += "gift_image_"+i;
-                                                card +=`"class="gift_image" src="" alt="" style="width:100%;height:125px;border-radius: 20px;">
+                                                card +=`"class="gift_image" src="" alt="" style="width:100%;height:157px;object-fit:cover;border-radius: 20px;">
                                         </div>
                                         <div class="card__content" style="height:45px;">
                                                 <ul class="list" style="background-image:none;background:transparent;margin-top:-13px;">
@@ -52,7 +81,7 @@ function MyGift(){
                                                         </div>
                                                 
                                                         <div class="list-item__center" style="padding:0px; padding-left:5px;">
-                                                        <div class="current_user_name" style="text-align: left;"></div>
+                                                        <div class="current_user_name my_page_user_name" style="text-align: left;"></div>
                                                         </div>
                                                 </li>
                                                 </ul>
@@ -70,6 +99,11 @@ function MyGift(){
                                                         card += "my_gift_favorite_span_"+i;
                                                         card +=`"class="favorite_off">0</span>
                                                 </button>
+                                                <button class="toolbar-button" style="font-size:12px;padding:0px;">
+                                                        <span style="font-size:12px;color:gray">残:`;
+                                                        card += gift_stock;
+                                                        card +=`</span>
+                                                </button>
                                                 <button class="toolbar-button" style="font-size:12px;padding:0px;float: right;">
                                                         <span style="color:#898989">
                                                         `;
@@ -82,10 +116,7 @@ function MyGift(){
                         </div>
                         `;
                         $('#myGiftList').append(card);
-                        $('.gift_image').height($('.gift_image').width());
-                        
-                        
-                        $('.current_user_name').html(userName);
+                        $('.my_page_user_name').html(userName);
                         giftImageGet(gift_uid,i);
                         giftUserImage(objectId,i);
                         my_gift_favorite_check(gift_uid,i);
@@ -111,7 +142,7 @@ function giftUserImage(objectId,i){
         })
         .catch(function(err){
                 // エラー処理
-                alert('error = ' + err);
+                console.log('error = ' + err);
         });
 }
 function giftImageGet(giftUid,i){
@@ -129,11 +160,11 @@ function giftImageGet(giftUid,i){
         })
         .catch(function(err){
         // エラー処理
-        alert('error = ' + err);
+        console.log('error = ' + err);
         });
 }
 
-function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date,price,gift_user_id,ReleaseStatus){
+function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date,price,gift_user_id,gift_stock){
         // 日付のフォーマット変換
         ncmb.User
         .equalTo("objectId", gift_user_id)
@@ -141,7 +172,7 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
         .then(function(results){
                 var gift_user_name = results.get("userName");
                 if(gift_user_id == objectId){
-                        document.getElementById('navi').pushPage('myGiftDetail.html');
+                        document.getElementById('navi').bringPageTop('myGiftDetail.html');
                         function formatDate(date) {
                                 const y = date.getFullYear()
                                 const m = date.getMonth() + 1
@@ -164,7 +195,7 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
                         })
                         .catch(function(err){
                         // エラー処理
-                                alert('error = ' + err);
+                                console.log('error = ' + err);
                         });
                 
                         // 画像ダウンロード
@@ -180,7 +211,7 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
                         })
                         .catch(function(err){
                         // エラー処理
-                                alert('error = ' + err);
+                                console.log('error = ' + err);
                         });
                         // 各テキストを入れる
                         setTimeout(function() {
@@ -192,10 +223,11 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
                                 $('#gift_detail_time').html(formatDate(date));
                                 $('#my_user_id').val(gift_user_id);
                                 $('#my_gift_id').val(gift_uid);
+                                $('#my_stock').html(gift_stock);
                                 my_gift_favorite_check_detail(gift_uid);
                         },500);
                 }else{
-                        document.getElementById('navi').pushPage('detail.html');
+                        document.getElementById('navi').bringPageTop('detail.html');
                         function formatDate(date) {
                                 const y = date.getFullYear()
                                 const m = date.getMonth() + 1
@@ -204,7 +236,6 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
                                 return `${y}年${m}月${d}日 (${day})`;
                         }
                         const date = new Date(create_date);
-                
                         // 画像ダウンロード
                         ncmb.File.download(gift_uid, "blob")
                         .then(function(fileData) {
@@ -218,7 +249,7 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
                         })
                         .catch(function(err){
                         // エラー処理
-                                alert('error = ' + err);
+                                console.log('error = ' + err);
                         });
                 
                         // 画像ダウンロード
@@ -234,7 +265,7 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
                         })
                         .catch(function(err){
                         // エラー処理
-                                alert('error = ' + err);
+                                console.log('error = ' + err);
                         });
                         // 各テキストを入れる
                         setTimeout(function() {
@@ -246,13 +277,11 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
                                 $('#gift_detail_time_other').html(formatDate(date));
                                 $('#other_user_id').val(gift_user_id);
                                 $('#gift_id').val(gift_uid);
+                                $('#stock').html(gift_stock);
                                 gift_favorite_check_detail(gift_uid);
-                                if(ReleaseStatus == "false"){
-                                        $('#ReleaseStatusButton').text("ギフト審査中");
-                                        $("#ReleaseStatusButton").prop("disabled", true);
-                                }else{
-                                        $('#ReleaseStatusButton').text("購入手続きへ");
-                                        $("#ReleaseStatusButton").prop("disabled", false);
+                                if(gift_stock == 0 || gift_stock == '' || gift_stock==undefined){
+                                        $('#ReleaseStatusButton').prop("disabled",true);
+                                        $('#ReleaseStatusButton').html("在庫切れ");
                                 }
                         },500);
                 }

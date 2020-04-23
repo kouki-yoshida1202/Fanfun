@@ -1,4 +1,66 @@
 <ons-page>
+    <style>
+        .cp_iptxt {
+                position: relative;
+        }
+        .cp_iptxt input {
+                font: 15px/24px sans-serif;
+                box-sizing: border-box;
+                width: 100%;
+                margin: 8px 0;
+                padding: 0.3em;
+                transition: 0.3s;
+                border: 1px solid #898989;
+                border-radius: 5px;
+                outline: none;
+        }
+        .cp_iptxt input:focus {
+                border-color: #FF6070;
+        }
+
+        #gift_price:focus{
+            background-image: linear-gradient(#FF6070,#FF6070),linear-gradient(to top,transparent 1px,#afafaf 1px);
+        }
+        .cp_iptxt input {
+                padding-left: 40px;
+        }
+        .cp_iptxt i {
+                position: absolute;
+                top: 11px;
+                left: 0;
+                padding: 9px 8px;
+                transition: 0.3s;
+                color: #aaaaaa;
+        }
+        .cp_iptxt input:focus + i {
+                color: #FF6070;
+        }
+        .cp_iptxt textarea[type=text] {
+                font: 15px/24px sans-serif;
+                box-sizing: border-box;
+                width: 100%;
+                margin: 8px 0;
+                padding: 0.3em;
+                transition: 0.3s;
+                border: 1px solid #898989;
+                border-radius: 4px;
+                outline: none;
+                resize: none;
+        }
+        .cp_iptxt textarea[type=text]:focus {
+                border-color: #FF6070;
+        }
+        .cp_iptxt textarea[type=text] {
+                padding-left: 40px;
+        }
+        .cp_iptxt textarea[type=text]:focus + i {
+                color: #FF6070;
+        }
+
+        .alert-dialog{
+            top:120%;
+        }
+    </style>
     <ons-toolbar class="toolbar" style="background-color: white;position: fixed;">
         <div class="left" style="padding-left: 3%;">
             <ons-back-button></ons-back-button>
@@ -7,48 +69,58 @@
             ギフト出品画面
         </div>
     </ons-toolbar>
-    <div class="container contents" style="background-color:#efeff4;padding-bottom:100px;">
+    <div id="giftScrollZone"class="container contents" style="background-color:#efeff4;padding-bottom:250px;">
         <!-- カードリスト部分 -->
         <div class="" style="width:100%;height: auto; padding: 1px 0 0 0;display: inline-block;">
             <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:15px;">
                 <div>
                     <span>1.写真を登録</span>
+                    <br>
+                    <span style="font-size:12px;color:#FF6070;">※正方形の写真をアップロードしてください</span>
                 </div>
-                <div class="" style="width: 60%; margin: 0 auto;margin-top:3px;background-color: white;border-radius: 20px;border:1px solid #898989;">
-                    <img id="gift_image_insert" class="buypage_img"src="img/imagePlus.png" alt="" style="width:100%;height:auto;border-radius: 20px;">
-                    <input type="file" id="file-data-gift"/>
-                    <span>※正方形の写真をアップロードしてください</span>
-                    <!-- <button class="button "style="width:100%;padding-top:0px;padding-bottom:0px;line-height:40px;border-radius:30px;font-size:16px;margin:0 auto;" onclick="onFormSendGift();">変更</button> -->
+                <div id="image_insert_div"class="" style="width: 60%; margin: 0 auto;margin-top:3px;background-color: white;border-radius: 20px;border:1px solid #898989;">
+                    <img id="gift_image_insert" class="buypage_img"src="img/imagePlus.png" alt="" style="width:100%;height:auto;object-fit:cover;border-radius: 20px;">
+                </div>
+                <div style="width:60%;margin:0 auto;margin-top:5px;">
+                    <label for="file-data-gift" class="button" style="border-radius:20px;background:gray;color:white;width:100%;line-height:30px;text-align: center;"onclick="giftInputCamera();">
+                        写真を登録
+                        <input type="hidden" id="profileGiftInputStatus" val="0">
+                    </label>
                 </div>
             </div>
             <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:20px;">
                 <div>
                     <span>2.ギフトタイトルと説明</span>
                 </div>
-                <div class="" style="width: 100%; margin: 0 auto;margin-top:3px;">
-                    <input id="gift_title"type="text" class="text-input" placeholder="ギフトタイトル(必須/20文字以内)" style="background-color: white;border-radius:20px;width:100%;font-size:14px;border:1px solid #898989;height:30px;padding-left:3%;margin-bottom:7px;">
-                    <textarea id="gift_text"class="textarea" rows="7" placeholder="商品の説明(任意/200文字以内)" style="background-color: white;border-radius:20px;width:100%;border:1px solid #898989;padding:10px;font-size:14px;"></textarea>
+                <div class="cp_iptxt">
+                    <input type="text" placeholder="ギフトタイトル(必須/45文字以内)" id="gift_title" maxlength="45"required>
+                    <i class="fas fa-gift fa-lg fa-fw" aria-hidden="true"></i>
+                </div>
+                <div class="cp_iptxt">
+                        <textarea type="text" rows="7"placeholder="商品の説明(必須/200文字以内)" id="gift_text" required maxlength="200"></textarea>
+                        <i class="fas fa-comment-alt fa-lg fa-fw" aria-hidden="true"></i>
                 </div>
             </div>
             <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:20px;">
                 <div>
-                    <span>3.販売価格(300~9,999,999)</span>
+                    <span>3.販売価格(100~9,999,999)</span>
                 </div>
-                <div class="card" style="width: 100%; margin: 0 auto;margin-top:3px;background-color: white;border:1px solid #898989;border-radius: 20px">
+                <div class="card" style="width: 100%; margin: 0 auto;margin-top:3px;background-color: white;border:1px solid #898989;border-radius: 5px;">
                     <ul class="list">
                         <li class="list-item">
-                            <div class="list-item__center" style="font-size: 80%;">
+                            <div class="list-item__center" style="font-size: 80%;width:35%;">
                             販売価格
                             </div>
-                            <div class="list-item__right">
+                            <div class="list-item__right" style="text-align: right;">
                                 <span>
-                                    <div>
-                                        <input id="gift_price" class="text-input text-input--material kakaku" placeholder="¥0" type="tel" style="text-align: right;" required>
+                                    <div style="text-align: right;">
+                                        <input id="gift_price" class="text-input text-input--material kakaku" placeholder="¥0" type="tel" style="height:30px;text-align: right;" required><br>
+                                        <span style="float:right;font-size:12px;color:#898989;margin-top:5px;">※100円単位での設定となります。</span>
                                     </div>
                                 </span>
                             </div>
                         </li>
-                        <li class="list-item">
+                        <li class="list-item" style="display:none;">
                             <div class="list-item__center" style="color:#898989;font-size: 80%;">
                             販売手数料
                             </div>
@@ -69,9 +141,187 @@
                     </ul>
                 </div>
             </div>
+            <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:20px;">
+                <div>
+                    <span>4.在庫数(後から変更可能です)</span>
+                </div>
+                <div class="cp_iptxt">
+                    <input type="tel" placeholder="0~999の整数で入力してください" id="gift_stock"required>
+                    <i class="fas fa-box fa-lg fa-fw" aria-hidden="true"></i>
+                </div>
+            </div>
+            <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:20px;">
+                <div id="giftInsertButtonZone"class="cp_iptxt">
+                    <button id="giftInsertButton2" class="button "style="width:100%;padding-top:5px;padding-bottom:5px;line-height:auto;border-radius:30px;font-size:100%;margin:0 auto;height:45px;" onclick="giftInsert()" disabled>
+                            出品する
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="tabbar" style="background-color: #FF6070;position: fixed;bottom:0;left:0;text-align: center;color:white;">
-        <span style="text-align: center;width:100%;padding-top:10px;font-size:20px;"onclick="giftInsert();">出品する</span>
+    <div class="alert-dialog-mask giftInput_dialog_mask"></div>
+    <div class="alert-dialog giftInput_dialog">
+        <div class="alert-dialog-container">
+            <div class="alert-dialog-title">
+                出品しました。
+            </div>
+            <div class="alert-dialog-footer">
+                <button class="alert-dialog-button alert-dialog-button--primal" onclick="giftInputClose();">OK</button>
+            </div>
+        </div>
     </div>
+    <div class="alert-dialog-mask giftInputMiss_dialog_mask"></div>
+    <div class="alert-dialog giftInputMiss_dialog">
+        <div class="alert-dialog-container">
+            <div class="alert-dialog-title">
+                出品が失敗しました。
+            </div>
+            <div class="alert-dialog-content">
+                再度送信頂くか、お問い合わせください。
+            </div>
+            <div class="alert-dialog-footer">
+                <button class="alert-dialog-button alert-dialog-button--primal" onclick="giftInputMissClose();">OK</button>
+            </div>
+        </div>
+    </div>
+    <div class="alert-dialog-mask giftInputImageMiss_dialog_mask"></div>
+    <div class="alert-dialog giftInputImageMiss_dialog">
+        <div class="alert-dialog-container">
+            <div class="alert-dialog-title">
+                画像の保存が失敗しました。
+            </div>
+            <div class="alert-dialog-content">
+                再度送信頂くか、お問い合わせください。
+            </div>
+            <div class="alert-dialog-footer">
+                <button class="alert-dialog-button alert-dialog-button--primal" onclick="giftInputImageMissClose();">OK</button>
+            </div>
+        </div>
+    </div>
+    <div class="alert-dialog-mask kakaku_dialog_mask"></div>
+    <div class="alert-dialog kakaku_dialog">
+        <div class="alert-dialog-container">
+            <div class="alert-dialog-title">価格が正しくありません。</div>
+            <div class="alert-dialog-content">
+                100~9999999円の範囲で、100円単位(下2桁が00)になるよう設定してください。
+            </div>
+            <div class="alert-dialog-footer">
+                <button class="alert-dialog-button alert-dialog-button--primal" onclick="kakakuCheckClose();">OK</button>
+            </div>
+        </div>
+    </div>
+    <div class="alert-dialog-mask giftTitle_dialog_mask"></div>
+    <div class="alert-dialog giftTitle_dialog">
+        <div class="alert-dialog-container">
+            <div class="alert-dialog-title">ギフトタイトルが未入力です。</div>
+            <div class="alert-dialog-footer">
+                <button class="alert-dialog-button alert-dialog-button--primal" onclick="giftTitleCheckClose();">OK</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+    function giftInputCamera(){
+        window.navigator.camera.getPicture((imageData) => {
+            //成功時
+            document.getElementById('gift_image_insert').src = 'data:image/jpeg;base64,' + imageData;
+            $('#profileGiftInputStatus').val("1");
+            }, (error) => {
+            // 失敗時
+                alert("写真取得に失敗しました");
+            }, {
+            // 各種設定
+            sourceType: window.navigator.camera.PictureSourceType.SAVEDPHOTOALBUM,
+            destinationType: window.navigator.camera.DestinationType.DATA_URL,
+            targetWidth: 800,
+            targetHeight: 800
+        });
+    }
+    $('.giftInput_dialog_mask,.giftInput_dialog,.giftInputMiss_dialog_mask,.giftInputImageMiss_dialog_mask,.giftInputImageMiss_dialog,.giftInputMiss_dialog,.kakaku_dialog_mask,.kakaku_dialog,.giftTitle_dialog_mask,.giftTitle_dialog').hide();
+        
+    function giftInputOpen(){
+        $('.giftInput_dialog_mask,.giftInput_dialog').slideDown();
+    }
+
+    function giftInputClose(){
+        $('.giftInput_dialog').slideUp();
+        setTimeout(function(){
+            $('.giftInput_dialog_mask').slideUp();
+            window.location.href = 'home.html';
+        }, 500);
+    }
+
+    function giftInputMissOpen(){
+        $('.giftInputMiss_dialog_mask,.giftInputMiss_dialog').slideDown();
+    }
+
+    function giftInputMissClose(){
+        $('.giftInputMiss_dialog').slideUp();
+        setTimeout(function(){
+            $('.giftInputMiss_dialog_mask').slideUp();
+        },500);
+    }
+
+    function giftInputImageMissOpen(){
+        $('.giftInputImageMiss_dialog_mask,.giftInputImageMiss_dialog').slideDown();
+    }
+
+    function giftInputImageMissClose(){
+        $('.giftInputImageMiss_dialog').slideUp();
+        setTimeout(function(){
+            $('.giftInputImageMiss_dialog_mask').slideUp();
+            window.location.href = 'home.html';
+        }, 500);
+    }
+
+    function kakakuCheckOpen(){
+        $('.kakaku_dialog_mask,.kakaku_dialog').slideDown();
+        $('.kakaku_dialog').css('top',"85%");
+    }
+    function kakakuCheckClose(){
+        $('.kakaku_dialog').slideUp();
+        setTimeout(function(){
+            $('.kakaku_dialog_mask').slideUp();
+        },500);
+    }
+    function giftTitleCheckOpen(){
+        $('.giftTitle_dialog_mask,.giftTitle_dialog').slideDown();
+        $('.giftTitle_dialog').css('top',"85%");
+    }
+    function giftTitleCheckClose(){
+        $('.giftTitle_dialog').slideUp();
+        setTimeout(function(){
+            $('.giftTitle_dialog_mask').slideUp();
+        },500);
+    }
+    // ギフト出品時の価格設定時に価格に応じて、手数料と利益が表示されるようにしている
+    $('.kakaku').change(function(){
+        // var scrollHeight = $('.page__content').scrollTop();
+        var kakaku = $('.kakaku').val();
+        if(kakaku%100==0 && kakaku!=0 && kakaku<9999999 && kakaku > 0){
+            var tesuryou = Math.floor(kakaku*0.2);
+            var rieki = kakaku - tesuryou;
+            $('.tesuryou').text(tesuryou);
+            $('.rieki').text(rieki);
+            $("#giftInsertButton2").prop("disabled",false);
+        }else{
+            kakakuCheckOpen();
+            $("#giftInsertButton2").prop("disabled",true);
+        }
+    });
+
+    $('#file-data-gift').on('change', function (e) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $("#gift_image_insert").attr('src', e.target.result);
+            $("#gift_image_insert").height($("#gift_image_insert").width());
+            $("#image_insert_div").height($("#image_insert_div").width());
+        }
+        reader.readAsDataURL(e.target.files[0]);
+        $("#gift_image_insert").height($("#gift_image_insert").width());
+        $("#image_insert_div").height($("#image_insert_div").width());
+    });
+    $("#image_insert_div").height($("#image_insert_div").width());
+    $("#gift_image_insert").height($("#gift_image_insert").width());
+    </script>
 </ons-page>

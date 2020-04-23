@@ -6,6 +6,9 @@
         <div class="center" style="color:#898989;">
             ギフト詳細
         </div>
+        <div class="right" style="padding-right: 5%;"onclick="mygiftAction();">
+            <i class="fas fa-ellipsis-h"></i>
+        </div>
     </ons-toolbar>
     <input type="hidden" id="my_user_id">
     <input type="hidden" id="my_gift_id">
@@ -13,14 +16,19 @@
         <!-- カードリスト部分 -->
         <div class="" style="width:100%;height: auto; padding: 1px 0 0 0;display: inline-block;">
             <div class="card" style="height:99%;margin:3px;border-radius:20px;padding:10px 20px 10px 20px;">
-                <div class="card__content" style="height:auto;">
-                    <img id="gift_detail_image"class="gift_image_detail" src="" alt="" style="width:100%;height:auto;border-radius: 20px;">
+                <div class="card__content" style="position: absolute;top:10;left:10;width:auto;min-width:50px;height:40px;border-radius: 20px 0px 20px 0px;color:white;text-align: center;background: -moz-linear-gradient(bottom left, #FF1048, #FFAA95);background: -webkit-linear-gradient(bottom left, #FF1048, #FFAA95);background: linear-gradient(to top right, #FF1048, #FFAA95);padding-right:10px;padding-left:10px;">
+                    <span style="line-height: 40px;">
+                        残り：<span id="my_stock"></span>
+                    </span>
+                </div>
+                <div id="gift_detail_image_zone" class="card__content" style="">
+                    <img id="gift_detail_image"class="gift_image_detail" src="" alt="" style="width:100%;height:auto;object-fit:cover;border-radius: 20px;">
                 </div>
                 <div class="card__content" style="height:auto;z-index:100;margin-top:-20px;">
                     <ul class="list" style="background-image:none;">
                     <li class="list-item" style="padding:0px;">
-                        <div class="list-item__left" style="padding:0px;" onclick="document.getElementById('navi').pushPage('otherpage.html');otherPage();">
-                            <img id="gift_detail_user_image"class="list-item__thumbnail" src="" alt="Cute kitten" style="border-radius: 50%;width:60px;height:60px;">
+                        <div class="list-item__left" style="padding:0px;">
+                            <img id="gift_detail_user_image"class="list-item__thumbnail" src="img/human.png" alt="" style="border-radius: 50%;width:60px;height:60px;object-fit:cover;">
                         </div>
                     
                         <div class="list-item__center" style="padding:0px; padding-left:10px;">
@@ -35,41 +43,18 @@
                         <br>
                         <span id="my_gift_favorite_count" style="font-size:14px;color:#898989;">0</span>
                     </div>
-                    <div class="js-modal__btn" style="width:33%;float:left;text-align: center;" onclick="modal();">
+                    <div class="" style="width:33%;float:left;text-align: center;" onclick="share($('#gift_detail_username').html());">
                         <i class="fab fa-hubspot" style="font-size:20px;color:gray;"></i>
                         <br>
                         <span style="font-size:14px;color:#898989;">共有</span>
-                    </div class="js-modal__btn">
-                    <div class="js-modal__bg"></div>
-                    <div class="js-modal__main">
-                        <button class="button "style="width:100%;padding-top:0px;padding-bottom:0px;line-height:auto;border-radius:30px;font-size:100%;margin:0 auto;height:30px;background:#1DA1F2;margin-top:20px;"><a href="javascript:window.open('http://twitter.com/share?text='+encodeURIComponent(document.title)+'&url='+encodeURIComponent(location.href),'sharewindow','width=550, height=450, personalbar=0, toolbar=0, scrollbars=1, resizable=!');" style="color:white;">Tweet</a></button>
-                        <button class="button "style="width:100%;padding-top:0px;padding-bottom:0px;line-height:auto;border-radius:30px;font-size:100%;margin:0 auto;height:30px;background:#3B5998;margin-top:20px;"><a href="javascript:window.open('http://www.facebook.com/sharer.php?u='+encodeURIComponent(location.href),'sharewindow','width=550, height=450, personalbar=0, toolbar=0, scrollbars=1, resizable=!');" style="color:white;">Facebook</a></button>
-                        <button class="button "style="width:100%;padding-top:0px;padding-bottom:0px;line-height:auto;border-radius:30px;font-size:100%;margin:0 auto;height:30px;background:#00B900;margin-top:20px;"><a href="javascript:window.open('http://line.me/R/msg/text/?'+encodeURIComponent(document.title)+'%20'+encodeURIComponent(location.href),'sharewindow','width=550, height=450, personalbar=0, toolbar=0, scrollbars=1, resizable=!');" style="color:white;">LINE</a></button>
-                        <button class="button "style="width:100%;padding-top:0px;padding-bottom:0px;line-height:auto;border-radius:30px;font-size:100%;margin:0 auto;height:30px;background:lightgray;margin-top:20px;" id="copy-page" onclick="copyPage();">URLコピー</button>
-                        <p class="js-modal__btn--close">close</p>
-                        <p class="js-modal__btn--close--fix"></p>
                     </div>
-                    <div class="js-modal__btn"style="width:33%;float:left;text-align: center;" onclick="modal();">
+                    <div class="" style="width:33%;float:left;text-align: center;" onclick="mygiftHoukoku();">
                         <i class="fab fa-font-awesome-flag"style="font-size:20px;color:gray;"></i>
                         <br>
                         <span style="font-size:14px;color:#898989;">報告</span>
                     </div>
-                    <div class="js-modal__bg"></div>
-                    <div class="js-modal__main">
-                        <p>報告内容</p>
-                        <br>
-                        <div style="width:80%;margin:0 auto;">
-                            <textarea id="houkoku_text"class="textarea" rows="15" placeholder="メッセージ本文" style="background-color: white;border-radius:20px;width:100%;border:1px solid #898989;padding:10px;font-size:14px;"></textarea>
-                        </div>
-                        <br><br>
-                        <div style="width:80%;margin:0 auto;">
-                            <button class="button "style="width:100%;padding-top:0px;padding-bottom:0px;line-height:auto;border-radius:30px;font-size:100%;margin:0 auto;height:45px;"onclick="myHoukokuSend()">送信</button>
-                        </div>
-                        <p class="js-modal__btn--close">close</p>
-                        <p class="js-modal__btn--close--fix"></p>
-                    </div>
                 </div>
-                <div id="gift_detail_title"class="gift_title" style="height:auto;font-size:14px;padding:10px 5px 10px 5px;"></div>
+                <div id="gift_detail_title"class="gift_title" style="height:auto;font-size:16px;font-weight:bold;padding:10px 5px 10px 5px;"></div>
                 <div id="gift_detail_text"class="gift_text" style="height:auto;font-size:14px;padding:10px 5px 10px 5px;"></div>
                 <div id="gift_detail_time"class="gift_time" style="text-align:right;height:auto;font-size:10px;padding:10px 5px 10px 5px;"></div>
             </div>
@@ -77,16 +62,171 @@
     </div>
     <div class="tabbar" style="background-color: #4B4B4B;position: fixed;bottom:0;left:0;">
         <div class="right" style="width:60%;float: left;color:white;padding-left:7%;">
-            <span style="font-size: 10px;">税込</span>
-            <br>
-            <span id="gift_detail_price" style="font-size: 18px;"></span>
+            <span id="gift_detail_price" style="font-size: 24px;line-height:45px;"></span>
         </div>
         <div class="right" style="width:40%;padding-right:7%;">
-            <button class="button" style="background-color: #FF6070;width:100%;"onclick="document.getElementById('navi').pushPage('myGiftEdit.html');giftNowInfo();">
+            <button class="button" style="background-color: #FF6070;width:100%;"onclick="document.getElementById('navi').bringPageTop('myGiftEdit.html');giftNowInfo();">
                 編集する
             </button>
         </div>
     </div>
+    <div class="action-sheet-mask mygift_mask"></div>
+    <div class="action-sheet mygift_modal">
+        <button class="action-sheet-button" onclick="tweetMyGift();">Tweet</button>
+        <button class="action-sheet-button" onclick="mygiftShareClose();">Cancel</button>
+    </div>
+    <div class="action-sheet-mask mygift_delete_mask"></div>
+    <div id="delete_modal" class="action-sheet mygift_delete_modal">
+        <button class="action-sheet-button" onclick="deleteCheck();">ギフト削除</button>
+        <button class="action-sheet-button" onclick="mygiftActionClose();">Cancel</button>
+    </div>
+    <div class="alert-dialog-mask gift_delete_dialog_mask"></div>
+    <div class="alert-dialog gift_delete_dialog">
+        <div class="alert-dialog-container">
+            <div class="alert-dialog-content">
+                本当に削除しますか？
+            </div>
+            <div class="alert-dialog-footer">
+            <button class="alert-dialog-button" onclick="mygiftDelete();">Yes</button>
+            <button class="alert-dialog-button alert-dialog-button--primal" onclick="deleteCheckClose();">No</button>
+            </div>
+        </div>
+    </div>
+    <div class="alert-dialog-mask deleteEnd_dialog_mask"></div>
+    <div class="alert-dialog deleteEnd_dialog">
+        <div class="alert-dialog-container">
+            <div class="alert-dialog-title">削除完了</div>
+            <div class="alert-dialog-footer">
+                <button class="alert-dialog-button alert-dialog-button--primal" onclick="deleteEndClose();">OK</button>
+            </div>
+        </div>
+    </div>
+    <div class="alert-dialog-mask deleteEndMiss_dialog_mask"></div>
+    <div class="alert-dialog deleteEndMiss_dialog">
+        <div class="alert-dialog-container">
+            <div class="alert-dialog-title">削除失敗</div>
+            <div class="alert-dialog-content">
+                再度削除頂くか、お問い合わせください。
+            </div>
+            <div class="alert-dialog-footer">
+                <button class="alert-dialog-button alert-dialog-button--primal" onclick="deleteEndMissClose();">OK</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        $('.mygift_mask,.mygift_modal,.mygift_delete_mask,.mygift_delete_modal,.gift_delete_dialog_mask,.gift_delete_dialog,.deleteEnd_dialog_mask,.deleteEnd_dialog,.deleteEndMiss_dialog_mask,.deleteEndMiss_dialog').hide();
+        function tweetMyGift(){
+            // どっちか使う
+            var userName = $('#gift_detail_username').html();
+            var link = 'http://twitter.com/share?url=https://fanfun/&text=ユーザー名：「'+userName+'」で検索！';
+            window.open(link, '_system', 'location=yes');
+            return false;
+        }
+        function mygiftHoukoku(){
+            document.getElementById('navi').bringPageTop('houkokuForm.html');
+            setTimeout(function(){
+                $('#houkokuform_gift_id').val($('#my_gift_id').val());
+                $('#houkokuform_gift_name').val($('#gift_detail_title').html());
+                $('#houkokuform_gift_username').val($('#gift_detail_username').html());
+            }, 500);
+        }
+        
+        function mygiftShare(){
+            $('.mygift_mask,.mygift_modal').slideDown();
+        }
+        
+        function mygiftShareClose(){
+            $('.mygift_modal').slideUp();
+            setTimeout(function(){
+                $('.mygift_mask').slideUp();
+            },500);
+        }
+        function mygiftAction(){
+            $('.mygift_delete_mask,.mygift_delete_modal').slideDown();
+        }
+        
+        function mygiftActionClose(){
+            $('.mygift_delete_modal').slideUp();
+            setTimeout(function(){
+                $('.mygift_delete_mask').slideUp();
+            },500);
+        }
+
+        function deleteCheck(){
+            $('.mygift_delete_modal').slideUp();
+            setTimeout(function(){
+                $('.mygift_delete_mask').slideUp();
+                $('.gift_delete_dialog_mask,.gift_delete_dialog').slideDown();
+            },500);
+        }
+
+        function deleteCheckClose(){
+            $('.gift_delete_dialog').slideUp();
+            setTimeout(function(){
+                $('.gift_delete_dialog_mask').slideUp();
+            },500);
+        }
+
+        function deleteEndOpen(){
+            $('.deleteEnd_dialog_mask,.deleteEnd_dialog').slideDown();
+
+        }
+
+        function deleteEndClose(){
+            $('.deleteEnd_dialog').slideUp();
+            setTimeout(function(){
+                $('.deleteEnd_dialog_mask').slideUp();
+                window.location.href = 'home.html';
+            },500);
+        }
+        function deleteEndMissOpen(){
+            $('.deleteEndMiss_dialog_mask,.deleteEndMiss_dialog').slideDown();
+        }
+
+        function deleteEndMissClose(){
+            $('.deleteEndMiss_dialog').slideUp();
+            setTimeout(function(){
+                $('.deleteEndMiss_dialog_mask').slideUp();
+                window.location.href = 'home.html';
+            },500);
+        }
+        function mygiftDelete(){
+            deleteCheckClose();
+            var giftUid = $('#my_gift_id').val();
+            var giftData = ncmb.DataStore("giftData");
+            // データストアへの削除
+
+            giftData
+            .equalTo("giftUid", giftUid)
+            .fetch()
+            .then(function(results){
+                    // 保存後の処理
+                    results.delete();
+
+                    var GiftFavorite = ncmb.DataStore("GiftFavorite");
+                    // データストアへの削除
+                    GiftFavorite
+                    .equalTo("giftUid", giftUid)
+                    .fetch()
+                    .then(function(results){
+                        results.delete();
+                    });
+
+                    ncmb.File.delete(giftUid)
+                    .then(function(){
+                    // 削除後処理
+                    });
+                    deleteEndOpen();
+            })
+            .catch(function(err){
+                    // エラー処理
+                    deleteEndMissOpen();
+            });
+        }
+        var gift_image_detail = $('.gift_image_detail').width();
+        $('.gift_image_detail').height(gift_image_detail);
+        $('#gift_detail_image_zone').height($('#gift_detail_image_zone').width());
+    </script>
     <style>
         .favorite_on{
             color:#FF6070;

@@ -5,24 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
   <meta http-equiv="Content-Security-Policy" content="default-src * data: gap: https://ssl.gstatic.com; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
   <script src="components/loader.js"></script>
-  
+  <script src="https://smtpjs.com/v3/smtp.js"></script>
   <script src="lib/onsenui/js/onsenui.min.js"></script>
   <script src="https://kit.fontawesome.com/1cca0b75e5.js" crossorigin="anonymous"></script>
   <link href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" rel="stylesheet">
+
   <link rel="stylesheet" href="components/loader.css">
   <link rel="stylesheet" href="lib/onsenui/css/onsenui.css">
   <link rel="stylesheet" href="lib/onsenui/css/onsen-css-components.css">
   <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/modal.css">
+  <!-- <link rel="stylesheet" href="css/modal.css"> -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.css">
-  <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css">
+  <!-- <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css"> -->
   <script src="https://unpkg.com/swiper/js/swiper.js"></script>
-  <script src="https://unpkg.com/swiper/js/swiper.min.js"></script>
+  <!-- <script src="https://unpkg.com/swiper/js/swiper.min.js"></script> -->
   <script src="lib/onsenui/js/logout.js"></script>
   <script src="lib/onsenui/js/currentuser.js"></script>
   <script src="lib/onsenui/js/profileEdit.js"></script>
-  <script src="lib/onsenui/js/profileImage.js"></script>
   <script src="lib/onsenui/js/giftInfo.js"></script>
   <script src="lib/onsenui/js/userGift.js"></script>
   <!-- <script src="lib/onsenui/js/kyujosyo.js"></script>/ -->
@@ -30,38 +30,50 @@
   <script src="lib/onsenui/js/followGiftList.js"></script>
   <script src="lib/onsenui/js/otherPage.js"></script>
   <script src="lib/onsenui/js/follow.js"></script>
-  <script src="lib/onsenui/js/bellList.js"></script>
+  <!-- <script src="lib/onsenui/js/bellList.js"></script> -->
   <script src="lib/onsenui/js/gift_favorite.js"></script>
   <script src="lib/onsenui/js/other_gift_favorite.js"></script>
-  <script src="lib/onsenui/js/message.js"></script>
-  <script src="lib/onsenui/js/modal.js"></script>
+  <!-- <script src="lib/onsenui/js/message.js"></script> -->
+  <!-- <script src="lib/onsenui/js/modal.js"></script> -->
   <script src="lib/onsenui/js/houkoku.js"></script>
   <script src="lib/onsenui/js/instagram.js"></script>
   <script src="lib/onsenui/js/searchGift.js"></script>
   <script src="lib/onsenui/js/buypage.js"></script>
-  <script src="lib/onsenui/js/baseJump.js"></script>
+  <script src="lib/onsenui/js/influencerChangeKiyaku.js"></script>
+  <script src="lib/onsenui/js/influencerChange.js"></script>
+  <!-- <script src="lib/onsenui/js/mailSend.js"></script> -->
+  <!-- <script src="lib/onsenui/js/orderEnd.js"></script> -->
+  <script src="lib/onsenui/js/myFavoriteGift.js"></script>
+  <script src="lib/onsenui/js/orderCheck.js"></script>
+  <!-- <script src="lib/onsenui/js/pull-to-reload.js"></script> -->
+  <!-- <script src="lib/onsenui/js/log.js"></script> -->
+  <!-- <script src="lib/onsenui/js/test.js"></script> -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.1/TweenMax.min.js"></script>
+  <script src="lib/onsenui/js/wavify.js"></script>
+  <script src="lib/onsenui/js/jquery.wavify.js"></script>
+  <script src="lib/onsenui/js/contactForm.js"></script>
+  <script src="lib/onsenui/js/requestForm.js"></script>
+  <script src="lib/onsenui/js/loadingoverlay.min.js"></script>
+  <!-- <script src="lib/onsenui/js/fileUpload.js"></script> -->
 
   <script>
+    // ログインしたらまずTopページにくるようにTopのアイコンを押す
     ons.ready(function() {
       $('#topPageTab').click();
     });
-    var app = {};
-    ons.ready(function () {
-      ons.createElement('action-sheet.html', { append: true })
-        .then(function (sheet) {
-          app.showFromTemplate = sheet.show.bind(sheet);
-          app.hideFromTemplate = sheet.hide.bind(sheet);
-        });
-    });
-    
-    $(function() {
-      setTimeout(function(){
-        $('.homestart svg').fadeIn(1600);
-      },500); //0.5秒後にロゴをフェードイン!
-      setTimeout(function(){
-        $('.homestart').fadeOut(500);
-      },2500); //2.5秒後にロゴ含め真っ白背景をフェードアウト！
-    });
+    // dataURIをBlobに変換する関数
+    function toBlob(dataURI){
+        const byteString = atob( dataURI.split( "," )[1] ) ;
+        const mimeType = dataURI.match( /(:)([a-z\/]+)(;)/ )[2] ;
+        for( var i=0, l=byteString.length, content=new Uint8Array( l ); l>i; i++ ) {
+            content[i] = byteString.charCodeAt( i ) ;
+        }
+        return new Blob( [ content ], {
+            type: mimeType ,
+        }) ;
+    }
+    // フォローリスト、フォロワーリストから、フォローやフォロワーを解除するダイアログ表示用
     var createAlertDialog = function() {
       var dialog = document.getElementById('my-alert-dialog');
 
@@ -82,46 +94,86 @@
     function homeback(){
       window.location.href = 'home.html'
     }
-    var createAlertDialog2 = function() {
-      var dialog = document.getElementById('my-alert-dialog2');
 
-      if (dialog) {
-        dialog.show();
-      } else {
-        ons.createElement('alert-dialog2.html', { append: true })
-          .then(function(dialog) {
-            dialog.show();
-          });
-      }
+    function showLoad(){
+        $("body").LoadingOverlay("show", {
+                image       : "",
+                fontawesome : "fa fa-refresh fa-spin",
+        });
+    }
+
+    function hideLoad() {
+            $("body").LoadingOverlay("hide");
     };
 
-    var hideAlertDialog2 = function() {
-      document
-        .getElementById('my-alert-dialog2')
-        .hide();
-    };
     if (ons.platform.isIPhoneX()) {
       document.documentElement.setAttribute('onsflag-iphonex-portrait', '');
       document.documentElement.setAttribute('onsflag-iphonex-landscape', '');
     }
+    function aiueo(link){
+      // どっちか使う
+      window.open(link, '_blank', 'location=yes');
+      return false;
+    }
+    function androidWindow(link) {
+      console.log("android");
+      window.open(link, "_system", 'location=yes');
+    }
+    function share(userName){
+      navigator.screenshot.URI(function(error,res){
+        if(error){
+          console.error(error);
+          return;
+        }
+        window.plugins.socialsharing.share(
+        'ユーザー名「'+userName+'」で検索！',          // ツイートなどのシェアするテキスト
+        'ファイル名',                // Androidの場合はファイル名を指定する
+        res.URI,                  // base64エンコードされたスクショ画像
+        null);                    //shareするURL
+      });
+    }
+    function passwordReminder(){
+        var reminder_mail = $('#reminder_mail').val();
+        var user = new ncmb.User();
+
+        var mailcheck = MailCheck(reminder_mail);
+        if(mailcheck){
+            user.set("mailAddress", reminder_mail);
+            user.requestPasswordReset()
+                .then(function(data){
+                    // 送信後処理
+                    reminderMailOpen();
+                })
+                .catch(function(err){
+                    // エラー処理
+                    alert("受付エラーです。お問い合わせください。");
+                });
+        }else{
+            reminderMailMissOpen();
+        }
+    }
     document.addEventListener("init", function(event) {
+
+          // トップページにて、上下スクロール中は上部のメニューを非表示
           $(window).on('scroll touchmove',function() {
             $(".swiper-navigation").stop(); //アニメーションしている場合、アニメーションを強制停止
 			      $(".swiper-navigation").css('display', 'none').delay(500).fadeIn('fast');
           });
+
+          //このあたりはswiper.jsというライブラリのサンプルを結構そのまま持ってきたので、何をやっているか具体的にまでわかりません。
           function setCurrentSlide(ele, index) {
             $(".swiper-navigation .swiper-slide").removeClass('selected');
             ele.addClass('selected');
           }
           swiperNavigation = new Swiper('.swiper-navigation', {
             slidesPerView: 'auto',
-            pagination: {
-              clickable: true
-            },
-            freeMode: true,
+            allowTouchMove: false,
+            freeMode: false,
             loop: false,
             autoplay: false
           });
+
+
           swiperContents = new Swiper('.swiper-contents', {
             direction: 'horizontal',
             loop: false,
@@ -130,36 +182,17 @@
           swiperContents.on('slideChange', function() {
             setTimeout(function(){
               var index = $('div.sp-content > div.swiper-slide-active').index();
-              if(index == 0){
-                shintyaku();
-              }else{
-                followUserGift();
-              }
+              slideControl(index);
               setCurrentSlide($('.swiper-navigation .swiper-slide').eq(index), index);
-              swiperNavigation.slideTo(index, 500, false);
+              // swiperNavigation.slideTo(index, 500, false);
             },250);
           });
           
-          $('.kakaku').change(function(){
-            var kakaku = $('.kakaku').val();
-            var tesuryou = Math.floor(kakaku*0.1);
-            var rieki = kakaku - tesuryou;
-            $('.tesuryou').text(tesuryou);
-            $('.rieki').text(rieki);
-          });
-          var gift_image = $('.gift_image').width();
-          $('.gift_image').height(gift_image);
-          var gift_image_crown = $('.gift_image_crown').width();
-          $('.gift_image_crown').height(gift_image_crown);
-          var gift_image_search = $('.gift_image_search').width();
-          $('.gift_image_search').height(gift_image_search);
-          var gift_image_detail = $('.gift_image_detail').width();
-          $('.gift_image_detail').height(gift_image_detail);
-          var buyhistory_image = $('.buyhistory_image').width();
-          $('.buyhistory_image').height(buyhistory_image);
-          var gift_image_otherpage = $('.gift_image_otherpage').width();
-          $('.gift_image_otherpage').height(gift_image_otherpage);
-
+          // $('.sp-slide').click(function(){
+          //   var index = $('.sp-slide').index(this);
+          //   swiperContents.slideTo(index, 100, false);
+          // });
+          
           var header_icon = $('.toolbar').height();
           header_icon = header_icon -5;
           $('.header_icon').width(header_icon);
@@ -167,15 +200,51 @@
           header_icon = header_icon -5;
           $('.search-input').height(header_icon);
 
+          // ヘッダーの高さ分、メインコンテンツのmargin-topをつける
           var header_height = $('.header').height();
           $('.contents').css('margin-top',header_height);
         
+          // ギフトタイトルがボックスをはみ出さないようにsyoraku関数で、はみ出す部分は…表示にしている
           syoryaku();
+
           loginImage();
-          
       });
+      function homeJudge(){
+        setTimeout(function(){
+          var index = $('.selected').index('div.sp-navi div');
+          if(index == 0){
+            shintyaku();
+          }else if(index==1){
+            followUserGift();
+          }
+        },500);
+      }
+
+      var slideCounter = 0;
+      function slideControl(index){
+        slideCounter++;
+        console.log(slideCounter);
+        if(slideCounter == 1){
+          if(index == 0){
+            //新着にメニューがうつると、新着ギフトをロード
+            shintyaku();
+          }else if(index==1){
+            followUserGift();
+          }
+        }
+        setTimeout(function(){
+          slideCounter = 0;
+          console.log(slideCounter);
+        },1000)        
+      }
   </script>
   <style>
+    *{
+      -webkit-overflow-scrolling: touch;
+    }
+    .alert-dialog-mask{
+      position:fixed;
+    }
     .card{
       padding:5px 10px 5px 10px;
     }
@@ -188,6 +257,10 @@
       border-radius:20px;
     }
 
+    .fa-refresh{
+      font-size:40px;
+    }
+
     .follow_off{
       background: -moz-linear-gradient(bottom left, #FF1048, #FFAA95); 
       background: -webkit-linear-gradient(bottom left, #FF1048, #FFAA95); 
@@ -195,16 +268,15 @@
       border-radius:20px;
     }
     .navi-menu{
-      border-radius:20px;
-      border:0.5px solid #FF6070;
-      padding:2px 20px 2px 20px;
+      padding:5px 20px 3px 20px;
       font-size:80%;
       line-height:35px;
       color:#898989;
     }
     .segment__button{
       margin:0 auto;
-      width:80%;
+      width:100%;
+      font: 15px/24px sans-serif;
       border-radius: 20px !important;
       border:none;
       color:#898989;
@@ -255,8 +327,12 @@
     }
 
     .sp-navi > .selected > span{
-      color:white;
-      background-color: #FF6070;
+      color:#FF6070;
+      border-bottom: 2px solid #FF6070;
+      font-weight: bold;
+      /* border-bottom:0.5px solid #FF6070; */
+      /* background: #FF6070; */
+      /* border-radius: 30px; */
     }
 
     .footer{
@@ -276,16 +352,22 @@
       width:50px;
       height:50px;
     }
+    
+    .current_user_name{
+      margin-top:8px;
+    }
   </style>
 </head>
-<body> 
-  <ons-navigator  id = "navi">
+<body>
+  <ons-navigator id="navi" swipeable="force">
     <ons-page>
       <ons-tabbar position="bottom">
-          <ons-tab id="topPageTab"page="top.html" icon="home" onclick="shintyaku();" active></ons-tab>
-          <ons-tab page="instagram.html" icon="instagram" onclick="InstagramNews();"></ons-tab>
-          <ons-tab page="bell.html" icon="bell" onclick="bellList();;"></ons-tab>
-          <ons-tab id="myPageTab" page="user.html" icon="user" onclick="MyGift();loginInfo();"></ons-tab>
+          <ons-tab id="topPageTab"page="top.html" label="ホーム"icon="home" onclick="homeJudge();" active></ons-tab>
+          <ons-tab page="instagram.html" label="ニュース"icon="instagram" onclick="InstagramNews();"></ons-tab>
+          <!-- <ons-tab page="pointList.html" label="ショップ"icon="ticket" onclick=""></ons-tab> -->
+          <ons-tab label="コンタクト"page="request.html" icon="fa-rocketchat" onclick=""></ons-tab>
+          <!-- <ons-tab page="bell.html" label="通知"icon="bell" onclick="bellList();"></ons-tab> -->
+          <ons-tab id="myPageTab" label="マイページ"page="user.html" icon="user" onclick="MyGift();loginInfo();"></ons-tab>
       </ons-tabbar> 
     </ons-page>
   </ons-navigator> 

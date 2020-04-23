@@ -17,7 +17,7 @@ function follow() {
                 .then(function(results){
                         // 保存後の処理
                         results.delete();
-                        alert("削除成功");
+                        followOffOpen();
                         $('#other_follow_button').removeClass("follow_on").html("フォロー");
                 })
                 .catch(function(err){
@@ -36,7 +36,7 @@ function follow() {
                 .save()
                 .then(function(){
                         // 保存後の処理
-                        alert("フォロー成功");
+                        followOnOpen();
                         $('#other_follow_button').addClass("follow_on").html("フォロー中");
                         
                 })
@@ -45,7 +45,9 @@ function follow() {
                         console.log(err)
                 });
         }
-}//一覧画面でフォローか外すかの処理
+}
+
+//一覧画面でフォローか外すかの処理
 function ichiranFollow(user_id) {
         var currentUser = ncmb.User.getCurrentUser();
         var my_id = currentUser.get("objectId");
@@ -61,7 +63,7 @@ function ichiranFollow(user_id) {
                 .then(function(results){
                         // 保存後の処理
                         results.delete();
-                        alert("削除成功");
+                        followerListFollowOffOpen();
                         $('#'+button_id).removeClass("follow_on").addClass("follow_off").html("フォロー");
                 })
                 .catch(function(err){
@@ -80,7 +82,7 @@ function ichiranFollow(user_id) {
                 .save()
                 .then(function(){
                         // 保存後の処理
-                        alert("フォロー成功");
+                        followerListFollowOnOpen();
                         $('#'+button_id).addClass("follow_on").removeClass("follow_off").html("フォロー中");
                         
                 })
@@ -97,6 +99,7 @@ function followList(){
         var FollowData = ncmb.DataStore("follow");
         FollowData
         .equalTo("followId", userId)
+        .order('createDate', true)
         .fetchAll()               
         .then(function(results){
                 var object = results;
@@ -108,10 +111,16 @@ function followList(){
                         .fetch()
                         .then(function(result){
                                 var object_id = result.get("objectId");
-                                var user_name = result.get("userName");
+                                var influencer = result.get("Influencer");
+                                var authentication = result.get("Authentication");
+                                if(influencer==true && authentication=="OK"){
+                                        var user_name = result.get("userName") + " <i class='far fa-check-circle' style='color:#FF6070;'></i>";
+                                }else{
+                                        var user_name = result.get("userName");
+                                }
                                 var follow_list = `
                                 <li class="list-item list-item--material">
-                                        <div class="list-item__left list-item--material__left" onclick="document.getElementById('navi').pushPage('otherpage.html');
+                                        <div class="list-item__left list-item--material__left" onclick="document.getElementById('navi').bringPageTop('otherpage.html');
                                         `;
                                         follow_list += "toOtherPageFromFollowList('"+object_id+"');";
                                         follow_list +=`
@@ -119,7 +128,7 @@ function followList(){
                                                 <img id="follow_user_image_`;
                                                 follow_list += j+`"`;
                                                 follow_list +=`
-                                                class="list-item__thumbnail list-item--material__thumbnail follow_thumbnanil" src="">
+                                                class="list-item__thumbnail list-item--material__thumbnail follow_thumbnanil" src="img/human.png" style="object-fit:cover;">
                                         </div>
                                         <div class="list-item__center list-item--material__center">
                                                 <p>`;
@@ -157,6 +166,7 @@ function followerList(){
         var FollowData = ncmb.DataStore("follow");
         FollowData
         .equalTo("followerId", userId)
+        .order('createDate', true)
         .fetchAll()               
         .then(function(results){
                 var object = results;
@@ -166,7 +176,7 @@ function followerList(){
                         var object_id = object[j].get("followId");
                         var follower_list = `
                         <li class="list-item list-item--material">
-                                <div class="list-item__left list-item--material__left" onclick="document.getElementById('navi').pushPage('otherpage.html');
+                                <div class="list-item__left list-item--material__left" onclick="document.getElementById('navi').bringPageTop('otherpage.html');
                                 `;
                                 follower_list += "toOtherPageFromFollowList('"+object_id+"');";
                                 follower_list +=`
@@ -174,7 +184,7 @@ function followerList(){
                                         <img id="follower_user_image_`;
                                         follower_list += object_id+`"`;
                                         follower_list +=`
-                                        class="list-item__thumbnail list-item--material__thumbnail follow_thumbnanil" src="">
+                                        class="list-item__thumbnail list-item--material__thumbnail follow_thumbnanil" src="img/human.png"style="object-fit:cover;">
                                 </div>
                                 <div class="list-item__center list-item--material__center">
                                         <p id="follower_user_name_`;
@@ -203,11 +213,19 @@ function followerList(){
 
 // 一覧にユーザネームを追加
 function userNameAppend(object_id){
+
         ncmb.User
-        .equalTo("objectId", object_id)
+        .equalTo("objectId",object_id)
         .fetch()
         .then(function(result){
-                var user_name = result.get("userName");
+                var object_id = result.get("objectId");
+                var influencer = result.get("Influencer");
+                var authentication = result.get("Authentication");
+                if(influencer==true && authentication=="OK"){
+                        var user_name = result.get("userName") + " <i class='far fa-check-circle' style='color:#FF6070;'></i>";
+                }else{
+                        var user_name = result.get("userName");
+                }
                 var follower_user_name = "follower_user_name_"+object_id;
                 $('#'+follower_user_name).append(user_name);
         });
@@ -230,7 +248,7 @@ function followerCheck(object_id,userId){
                         class="button follow_on" style="" onclick="`;
                         followcheck += "ichiranFollow('"+object_id+"');";
                         followcheck +=`
-                        ">フォロー中</button><i style="color:#FF6070" class="list-item__icon list-item--material__icon zmdi zmdi-more follow-action" onclick="createAlertDialog2();"></i>
+                        ">フォロー中</button>
                         `;
                 }else{
                         var followcheck =`
@@ -240,7 +258,7 @@ function followerCheck(object_id,userId){
                         class="button follow_off" style="" onclick="`;
                         followcheck += "ichiranFollow('"+object_id+"');";
                         followcheck +=`
-                        ">フォロー</button><i style="color:#FF6070" class="list-item__icon list-item--material__icon zmdi zmdi-more follow-action" onclick="createAlertDialog2();"></i>
+                        ">フォロー</button>
                         `;
                 }
                 $('#'+follow_check).append(followcheck);
@@ -261,7 +279,7 @@ function followUserImage(objectId,j){
         })
         .catch(function(err){
                 // エラー処理
-                alert('error = ' + err);
+                console.log('error = ' + err);
         });
 }
 // フォロワー一覧でユーザ画像を表示
@@ -279,7 +297,7 @@ function followerUserImage(objectId){
         })
         .catch(function(err){
                 // エラー処理
-                alert('error = ' + err);
+                // alert('error = ' + err);
         });
 }
 
@@ -293,27 +311,40 @@ function toOtherPageFromFollowList(jumpToUserId){
         .equalTo("objectId", jumpToUserId)
         .fetch()
         .then(function(results){
+                var influencer = results.get("Influencer");
+                var authentication = results.get("Authentication");
+                if(influencer==true && authentication=="OK"){
+                        var other_user_name_title = results.get("userName") + " <i class='far fa-check-circle' style='color:#FF6070;'></i>";
+                }else{
+                        var other_user_name_title = results.get("userName");
+                }
                 var other_user_name = results.get("userName");
                 var other_profile_text = results.get("Text");
+                var Genre = results.get("Genre");
                 $('#other_page_user_id').val(jumpToUserId);
-                $('#other_user_name').html(other_user_name);
+                $('#other_user_name').html(other_user_name_title);
                 $('#other_page_header').html(other_user_name);
                 $('#other_profile').html(other_profile_text);
                 var Review = results.get("Review");
                 var BoughtCount = "("+results.get("BoughtCount")+")";
-
-                var star = `<i class="fas fa-star" style="font-size: 12px;color:#FFBB00;"></i>`;
-                var no_star = `<i class="fas fa-star" style="font-size: 12px;color:gray;"></i>`;
-                $('#otherReview').empty();
-                for(var i=0;i<5;i++){
-                        if(i<Review){
-                                $('#otherReview').append(star);
-                        }else{
-                                $('#otherReview').append(no_star);
+                $('#otherGenre').empty();
+                if(Genre){
+                        for(var n=0;n<Genre.length;n++){
+                                $('#otherGenre').append(" #"+Genre[n]);
                         }
                 }
-                var myBoughtCount = `<span id="otherBoughtCount"style="color:#898989;font-size: 12px;">`+BoughtCount+`</span>`;
-                $('#otherReview').append(myBoughtCount);
+                // var star = `<i class="fas fa-star" style="font-size: 12px;color:#FFBB00;"></i>`;
+                // var no_star = `<i class="fas fa-star" style="font-size: 12px;color:gray;"></i>`;
+                // $('#otherReview').empty();
+                // for(var i=0;i<5;i++){
+                //         if(i<Review){
+                //                 $('#otherReview').append(star);
+                //         }else{
+                //                 $('#otherReview').append(no_star);
+                //         }
+                // }
+                // var myBoughtCount = `<span id="otherBoughtCount"style="color:#898989;font-size: 12px;">`+BoughtCount+`</span>`;
+                // $('#otherReview').append(myBoughtCount);
 
                 ncmb.File.download(jumpToUserId, "blob")
                 .then(function(fileData) {
@@ -342,12 +373,13 @@ function toOtherPageFromFollowList(jumpToUserId){
                                         var time = jikanCulc(create_date);
                                         var gift_uid = object[i].get("giftUid");
                                         var gift_price = object[i].get("price");
-
+                                        var gift_stock = object[i].get("stock");
+                                        
                                         //カードに出力していく
                                         var card = `
                                         <div class="gift-card" style="width:49%;height: auto; padding: 1px 0 0 0;display: inline-block;margin-top:5px;"onclick="
                                         `;
-                                        card += "giftIdJudge('"+gift_uid+"','"+other_user_name+"','"+gift_title+"','"+gift_text+"','"+objectId+"','"+create_date+"','"+gift_price+"','"+jumpToUserId+"');";
+                                        card += "giftIdJudge('"+gift_uid+"','"+other_user_name+"','"+gift_title+"','"+gift_text+"','"+objectId+"','"+create_date+"','"+gift_price+"','"+jumpToUserId+"','"+gift_stock+"');";
                                         card +=`
                                         ">
                                                 <input class="gift_uid" type="" value="`;
@@ -358,7 +390,7 @@ function toOtherPageFromFollowList(jumpToUserId){
                                                         <div class="card__content" style="height:auto;">
                                                                 <img id="`;
                                                                 card += "gift_image_follow_"+i;
-                                                                card +=`"class="other_gift_image" src="" alt="" style="width:100%;height:125px;border-radius: 20px;">
+                                                                card +=`"class="other_gift_image" src="" alt="" style="width:100%;height:154px;object-fit:cover;border-radius: 20px;">
                                                         </div>
                                                         <div class="card__content" style="height:45px;">
                                                                 <ul class="list" style="background-image:none;background:transparent;margin-top:-13px;">
@@ -366,11 +398,11 @@ function toOtherPageFromFollowList(jumpToUserId){
                                                                         <div class="list-item__left" style="padding:0px;">
                                                                         <img class="list-item__thumbnail" id="gift_user_image_follow_`;
                                                                         card += i;
-                                                                        card +=`" src="" alt="" style="border-radius: 50%;">
+                                                                        card +=`" src="" alt="" style="border-radius: 50%;object-fit:cover;">
                                                                         </div>
                                                                 
                                                                         <div class="list-item__center" style="padding:0px; padding-left:5px;">
-                                                                        <div class="current_user_name" style="text-align: left;"></div>
+                                                                        <div class="current_user_name follow_page_user_name" style="text-align: left;"></div>
                                                                         </div>
                                                                 </li>
                                                                 </ul>
@@ -388,6 +420,11 @@ function toOtherPageFromFollowList(jumpToUserId){
                                                                 card += "gift_favorite_span_"+i;
                                                                 card +=`"class="favorite_off">0</span>
                                                                 </button>
+                                                                <button class="toolbar-button" style="font-size:12px;padding:0px;">
+                                                                        <span style="font-size:12px;color:gray">残:`;
+                                                                        card += gift_stock;
+                                                                        card +=`</span>
+                                                                </button>
                                                                 <button class="toolbar-button" style="font-size:12px;padding:0px;float: right;">
                                                                         <span style="color:#898989">
                                                                         `;
@@ -400,11 +437,7 @@ function toOtherPageFromFollowList(jumpToUserId){
                                         </div>
                                         `;
                                         $('#otherGiftList').append(card);
-                                        var width = $('.other_gift_image').width();
-                                        $('.other_gift_image').height(width);
-                                        
-                                        
-                                        $('.current_user_name').html(other_user_name);
+                                        $('.follow_page_user_name').html(other_user_name);
                                         giftImageGetFollow(gift_uid,i);
                                         giftUserImageFollow(jumpToUserId,i);
                                         gift_favorite_check(gift_uid,i);
@@ -477,7 +510,7 @@ function giftUserImageFollow(objectId,i){
         })
         .catch(function(err){
                 // エラー処理
-                alert('error = ' + err);
+                console.log('error = ' + err);
         });
 }
 function giftImageGetFollow(giftUid,i){
@@ -495,7 +528,7 @@ function giftImageGetFollow(giftUid,i){
         })
         .catch(function(err){
         // エラー処理
-        alert('error = ' + err);
+        console.log('error = ' + err);
         });
 }
 // ユーザ画面にてフォロー解除の処理
@@ -515,7 +548,7 @@ function followDelete() {
                 .then(function(results){
                         // 保存後の処理
                         results.delete();
-                        alert("削除成功");
+                        followOffOpen();
                         $('#other_follow_button').removeClass("follow_on").html("フォロー");
                 })
                 .catch(function(err){
@@ -534,7 +567,7 @@ function followDelete() {
                 .save()
                 .then(function(){
                         // 保存後の処理
-                        alert("フォロー成功");
+                        followOnOpen();
                         $('#other_follow_button').addClass("follow_on").html("フォロー中");
                         
                 })

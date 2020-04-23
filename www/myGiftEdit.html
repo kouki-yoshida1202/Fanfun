@@ -1,77 +1,310 @@
 <ons-page>
-        <ons-toolbar class="toolbar" style="background-color: white;position: fixed;">
-            <div class="left" style="padding-left: 3%;">
-                <ons-back-button></ons-back-button>
-            </div>
-            <div class="center" style="color:#898989;">
-                ギフト変更画面
-            </div>
-        </ons-toolbar>
-        <div class="container contents" style="background-color:#efeff4;padding-bottom:100px;">
-            <!-- カードリスト部分 -->
-            <input type="hidden" class="gift_uid_edit">
-            <div class="" style="width:100%;height: auto; padding: 1px 0 0 0;display: inline-block;">
-                <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:15px;">
-                    <div>
-                        <span>1.写真を登録</span>
-                    </div>
-                    <div class="" style="width: 60%; margin: 0 auto;margin-top:3px;background-color: white;border-radius: 20px;border:1px solid #898989;">
-                        <img id="gift_image_edit" class="buypage_img"src="img/imagePlus.png" alt="" style="width:100%;border-radius: 20px;">
-                        <input type="file" id="file-data-gift-edit"/>
-                        <span>※正方形の写真をアップロードしてください</span>
-                    </div>
+        <style>
+            .cp_iptxt {
+                    position: relative;
+            }
+            .cp_iptxt input {
+                    font: 15px/24px sans-serif;
+                    box-sizing: border-box;
+                    width: 100%;
+                    margin: 8px 0;
+                    padding: 0.3em;
+                    transition: 0.3s;
+                    border: 1px solid #898989;
+                    border-radius: 5px;
+                    outline: none;
+            }
+            .cp_iptxt input:focus {
+                    border-color: #FF6070;
+            }
+    
+            #gift_price:focus{
+                background-image: linear-gradient(#FF6070,#FF6070),linear-gradient(to top,transparent 1px,#afafaf 1px);
+            }
+            .cp_iptxt input {
+                    padding-left: 40px;
+            }
+            .cp_iptxt i {
+                    position: absolute;
+                    top: 11px;
+                    left: 0;
+                    padding: 9px 8px;
+                    transition: 0.3s;
+                    color: #aaaaaa;
+            }
+            .cp_iptxt input:focus + i {
+                    color: #FF6070;
+            }
+            .cp_iptxt textarea[type=text] {
+                    font: 15px/24px sans-serif;
+                    box-sizing: border-box;
+                    width: 100%;
+                    margin: 8px 0;
+                    padding: 0.3em;
+                    transition: 0.3s;
+                    border: 1px solid #898989;
+                    border-radius: 4px;
+                    outline: none;
+                    resize: none;
+            }
+            .cp_iptxt textarea[type=text]:focus {
+                    border-color: #FF6070;
+            }
+            .cp_iptxt textarea[type=text] {
+                    padding-left: 40px;
+            }
+            .cp_iptxt textarea[type=text]:focus + i {
+                    color: #FF6070;
+            }
+
+            .alert-dialog{
+                top:120%;
+            }
+        </style>
+    <ons-toolbar class="toolbar" style="background-color: white;position: fixed;">
+        <div class="left" style="padding-left: 3%;">
+            <ons-back-button></ons-back-button>
+        </div>
+        <div class="center" style="color:#898989;">
+            ギフト変更画面
+        </div>
+    </ons-toolbar>
+    <div class="container contents" style="background-color:#efeff4;padding-bottom:250px;">
+        <!-- カードリスト部分 -->
+        <input type="hidden" class="gift_uid_edit">
+        <div class="" style="width:100%;height: auto; padding: 1px 0 0 0;display: inline-block;">
+            <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:15px;">
+                <div>
+                    <span>1.写真を登録</span>
+                    <br>
+                    <span style="font-size:12px;color:#FF6070;">※正方形の写真をアップロードしてください</span>
                 </div>
-                <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:20px;">
-                    <div>
-                        <span>2.ギフトタイトルと説明</span>
-                    </div>
-                    <div class="" style="width: 100%; margin: 0 auto;margin-top:3px;">
-                        <input id="gift_title_edit"type="text" class="text-input" placeholder="ギフトタイトル(必須/20文字以内)" style="background-color: white;border-radius:20px;width:100%;font-size:14px;border:1px solid #898989;height:30px;padding-left:3%;margin-bottom:7px;">
-                        <textarea id="gift_text_edit"class="textarea" rows="7" placeholder="商品の説明(任意/200文字以内)" style="background-color: white;border-radius:20px;width:100%;border:1px solid #898989;padding:10px;font-size:14px;"></textarea>
-                    </div>
+                <div id="image_edit_div"class="" style="width: 60%; margin: 0 auto;margin-top:3px;background-color: white;border-radius: 20px;border:1px solid #898989;">
+                    <img id="gift_image_edit" class="buypage_img"src="img/imagePlus.png" alt="" style="width:100%;height:auto;object-fit:cover;border-radius: 20px;">
                 </div>
-                <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:20px;">
-                    <div>
-                        <span>3.販売価格(300~9,999,999)</span>
-                    </div>
-                    <div class="card" style="width: 100%; margin: 0 auto;margin-top:3px;background-color: white;border:1px solid #898989;border-radius: 20px">
-                        <ul class="list">
-                            <li class="list-item">
-                                <div class="list-item__center" style="font-size: 80%;">
-                                販売価格
-                                </div>
-                                <div class="list-item__right">
-                                    <span>
-                                        <div>
-                                            <input id="gift_price_edit" class="text-input text-input--material kakaku" placeholder="¥0" type="tel" style="text-align: right;" required>
-                                        </div>
-                                    </span>
-                                </div>
-                            </li>
-                            <li class="list-item">
-                                <div class="list-item__center" style="color:#898989;font-size: 80%;">
-                                販売手数料
-                                </div>
-                                <div class="list-item__right">
-                                    <label class="tesuryou">
-                                    </label>
-                                </div>
-                            </li>
-                            <li class="list-item">
-                                <div class="list-item__center" style="color:#898989;font-size: 80%;">
-                                販売利益
-                                </div>
-                                <div class="list-item__right">
-                                    <label class="rieki">
-                                    </label>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
+                <div style="width:60%;margin:0 auto;margin-top:5px;">
+                    <label for="file-data-gift-edit" class="button" style="border-radius:20px;background:gray;color:white;width:100%;line-height:30px;text-align: center;" onclick="giftEditCamera();">
+                        写真を変更
+                        <input type="hidden" id="profileGiftEditStatus" val="0">
+                    </label>
+                </div>
+            </div>
+            <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:20px;">
+                <div>
+                    <span>2.ギフトタイトルと説明</span>
+                </div>
+                <div class="cp_iptxt">
+                    <input type="text" placeholder="ギフトタイトル(必須/45文字以内)" id="gift_title_edit" maxlength="45"required>
+                    <i class="fas fa-gift fa-lg fa-fw" aria-hidden="true"></i>
+                </div>
+                <div class="cp_iptxt">
+                        <textarea type="text" rows="7"placeholder="商品の説明(必須/200文字以内)" id="gift_text_edit" required maxlength="200"></textarea>
+                        <i class="fas fa-comment-alt fa-lg fa-fw" aria-hidden="true"></i>
+                </div>
+            </div>
+            <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:20px;">
+                <div>
+                    <span>3.販売価格(300~9,999,999)</span>
+                </div>
+                <div class="card" style="width: 100%; margin: 0 auto;margin-top:3px;background-color: white;border:1px solid #898989;border-radius: 20px">
+                    <ul class="list">
+                        <li class="list-item">
+                            <div class="list-item__center" style="font-size: 80%;width:35%;">
+                            販売価格
+                            </div>
+                            <div class="list-item__right"style="text-align: right;">
+                                <span>
+                                    <div style="text-align: right;">
+                                        <input id="gift_price_edit" class="text-input text-input--material kakaku" placeholder="¥0" type="tel" style="text-align: right;height:30px;" required>
+                                        <br>
+                                        <span style="float:right;font-size:12px;color:#898989;margin-top:5px;">※100円単位での設定となります。</span>
+                                    </div>
+                                </span>
+                            </div>
+                        </li>
+                        <li class="list-item" style="display:none;">
+                            <div class="list-item__center" style="color:#898989;font-size: 80%;">
+                            販売手数料
+                            </div>
+                            <div class="list-item__right">
+                                <label class="tesuryou">
+                                </label>
+                            </div>
+                        </li>
+                        <li class="list-item">
+                            <div class="list-item__center" style="color:#898989;font-size: 80%;">
+                            販売利益
+                            </div>
+                            <div class="list-item__right">
+                                <label class="rieki">
+                                </label>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:20px;">
+                <div>
+                    <span>4.在庫数(後から変更可能です)</span>
+                </div>
+                <div class="cp_iptxt">
+                    <input type="tel" placeholder="0~999の整数で入力してください" id="gift_stock_edit"required>
+                    <i class="fas fa-box fa-lg fa-fw" aria-hidden="true"></i>
+                </div>
+            </div>
+            <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:20px;">
+                <div id="giftEditButtonZone"class="cp_iptxt">
+                    <button id="giftEditButton2" class="button "style="width:100%;padding-top:5px;padding-bottom:5px;line-height:auto;border-radius:30px;font-size:100%;margin:0 auto;height:45px;" onclick="giftEdit()">
+                            変更する
+                    </button>
                 </div>
             </div>
         </div>
-        <div class="tabbar" style="background-color: #FF6070;position: fixed;bottom:0;left:0;text-align: center;color:white;">
-            <span style="text-align: center;width:100%;padding-top:10px;font-size:20px;" onclick="giftEdit();">変更する</span>
+    </div>
+    <div class="alert-dialog-mask giftEdit_dialog_mask"></div>
+    <div class="alert-dialog giftEdit_dialog">
+        <div class="alert-dialog-container">
+            <div class="alert-dialog-title">
+                出品しました。
+            </div>
+            <div class="alert-dialog-footer">
+                <button class="alert-dialog-button alert-dialog-button--primal" onclick="giftEditClose();">OK</button>
+            </div>
         </div>
+    </div>
+    <div class="alert-dialog-mask giftEditMiss_dialog_mask"></div>
+    <div class="alert-dialog giftEditMiss_dialog">
+        <div class="alert-dialog-container">
+            <div class="alert-dialog-title">
+                出品が失敗しました。
+            </div>
+            <div class="alert-dialog-content">
+                再度送信頂くか、お問い合わせください。
+            </div>
+            <div class="alert-dialog-footer">
+                <button class="alert-dialog-button alert-dialog-button--primal" onclick="giftEditMissClose();">OK</button>
+            </div>
+        </div>
+    </div>
+    <div class="alert-dialog-mask giftEditImageMiss_dialog_mask"></div>
+    <div class="alert-dialog giftEditImageMiss_dialog">
+        <div class="alert-dialog-container">
+            <div class="alert-dialog-title">
+                画像の保存が失敗しました。
+            </div>
+            <div class="alert-dialog-content">
+                再度送信頂くか、お問い合わせください。
+            </div>
+            <div class="alert-dialog-footer">
+                <button class="alert-dialog-button alert-dialog-button--primal" onclick="giftEditImageMissClose();">OK</button>
+            </div>
+        </div>
+    </div>
+    <div class="alert-dialog-mask kakaku_edit_dialog_mask"></div>
+    <div class="alert-dialog kakaku_edit_dialog">
+        <div class="alert-dialog-container">
+            <div class="alert-dialog-title">価格が正しくありません。</div>
+            <div class="alert-dialog-content">
+                100~9999999円の範囲で、100円単位(下2桁が00)になるよう設定してください。
+            </div>
+            <div class="alert-dialog-footer">
+                <button class="alert-dialog-button alert-dialog-button--primal" onclick="kakakuEditCheckClose();">OK</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function giftEditCamera(){
+            window.navigator.camera.getPicture((imageData) => {
+                //成功時
+                document.getElementById('gift_image_edit').src = 'data:image/jpeg;base64,' + imageData;
+                $('#profileGiftEditStatus').val("1");
+                }, (error) => {
+                // 失敗時
+                    alert("写真取得に失敗しました");
+                }, {
+                // 各種設定
+                sourceType: window.navigator.camera.PictureSourceType.SAVEDPHOTOALBUM,
+                destinationType: window.navigator.camera.DestinationType.DATA_URL,
+                targetWidth: 800,
+                targetHeight: 800
+            });
+        }
+        $('.giftEdit_dialog_mask,.giftEdit_dialog,.giftEditMiss_dialog_mask,.giftEditImageMiss_dialog_mask,.giftEditImageMiss_dialog,.giftEditMiss_dialog,.kakaku_edit_dialog_mask,.kakaku_edit_dialog').hide();
+        function giftEditOpen(){
+            $('.giftEdit_dialog_mask,.giftEdit_dialog').slideDown();
+        }
+
+        function giftEditClose(){
+            $('.giftEdit_dialog').slideUp();
+            setTimeout(function(){
+                $('.giftEdit_dialog_mask').slideUp();
+                window.location.href = 'home.html';
+            }, 500);
+        }
+
+        function giftEditMissOpen(){
+            $('.giftEditMiss_dialog_mask,.giftEditMiss_dialog').slideDown();
+        }
+
+        function giftEditMissClose(){
+            $('.giftEditMiss_dialog').slideUp();
+            setTimeout(function(){
+                $('.giftEditMiss_dialog_mask').slideUp();
+            },500);
+        }
+
+        function giftEditImageMissOpen(){
+            $('.giftEditImageMiss_dialog_mask,.giftEditImageMiss_dialog').slideDown();
+        }
+
+        function giftEditImageMissClose(){
+            $('.giftEditImageMiss_dialog').slideUp();
+            setTimeout(function(){
+                $('.giftEditImageMiss_dialog_mask').slideUp();
+                window.location.href = 'home.html';
+            }, 500);
+        }
+
+        function kakakuEditCheckOpen(){
+            $('.kakaku_edit_dialog_mask,.kakaku_edit_dialog').slideDown();
+            $('.kakaku_edit_dialog').css('top',"80%");
+        }
+        function kakakuEditCheckClose(){
+            $('.kakaku_edit_dialog').slideUp();
+            setTimeout(function(){
+                $('.kakaku_edit_dialog_mask').slideUp();
+            },500);
+        }
+        // ギフト出品時の価格設定時に価格に応じて、手数料と利益が表示されるようにしている
+        $('.kakaku').change(function(){
+          var kakaku = $('.kakaku').val();
+          if(kakaku%100==0 && kakaku!=0 && kakaku<9999999 && kakaku > 0){
+            var tesuryou = Math.floor(kakaku*0.2);
+            var rieki = kakaku - tesuryou;
+            $('.tesuryou').text(tesuryou);
+            $('.rieki').text(rieki);
+            // $("#giftEditButton").css("background-color","#FF6070");
+            $("#giftEditButton2").prop("disabled",false);
+          }else{
+            kakakuEditCheckOpen();
+            // $("#giftEditButton").css("background-color","gray");
+            $("#giftEditButton2").prop("disabled",true);
+          }
+        });
+
+        $('#file-data-gift-edit').on('change', function (e) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $("#gift_image_edit").attr('src', e.target.result);
+                $("#gift_image_edit").height($("#gift_image_edit").width());
+                $("#image_edit_div").height($("#image_edit_div").width());
+            }
+            reader.readAsDataURL(e.target.files[0]);
+            $("#gift_image_edit").height($("#gift_image_edit").width());
+            $("#image_edit_div").height($("#image_edit_div").width());
+        });
+        $("#image_edit_div").height($("#image_edit_div").width());
+        $("#gift_image_edit").height($("#gift_image_edit").width());
+    </script>
 </ons-page>

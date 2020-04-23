@@ -6,56 +6,62 @@
         <div class="center" style="width:120%;">
             <span id="other_page_header"style="color:#898989;"></span> 
         </div>
+        <div class="right" style="padding-right: 5%;"onclick="otherActionOpen();">
+            <i class="fas fa-ellipsis-h"></i>
+        </div>
     </ons-toolbar>
     <input type="hidden" id="other_page_user_id">
     <div class="contents" style="background-color: white;padding-bottom:1px;">
         <ul class="list list--material">
             <li class="list-item list-item--material">
-              <div class="list-item__left list-item--material__left">
-                <img id="other_user_image"class="list-item__thumbnail list-item--material__thumbnail" src="" alt="" style="width:55px;height:55px;">
-              </div>
-          
-              <div class="list-item__center list-item--material__center">
-                <div class="list-item__subtitle list-item--material__subtitle" style="height:100%;">
-                    <div style="width:49%;text-align: center;float: left;height:100%;">
-                        <p style="line-height: 100%;">
-                            <span id="follow_number" style="font-weight: bold;font-size:24px;">0</span>
-                            <br>
-                            <span style="color:#898989;">フォロー</span>
-                        </p> 
-                    </div>
-                    <div style="width:49%;text-align: center;float: right;height:100%;border-left:1px solid #ddd;">
-                        <p style="line-height: 100%;">
-                            <span id="follower_number" style="font-weight: bold;font-size:24px;">0</span>
-                            <br>
-                            <span style="color:#898989;">フォロワー</span>
-                        </p> 
+                <div class="list-item__left list-item--material__left">
+                    <img id="other_user_image"class="list-item__thumbnail list-item--material__thumbnail" src="img/human.png" alt="" style="width:55px;height:55px;object-fit: cover;">
+                </div>
+                <div class="list-item__center list-item--material__center">
+                    <div class="list-item__subtitle list-item--material__subtitle" style="height:100%;">
+                        <div style="width:49%;text-align: center;float: left;height:100%;">
+                            <p style="line-height: 100%;">
+                                <span id="follow_number" style="font-weight: bold;font-size:24px;color:#898989;">0</span>
+                                <br>
+                                <span style="color:#898989;">フォロー</span>
+                            </p> 
+                        </div>
+                        <div style="width:49%;text-align: center;float: right;height:100%;border-left:1px solid #ddd;">
+                            <p style="line-height: 100%;">
+                                <span id="follower_number" style="font-weight: bold;font-size:24px;color:#898989;">0</span>
+                                <br>
+                                <span style="color:#898989;">フォロワー</span>
+                            </p> 
+                        </div>
                     </div>
                 </div>
-              </div>
-
             </li>
         </ul>
         <ul class="list list--material">
             <li class="list-item list-item--material">          
-              <div class="list-item__left list-item--material__left" style="padding:0px;min-height: auto;">
-                <div class="list-item__subtitle list-item--material__subtitle" style="height:100%;padding:0px;">
-                    <div style="width:100%;text-align: center;float: left;height:100%;">
-                        <p style="line-height: 100%;margin:0px;font-size:18px;">
-                            <span id="other_user_name"></span>
-                        </p> 
+                <div class="list-item__left list-item--material__left" style="padding:0px;min-height: auto;">
+                    <div class="list-item__subtitle list-item--material__subtitle" style="height:100%;padding:0px;">
+                        <div style="width:100%;text-align: center;float: left;height:100%;">
+                            <p style="line-height: 100%;margin:0px;font-size:18px;">
+                                <span id="other_user_name"></span>
+                            </p> 
+                        </div>
+                        
                     </div>
-                    
                 </div>
-              </div>
-              
             </li>
             <li class="list-item">
+                <div class="list-item__left" style="padding:0px;padding-left:2px;min-height: auto;padding-top:5px;">
+                    <div id="otherGenre"class="list-item__subtitle">
+                    </div>
+                </div>
+            </li>
+            <!-- <li class="list-item">
                 <div class="list-item__left" style="padding:0px;padding-left:2px;min-height: auto;padding-top:5px;">
                     <div id="otherReview"class="list-item__subtitle">
                     </div>
                 </div>
-            </li>
+            </li> -->
         </ul>
         <div id="other_profile" class="other_profile_text" style="max-height:100px;height:auto;font-size:14px;padding:16px;">
             
@@ -72,4 +78,154 @@
             <!-- カードリスト部分 -->
         </div>
     </div>
+    <div class="action-sheet-mask"></div>
+    <div class="action-sheet modal1">
+        <button id="blockCheck" class="action-sheet-button" class="" onclick="otherBlockChange();">ブロック</button>
+        <button class="action-sheet-button" onclick="otherActionClose();">Cancel</button>
+    </div>
+    <div class="alert-dialog-mask blockOn_dialog_mask"></div>
+    <div class="alert-dialog blockOn_dialog">
+        <div class="alert-dialog-container">
+            <div class="alert-dialog-title">ブロックしました</div>
+            <div class="alert-dialog-footer">
+                <button class="alert-dialog-button alert-dialog-button--primal" onclick="blockOnClose();">OK</button>
+            </div>
+        </div>
+    </div>
+    <div class="alert-dialog-mask blockOff_dialog_miss_mask"></div>
+    <div class="alert-dialog blockOff_miss_dialog">
+        <div class="alert-dialog-container">
+            <div class="alert-dialog-title">ブロック解除しました</div>
+            <div class="alert-dialog-footer">
+                <button class="alert-dialog-button alert-dialog-button--primal" onclick="blockOffClose();">OK</button>
+            </div>
+        </div>
+    </div>
+    <div class="alert-dialog-mask followOn_dialog_mask"></div>
+    <div class="alert-dialog followOn_dialog">
+        <div class="alert-dialog-container">
+            <div class="alert-dialog-title">フォローしました</div>
+            <div class="alert-dialog-footer">
+                <button class="alert-dialog-button alert-dialog-button--primal" onclick="followOnClose();">OK</button>
+            </div>
+        </div>
+    </div>
+    <div class="alert-dialog-mask followOff_dialog_miss_mask"></div>
+    <div class="alert-dialog followOff_miss_dialog">
+        <div class="alert-dialog-container">
+            <div class="alert-dialog-title">フォロー解除しました</div>
+            <div class="alert-dialog-footer">
+                <button class="alert-dialog-button alert-dialog-button--primal" onclick="followOffClose();">OK</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        $('.action-sheet-mask,.action-sheet,.followOn_dialog_mask,.followOn_dialog,.followOff_dialog_miss_mask,.followOff_miss_dialog,.blockOn_dialog_mask,.blockOn_dialog,.blockOff_dialog_miss_mask,.blockOff_miss_dialog').hide();
+
+        function otherActionOpen(){
+            $('.action-sheet-mask,.modal1').slideDown();
+            // スクロールを無効にする
+            $(window).on('touchmove.noScroll', function(e) {
+                e.preventDefault();
+            });
+        }
+
+        function blockOnOpen(){
+            $('.blockOn_dialog_mask,.blockOn_dialog').slideDown();
+        }
+        function blockOnClose(){
+            $('.blockOn_dialog').slideUp();
+            setTimeout(function(){
+                $('.blockOn_dialog_mask').slideUp();
+            },500);
+        }
+
+        function blockOffOpen(){
+            $('.blockOff_dialog_miss_mask,.blockOff_miss_dialog').slideDown();
+        }
+        
+        function blockOffClose(){
+            $('.blockOff_miss_dialog').slideUp();
+            setTimeout(function(){
+                $('.blockOff_dialog_miss_mask').slideUp();
+            },500);
+        }
+        function otherActionClose(){
+            $('.action-sheet').slideUp();
+            setTimeout(function(){
+                $('.action-sheet-mask').slideUp();
+            },500);
+            // スクロール無効を解除する
+            $(window).off('.noScroll');
+        }
+        function followOnOpen(){
+            $('.followOn_dialog_mask,.followOn_dialog').slideDown();
+        }
+        function followOnClose(){
+            $('.followOn_dialog').slideUp();
+            setTimeout(function(){
+                $('.followOn_dialog_mask').slideUp();
+            },500);
+        }
+
+        function followOffOpen(){
+            $('.followOff_dialog_miss_mask,.followOff_miss_dialog').slideDown();
+        }
+        
+        function followOffClose(){
+            $('.followOff_miss_dialog').slideUp();
+            setTimeout(function(){
+                $('.followOff_dialog_miss_mask').slideUp();
+            },500);
+        }
+
+        //ユーザ画面でフォローか外すかの処理
+        function otherBlockChange() {
+            var currentUser = ncmb.User.getCurrentUser();
+            var objectId = currentUser.get("objectId");
+            var blockedId = $('#other_page_user_id').val();
+
+            if($('#blockCheck').hasClass("onBlock")){ // クリックされた要素がclickedクラスだったら
+                    var BlockList = ncmb.DataStore("BlockList");
+                    // データストアへの削除
+
+                    BlockList
+                    .equalTo("blockerId", objectId)
+                    .equalTo("blockedId", blockedId)
+                    .fetch()
+                    .then(function(results){
+                            // 保存後の処理
+                            results.delete();
+                            blockOffOpen();
+                            otherActionClose();
+                            $('#blockCheck').removeClass("onBlock").html("ブロック");
+                    })
+                    .catch(function(err){
+                            // エラー処理
+                            console.log(err)
+                    });
+            }else{
+                    // クラスのTestClassを作成
+                    var BlockList = ncmb.DataStore("BlockList");
+                    // データストアへの登録
+                    var BlockList = new BlockList();
+
+                    BlockList
+                    .set("blockerId", objectId)
+                    .set("blockedId", blockedId)
+                    .save()
+                    .then(function(){
+                            // 保存後の処理
+                            blockOnOpen();
+                            otherActionClose();
+                            $('#blockCheck').addClass("onBlock").html("ブロック解除");
+                            
+                    })
+                    .catch(function(err){
+                            // エラー処理
+                            console.log(err)
+                    });
+            }
+        }
+    </script>
 </ons-page>

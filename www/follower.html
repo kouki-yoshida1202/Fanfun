@@ -12,4 +12,46 @@
             
         </ul>
     </div>
+    <div class="alert-dialog-mask followerListFollowOn_dialog_mask"></div>
+    <div class="alert-dialog followerListFollowOn_dialog">
+        <div class="alert-dialog-container">
+            <div class="alert-dialog-title">フォローしました</div>
+            <div class="alert-dialog-footer">
+                <button class="alert-dialog-button alert-dialog-button--primal" onclick="followerListFollowOnClose();">OK</button>
+            </div>
+        </div>
+    </div>
+    <div class="alert-dialog-mask followerListFollowOff_dialog_mask"></div>
+    <div class="alert-dialog followerListFollowOff_dialog">
+        <div class="alert-dialog-container">
+            <div class="alert-dialog-title">フォロー解除しました</div>
+            <div class="alert-dialog-footer">
+                <button class="alert-dialog-button alert-dialog-button--primal" onclick="followerListFollowOffClose();">OK</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        $('.followerListFollowOn_dialog_mask,.followerListFollowOn_dialog,.followerListFollowOff_dialog_mask,.followerListFollowOff_dialog').hide();
+        
+        function followerListFollowOnOpen(){
+            $('.followerListFollowOn_dialog_mask,.followerListFollowOn_dialog').slideDown();
+        }
+        function followerListFollowOnClose(){
+            $('.followerListFollowOn_dialog').slideUp();
+            setTimeout(function(){
+                $('.followerListFollowOn_dialog_mask').slideUp();
+            },500);
+        }
+
+        function followerListFollowOffOpen(){
+            $('.followerListFollowOff_dialog_mask,.followerListFollowOff_dialog').slideDown();
+        }
+        
+        function followerListFollowOffClose(){
+            $('.followerListFollowOff_dialog').slideUp();
+            setTimeout(function(){
+                $('.followerListFollowOff_dialog_mask').slideUp();
+            },500);
+        }
+    </script>
 </ons-page>

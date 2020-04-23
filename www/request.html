@@ -1,0 +1,52 @@
+<ons-page>
+        <style>
+        </style>
+        <div class="container contents" style="position:relative;">
+                <!-- カードリスト部分 -->
+
+                
+        </div>
+        <div class="container">
+                <div class="box" style="background: -moz-linear-gradient(bottom left, #FF1048, #FFAA95); 
+                background: -webkit-linear-gradient(bottom left, #FF1048, #FFAA95); 
+                background: linear-gradient(to top right, #FF1048, #FFAA95);height:300px;z-index:10;text-align: center;">
+                        <img src="img/whitelogo.png" alt="" style="width:55%;height:auto;margin:0 auto;margin-top:10%;">
+                        <!-- <p style="color:white;margin-top:-5%;">Contact & Request Form</p> -->
+                </div>
+                <div style="z-index:100000;margin-top:-150px;">
+                        <svg width="100%"version="1.1" xmlns="http://www.w3.org/2000/svg"><path id="wave" d=""/></svg>
+                </div>
+                
+
+                <div style="height: auto;width:50%;float:left;">
+                        <div class="card" style="text-align: center;" onclick="jumpContactForm('afterLogin')">
+                                <i class="fab fa-quora fa-4x" style="color:#FF6070;margin:15px;"></i>
+                                <h4 class="card__title"style="text-align:left;margin-top:0px;font-size:16px;font-weight:bold;">改善 / 問合せ</h4>
+                                <div class="card__content"style="text-align:left;font-size:12px;">
+                                        このフォームではFanfunに問い合わせが出来たり、アプリの機能や使い心地について「もっとこうしてほしい」といった改善案を送信できます！
+                                </div>
+                        </div>
+                </div>
+                <div style="height: auto;width:50%;float:right;">
+                        <div class="card" style="text-align: center;"onclick="jumpRequestForm()">
+                                <i class="fas fa-user-astronaut fa-4x" style="color:#FF6070;margin:15px;"></i>
+                                <h4 class="card__title"style="text-align:left;margin-top:0px;font-size:16px;font-weight:bold;">インフルエンサー<br>リクエスト</h4>
+                                <div class="card__content"style="text-align:left;font-size:12px;">
+                                        このフォームでは「あのインフルエンサーも参加してほしい！」といったあなた様のご要望を受け付けます。Fanfunが全力で交渉して参ります！
+                                </div>
+                        </div>
+                </div>
+        </div>
+                      
+        
+        
+        <script>
+        $('#wave').wavify({
+                height: 120,
+                bones: 2,
+                amplitude: 20,
+                color: '#efeff4',
+                speed: .25
+        });
+        </script>
+</ons-page>

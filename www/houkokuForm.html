@@ -1,0 +1,151 @@
+<ons-page>
+        <style>
+                .cp_iptxt {
+                        position: relative;
+                        margin: 30px 3%;
+                }
+                .cp_iptxt input[type=text] {
+                        font: 15px/24px sans-serif;
+                        box-sizing: border-box;
+                        width: 100%;
+                        margin: 8px 0;
+                        padding: 0.3em;
+                        transition: 0.3s;
+                        border: 1px solid #898989;
+                        border-radius: 4px;
+                        outline: none;
+                }
+                .cp_iptxt input[type=text]:focus {
+                        border-color: #FF6070;
+                }
+                .cp_iptxt input[type=text] {
+                        padding-left: 40px;
+                }
+                .cp_iptxt i {
+                        position: absolute;
+                        top: 11px;
+                        left: 0;
+                        padding: 9px 8px;
+                        transition: 0.3s;
+                        color: #aaaaaa;
+                }
+                .cp_iptxt input[type=text]:focus + i {
+                        color: #FF6070;
+                }
+                .cp_iptxt textarea[type=text] {
+                        font: 15px/24px sans-serif;
+                        box-sizing: border-box;
+                        width: 100%;
+                        margin: 8px 0;
+                        padding: 0.3em;
+                        transition: 0.3s;
+                        border: 1px solid #898989;
+                        border-radius: 4px;
+                        outline: none;
+                        resize: none;
+                }
+                .cp_iptxt textarea[type=text]:focus {
+                        border-color: #FF6070;
+                }
+                .cp_iptxt textarea[type=text] {
+                        padding-left: 40px;
+                }
+                .cp_iptxt textarea[type=text]:focus + i {
+                        color: #FF6070;
+                }
+        </style>
+        <ons-toolbar class="toolbar" style="background-color: white;">
+                <div class="left" style="padding-left: 3%;">
+                        <ons-back-button></ons-back-button>
+                </div>
+                <div class="center" style="color:#898989;">
+                        報告フォーム
+                </div>
+        </ons-toolbar>
+        <div id="" class="container contents" style="position:relative;">
+                <input type="hidden" id="houkokuform_gift_id">
+                <input type="hidden" id="houkokuform_gift_name">
+                <input type="hidden" id="houkokuform_gift_username">
+                <!-- カードリスト部分 -->
+                <div style="height: auto;width:100%;margin:0 auto;">
+                        <div class="card" style="text-align: center;">
+                                <div class="card__content"style="text-align:left;">
+                                        <div class="cp_iptxt">
+                                                <textarea type="text" rows="13"placeholder="報告内容を具体的にご記入ください。" id="houkoku_text" required></textarea>
+                                                <i class="fas fa-comment fa-lg fa-fw" aria-hidden="true"></i>
+                                        </div>
+                                        <div style="width:90%;text-align:center;margin:0 auto;margin-top:0px;margin-bottom:20px;">
+                                                <button class="button "style="width:100%;padding-top:0px;padding-bottom:0px;line-height:40px;border-radius:30px;font-size:16px;margin:0 auto;" onclick="houkokuSend();">送信する</button>
+                                        </div>
+                                </div>
+                        </div>
+                </div>  
+        </div>
+        <div class="alert-dialog-mask houkoku_dialog_mask"></div>
+        <div class="alert-dialog houkoku_dialog">
+                <div class="alert-dialog-container">
+                <div class="alert-dialog-title">送信完了</div>
+                <div class="alert-dialog-footer">
+                        <button class="alert-dialog-button alert-dialog-button--primal" onclick="houkokuCheckClose();">OK</button>
+                </div>
+                </div>
+        </div>
+        <div class="alert-dialog-mask houkokuNo_dialog_mask" style="z-index: 1000;"></div>
+        <div class="alert-dialog houkokuNo_dialog" style="z-index: 1001;">
+                <div class="alert-dialog-container">
+                <div class="alert-dialog-title">入力されていません</div>
+                <div class="alert-dialog-footer">
+                        <button class="alert-dialog-button alert-dialog-button--primal" onclick="houkokuNoClose();">OK</button>
+                </div>
+                </div>
+        </div>
+        <div class="alert-dialog-mask houkoku_dialog_miss_mask"></div>
+        <div class="alert-dialog houkoku_miss_dialog">
+                <div class="alert-dialog-container">
+                <div class="alert-dialog-title">送信失敗</div>
+                <div class="alert-dialog-content">
+                        再度送信頂くか、お問い合わせください。
+                </div>
+                <div class="alert-dialog-footer">
+                        <button class="alert-dialog-button alert-dialog-button--primal" onclick="houkokuMissClose();">OK</button>
+                </div>
+                </div>
+        </div>
+        <script>
+                $('.mygift_houkoku_mask,.mygift_houkoku_modal,.houkokuNo_dialog_mask,.houkokuNo_dialog,.houkoku_dialog_mask,.houkoku_dialog,.houkoku_dialog_miss_mask,.houkoku_miss_dialog').hide();
+
+                function houkokuNoOpen(){
+                        $('.houkokuNo_dialog_mask,.houkokuNo_dialog').slideDown();
+                }
+
+                function houkokuNoClose(){
+                        $('.houkokuNo_dialog').slideUp();
+                        setTimeout(function(){
+                                $('.houkokuNo_dialog_mask').slideUp();
+                        },500);
+                }
+
+                function houkokuCheckOpen(){
+                        $('.houkoku_dialog_mask,.houkoku_dialog').slideDown();
+                }
+
+                function houkokuCheckClose(){
+                        $('.houkoku_dialog').slideUp();
+                        setTimeout(function(){
+                                $('.houkoku_dialog_mask').slideUp();
+                                document.getElementById('navi').popPage();
+                        },500);
+                }
+
+                function houkokuMissOpen(){
+                        $('.houkoku_dialog_miss_mask,.houkoku_miss_dialog').slideDown();
+                }
+                
+                function houkokuMissClose(){
+                        $('.houkoku_miss_dialog').slideUp();
+                        setTimeout(function(){
+                                $('.houkoku_dialog_miss_mask').slideUp();
+                        },500);
+                }
+        </script>
+</ons-page>

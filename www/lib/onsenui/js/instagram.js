@@ -36,63 +36,19 @@ function instaPush() {
                 });
         }
 }
-
-function InstagramNews(){
-        $("#instaNews").empty();
-        //データストアから取得して、1件表示する
-        var InstagramNews = ncmb.DataStore("InstagramNews");
-
-        InstagramNews
-        .order('createDate', true)
-        .fetchAll()                
-        .then(function(results){
-                var object = results;
-                for(var i=0;i<object.length;i++){
-                        var insta_uid = object[i].get("InstaUid");
-                        var insta_url =object[i].get("InstaUrl");
-                        var create_date = object[i].get("createDate");
-                        // var time = jikanCulc(create_date);
-                
-                        //カードに出力していく
-                        var card = `
-                        <div class="gift-card" style="width:48%;height: auto; padding: 1px 0 0 0;display: inline-block;margin-top:5px;"onclick="
-                        `;
-                        card += "window.open('"+insta_url+"');";
-                        card +=`
-                        ">
-                                <div class="card" style="height:99%;margin:3px;border-radius:20px;">
-                                        <div class="card__content" style="height:auto;">
-                                                <img id="`;
-                                                card += "insta_image_top_"+i;
-                                                card +=`"class="gift_image" src="" alt="" style="width:100%;height:125px;border-radius: 20px;">
-                                        </div>
-                                </div>
-                        </div>
-                        `;
-                        $('#instaNews').append(card);
-                        $('.gift_image').height($('.gift_image').width());
-                        InstaImageGetTop(insta_uid,i);
-                }
-        })
-        .catch(function(err){
-                console.log(err);
-        });        
+function instagramOpen(link){
+        // どっちか使う
+        window.open(link, '_system', 'location=yes');
+        return false;
 }
-
-function InstaImageGetTop(InstaUid,i){
-        ncmb.File.download(InstaUid, "blob")
-        .then(function(fileData) {
-                var reader = new FileReader();
-                reader.onloadend = function() {
-                        var insta_image_top = "insta_image_top_"+i;
-                        var img = document.getElementById(insta_image_top);
-                        img.src = reader.result;
-                }
-                // DataURLとして読み込む
-                reader.readAsDataURL(fileData);
-        })
-        .catch(function(err){
-        // エラー処理
-        console.log('error = ' + err);
-        });
+function InstagramNews(){
+        $("#js-instalib").empty();
+        var accessToken = '21244683227.1677ed0.cfdf4f10b42f45ea8a0aa9b84b71b0f0'; //取得したアクセストークンを貼り付ける
+        $.getJSON('https://api.instagram.com/v1/users/self/media/recent/?access_token='+accessToken+'&callback=?',function (insta) {
+                
+                $.each(insta.data,function (photos,src) {
+                        if ( photos === 10 ) { return false; } //上限設定
+                        $('<div class="gift-card" style="width:48%;height: auto; padding: 1px 0 0 0;display: inline-block;margin-top:5px;"><div class="card" style="height:99%;margin:3px;border-radius:20px;"><div class="card__content" style="height:auto;"><img src="'+src.images.standard_resolution.url+'"onclick="instagramOpen(`'+src.link+'`);" class="gift_image"alt="" style="width:100%;height:154px;object-fit:cover;border-radius: 20px;"></div></div></div>').appendTo('#js-instalib');
+                });
+        });        
 }

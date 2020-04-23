@@ -1,4 +1,9 @@
 <ons-page>
+    <style>
+    .alert-dialog{
+      top:30%;
+    }    
+    </style>
     <ons-toolbar class="toolbar" style="background-color: white;">
         <div class="left" style="padding-left: 3%;">
             <ons-back-button></ons-back-button>
@@ -17,4 +22,53 @@
         <button class="button "style="width:100%;padding-top:0px;padding-bottom:0px;line-height:auto;border-radius:30px;font-size:100%;margin:0 auto;height:45px;" onclick="passwordReminder()">送信</button>
         </div>
     </div>
+    <div class="alert-dialog-mask reminderMailMiss_dialog_mask"></div>
+    <div class="alert-dialog reminderMailMiss_dialog">
+        <div class="alert-dialog-container">
+            <div class="alert-dialog-title">メールアドレスが<br>正しくありません</div>
+            <div class="alert-dialog-footer">
+                <button class="alert-dialog-button alert-dialog-button--primal" onclick="reminderMailMissClose();">OK</button>
+            </div>
+        </div>
+    </div>
+    <div class="alert-dialog-mask reminderMail_dialog_mask"></div>
+    <div class="alert-dialog reminderMail_dialog">
+            <div class="alert-dialog houkoku_miss_dialog">
+        <div class="alert-dialog-container">
+            <div class="alert-dialog-title">送信しました</div>
+            <div class="alert-dialog-content">
+                上記メールアドレスにメールを送信しました。ご確認ください。
+            </div>
+            <div class="alert-dialog-footer">
+                <button class="alert-dialog-button alert-dialog-button--primal" onclick="reminderMailClose();">OK</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        $('.reminderMailMiss_dialog_mask,.reminderMailMiss_dialog,.reminderMail_dialog_mask,.reminderMail_dialog').hide();
+        
+        function reminderMailMissOpen(){
+                $('.reminderMailMiss_dialog_mask,.reminderMailMiss_dialog').slideDown();
+        }
+        
+        function reminderMailMissClose(){
+                $('.reminderMailMiss_dialog').slideUp();
+                setTimeout(function(){
+                    $('.reminderMailMiss_dialog_mask').slideUp();
+                },500);
+        }
+
+        function reminderMailOpen(){
+                $('.reminderMail_dialog_mask,.reminderMail_dialog').slideDown();
+        }
+        
+        function reminderMailClose(){
+                $('.reminderMail_dialog').slideUp();
+                setTimeout(function(){
+                    $('.reminderMail_dialog_mask').slideUp();
+                    window.location.href = 'index.html';
+                },500);
+                
+        }
+    </script>
 </ons-page>

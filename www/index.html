@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
-  <meta http-equiv="Content-Security-Policy" content="default-src * data: gap: https://ssl.gstatic.com; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+  <meta http-equiv="Content-Security-Policy" content="default-src * coolapp: data:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
   <script src="components/loader.js"></script>
   
   <script src="lib/onsenui/js/onsenui.min.js"></script>
@@ -14,24 +14,36 @@
   <link rel="stylesheet" href="lib/onsenui/css/onsen-css-components.css">
   <link rel="stylesheet" href="css/style.css">
   <script src="lib/onsenui/js/createuser.js"></script>
+  <!-- <script src="lib/onsenui/js/cloudLogin.js"></script> -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="lib/onsenui/js/contactForm.js"></script>
+  <script src="lib/onsenui/js/requestForm.js"></script>
+  <script src="lib/onsenui/js/particles.min.js"></script>
   <script>
-    ons.ready(function() {
-    });
-
+    
+    // ons.ready(function() {
+    //   // バックグラウンドログイン
+    //   cloudLogin();
+    // });
+    
     if (ons.platform.isIPhoneX()) {
       document.documentElement.setAttribute('onsflag-iphonex-portrait', '');
       document.documentElement.setAttribute('onsflag-iphonex-landscape', '');
     }
+    function aiueo(link){
+      // どっちか使う
+      window.open(link, '_blank', 'location=yes');
+      return false;
+    }
 
-    $(function() {
-      setTimeout(function(){
-        $('.start img').fadeIn(1600);
-      },500); //0.5秒後にロゴをフェードイン!
-      setTimeout(function(){
-        $('.start').fadeOut(500);
-      },2500); //2.5秒後にロゴ含め真っ白背景をフェードアウト！
-    });
+    // $(function() {
+    //   setTimeout(function(){
+    //     $('.start img').fadeIn(1600);
+    //   },500); //0.5秒後にロゴをフェードイン!
+    //   setTimeout(function(){
+    //     $('.start').fadeOut(500);
+    //   },2500); //2.5秒後にロゴ含め真っ白背景をフェードアウト！
+    // });
     // function login(){
     //   var username = document.getElementById('username').value;
     //   var password = document.getElementById('password').value;
@@ -50,15 +62,19 @@
     height:30px;
     font-size:20px;
   }
-  
+  .alert-dialog-mask{
+    position:fixed;
+  }
   .text-input--material:focus{
     background-image: linear-gradient(#FF1048, #FFAA95),linear-gradient(to top,transparent 1px,#afafaf 1px);
   }
-  .login_input{
-    height:40px;
-    margin:20px;
+  
+  .back-button__icon{
+    fill:#898989;
   }
-
+  *{
+      -webkit-overflow-scrolling: touch;
+  }
   .button{
     background: -moz-linear-gradient(bottom left, #FF1048, #FFAA95); 
     background: -webkit-linear-gradient(bottom left, #FF1048, #FFAA95); 
@@ -75,7 +91,7 @@
   </style>
 </head>
 <body>
-    <ons-navigator id="login" page="login.html">
+    <ons-navigator id="login" page="login.html" swipeable="force">
     </ons-navigator> 
 </body>
 </html>

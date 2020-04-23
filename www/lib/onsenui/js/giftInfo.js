@@ -5,99 +5,157 @@ var ncmb    　= new NCMB(appKey,clientKey);
 
 // -------[Demo1]データをmBaaSに保存する -------//
 function giftInsert() {
-        
+        showGiftInsertLoad();
         //ユーザーの入力したデータを変数にセットする
-        var gift_title = $("#gift_title").val();            //お名前
-        var gift_text = $("#gift_text").val();     //メールアドレス
-        var gift_price = $("#gift_price").val();      //パスワード
-        var currentUser = ncmb.User.getCurrentUser();
-        var objectId = currentUser.get("objectId");
-        // クラスのTestClassを作成
-        var GiftData = ncmb.DataStore("giftData");
-        var strong = 1000;
-        var uid = new Date().getTime().toString(16)  + Math.floor(strong*Math.random()).toString(16)
-        // データストアへの登録
-        var giftData = new GiftData();
-
-        giftData.set("userId", objectId)
-                .set("giftTitle", gift_title)
-                .set("giftText", gift_text)
-                .set("price",gift_price)
-                .set("giftUid",uid)
-                .set("ReleaseStatus",false)
-                .save()
-                .then(function(gameScore){
-                // 保存後の処理
-                        onFormSendGift(uid);
-                        alert("ギフト出品成功");
-                })
-                .catch(function(err){
-                // エラー処理
-                console.log(err)
-                });
+        var gift_title = $("#gift_title").val();            
+        var gift_text = $("#gift_text").val();
+        var gift_text = gift_text.replace(/\r?\n/g,'');
+        var gift_price = $("#gift_price").val(); 
+        var gift_stock = $("#gift_stock").val(); 
+        var profileGiftInputStatus = $('#profileGiftInputStatus').val();
+        if(gift_title ==''){
+                hideGiftInsertLoad();
+                giftTitleCheckOpen();
+        }else if(gift_text == ""){
+                hideGiftInsertLoad();
+                alert("ギフト説明文が未入力です");
+        }else if(profileGiftInputStatus == 0){
+                hideGiftInsertLoad();
+                alert("ギフト画像が未登録です");
+        }else if(gift_price == ""){
+                hideGiftInsertLoad();
+                alert("ギフト価格が未入力です");
+        }else if(gift_stock == ""){
+                hideGiftInsertLoad();
+                alert("ギフト在庫数が未入力です");
+        }else if(gift_stock > 999){
+                hideGiftInsertLoad();
+                alert("ギフト在庫数は0~999です");
+        }else if(!Number.isInteger(Number(gift_stock)) || !Number.isInteger(Number(gift_price)) || gift_price < 1 || gift_stock < 0){
+                hideGiftInsertLoad();
+                alert("数値を1以上の整数で入力してください");
+        }else{
+                var currentUser = ncmb.User.getCurrentUser();
+                var objectId = currentUser.get("objectId");
+                // クラスのTestClassを作成
+                var GiftData = ncmb.DataStore("giftData");
+                var strong = 1000;
+                var uid = new Date().getTime().toString(16)  + Math.floor(strong*Math.random()).toString(16);
+                // データストアへの登録
+                var giftData = new GiftData();
+                
+                giftData.set("userId", objectId)
+                        .set("giftTitle", gift_title)
+                        .set("giftText", gift_text)
+                        .set("price",gift_price)
+                        .set("giftUid",uid)
+                        .set("stock",gift_stock)
+                        .save()
+                        .then(function(gameScore){
+                                // 保存後の処理
+                                var img = document.getElementById('gift_image_insert');
+                                var dataURI = img.getAttribute('src');
+                                // dataURIをBlobに変換する
+                                var blob = toBlob(dataURI);
+                                ncmb.File
+                                .upload(uid,blob)
+                                .then(function(res){
+                                        // アップロード後処理
+                                        hideGiftInsertLoad();
+                                        giftInputOpen();
+                                })
+                                .catch(function(err){
+                                        // エラー処理
+                                        hideGiftInsertLoad();
+                                        giftInputImageMissOpen();
+                                });
+                        })
+                        .catch(function(err){
+                        // エラー処理
+                                hideGiftInsertLoad();
+                                giftInputMissOpen();
+                        });
+        }
 }
 
-// function giftInfo(){
-//         var gift_uid = $('.gift_uid').val();
-//         setTimeout(function() {
-//                 $('.gift_uid_edit').val(gift_uid);
-                
-        
-//         // クラスのTestClassを作成
-//         var GiftData = ncmb.DataStore("giftData");
-//         // データストアへの登録
-//         GiftData.equalTo("giftUid", gift_uid)
-//                 .fetch()                
-//                 .then(function(results){
-//                         var object = results;
-//                         var gift_objectId = object.get("objectId");
-//                         var gift_title_now = object.get("giftTitle");
-//                         var gift_text_now = object.get("giftText");
-//                         var gift_price_now = object.get("price");
-//                         $('#gift_title_edit').val(gift_title_now);
-//                         $('#gift_text_edit').val(gift_text_now);
-//                         $('#gift_price_edit').val(gift_price_now);
-//                         var kakaku = $('.kakaku').val();
-//                         var tesuryou = Math.floor(kakaku*0.1);
-//                         var rieki = kakaku - tesuryou;
-//                         $('.tesuryou').text(tesuryou);
-//                         $('.rieki').text(rieki);
-//                 })
-//                 .catch(function(err){
-//                         console.log(err);
-//                 });
-//         }, 500);
-// }
-// -------[Demo1]データをmBaaSに保存する -------//
 function giftEdit() {
-        
+        showGiftEditLoad();
         //ユーザーの入力したデータを変数にセットする
         var gift_title = $("#gift_title_edit").val();            //お名前
         var gift_text = $("#gift_text_edit").val();     //メールアドレス
+        var gift_text = gift_text.replace(/\r?\n/g,'');
         var gift_price = $("#gift_price_edit").val();      //パスワード
-        var currentUser = ncmb.User.getCurrentUser();
-        var objectId = currentUser.get("objectId");
-        // クラスのTestClassを作成
-        var uid = $('.gift_uid_edit').val();
-        // データストアへの登録
-        var GiftData = ncmb.DataStore("giftData");
-        var giftData = new GiftData();
+        var gift_stock = $("#gift_stock_edit").val();
+        var profileGiftEditStatus = $('#profileGiftEditStatus').val();
+        if(gift_title ==''){
+                hideGiftEditLoad();
+                alert("ギフトタイトルが未入力です");
+        }else if(gift_text == ""){
+                hideGiftEditLoad();
+                alert("ギフト説明文が未入力です");
+        }else if(gift_price == ""){
+                hideGiftEditLoad();
+                alert("ギフト価格が未入力です");
+        }else if(gift_price % 100 != 0){
+                hideGiftEditLoad();
+                alert("価格を100円単位で設定してください")
+        }else if(gift_stock == ""){
+                hideGiftEditLoad();
+                alert("ギフト在庫数が未入力です");
+        }else if(gift_stock > 999){
+                hideGiftEditLoad();
+                alert("ギフト在庫数は0~999です");
+        }else if(!Number.isInteger(Number(gift_stock)) || !Number.isInteger(Number(gift_price)) || gift_price < 1 || gift_stock < 0){
+                hideGiftEditLoad();
+                alert("数値を1以上の整数で入力してください");
+        }else{
+                var currentUser = ncmb.User.getCurrentUser();
+                var objectId = currentUser.get("objectId");
+                // クラスのTestClassを作成
+                var uid = $('.gift_uid_edit').val();
+                // データストアへの登録
+                var GiftData = ncmb.DataStore("giftData");
 
-        GiftData.equalTo("giftUid", uid)
-                .fetch()                
-                .then(function(results){
-                        var object = results;
-                        var gift_objectId = object.get("objectId");
-                        results.set("giftTitle", gift_title)
-                                .set("giftText", gift_text)
-                                .set("price",gift_price)
-                                .update();
+                GiftData.equalTo("giftUid", uid)
+                        .fetch()                
+                        .then(function(results){
+                                var object = results;
+                                console.log(object);
+                                var gift_objectId = object.get("objectId");
+                                results.set("giftTitle", gift_title)
+                                        .set("giftText", gift_text)
+                                        .set("price",gift_price)
+                                        .set("stock",gift_stock)
+                                        .update();
 
-                        onFormSendGiftEdit(uid);
-                })
-                .catch(function(err){
-                        console.log(err);
-                });
+                                if(profileGiftEditStatus != 0){
+                                        // 保存後の処理
+                                        var img = document.getElementById('gift_image_edit');
+                                        var dataURI = img.getAttribute('src');
+                                        // dataURIをBlobに変換する
+                                        var blob = toBlob(dataURI);
+                                        ncmb.File
+                                        .upload(uid,blob)
+                                        .then(function(res){
+                                                // アップロード後処理
+                                                hideGiftEditLoad();
+                                                giftEditOpen();
+                                        })
+                                        .catch(function(err){
+                                                // エラー処理
+                                                hideGiftEditLoad();
+                                                giftEditImageMissOpen();
+                                        });
+                                }else{
+                                        hideGiftEditLoad();
+                                        giftEditOpen();
+                                }
+                        })
+                        .catch(function(err){
+                                hideGiftEditLoad();
+                                giftEditMissOpen();
+                        });
+        }
 }
 
 function giftNowInfo(){
@@ -105,7 +163,8 @@ function giftNowInfo(){
         var gift_text = $('#gift_detail_text').html();
         var gift_price = $('#gift_detail_price').html();
         var gift_price = Number(gift_price.slice(1));
-        var gift_uid = $('#mygift_id').val();
+        var gift_uid = $('#my_gift_id').val();
+        var gift_stock = $('#my_stock').html();
         setTimeout(function() {
                 $('.gift_uid_edit').val(gift_uid);
                 $('#gift_title_edit').val(gift_title);
@@ -115,7 +174,7 @@ function giftNowInfo(){
                 var rieki = gift_price - tesuryou;
                 $('.tesuryou').text(tesuryou);
                 $('.rieki').text(rieki);
-                $('#gift_image_edit').height($('#gift_image_edit').width());
+                $('#gift_stock_edit').val(gift_stock);
 
                 ncmb.File.download(gift_uid, "blob")
                 .then(function(fileData) {
@@ -129,8 +188,30 @@ function giftNowInfo(){
                 })
                 .catch(function(err){
                 // エラー処理
-                alert('error = ' + err);
+                        console.log('error = ' + err);
                 });
         }, 500);
         
 }
+
+function showGiftInsertLoad(){
+        $("#giftInsertButtonZone").LoadingOverlay("show", {
+                image       : "",
+                fontawesome : "fa fa-refresh fa-spin",
+        });
+}
+
+function hideGiftInsertLoad() {
+        $("#giftInsertButtonZone").LoadingOverlay("hide");
+};
+
+function showGiftEditLoad(){
+        $("#giftEditButtonZone").LoadingOverlay("show", {
+                image       : "",
+                fontawesome : "fa fa-refresh fa-spin",
+        });
+}
+
+function hideGiftEditLoad() {
+        $("#giftEditButtonZone").LoadingOverlay("hide");
+};
