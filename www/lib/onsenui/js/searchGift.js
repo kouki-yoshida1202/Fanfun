@@ -1,12 +1,10 @@
 function searchGift(search_way){
         showLoad();
-        setTimeout(function(){
-                hideLoad();
-        }, 1500);
         if(search_way=="キーワード検索"){
                 var user_name = $('#user_name_search').val();
                 if(!user_name || user_name == ""){
                         searchKeywordNoOpen();
+                        hideLoad();
                 }else{
                         document.getElementById('navi').bringPageTop('searchpage.html');
                         $('#searchGift').empty();
@@ -30,7 +28,6 @@ function searchGift(search_way){
                         .then(function(search_user_id){
                                 if (search_user_array.indexOf(search_user_id) == -1){
                                         search_user_array.push(search_user_id);
-
                                         GiftData
                                         .order('createDate', true)
                                         .in('userId',search_user_id)
@@ -118,14 +115,24 @@ function searchGift(search_way){
                                                         searchgiftImageGetTop(gift_uid,i);
                                                         searchgiftUserImageTop(gift_user_id,i);
                                                         searchgift_favorite_check(gift_uid,i);
+                                                        if(i+1==object.length){
+                                                                hideLoad();
+                                                        }
+                                                        
                                                 }
-                                                
+                                                if(object.length == 0){
+                                                        hideLoad();
+                                                }
                                                 syoryaku();
                                         })
                                         .catch(function(err){
                                                 console.log(err);
+                                                hideLoad();
                                         });   
                                 }
+                        }).catch(function(err){
+                                console.log(err);
+                                hideLoad();
                         });
                 }
         }else if(search_way=="カテゴリ検索"){
@@ -134,6 +141,7 @@ function searchGift(search_way){
                 }).get();
                 if(genre ==""){
                         categoryNoOpen();
+                        hideLoad();
                 }else{
                         document.getElementById('navi').bringPageTop('searchpage.html');
                         var currentUser = ncmb.User.getCurrentUser();
@@ -251,19 +259,29 @@ function searchGift(search_way){
                                                                 searchgiftImageGetTop(gift_uid,i);
                                                                 searchgiftUserImageTop(gift_user_id,i);
                                                                 searchgift_favorite_check(gift_uid,i);
+                                                                if(i+1==object.length){
+                                                                        hideLoad();
+                                                                }
                                                         }
                                                         
                                                         syoryaku();
                                                 }else{
                                                         searchGiftNoOpen();
+                                                        hideLoad();
                                                 }
                                         })
                                         .catch(function(err){
                                                 console.log(err);
+                                                hideLoad();
                                         });
                                 }else{
                                         searchUserNoOpen();
+                                        hideLoad();
                                 }
+                        })
+                        .catch(function(err){
+                                console.log(err);
+                                hideLoad();
                         });
                 }
         }

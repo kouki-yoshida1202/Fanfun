@@ -101,13 +101,28 @@
             osVer = "iPod";
             osVer = "iPad";
             */
-            if(navigator.userAgent.indexOf(osVer)>0){
-                console.log("android");
-                androidWindow('https://fanfun2020.xsrv.jp/paybutton.html?objectId='+objectId+'&giftUid='+gift_uid+'&price='+price+'&userName='+userName+'&giftTitle='+gift_title+'&mailaddress='+mailaddress+'&sendHuman='+send_human+'&nickName='+nickname+'&request='+request);/*特定の端末だった時に呼ばれる関数*/
-            }else{
-                console.log("androidじゃない");
-                aiueo('https://fanfun2020.xsrv.jp/paybutton.html?objectId='+objectId+'&giftUid='+gift_uid+'&price='+price+'&userName='+userName+'&giftTitle='+gift_title+'&mailaddress='+mailaddress+'&sendHuman='+send_human+'&nickName='+nickname+'&request='+request);
-            }
+            var GiftData = ncmb.DataStore("giftData");
+        
+            GiftData
+            .equalTo("giftUid", gift_uid)
+            .fetch()               
+            .then(function(results){
+                    var object = results;
+                    var influencerId = object.get("userId");
+                    var defaultPrice = object.get("price");
+                    if(navigator.userAgent.indexOf(osVer)>0){
+                        console.log("android");
+                        androidWindow('https://fanfun2020.xsrv.jp/paybutton.html?objectId='+objectId+'&giftUid='+gift_uid+'&price='+price+'&userName='+userName+'&giftTitle='+gift_title+'&mailaddress='+mailaddress+'&sendHuman='+send_human+'&nickName='+nickname+'&request='+request+'&influencerId='+influencerId+'&defaultPrice='+defaultPrice);/*特定の端末だった時に呼ばれる関数*/
+                    }else{
+                        console.log("androidじゃない");
+                        aiueo('https://fanfun2020.xsrv.jp/paybutton.html?objectId='+objectId+'&giftUid='+gift_uid+'&price='+price+'&userName='+userName+'&giftTitle='+gift_title+'&mailaddress='+mailaddress+'&sendHuman='+send_human+'&nickName='+nickname+'&request='+request+'&influencerId='+influencerId+'&defaultPrice='+defaultPrice);
+                    }
+            })
+            .catch(function(err){
+                    console.log(err);
+                    alert("エラーが発生しました。もう一度やり直してください。");
+            });
+            
         }
     
 

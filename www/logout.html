@@ -35,20 +35,7 @@
       window.open(link, '_blank', 'location=yes');
       return false;
     }
-    
-    if(status=="logout"){
-      
-    }else{
-      const user = ncmb.User.getCurrentUser();
-      console.log(user);
-      if (!user) {
-      // 未ログイン
-      }else{
-          // ログイン状態
-          window.location.href = 'home.html';
-      }
-    }
-    
+
     // $(function() {
     //   setTimeout(function(){
     //     $('.start img').fadeIn(1600);

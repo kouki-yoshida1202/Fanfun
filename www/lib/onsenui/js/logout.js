@@ -5,5 +5,5 @@ var ncmb    　= new NCMB(appKey,clientKey);
 
 function logout(){
         ncmb.User.logout();
-        window.location.href = 'index.html';
+        window.location.href = 'logout.html';
 }

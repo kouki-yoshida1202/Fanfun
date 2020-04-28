@@ -1,0 +1,82 @@
+<ons-page>
+        <ons-toolbar class="toolbar" style="background-color: white;">
+                <div class="center" style="width:120%;color:#898989;">
+                        出品/購入 管理
+                </div>
+        </ons-toolbar>
+        
+        <div id="shoparea" class="contents" style="background-color: white;padding-top:20px;">
+                <div style="width:100%;display:inline-block;padding-bottom:20px;">
+                        <p style="color:#898989;text-align: center;margin-top:0px;margin:0 auto;">
+                                未納の売上金
+                        </p>
+                        <p id="minouHurikomi" style="font-size:20px;text-align: center;margin-bottom:0px;margin:0 auto;">
+                                円
+                        </p>
+                </div>
+                <div class="mikanryo mikanryoSyuppin" style="width:49%;border-right:1px solid gray;display:inline-block;" onclick="mikanryoSyuppinTorihikiList();">
+                        <p style="color:#898989;text-align: center;margin-top:0px;">
+                                未完了の出品取引
+                        </p>
+                        <p id="mikanryoSyuppinTorihiki" style="font-size:20px;text-align: center;margin-bottom:0px;">
+                                件
+                        </p>
+                </div>
+                <div class="mikanryo mikanryoKounyu" style="width:49%;display:inline-block;" onclick="mikanryoKounyuTorihikiList();">
+                        <p style="color:#898989;text-align: center;margin-top:0px;">
+                                未完了の購入取引
+                        </p>
+                        <p id="mikanryoKounyuTorihiki" style="font-size:20px;text-align: center;margin-bottom:0px;">
+                                件
+                        </p>
+                </div>
+                
+                <div style="width:100%;margin-top:30px;">
+                        <div style="width:32.5%;text-align: center;display:inline-block;" onclick="uriageRireki();">
+                                <div style="margin:0 auto;width:50px;height:50px;border-radius:50%;background-color: lightgray;">
+                                        <i class="fas fa-handshake fa-lg" style="line-height: 51px;color:#898989;"></i>
+                                </div>
+                                <p style="font-size:12px;color:#898989;">
+                                        過去の<br>
+                                        売上履歴
+                                </p>
+                        </div>
+                        <div style="width:32.5%;display:inline-block;text-align: center;"onclick="kounyuRireki();">
+                                <div style="margin:0 auto;width:50px;height:50px;border-radius:50%;background-color: lightgray;">
+                                        <i class="fas fa-shopping-cart fa-lg" style="line-height: 51px;padding-right:4px;color:#898989;"></i>
+                                </div>
+                                <p style="font-size:12px;color:#898989;">
+                                        過去の<br>
+                                        購入履歴
+                                </p>
+                        </div>
+                        <div style="width:32.5%;text-align: center;display:inline-block;" onclick="hurikomiShinsei();">
+                                <div style="margin:0 auto;width:50px;height:50px;border-radius:50%;background-color: lightgray;">
+                                        <i class="fas fa-piggy-bank fa-lg" style="line-height: 46px;color:#898989;"></i>
+                                </div>
+                                <p style="font-size:12px;color:#898989;">
+                                        売上金<br>
+                                        振込申請
+                                </p>
+                        </div>
+                        
+                </div>
+        </div>
+        <div>
+                <p style="width:100%;text-align: center;font-size:14px;">
+                        ※最新の状態に反映されるまで少し時間がかかります。
+                </p>
+                <div id="influencerLINE" style="background-color: #efeff4;text-align: center;padding-top:50px;padding-bottom:50px;display:none;font-size:12px;">
+                        <a onclick="instagramOpen('https://lin.ee/50I61JzUP');"><img src="https://scdn.line-apps.com/n/line_add_friends/btn/ja.png" alt="友だち追加" height="36" border="0"></a>
+                        <p style="color:#FF6070;width:90%;text-align: left;margin:0 auto;">
+                                <br>
+                                【重要】大変お手数ですが、インフルエンサー様は必ずFanfun公式LINEの追加をお願い致します。<br>
+                                注文に関するやり取り等は全てこちらで行わせて頂きます。ご了承くださいませ。
+                        </p>
+                </div>
+        </div>
+        <!-- 以下、javascript -->
+        <script type="text/javascript">
+
+        </script>
+</ons-page>

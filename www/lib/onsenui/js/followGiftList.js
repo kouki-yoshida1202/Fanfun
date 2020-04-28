@@ -1,9 +1,6 @@
 function followUserGift(){
         $("#followGiftList").empty();
         showLoad();
-        setTimeout(function(){
-                hideLoad();
-        }, 1500);
         // カレントユーザー情報の取得
         var currentUser = ncmb.User.getCurrentUser();
         var objectId = currentUser.get("objectId");
@@ -126,13 +123,23 @@ function followUserGift(){
                                 // .catch(function(err){
                                 //         console.log(err);
                                 // }); 
+                                if(i+1==object.length){
+                                        hideLoad();
+                                }
                         }
-                        
+                        if(object.length == 0){
+                                hideLoad();
+                        }
                         syoryaku();
                 })
                 .catch(function(err){
                         console.log(err);
+                        hideLoad();
                 });   
+        })
+        .catch(function(err){
+                console.log(err);
+                hideLoad();
         });
 }
 

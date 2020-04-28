@@ -64,7 +64,7 @@ function loginInfo(){
         if (currentUser) {
         } else {
                 alert("不明なエラーが発生しました");
-                window.location.href = 'index.html';
+                window.location.href = 'logout.html';
         }
 }
 function profilePage(){

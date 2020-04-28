@@ -60,7 +60,7 @@
               <span style="color:#FF6070;">※本人確認のためのやり取りで使用して頂きます。</span>
           </div>
           <div class="cp_iptxt">
-              <input type="password" placeholder="パスワード" id="form_password"required>
+              <input type="text" placeholder="パスワード" id="form_password"required>
               <i class="fas fa-key fa-lg fa-fw" aria-hidden="true"></i>
           </div>
           
@@ -152,6 +152,17 @@
               </div>
               <label for="TikToker" class="list-item__center">
                 TikToker
+              </label>
+            </li>
+            <li class="list-item list-item--tappable">
+              <div class="list-item__left">
+                <label class="checkbox">
+                  <input type="checkbox" id="俳優" class="checkbox__input" name="c"value="俳優">
+                  <div class="checkbox__checkmark"></div>
+                </label>
+              </div>
+              <label for="俳優" class="list-item__center">
+                俳優
               </label>
             </li>
             <li class="list-item list-item--tappable">
@@ -294,7 +305,7 @@
                   $('.userCreate_dialog').slideUp();
                   setTimeout(function(){
                     $('.userCreate_dialog_mask').slideUp();
-                    window.location.href = 'index.html';
+                    window.location.href = 'logout.html';
                   },500);
                   
           }

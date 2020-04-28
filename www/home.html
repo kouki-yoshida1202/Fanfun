@@ -45,7 +45,7 @@
   <!-- <script src="lib/onsenui/js/orderEnd.js"></script> -->
   <script src="lib/onsenui/js/myFavoriteGift.js"></script>
   <script src="lib/onsenui/js/orderCheck.js"></script>
-  <!-- <script src="lib/onsenui/js/pull-to-reload.js"></script> -->
+  <script src="lib/onsenui/js/pull-to-reload.min.js"></script>
   <!-- <script src="lib/onsenui/js/log.js"></script> -->
   <!-- <script src="lib/onsenui/js/test.js"></script> -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -55,6 +55,8 @@
   <script src="lib/onsenui/js/contactForm.js"></script>
   <script src="lib/onsenui/js/requestForm.js"></script>
   <script src="lib/onsenui/js/loadingoverlay.min.js"></script>
+  <script src="lib/onsenui/js/giftLog.js"></script>
+  <script src="lib/onsenui/js/jquery.inview.min.js"></script>
   <!-- <script src="lib/onsenui/js/fileUpload.js"></script> -->
 
   <script>
@@ -106,9 +108,31 @@
             $("body").LoadingOverlay("hide");
     };
 
+    function showUserLoad(){
+        $("#myGiftList").LoadingOverlay("show", {
+                image       : "",
+                fontawesome : "fa fa-refresh fa-spin",
+        });
+    }
+
+    function hideUserLoad() {
+            $("#myGiftList").LoadingOverlay("hide");
+    };
+
     if (ons.platform.isIPhoneX()) {
       document.documentElement.setAttribute('onsflag-iphonex-portrait', '');
       document.documentElement.setAttribute('onsflag-iphonex-landscape', '');
+    }
+
+    function osCheck(link){
+      osVer = "Android";
+      if(navigator.userAgent.indexOf(osVer)>0){
+          console.log("android");
+          androidWindow(link);/*特定の端末だった時に呼ばれる関数*/
+      }else{
+          console.log("androidじゃない");
+          aiueo(link);
+      }
     }
     function aiueo(link){
       // どっちか使う
@@ -206,7 +230,6 @@
         
           // ギフトタイトルがボックスをはみ出さないようにsyoraku関数で、はみ出す部分は…表示にしている
           syoryaku();
-
           loginImage();
       });
       function homeJudge(){
@@ -232,10 +255,16 @@
             followUserGift();
           }
         }
-        setTimeout(function(){
-          slideCounter = 0;
-          console.log(slideCounter);
-        },1000)        
+        // setTimeout(function(){
+        //   slideCounter = 0;
+        //   console.log(slideCounter);
+        // },1000);       
+      }
+
+      var homeCounter = 0;
+      homeCounter++;
+      if(homeCounter==1){
+        homeJudge();
       }
   </script>
   <style>
@@ -362,10 +391,11 @@
   <ons-navigator id="navi" swipeable="force">
     <ons-page>
       <ons-tabbar position="bottom">
-          <ons-tab id="topPageTab"page="top.html" label="ホーム"icon="home" onclick="homeJudge();" active></ons-tab>
+          <ons-tab id="topPageTab"page="top.html" label="ホーム"icon="home" onclick="" active></ons-tab>
           <ons-tab page="instagram.html" label="ニュース"icon="instagram" onclick="InstagramNews();"></ons-tab>
           <!-- <ons-tab page="pointList.html" label="ショップ"icon="ticket" onclick=""></ons-tab> -->
           <ons-tab label="コンタクト"page="request.html" icon="fa-rocketchat" onclick=""></ons-tab>
+          <ons-tab label="出品/購入"page="shop.html" icon="fa-yen-sign" onclick="shopPushPage();"></ons-tab>
           <!-- <ons-tab page="bell.html" label="通知"icon="bell" onclick="bellList();"></ons-tab> -->
           <ons-tab id="myPageTab" label="マイページ"page="user.html" icon="user" onclick="MyGift();loginInfo();"></ons-tab>
       </ons-tabbar> 

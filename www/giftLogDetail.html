@@ -1,0 +1,46 @@
+<ons-page>
+        <ons-toolbar class="toolbar" style="background-color: white;">
+                <div class="left" style="padding-left: 3%;">
+                        <ons-back-button></ons-back-button>
+                </div>
+                <div class="center" style="width:120%;color:#898989;">
+                        取引詳細
+                </div>
+        </ons-toolbar>
+        <style>
+        .giftLogMidashi{
+                margin-bottom:10px;
+        }
+
+        .giftLogSub{
+                font-size:14px;width:90%;margin:0 auto;
+        }
+        </style>
+        <div class="contents">
+                <div class="card">
+                        <div style="width:100%;">
+                                <p class="giftLogMidashi">◎商品タイトル</p>
+                                <p id="giftLogTitle" class="giftLogSub"></p>
+                                <p class="giftLogMidashi">◎商品説明</p>
+                                <p id="giftLogDetail" class="giftLogSub"></p>
+                                <p class="giftLogMidashi">◎商品標準価格</p>
+                                <p id="giftLogKakaku" class="giftLogSub"></p>
+                        </div>
+                        <div style="width:100%;">
+                                <p class="giftLogMidashi">◎宛て先</p>
+                                <p id="giftLogAtena" class="giftLogSub"></p>
+                                <p class="giftLogMidashi">◎宛て先のニックネーム</p>
+                                <p id="giftLogNickName" class="giftLogSub"></p>
+                                <p class="giftLogMidashi">◎リクエスト内容</p>
+                                <p id="giftLogRequest" class="giftLogSub"></p>
+                        </div>
+                        <div id="giftUploadButton" style="width:100%;display:none;text-align: center;margin-top:20px;">
+                                <button class="btn button" style="border-radius:20px;" onclick="instagramOpen('https://forms.gle/rEaRb1sL4iVYVjzZ8');">ギフトアップロード</button>
+                        </div>
+                </div>
+        </div>
+        <!-- 以下、javascript -->
+        <script type="text/javascript">
+                
+        </script>
+</ons-page>

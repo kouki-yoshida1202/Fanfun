@@ -1,0 +1,180 @@
+<ons-page>
+        <style>
+                .cp_iptxt {
+                        position: relative;
+                        margin: 15px 3%;
+                }
+                .cp_iptxt input{
+                        font: 15px/24px sans-serif;
+                        box-sizing: border-box;
+                        width: 100%;
+                        margin: 8px 0;
+                        padding: 0.3em;
+                        transition: 0.3s;
+                        border: 1px solid #898989;
+                        border-radius: 4px;
+                        outline: none;
+                }
+                .cp_iptxt input:focus {
+                        border-color: #FF6070;
+                }
+                .cp_iptxt input{
+                        padding-left: 40px;
+                }
+                .cp_iptxt i {
+                        position: absolute;
+                        top: 11px;
+                        left: 0;
+                        padding: 9px 8px;
+                        transition: 0.3s;
+                        color: #aaaaaa;
+                }
+                .cp_iptxt input:focus + i {
+                        color: #FF6070;
+                }
+        </style>
+        <ons-toolbar class="toolbar" style="background-color: white;">
+                <div class="left" style="padding-left: 3%;">
+                        <ons-back-button id="contactFormBackButton"></ons-back-button>
+                </div>
+                <div class="center" style="color:#898989;">
+                        未納金振込申請フォーム
+                </div>
+        </ons-toolbar>
+        <div id="" class="container contents" style="position:relative;">
+                <input type="hidden" id="contactFormUserObjectId">
+                <input type="hidden" id="contactFormStatus">
+                <!-- カードリスト部分 -->
+                <div style="height: auto;width:100%;margin:0 auto;margin-bottom:200px;">
+                        <div class="card" style="text-align: center;">
+                                <div class="card__content"style="text-align:left;font-size:12px;">
+                                        <div class="cp_iptxt">
+                                                <input type="text" placeholder="ユーザーID" id="hurikomiUserId" readonly>
+                                                <i class="fas fa-portrait fa-lg fa-fw" aria-hidden="true"></i>
+                                        </div>
+                                        <div class="cp_iptxt">
+                                                <input type="email" placeholder="メールアドレス" id="hurikomiMailaddress" required>
+                                                <i class="fa fa-envelope fa-lg fa-fw" aria-hidden="true"></i>
+                                                <br>
+                                                <span style="color:#FF6070;">※入力されたメールアドレス又はLINEにてご対応致します。</span>
+                                        </div>
+                                        <div class="cp_iptxt">
+                                                <input type="tel" placeholder="入金金額" id="hurikomiKingaku" required>
+                                                <i class="fas fa-piggy-bank fa-lg fa-fw" aria-hidden="true"></i>
+                                        </div>
+                                        <div class="cp_iptxt">
+                                                <input type="text" placeholder="金融機関(銀行)名" id="hurikomiGinkou"required>
+                                                <i class="fas fa-university fa-lg fa-fw" aria-hidden="true"></i>
+                                        </div>
+                                        <div class="cp_iptxt">
+                                                <input type="text" placeholder="支店名" id="hurikomiShiten"required>
+                                                <i class="fas fa-store fa-lg fa-fw" aria-hidden="true"></i>
+                                        </div>
+                                        <div class="cp_iptxt">
+                                                <input type="text" placeholder="預金種別" id="hurikomiShubetu"required>
+                                                <i class="fas fa-money-check fa-lg fa-fw" aria-hidden="true"></i>
+                                                <br>
+                                                <span style="color:#FF6070;">※普通、当座、etc...</span>
+                                        </div>
+                                        <div class="cp_iptxt">
+                                                <input type="tel" placeholder="口座番号" id="hurikomiBangou"required>
+                                                <i class="fas fa-list-ol fa-lg fa-fw" aria-hidden="true"></i>
+                                        </div>
+                                        <div class="cp_iptxt">
+                                                <input type="text" placeholder="口座名義" id="hurikomiMeigi"required>
+                                                <i class="fas fa-signature fa-lg fa-fw" aria-hidden="true"></i>
+                                        </div>
+                                        <div style="width:90%;text-align:center;margin:0 auto;margin-top:20px;margin-bottom:20px;">
+                                                <button class="button "style="width:100%;padding-top:0px;padding-bottom:0px;line-height:40px;border-radius:30px;font-size:16px;margin:0 auto;" onclick="hurikomiFormSend();">送信する</button>
+                                        </div>
+                                </div>
+                        </div>
+                </div>  
+        </div>
+        <div class="alert-dialog-mask contact_dialog_mask"></div>
+        <div class="alert-dialog contact_dialog">
+                <div class="alert-dialog-container">
+                <div class="alert-dialog-title">送信完了</div>
+                <div class="alert-dialog-footer">
+                        <button class="alert-dialog-button alert-dialog-button--primal" onclick="contactCheckClose();">OK</button>
+                </div>
+                </div>
+        </div>
+        <div class="alert-dialog-mask contactNo_dialog_mask" style="z-index: 1000;"></div>
+        <div class="alert-dialog contactNo_dialog" style="z-index: 1001;">
+                <div class="alert-dialog-container">
+                <div class="alert-dialog-title">未入力の項目があります</div>
+                <div class="alert-dialog-footer">
+                        <button class="alert-dialog-button alert-dialog-button--primal" onclick="contactNoClose();">OK</button>
+                </div>
+                </div>
+        </div>
+        <div class="alert-dialog-mask contactMailMiss_dialog_mask"></div>
+        <div class="alert-dialog contactMailMiss_dialog">
+                <div class="alert-dialog-container">
+                <div class="alert-dialog-title">メールアドレスが<br>正しくありません</div>
+                <div class="alert-dialog-footer">
+                        <button class="alert-dialog-button alert-dialog-button--primal" onclick="contactMailMissClose();">OK</button>
+                </div>
+                </div>
+        </div>
+        <div class="alert-dialog-mask contact_dialog_miss_mask"></div>
+        <div class="alert-dialog contact_miss_dialog">
+                <div class="alert-dialog-container">
+                <div class="alert-dialog-title">送信失敗</div>
+                <div class="alert-dialog-content">
+                        再度送信頂くか、お問い合わせください。
+                </div>
+                <div class="alert-dialog-footer">
+                        <button class="alert-dialog-button alert-dialog-button--primal" onclick="contactMissClose();">OK</button>
+                </div>
+                </div>
+        </div>
+        <script>
+                $('.contact_dialog_mask,.contact_dialog,.contactMailMiss_dialog_mask,.contactMailMiss_dialog,.contact_dialog_miss_mask,.contact_miss_dialog,.contactNo_dialog_mask,.contactNo_dialog').hide();
+                function contactCheckOpen(){
+                        $('.contact_dialog_mask,.contact_dialog').slideDown();
+                }
+
+                function contactCheckClose(){
+                        $('.contact_dialog').slideUp();
+                        setTimeout(function(){
+                                $('.contact_dialog_mask').slideUp();
+                                $('#contactFormBackButton').click();
+                        },500);
+                }
+
+                function contactMissOpen(){
+                        $('.contact_dialog_miss_mask,.contact_miss_dialog').slideDown();
+                }
+                
+                function contactMissClose(){
+                        $('.contact_miss_dialog').slideUp();
+                        setTimeout(function(){
+                                $('.contact_dialog_miss_mask').slideUp();
+                        },500);
+                }
+
+                function contactMailMissOpen(){
+                        $('.contactMailMiss_dialog_mask,.contactMailMiss_dialog').slideDown();
+                }
+                
+                function contactMailMissClose(){
+                        $('.contactMailMiss_dialog').slideUp();
+                        setTimeout(function(){
+                                $('.contactMailMiss_dialog_mask').slideUp();
+                        },500);
+                }
+
+                function contactNoOpen(){
+                        $('.contactNo_dialog_mask,.contactNo_dialog').slideDown();
+                }
+                
+                function contactNoClose(){
+                        $('.contactNo_dialog').slideUp();
+                        setTimeout(function(){
+                                $('.contactNo_dialog_mask').slideUp();
+                        },500);
+                }
+        </script>
+</ons-page>

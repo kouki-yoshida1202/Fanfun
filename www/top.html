@@ -8,10 +8,17 @@
                 left:50%;
                 top:30%;
             }
+            #ptr{
+                border:none !important;
+                /* height:60px !important;
+                margin: -61px 0px 0px !important;
+                line-height: 60px !important;
+                font-size: 20px !important; */
+            }
+            /* .toolbar+.page__background+.page__content{
+                top:64px;
+            } */
         </style>
-        <script>
-            
-        </script>
         <ons-toolbar class="toolbar" style="background-color: white;">
             <div class="right" style="padding-right:5px;float:right;">
                 <button class="button" style="border-radius:30px;background: gray;height:80%;line-height: initial;vertical-align: middle;font-size:12px;margin-bottom:3px;" onclick="searchGift('キーワード検索');">検索</button>
@@ -36,9 +43,9 @@
                     </div>
                 </div>
             </div>
-            <div class="swiper-container swiper-contents" style="min-height: 650px;">
+            <div id="sp-content" class="swiper-container swiper-contents" style="min-height: 650px;">
                 <div class="swiper-wrapper sp-content" style="margin-top:35px;">
-                    <div class="swiper-slide">
+                    <div id="shintyakuArea" class="swiper-slide">
                         <div id="shintyakuList"></div>
                     </div>
                     <div class="swiper-slide">
@@ -69,6 +76,46 @@
                 $('.searchKeywordNo_dialog_mask').slideUp();
             },500);
         }
+        $(document).ready(function(){
+            var ptr = new PullToReload({ 
+                'callback-loading': function(){
+                    homeJudge();
+                    setTimeout(function(){
+                        ptr.loadingEnd();
+                    }, 1000);
+                },
+                'height': 40,
+                'font-size': '20px',
+                'threshold': 20,
+                'pre-content': 'Loading...',
+                'loading-content': 'Loading...',
+            });
+        });
 
+        // var shintyakuCounter=0;
+
+        // setTimeout(function(){
+        //     $('#topBottom').on('inview',  function(event, isInView){
+        //         if (isInView) {
+        //             console.log("見えてる");
+        //             shintyakuCounter+=10;
+        //             shintyaku(shintyakuCounter);
+        //         }else{
+        //             console.log("見えてない");
+        //         }
+        //     });
+        // },1000);
+        
+        // this.opts = {
+        //     'refresh-element': 'ptr', //Required
+        //     'content-element': 'sp-content', //Required
+        //     'border-height': 1,
+        //     'height': 40,
+        //     'font-size': '30px',
+        //     'threshold': 20,
+        //     'pre-content': 'Loading...',
+        //     'loading-content': 'Loading...',
+        //     'callback-loading': function(){ setTimeout(function(){ self.loadingEnd(); }, 1000); } //Required
+        // }
     </script>
 </ons-page>
