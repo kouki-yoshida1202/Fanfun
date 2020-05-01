@@ -16,6 +16,9 @@ function followUserGift(){
         .then(function(results){
                 var follow_user = results;
                 var follow_user_id = [];
+                if(follow_user.length == 0){
+                        hideLoad();
+                }
                 for(var k=0;k<follow_user.length;k++){
                         follow_user_id.push(follow_user[k].get("followerId"));
                 }
@@ -127,9 +130,7 @@ function followUserGift(){
                                         hideLoad();
                                 }
                         }
-                        if(object.length == 0){
-                                hideLoad();
-                        }
+                        
                         syoryaku();
                 })
                 .catch(function(err){

@@ -43,12 +43,16 @@ function instagramOpen(link){
 }
 function InstagramNews(){
         $("#js-instalib").empty();
-        var accessToken = '21244683227.1677ed0.cfdf4f10b42f45ea8a0aa9b84b71b0f0'; //取得したアクセストークンを貼り付ける
-        $.getJSON('https://api.instagram.com/v1/users/self/media/recent/?access_token='+accessToken+'&callback=?',function (insta) {
-                
-                $.each(insta.data,function (photos,src) {
-                        if ( photos === 10 ) { return false; } //上限設定
-                        $('<div class="gift-card" style="width:48%;height: auto; padding: 1px 0 0 0;display: inline-block;margin-top:5px;"><div class="card" style="height:99%;margin:3px;border-radius:20px;"><div class="card__content" style="height:auto;"><img src="'+src.images.standard_resolution.url+'"onclick="instagramOpen(`'+src.link+'`);" class="gift_image"alt="" style="width:100%;height:154px;object-fit:cover;border-radius: 20px;"></div></div></div>').appendTo('#js-instalib');
-                });
-        });        
+        var currentUser = ncmb.User.getCurrentUser();
+        var objectId = currentUser.get("objectId");
+        if(objectId != "5eUcid4PpPcG5iqM"){
+                var accessToken = '21244683227.1677ed0.cfdf4f10b42f45ea8a0aa9b84b71b0f0'; //取得したアクセストークンを貼り付ける
+                $.getJSON('https://api.instagram.com/v1/users/self/media/recent/?access_token='+accessToken+'&callback=?',function (insta) {
+                        
+                        $.each(insta.data,function (photos,src) {
+                                if ( photos === 10 ) { return false; } //上限設定
+                                $('<div class="gift-card" style="width:48%;height: auto; padding: 1px 0 0 0;display: inline-block;margin-top:5px;"><div class="card" style="height:99%;margin:3px;border-radius:20px;"><div class="card__content" style="height:auto;"><img src="'+src.images.standard_resolution.url+'"onclick="instagramOpen(`'+src.link+'`);" class="gift_image"alt="" style="width:100%;height:154px;object-fit:cover;border-radius: 20px;"></div></div></div>').appendTo('#js-instalib');
+                        });
+                });        
+        }
 }

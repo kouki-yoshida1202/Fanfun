@@ -9,7 +9,8 @@
         "cordova-plugin-inappbrowser": "3.1.0",
         "com.darktalker.cordova.screenshot": "file:res/custom_plugins/com.darktalker.cordova.screenshot",
         "cordova-plugin-x-socialsharing": "file:res/custom_plugins/cordova-plugin-x-socialsharing",
-        "cordova-plugin-camera": "file:res/custom_plugins/cordova-plugin-camera"
+        "cordova-plugin-camera": "file:res/custom_plugins/cordova-plugin-camera",
+        "cordova-plugin-customurlscheme": "file:res/custom_plugins/cordova-plugin-customurlscheme"
     },
     "cordova": {
         "plugins": {
@@ -20,7 +21,10 @@
             "cordova-plugin-inappbrowser": {},
             "com.darktalker.cordova.screenshot": {},
             "cordova-plugin-x-socialsharing": {},
-            "cordova-plugin-camera": {}
+            "cordova-plugin-camera": {},
+            "cordova-plugin-customurlscheme": {
+                "URL_SCHEME": "fanfun"
+            }
         }
     },
     "scripts": {

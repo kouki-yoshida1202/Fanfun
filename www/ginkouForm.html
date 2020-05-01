@@ -1,0 +1,145 @@
+<ons-page>
+        <style>
+                .cp_iptxt {
+                        position: relative;
+                        margin: 15px 3%;
+                }
+                .cp_iptxt input{
+                        font: 15px/24px sans-serif;
+                        box-sizing: border-box;
+                        width: 100%;
+                        margin: 8px 0;
+                        padding: 0.3em;
+                        transition: 0.3s;
+                        border: 1px solid #898989;
+                        border-radius: 4px;
+                        outline: none;
+                }
+                .cp_iptxt input:focus {
+                        border-color: #FF6070;
+                }
+                .cp_iptxt input{
+                        padding-left: 40px;
+                }
+                .cp_iptxt i {
+                        position: absolute;
+                        top: 11px;
+                        left: 0;
+                        padding: 9px 8px;
+                        transition: 0.3s;
+                        color: #aaaaaa;
+                }
+                .cp_iptxt input:focus + i {
+                        color: #FF6070;
+                }
+        </style>
+        <ons-toolbar class="toolbar" style="background-color: white;">
+                <div class="left" style="padding-left: 3%;">
+                        <ons-back-button id="contactFormBackButton"></ons-back-button>
+                </div>
+                <div class="center" style="color:#898989;">
+                        銀行振込支払い申請
+                </div>
+        </ons-toolbar>
+        <div id="" class="container contents" style="position:relative;">
+                <input type="hidden" id="userNameGinkou">
+                <input type="hidden" id="mailaddressGinkou">
+                <input type="hidden" id="objectIdGinkou">
+                <input type="hidden" id="gift_titleGinkou">
+                <input type="hidden" id="priceGinkou">
+                <input type="hidden" id="gift_uidGinkou">
+                <input type="hidden" id="send_humanGinkou">
+                <input type="hidden" id="nicknameGinkou">
+                <input type="hidden" id="requestGinkou">
+                <input type="hidden" id="influencerIdGinkou">
+                <input type="hidden" id="defaultPriceGinkou">
+                <input type="hidden" id="influencerMailGinkou">
+                <!-- カードリスト部分 -->
+                <div style="height: auto;width:100%;margin:0 auto;margin-bottom:200px;">
+                        <div class="card" style="text-align: center;">
+                                <div class="card__content"style="text-align:left;font-size:12px;">
+                                        <div class="cp_iptxt">
+                                                <input type="text" placeholder="振込元(お客様)の銀行名" id="ginkoumei" required>
+                                                <i class="fas fa-portrait fa-lg fa-fw" aria-hidden="true"></i>
+                                        </div>
+                                        <div class="cp_iptxt">
+                                                <input type="text" placeholder="振込元の支店名" id="shitenmei" required>
+                                                <i class="fa fa-envelope fa-lg fa-fw" aria-hidden="true"></i>
+                                        </div>
+                                        <div class="cp_iptxt">
+                                                <input type="tel" placeholder="振込元の口座番号" id="kouzabangou" required>
+                                                <i class="fas fa-piggy-bank fa-lg fa-fw" aria-hidden="true"></i>
+                                        </div>
+                                        <div class="cp_iptxt">
+                                                <input type="text" placeholder="振込元の口座名義" id="meigi"required>
+                                                <i class="fas fa-university fa-lg fa-fw" aria-hidden="true"></i>
+                                        </div>
+                                        <div style="width:100%;text-align:center;margin:0 auto;margin-top:20px;margin-bottom:20px;">
+                                                <p style="text-align: left;width:95%;margin:0 auto;color:gray;">
+                                                        1. 振込手数料は、お客様ご負担となります。<br>
+                                                        2. 送信ボタン押下後、請求情報をメールで送付します。<br>
+                                                        3. 受信制限をされている方は「fanfun@fanfun2020.xsrv.jp」を受信できるようにお願いします。<br>
+                                                </p>
+                                                <br>
+                                                <button class="button "style="width:100%;padding-top:0px;padding-bottom:0px;line-height:40px;border-radius:30px;font-size:16px;margin:0 auto;" onclick="ginkouFurikomi();">送信する</button>
+                                        </div>
+                                </div>
+                        </div>
+                </div>  
+        </div>
+        
+        <script>
+                function ginkouFurikomi(){
+                        var ginkoumei = $('#ginkoumei').val();
+                        var shitenmei = $('#shitenmei').val();
+                        var kouzabangou = $('#kouzabangou').val();
+                        var meigi = $('#meigi').val();
+                        if(ginkoumei==""||shitenmei==""||kouzabangou==""||meigi==""){
+                                alert("未入力項目があります");
+                        }else{
+                                var userName = $('#userNameGinkou').val();
+                                var mailaddress = $('#mailaddressGinkou').val();
+                                var objectId = $('#objectIdGinkou').val();
+                                var gift_title = $('#gift_titleGinkou').val();
+                                var price =  $('#priceGinkou').val();
+                                var gift_uid = $('#gift_uidGinkou').val();
+                                var send_human = $('#send_humanGinkou').val();
+                                var nickname = $('#nicknameGinkou').val();
+                                var request = $('#requestGinkou').val();
+                                var influencerId = $('#influencerIdGinkou').val();
+                                var defaultPrice = $('#defaultPriceGinkou').val();
+                                var influencerMail = $('#influencerMailGinkou').val();
+                                console.log(objectId,gift_uid,price,userName,gift_title,mailaddress,send_human,nickname,request,influencerId,defaultPrice,influencerMail,ginkoumei,shitenmei,kouzabangou,meigi);
+                                $.ajax({
+                                        type: 'post',
+                                        url: 'https://fanfun2020.xsrv.jp/ginkouHurikomiMailTest.html',
+                                        data: {
+                                                "objectId":objectId,
+                                                "giftUid":gift_uid,
+                                                "price":price,
+                                                "userName":userName,
+                                                "giftTitle":gift_title,
+                                                "mailaddress":mailaddress,
+                                                "sendHuman":send_human,
+                                                "nickName":nickname,
+                                                "request":request,
+                                                "influencerId":influencerId,
+                                                "defaultPrice":defaultPrice,
+                                                "influencerMail":influencerMail,
+                                                "ginkoumei":ginkoumei,
+                                                "shitenmei":shitenmei,
+                                                "kouzabangou":kouzabangou,
+                                                "meigi":meigi,
+                                        },
+                                        success: function(data){
+                                                console.log(data);
+                                        },
+                                        error: function (response) {
+                                                console.log(response);
+                                        }
+                                });
+                                alert("メールを送信しました！ご確認ください！");
+                        }
+                }
+        </script>
+</ons-page>

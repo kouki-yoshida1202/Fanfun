@@ -67,15 +67,20 @@
                         </li>
                     </ul>
                 </div>
+                <div style="margin:0 auto;width:95%;margin-top:20px;">
+                    <span style="font-size: 70%;color:#FF6070;">
+                        ※受信制限をされている方は「fanfun@fanfun2020.xsrv.jp」からのメールが届くように設定してください。ご注文のやり取りで使用します。
+                    </span>
+                </div>
                 <div style="width:100%;text-align:center;margin-top:20px;margin-bottom:10px;">
                     <!-- <button class="button "style="width:100%;padding-top:0px;padding-bottom:0px;line-height:auto;border-radius:30px;font-size:16px;margin:0 auto;" onclick="orderEnd();document.getElementById('navi').pushPage('orderend.html')">注文を確定する</button> -->
-                    <button class="button "style="width:100%;padding-top:0px;padding-bottom:0px;line-height:35px;height:35px;border-radius:30px;font-size:16px;margin:0 auto;" onclick="stripe();">支払い画面へ</button>
+                    <button class="button "style="width:100%;padding-top:0px;padding-bottom:0px;line-height:35px;height:35px;border-radius:30px;font-size:16px;margin:0 auto;" onclick="stripe();">カード払い画面へ</button>
                     <!-- <a class="button money_button" onclick="">¥550</a> -->
                 </div>
-                <div>
-                    <span style="font-size: 70%;">
-                        Fanfunで注文すると、注文の受領を通知するEメールが送信されます。
-                    </span>
+                <div style="width:100%;text-align:center;margin-top:20px;margin-bottom:10px;">
+                    <!-- <button class="button "style="width:100%;padding-top:0px;padding-bottom:0px;line-height:auto;border-radius:30px;font-size:16px;margin:0 auto;" onclick="orderEnd();document.getElementById('navi').pushPage('orderend.html')">注文を確定する</button> -->
+                    <button class="button "style="width:100%;padding-top:0px;padding-bottom:0px;line-height:35px;height:35px;border-radius:30px;font-size:16px;margin:0 auto;background: -moz-linear-gradient(bottom left, #00C6FB, #005BEA);background: -webkit-linear-gradient(bottom left, #00C6FB, #005BEA);background: linear-gradient(to top right, #00C6FB, #005BEA);" onclick="ginkouForm();">銀行振込画面へ</button>
+                    <!-- <a class="button money_button" onclick="">¥550</a> -->
                 </div>
             </div>
         </div>
@@ -110,13 +115,24 @@
                     var object = results;
                     var influencerId = object.get("userId");
                     var defaultPrice = object.get("price");
-                    if(navigator.userAgent.indexOf(osVer)>0){
-                        console.log("android");
-                        androidWindow('https://fanfun2020.xsrv.jp/paybutton.html?objectId='+objectId+'&giftUid='+gift_uid+'&price='+price+'&userName='+userName+'&giftTitle='+gift_title+'&mailaddress='+mailaddress+'&sendHuman='+send_human+'&nickName='+nickname+'&request='+request+'&influencerId='+influencerId+'&defaultPrice='+defaultPrice);/*特定の端末だった時に呼ばれる関数*/
-                    }else{
-                        console.log("androidじゃない");
-                        aiueo('https://fanfun2020.xsrv.jp/paybutton.html?objectId='+objectId+'&giftUid='+gift_uid+'&price='+price+'&userName='+userName+'&giftTitle='+gift_title+'&mailaddress='+mailaddress+'&sendHuman='+send_human+'&nickName='+nickname+'&request='+request+'&influencerId='+influencerId+'&defaultPrice='+defaultPrice);
-                    }
+                    ncmb.User
+                        .equalTo('objectId',influencerId)
+                        .fetch()
+                        .then(function(results){
+                            var object = results;
+                            var influencerMail = object.get("mailAddress");
+                            if(navigator.userAgent.indexOf(osVer)>0){
+                                console.log("android");
+                                androidWindow('https://fanfun2020.xsrv.jp/paybutton.html?objectId='+objectId+'&giftUid='+gift_uid+'&price='+price+'&userName='+userName+'&giftTitle='+gift_title+'&mailaddress='+mailaddress+'&sendHuman='+send_human+'&nickName='+nickname+'&request='+request+'&influencerId='+influencerId+'&defaultPrice='+defaultPrice+'&influencerMail='+influencerMail);/*特定の端末だった時に呼ばれる関数*/
+                            }else{
+                                console.log("androidじゃない");
+                                aiueo('https://fanfun2020.xsrv.jp/paybutton.html?objectId='+objectId+'&giftUid='+gift_uid+'&price='+price+'&userName='+userName+'&giftTitle='+gift_title+'&mailaddress='+mailaddress+'&sendHuman='+send_human+'&nickName='+nickname+'&request='+request+'&influencerId='+influencerId+'&defaultPrice='+defaultPrice+'&influencerMail='+influencerMail);
+                            }
+                        })
+                        .catch(function(err){
+                            alert("エラーが発生しました。もう一度やり直してください。");
+                        });
+                    
             })
             .catch(function(err){
                     console.log(err);
@@ -125,7 +141,57 @@
             
         }
     
-
+        function ginkouForm(){
+            document.getElementById('navi').pushPage('ginkouForm.html');
+            var currentUser = ncmb.User.getCurrentUser();
+            var userName = currentUser.get("userName");
+            var mailaddress = currentUser.get("mailAddress");
+            var objectId = currentUser.get("objectId");
+            var gift_title = $('#check_gift_title').val();
+            var price = $('#check_price').val();
+            var gift_uid = $('#check_gift_uid').val();
+            var send_human = $('#send_human').html();
+            var nickname = $('#nickname').html();
+            var request = $('#request_message').html();
+            var GiftData = ncmb.DataStore("giftData");
+            GiftData
+            .equalTo("giftUid", gift_uid)
+            .fetch()               
+            .then(function(results){
+                    var object = results;
+                    var influencerId = object.get("userId");
+                    var defaultPrice = object.get("price");
+                    ncmb.User
+                        .equalTo('objectId',influencerId)
+                        .fetch()
+                        .then(function(results){
+                            var object = results;
+                            var influencerMail = object.get("mailAddress");
+                            setTimeout(function(){
+                                $('#userNameGinkou').val(userName);
+                                $('#mailaddressGinkou').val(mailaddress);
+                                $('#objectIdGinkou').val(objectId);
+                                $('#gift_titleGinkou').val(gift_title);
+                                $('#priceGinkou').val(price);
+                                $('#gift_uidGinkou').val(gift_uid);
+                                $('#send_humanGinkou').val(send_human);
+                                $('#nicknameGinkou').val(nickname);
+                                $('#requestGinkou').val(request);
+                                $('#influencerIdGinkou').val(influencerId);
+                                $('#defaultPriceGinkou').val(defaultPrice);
+                                $('#influencerMailGinkou').val(influencerMail);
+                            },500);
+                        })
+                        .catch(function(err){
+                            alert("エラーが発生しました。もう一度やり直してください。");
+                        });
+                    
+            })
+            .catch(function(err){
+                    console.log(err);
+                    alert("エラーが発生しました。もう一度やり直してください。");
+            });
+        }
 
     </script>
 </ons-page>

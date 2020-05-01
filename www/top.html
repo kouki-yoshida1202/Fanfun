@@ -66,6 +66,23 @@
     </div>
     <script>
         $('.searchKeywordNo_dialog_mask,.searchKeywordNo_dialog').hide();
+        var shintyakuCounter=0;
+        
+        setTimeout(function(){
+            bottomRefresh();
+        },1000);
+
+        function bottomRefresh(){
+            $('#topBottom').on('inview',  function(event, isInView){
+                if (isInView) {
+                    console.log("見えてる");
+                    shintyakuCounter++;
+                    shintyaku(shintyakuCounter);
+                }else{
+                    console.log("見えてない");
+                }
+            });
+        }
         
         function searchKeywordNoOpen(){
             $('.searchKeywordNo_dialog_mask,.searchKeywordNo_dialog').slideDown();
@@ -79,10 +96,11 @@
         $(document).ready(function(){
             var ptr = new PullToReload({ 
                 'callback-loading': function(){
-                    homeJudge();
                     setTimeout(function(){
                         ptr.loadingEnd();
+                        location.reload();
                     }, 1000);
+                    
                 },
                 'height': 40,
                 'font-size': '20px',
@@ -91,20 +109,6 @@
                 'loading-content': 'Loading...',
             });
         });
-
-        // var shintyakuCounter=0;
-
-        // setTimeout(function(){
-        //     $('#topBottom').on('inview',  function(event, isInView){
-        //         if (isInView) {
-        //             console.log("見えてる");
-        //             shintyakuCounter+=10;
-        //             shintyaku(shintyakuCounter);
-        //         }else{
-        //             console.log("見えてない");
-        //         }
-        //     });
-        // },1000);
         
         // this.opts = {
         //     'refresh-element': 'ptr', //Required

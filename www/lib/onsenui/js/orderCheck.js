@@ -21,7 +21,7 @@ function orderCheck(){
                         $('#check_gift_title').val(gift_title);
                         $('#check_price').val(price);
                         $('#check_gift_title_div').html(gift_title);
-                        $('#check_price_div').html("¥"+price*1.04+" (手数料4%込み)");
+                        $('#check_price_div').html("¥"+price);
                         $('#check_gift_uid').val(gift_uid);
                         $('#send_human').html(send_human);
                         $('#nickname').html(nickname_input);

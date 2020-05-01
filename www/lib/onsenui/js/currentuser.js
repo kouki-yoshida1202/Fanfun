@@ -9,9 +9,9 @@ function loginInfo(){
         var BoughtCount = "("+currentUser.get("BoughtCount")+")";
         $('#myGenre').empty();
         
-        // if(objectId == "V5wsDER2rALwDReh"){
-        //         $('#kanrisyabox').show();
-        // }
+        if(objectId == "V5wsDER2rALwDReh"){
+                $('#kanrisyabox').show();
+        }
         if(Genre){
                 for(var n=0;n<Genre.length;n++){
                         $('#myGenre').append(" #"+Genre[n]);

@@ -1,5 +1,7 @@
-function shintyaku(){
-        $("#shintyakuList").empty();
+function shintyaku(shintyakuCounter){
+        if(shintyakuCounter==0){
+                $("#shintyakuList").empty();
+        }
         showLoad();
         // console.log(shintyakuCounter);
         // カレントユーザー情報の取得
@@ -12,12 +14,20 @@ function shintyaku(){
         if(userName!="テストアカウント"){
                 GiftData
                 .order('createDate', true)
+                .limit(10)
+                .skip(shintyakuCounter*10)
                 .fetchAll()                
                 .then(function(results){
                         var object = results;
+                        // console.log(shintyakuCounter);
                         // var syuppinnsu = "&emsp;"+object.length+" 出品&emsp;"
                         // $('#myGiftLength').html(syuppinnsu);
-                        for(var i=0;i<object.length;i++){
+                        if(object.length==0){
+                                hideLoad();
+                                $('#topBottom').remove();
+                        }
+                        for(var i = 0;i<object.length;i++){
+                                var card_number = i+shintyakuCounter*10;
                                 var gift_title = object[i].get("giftTitle");
                                 var gift_text =object[i].get("giftText");
                                 var create_date = object[i].get("createDate");
@@ -51,7 +61,7 @@ function shintyaku(){
                                                         <div class="card" style="height:99%;margin:3px;border-radius:20px;">
                                                                 <div class="card__content" style="height:auto;">
                                                                         <img id="`;
-                                                                        card += "gift_image_top_"+i;
+                                                                        card += "gift_image_top_"+card_number;
                                                                         card +=`"class="gift_image" src="img/loading.png" alt="" style="width:100%;height:154px;object-fit:cover;border-radius: 20px;">
                                                                 </div>
                                                                 <div class="card__content" style="height:45px;">
@@ -59,13 +69,13 @@ function shintyaku(){
                                                                         <li class="list-item" style="padding:0px;">
                                                                                 <div class="list-item__left" style="padding:0px;">
                                                                                 <img class="list-item__thumbnail" id="gift_user_image_top_`;
-                                                                                card += i;
+                                                                                card += card_number;
                                                                                 card +=`" src="img/human.png" alt="" style="border-radius: 50%;object-fit:cover;">
                                                                                 </div>
                                                                         
                                                                                 <div class="list-item__center" style="padding:0px; padding-left:5px;">
                                                                                 <div id="gift_user_name_top_`;
-                                                                                card +=i;
+                                                                                card +=card_number;
                                                                                 card +=`" class="current_user_name" style="text-align: left;">
                                                                                 </div>
                                                                                 </div>
@@ -80,9 +90,9 @@ function shintyaku(){
                                                                 <div style="height:20px;">
                                                                         <button class="toolbar-button" style="font-size:12px;padding:0px;">
                                                                                 <i id="`;
-                                                                                card += "gift_favorite_"+i;
+                                                                                card += "gift_favorite_"+card_number;
                                                                                 card +=`"class="fas fa-heart favorite_off" style="font-size:12px;"></i> <span id="`;
-                                                                                card += "gift_favorite_span_"+i;
+                                                                                card += "gift_favorite_span_"+card_number;
                                                                                 card +=`"class="favorite_off">0</span>
                                                                         </button>
                                                                         <button class="toolbar-button" style="font-size:12px;padding:0px;">
@@ -102,23 +112,35 @@ function shintyaku(){
                                                 </div>
                                                 `;
                                                 $('#shintyakuList').append(card);
-                                                giftUserGet(gift_user_id,i);
-                                                giftImageGetTop(gift_uid,i);
-                                                giftUserImageTop(gift_user_id,i);
-                                                gift_favorite_check(gift_uid,i);
+                                                giftUserGet(gift_user_id,card_number);
+                                                giftImageGetTop(gift_uid,card_number);
+                                                giftUserImageTop(gift_user_id,card_number);
+                                                gift_favorite_check(gift_uid,card_number);
                                 //         }
                                 // })
                                 // .catch(function(err){
                                 //         console.log(err);
                                 // }); 
-                                if(i+1==object.length){
-                                        hideLoad();
-                                        // loadingIcon = `
-                                        // <div id="topBottom" class="" style="width:98%;height: auto; padding: 1px 0 0 0;display: inline-block;margin-top:5px;">
-                                        // <i class="fas fa-spinner fa-3x fa-spin"></i>
-                                        // </div>`;
-                                        // $('#shintyakuList').append(loadingIcon);
+                                if(shintyakuCounter==0){
+                                        if(i+1==object.length){
+                                                hideLoad();
+                                                loadingIcon = `
+                                                <div id="topBottom" class="" style="width:98%;height: auto; padding: 1px 0 0 0;display: inline-block;margin-top:5px;">
+                                                <i class="fas fa-spinner fa-3x fa-spin"></i><br><br><br>
+                                                </div>`;
+                                                $('#shintyakuList').append(loadingIcon);
+                                        }
+                                }else{
+                                        if(i+1==object.length){
+                                                hideLoad();
+                                                loadingIcon = `
+                                                <div id="topBottom" class="" style="width:98%;height: auto; padding: 1px 0 0 0;display: inline-block;margin-top:5px;">
+                                                <i class="fas fa-spinner fa-3x fa-spin"></i><br><br><br>
+                                                </div>`;
+                                                $("#topBottom").appendTo('#shintyakuList');
+                                        }
                                 }
+                                
                         }
                         
                         syoryaku();

@@ -41,6 +41,9 @@ function MyGift(){
                 var object = results;
                 var syuppinnsu = "&emsp;"+object.length+" 出品&emsp;"
                 $('#myGiftLength').html(syuppinnsu);
+                if(object.length==0){
+                        hideUserLoad();
+                }
                 for(var i=0;i<object.length;i++){
                         var gift_title = object[i].get("giftTitle");
                         var gift_text =object[i].get("giftText");
@@ -172,7 +175,7 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
         .fetch()
         .then(function(results){
                 var gift_user_name = results.get("userName");
-                if(gift_user_id == objectId){
+                if(gift_user_id == objectId || objectId=="V5wsDER2rALwDReh"){
                         document.getElementById('navi').bringPageTop('myGiftDetail.html');
                         function formatDate(date) {
                                 const y = date.getFullYear()
@@ -187,12 +190,14 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
                         ncmb.File.download(gift_uid, "blob")
                         .then(function(fileData) {
                                 var reader = new FileReader();
-                                reader.onloadend = function() {
-                                        var img = document.getElementById("gift_detail_image");
-                                        img.src = reader.result;
-                                }
-                                // DataURLとして読み込む
-                                reader.readAsDataURL(fileData);
+                                setTimeout(function(){
+                                        reader.onloadend = function() {
+                                                var img = document.getElementById("gift_detail_image");
+                                                img.src = reader.result;
+                                        }
+                                        // DataURLとして読み込む
+                                        reader.readAsDataURL(fileData);
+                                },500);
                         })
                         .catch(function(err){
                         // エラー処理

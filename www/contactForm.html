@@ -2,7 +2,7 @@
         <style>
                 .cp_iptxt {
                         position: relative;
-                        margin: 30px 3%;
+                        margin: 10px 3%;
                 }
                 .cp_iptxt input[type=email] {
                         font: 15px/24px sans-serif;
@@ -53,6 +53,23 @@
                 .cp_iptxt textarea[type=text]:focus + i {
                         color: #FF6070;
                 }
+                .ORborder {
+                        display: flex;
+                        align-items: center;
+                        width:90%;
+                        margin:0 auto;
+                        text-align: center;
+                        color:#898989;
+                        margin-top:5px;
+                        margin-bottom:5px;
+                }
+                .ORborder:before, .ORborder:after {
+                        content: "";
+                        flex-grow: 1;
+                        height: 1px; /* 線の太さを変えたいときはここを変える */
+                        background: #898989; /* 線の色を変えたいときはここを変える */
+                        margin:0 .4em; /* 文字と線の余白用 なくても良い */
+                }
         </style>
         <ons-toolbar class="toolbar" style="background-color: white;">
                 <div class="left" style="padding-left: 3%;">
@@ -69,6 +86,13 @@
                 <div style="height: auto;width:100%;margin:0 auto;">
                         <div class="card" style="text-align: center;">
                                 <div class="card__content"style="text-align:left;font-size:12px;">
+                                        <div id="" style="text-align: center;padding-top:10px;padding-bottom:10px;display:block;font-size:12px;">
+                                                <a onclick="instagramOpen('https://lin.ee/50I61JzUP');"><img src="https://scdn.line-apps.com/n/line_add_friends/btn/ja.png" alt="友だち追加" height="36" border="0"></a>
+                                                <p style="color:#FF6070;width:90%;text-align: center;margin:0 auto;padding:5px;">
+                                                        LINEからお問い合わせ！
+                                                </p>
+                                        </div>
+                                        <p class="ORborder">OR</p>
                                         <div class="cp_iptxt">
                                                 <input type="email" placeholder="メールアドレス" id="contactFormUserMailaddress">
                                                 <i class="fa fa-envelope fa-lg fa-fw" aria-hidden="true"></i>

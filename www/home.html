@@ -3,7 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
-  <meta http-equiv="Content-Security-Policy" content="default-src * data: gap: https://ssl.gstatic.com; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+  <!-- <meta http-equiv="Content-Security-Policy" content="default-src * fanfun: gap: https://ssl.gstatic.com; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'"> -->
+  <meta http-equiv="Content-Security-Policy" content="default-src * fanfun: data: gap: https://ssl.gstatic.com; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+  <!-- <meta http-equiv="Content-Security-Policy" content="default-src * coolapp: data:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'"> -->
+
   <script src="components/loader.js"></script>
   <script src="https://smtpjs.com/v3/smtp.js"></script>
   <script src="lib/onsenui/js/onsenui.min.js"></script>
@@ -236,7 +239,7 @@
         setTimeout(function(){
           var index = $('.selected').index('div.sp-navi div');
           if(index == 0){
-            shintyaku();
+            shintyaku(0);
           }else if(index==1){
             followUserGift();
           }
@@ -250,7 +253,7 @@
         if(slideCounter == 1){
           if(index == 0){
             //新着にメニューがうつると、新着ギフトをロード
-            shintyaku();
+            shintyaku(0);
           }else if(index==1){
             followUserGift();
           }

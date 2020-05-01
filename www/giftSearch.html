@@ -1,0 +1,80 @@
+<ons-page>
+        <ons-toolbar class="toolbar" style="background-color: white;">
+                <div class="left" style="padding-left: 3%;">
+                        <ons-back-button></ons-back-button>
+                </div>
+                <div class="center" style="width:120%;color:#898989;">
+                        ギフトログリスト
+                </div>
+        </ons-toolbar>
+        
+        <div class="contents" style="background-color: white;margin:5px;">
+                <ul id="giftLogList"class="list list--material" style="margin-top:10px;">
+        
+                </ul>
+        </div>
+        <!-- 以下、javascript -->
+        <script type="text/javascript">
+        
+        var currentUser = ncmb.User.getCurrentUser();
+        var userName = currentUser.get("userName");
+        var mailaddress = currentUser.get("mailAddress");
+        var objectId = currentUser.get("objectId");
+        
+        $("#giftLogList").empty();
+        var giftLog = ncmb.DataStore("giftLog");
+        giftLog
+        .order('createDate', true)
+        .fetchAll()                
+        .then(function(results){
+                var object = results;
+                for(var j=0;j<object.length;j++){
+                        var giftUid = object[j].get("giftUid");
+                        var giftTitle = object[j].get("giftTitle");
+                        var torihikiStatus = object[j].get("torihikiStatus");
+                        var buyUser = object[j].get("buyUser");
+                        var buyUserAtena = object[j].get("buyUserAtena");
+                        var buyUserNickName = object[j].get("buyUserNickName");
+                        var buyKakaku = object[j].get("buyKakaku");
+                        var buyRequest = object[j].get("buyRequest");
+                        var buyDate = object[j].get("buyDate");
+                        var logId = object[j].get("logId");
+                        var giftLogList = `
+                        <li class="list-item list-item--material" onclick="
+                        `;
+                        giftLogList += "giftLogDetail('"+buyUserAtena+"','"+buyUserNickName+"','"+buyRequest+"','"+buyKakaku+"','"+giftUid+"','"+torihikiStatus+"','"+buyDate+"','出品','"+logId+"');";
+                        giftLogList +=`
+                                ">
+                                <div class="list-item__left list-item--material__left">
+                                <img id="`;
+                                giftLogList += "gift_log_image_"+j;
+                                giftLogList +=`" class="list-item__thumbnail list-item--material__thumbnail" src="img/loading.png">
+                                </div>
+                                <div class="list-item__center list-item--material__center">
+                                <div class="list-item__title list-item--material__title">
+                                        `+giftTitle+`
+                                </div>
+                                <div class="list-item__subtitle list-item--material__subtitle" style="margin-top:10px";>`;
+                                if(torihikiStatus=="プレゼント完了"){
+                                        giftLogList += `<span style="border-radius:20px;background:#898989;color:white;padding:5px 10px 5px 10px;">`;
+                                }else{
+                                        giftLogList += `<span style="border-radius:20px;background:#FF6070;color:white;padding:5px 10px 5px 10px;">`;
+                                }
+                                giftLogList += torihikiStatus;
+                                giftLogList += `</span>
+                                <span style="float:right;color:#898989;">`;
+                                        giftLogList += buyDate;
+                                        giftLogList +=`
+                                        </span>
+                                </div>
+                                </div>
+                        </li>
+                        `;
+                        $('#giftLogList').append(giftLogList);
+                        giftLogImage(giftUid,j);
+                }
+        }).catch(function(err){
+                console.log(err);
+        });  
+        </script>
+</ons-page>

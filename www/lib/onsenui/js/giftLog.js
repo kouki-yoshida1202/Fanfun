@@ -38,11 +38,6 @@ function shopPushPage(){
                 $(".mikanryoKounyu").LoadingOverlay("hide");
         });
 
-        if(Influencer == true){
-                $('#influencerLINE').css("display","block");
-        }
-
-        
 }
 
 function uriageRireki(){
@@ -70,10 +65,11 @@ function uriageRireki(){
                         var buyKakaku = object[j].get("buyKakaku");
                         var buyRequest = object[j].get("buyRequest");
                         var buyDate = object[j].get("buyDate");
+                        var logId = object[j].get("logId");
                         var uriageRirekiList = `
                         <li class="list-item list-item--material" onclick="
                         `;
-                        uriageRirekiList += "giftLogDetail('"+buyUserAtena+"','"+buyUserNickName+"','"+buyRequest+"','"+buyKakaku+"','"+giftUid+"','"+torihikiStatus+"','"+buyDate+"','出品');";
+                        uriageRirekiList += "giftLogDetail('"+buyUserAtena+"','"+buyUserNickName+"','"+buyRequest+"','"+buyKakaku+"','"+giftUid+"','"+torihikiStatus+"','"+buyDate+"','出品','"+logId+"');";
                         uriageRirekiList +=`
                                 ">
                                 <div class="list-item__left list-item--material__left">
@@ -135,10 +131,11 @@ function mikanryoSyuppinTorihikiList(){
                         var buyKakaku = object[j].get("buyKakaku");
                         var buyRequest = object[j].get("buyRequest");
                         var buyDate = object[j].get("buyDate");
+                        var logId = object[j].get("logId");
                         var mikanryoRirekiList = `
                         <li class="list-item list-item--material" onclick="
                         `;
-                        mikanryoRirekiList += "giftLogDetail('"+buyUserAtena+"','"+buyUserNickName+"','"+buyRequest+"','"+buyKakaku+"','"+giftUid+"','"+torihikiStatus+"','"+buyDate+"','出品');";
+                        mikanryoRirekiList += "giftLogDetail('"+buyUserAtena+"','"+buyUserNickName+"','"+buyRequest+"','"+buyKakaku+"','"+giftUid+"','"+torihikiStatus+"','"+buyDate+"','出品','"+logId+"');";
                         mikanryoRirekiList +=`
                                 ">
                                 <div class="list-item__left list-item--material__left">
@@ -196,10 +193,11 @@ function kounyuRireki(){
                         var buyKakaku = object[j].get("buyKakaku");
                         var buyRequest = object[j].get("buyRequest");
                         var buyDate = object[j].get("buyDate");
+                        var logId = object[j].get("logId");
                         var kounyuRirekiList = `
                         <li class="list-item list-item--material" onclick="
                         `;
-                        kounyuRirekiList += "giftLogDetail('"+buyUserAtena+"','"+buyUserNickName+"','"+buyRequest+"','"+buyKakaku+"','"+giftUid+"','"+torihikiStatus+"','"+buyDate+"','購入');";
+                        kounyuRirekiList += "giftLogDetail('"+buyUserAtena+"','"+buyUserNickName+"','"+buyRequest+"','"+buyKakaku+"','"+giftUid+"','"+torihikiStatus+"','"+buyDate+"','購入','"+logId+"');";
                         kounyuRirekiList +=`
                                 ">
                                 <div class="list-item__left list-item--material__left">
@@ -261,10 +259,11 @@ function mikanryoKounyuTorihikiList(){
                         var buyKakaku = object[j].get("buyKakaku");
                         var buyRequest = object[j].get("buyRequest");
                         var buyDate = object[j].get("buyDate");
+                        var logId = object[j].get("logId");
                         var mikanryoRirekiList = `
                         <li class="list-item list-item--material" onclick="
                         `;
-                        mikanryoRirekiList += "giftLogDetail('"+buyUserAtena+"','"+buyUserNickName+"','"+buyRequest+"','"+buyKakaku+"','"+giftUid+"','"+torihikiStatus+"','"+buyDate+"','購入');";
+                        mikanryoRirekiList += "giftLogDetail('"+buyUserAtena+"','"+buyUserNickName+"','"+buyRequest+"','"+buyKakaku+"','"+giftUid+"','"+torihikiStatus+"','"+buyDate+"','購入','"+logId+"');";
                         mikanryoRirekiList +=`
                                 ">
                                 <div class="list-item__left list-item--material__left">
@@ -298,9 +297,9 @@ function mikanryoKounyuTorihikiList(){
         });  
 }
 
-function giftLogDetail(buyUserAtena,buyUserNickName,buyRequest,buyKakaku,giftUid,torihikiStatus,buyDate,status){
+function giftLogDetail(buyUserAtena,buyUserNickName,buyRequest,buyKakaku,giftUid,torihikiStatus,buyDate,status,logId){
         console.log(status);
-        console.log(buyUserAtena,buyUserNickName,buyRequest,buyKakaku,giftUid,torihikiStatus,buyDate,status);
+        console.log(buyUserAtena,buyUserNickName,buyRequest,buyKakaku,giftUid,torihikiStatus,buyDate,status,logId);
         document.getElementById('navi').pushPage('giftLogDetail.html');
         var buyKakaku = String( buyKakaku );
         var giftData = ncmb.DataStore("giftData");
@@ -310,6 +309,7 @@ function giftLogDetail(buyUserAtena,buyUserNickName,buyRequest,buyKakaku,giftUid
         .then(function(results){
                 var giftTitle = results.get("giftTitle");
                 var giftText = results.get("giftText");
+                $("#giftLogId").html(logId);
                 $("#giftLogTitle").html(giftTitle);
                 $("#giftLogDetail").html(giftText);
                 $("#giftLogKakaku").html(buyKakaku+"円");
