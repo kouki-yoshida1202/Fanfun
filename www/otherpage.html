@@ -80,6 +80,7 @@
     </div>
     <div class="action-sheet-mask"></div>
     <div class="action-sheet modal1">
+        <button class="action-sheet-button" onclick="otherActionClose();setTimeout(function(){share($('#other_page_user_id').val(),'userPage');},1500);">SNS共有</button>
         <button id="blockCheck" class="action-sheet-button" class="" onclick="otherBlockChange();">ブロック</button>
         <button class="action-sheet-button" onclick="otherActionClose();">Cancel</button>
     </div>

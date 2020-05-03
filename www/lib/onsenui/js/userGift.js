@@ -1,4 +1,5 @@
 function MyGift(){
+        console.log("mygift");
         $("#myGiftList").empty();
         showUserLoad();
         // カレントユーザー情報の取得
@@ -36,6 +37,7 @@ function MyGift(){
         GiftData
         .order('createDate', true)
         .equalTo("userId", objectId)
+        .notEqualTo('ReleaseStatus',1)
         .fetchAll()                
         .then(function(results){
                 var object = results;
@@ -45,6 +47,7 @@ function MyGift(){
                         hideUserLoad();
                 }
                 for(var i=0;i<object.length;i++){
+                        console.log(i);
                         var gift_title = object[i].get("giftTitle");
                         var gift_text =object[i].get("giftText");
                         var create_date = object[i].get("createDate");
@@ -53,12 +56,13 @@ function MyGift(){
                         var gift_stock = object[i].get("stock");
                         var gift_price = object[i].get("price");
                         var gift_user_id = object[i].get("userId");
+                        var ReleaseStatus = object[i].get("ReleaseStatus");
                         
                         //カードに出力していく
                         var card = `
                         <div class="gift-card" style="width:49%;height: auto; padding: 1px 0 0 0;display: inline-block;margin-top:5px;"onclick="
                         `;
-                        card += "giftIdJudge('"+gift_uid+"','"+userName+"','"+gift_title+"','"+gift_text+"','"+objectId+"','"+create_date+"','"+gift_price+"','"+gift_user_id+"','"+gift_stock+"');";
+                        card += "giftIdJudge('"+gift_uid+"','"+userName+"','"+gift_title+"','"+gift_text+"','"+objectId+"','"+create_date+"','"+gift_price+"','"+gift_user_id+"','"+gift_stock+"','"+ReleaseStatus+"');";
                         card +=`
                         ">
                                 <input class="gift_uid" type="" value="`;
@@ -168,7 +172,7 @@ function giftImageGet(giftUid,i){
         });
 }
 
-function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date,price,gift_user_id,gift_stock){
+function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date,price,gift_user_id,gift_stock,ReleaseStatus){
         // 日付のフォーマット変換
         ncmb.User
         .equalTo("objectId", gift_user_id)
@@ -176,6 +180,7 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
         .then(function(results){
                 var gift_user_name = results.get("userName");
                 if(gift_user_id == objectId || objectId=="V5wsDER2rALwDReh"){
+                        //自分のギフト
                         document.getElementById('navi').bringPageTop('myGiftDetail.html');
                         function formatDate(date) {
                                 const y = date.getFullYear()
@@ -230,7 +235,13 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
                                 $('#my_user_id').val(gift_user_id);
                                 $('#my_gift_id').val(gift_uid);
                                 $('#my_stock').html(gift_stock);
+                                $('#ReleaseStatus').val(ReleaseStatus);
                                 my_gift_favorite_check_detail(gift_uid);
+                                if(ReleaseStatus==1){
+                                        $('#gift_detail_ReleaseStatus').css("display","block");
+                                        $('#shitagakiButton').text("公開する");
+                                        $('#shitagakiTitle').html("公開しますか？");
+                                }
                         },500);
                 }else{
                         document.getElementById('navi').bringPageTop('detail.html');

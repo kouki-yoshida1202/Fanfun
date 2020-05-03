@@ -75,11 +75,10 @@
         function bottomRefresh(){
             $('#topBottom').on('inview',  function(event, isInView){
                 if (isInView) {
-                    console.log("見えてる");
                     shintyakuCounter++;
                     shintyaku(shintyakuCounter);
                 }else{
-                    console.log("見えてない");
+                    
                 }
             });
         }

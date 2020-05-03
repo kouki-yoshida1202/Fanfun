@@ -153,8 +153,15 @@
             </div>
             <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:20px;">
                 <div id="giftInsertButtonZone"class="cp_iptxt">
-                    <button id="giftInsertButton2" class="button "style="width:100%;padding-top:5px;padding-bottom:5px;line-height:auto;border-radius:30px;font-size:100%;margin:0 auto;height:45px;" onclick="giftInsert()" disabled>
+                    <button id="giftInsertButton2" class="button "style="width:100%;padding-top:5px;padding-bottom:5px;line-height:auto;border-radius:30px;font-size:100%;margin:0 auto;height:45px;" onclick="giftInsert();" disabled>
                             出品する
+                    </button>
+                </div>
+            </div>
+            <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:20px;">
+                <div id="giftShitagakiButtonZone"class="cp_iptxt">
+                    <button id="giftShitagakiButton" class="button "style="width:100%;padding-top:5px;padding-bottom:5px;line-height:auto;border-radius:30px;font-size:100%;margin:0 auto;height:45px;background:gray;" onclick="giftInsert(1);" disabled>
+                            下書き保存
                     </button>
                 </div>
             </div>
@@ -163,7 +170,7 @@
     <div class="alert-dialog-mask giftInput_dialog_mask"></div>
     <div class="alert-dialog giftInput_dialog">
         <div class="alert-dialog-container">
-            <div class="alert-dialog-title">
+            <div id="giftInputSuccess" class="alert-dialog-title">
                 出品しました。
             </div>
             <div class="alert-dialog-footer">
@@ -174,7 +181,7 @@
     <div class="alert-dialog-mask giftInputMiss_dialog_mask"></div>
     <div class="alert-dialog giftInputMiss_dialog">
         <div class="alert-dialog-container">
-            <div class="alert-dialog-title">
+            <div id="giftInputError" class="alert-dialog-title">
                 出品が失敗しました。
             </div>
             <div class="alert-dialog-content">
@@ -304,10 +311,10 @@
             var rieki = kakaku - tesuryou;
             $('.tesuryou').text(tesuryou);
             $('.rieki').text(rieki);
-            $("#giftInsertButton2").prop("disabled",false);
+            $("#giftInsertButton2,#giftShitagakiButton").prop("disabled",false);
         }else{
             kakakuCheckOpen();
-            $("#giftInsertButton2").prop("disabled",true);
+            $("#giftInsertButton2,#giftShitagakiButton").prop("disabled",true);
         }
     });
 

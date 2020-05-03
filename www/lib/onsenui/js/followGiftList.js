@@ -27,6 +27,7 @@ function followUserGift(){
         .then(function(follow_user_id){
                 GiftData
                 .order('createDate', true)
+                .notEqualTo('ReleaseStatus',1)
                 .in('userId',follow_user_id)
                 .fetchAll()                
                 .then(function(results){
@@ -41,6 +42,7 @@ function followUserGift(){
                                 var gift_stock = object[i].get("stock");
                                 var gift_user_id = object[i].get("userId");
                                 var BlockList = ncmb.DataStore("BlockList");
+                                var ReleaseStatus = object[i].get("ReleaseStatus");
                                 // BlockList
                                 // .equalTo("blockerId", objectId)
                                 // .equalTo("blockedId", gift_user_id)
@@ -55,7 +57,7 @@ function followUserGift(){
                                                 var card = `
                                                 <div class="gift-card" style="width:48%;height: auto; padding: 1px 0 0 0;display: inline-block;margin-top:5px;"onclick="
                                                 `;
-                                                card += "giftIdJudge('"+gift_uid+"','"+userName+"','"+gift_title+"','"+gift_text+"','"+objectId+"','"+create_date+"','"+gift_price+"','"+gift_user_id+"','"+gift_stock+"');";
+                                                card += "giftIdJudge('"+gift_uid+"','"+userName+"','"+gift_title+"','"+gift_text+"','"+objectId+"','"+create_date+"','"+gift_price+"','"+gift_user_id+"','"+gift_stock+"','"+ReleaseStatus+"');";
                                                 card +=`
                                                 ">
                                                         <input class="gift_uid" type="" value="`;

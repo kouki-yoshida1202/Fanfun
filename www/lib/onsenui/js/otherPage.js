@@ -65,6 +65,7 @@ function otherPage(){
                 GiftData
                 .order('createDate', true)
                 .equalTo("userId", other_user_id)
+                .notEqualTo('ReleaseStatus',1)
                 .fetchAll()                
                 .then(function(results){
                         var object = results;
@@ -95,12 +96,12 @@ function otherPage(){
                                                 var gift_price = object[i].get("price");
                                                 var gift_stock = object[i].get("stock");
                                                 var gift_user_id = object[i].get("userId");
-                                                
+                                                var ReleaseStatus = object[i].get("ReleaseStatus");
                                                 //カードに出力していく
                                                 var card = `
                                                 <div class="gift-card" style="width:49%;height: auto; padding: 1px 0 0 0;display: inline-block;margin-top:5px;"onclick="
                                                 `;
-                                                card += "giftIdJudge('"+gift_uid+"','"+other_user_name+"','"+gift_title+"','"+gift_text+"','"+objectId+"','"+create_date+"','"+gift_price+"','"+gift_user_id+"','"+gift_stock+"');";
+                                                card += "giftIdJudge('"+gift_uid+"','"+other_user_name+"','"+gift_title+"','"+gift_text+"','"+objectId+"','"+create_date+"','"+gift_price+"','"+gift_user_id+"','"+gift_stock+"','"+ReleaseStatus+"');";
                                                 card +=`
                                                 ">
                                                         <input class="gift_uid" type="" value="`;

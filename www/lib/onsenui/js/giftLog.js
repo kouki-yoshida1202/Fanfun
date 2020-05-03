@@ -75,7 +75,7 @@ function uriageRireki(){
                                 <div class="list-item__left list-item--material__left">
                                 <img id="`;
                                 uriageRirekiList += "gift_log_image_"+j;
-                                uriageRirekiList +=`" class="list-item__thumbnail list-item--material__thumbnail" src="img/loading.png">
+                                uriageRirekiList +=`" class="list-item__thumbnail list-item--material__thumbnail" src="img/loading.png" style="object-fit: cover;">
                                 </div>
                                 <div class="list-item__center list-item--material__center">
                                 <div class="list-item__title list-item--material__title">
@@ -84,8 +84,10 @@ function uriageRireki(){
                                 <div class="list-item__subtitle list-item--material__subtitle" style="margin-top:10px";>`;
                                 if(torihikiStatus=="プレゼント完了"){
                                         uriageRirekiList += `<span style="border-radius:20px;background:#898989;color:white;padding:5px 10px 5px 10px;">`;
-                                }else{
+                                }else if(torihikiStatus == "ギフト準備中"){
                                         uriageRirekiList += `<span style="border-radius:20px;background:#FF6070;color:white;padding:5px 10px 5px 10px;">`;
+                                }else{
+                                        uriageRirekiList += `<span style="border-radius:20px;background:#FFD760;color:white;padding:5px 10px 5px 10px;">`;
                                 }
                                 uriageRirekiList += torihikiStatus;
                                 uriageRirekiList += `</span>
@@ -141,16 +143,20 @@ function mikanryoSyuppinTorihikiList(){
                                 <div class="list-item__left list-item--material__left">
                                 <img id="`;
                                 mikanryoRirekiList += "gift_log_image_"+j;
-                                mikanryoRirekiList +=`" class="list-item__thumbnail list-item--material__thumbnail" src="img/loading.png">
+                                mikanryoRirekiList +=`" class="list-item__thumbnail list-item--material__thumbnail" src="img/loading.png" style="object-fit: cover;">
                                 </div>
                                 <div class="list-item__center list-item--material__center">
                                 <div class="list-item__title list-item--material__title">
                                         `+giftTitle+`
                                 </div>
                                 <div class="list-item__subtitle list-item--material__subtitle" style="margin-top:10px";>`;
-                                
-                                mikanryoRirekiList += `<span style="border-radius:20px;background:#FF6070;color:white;padding:5px 10px 5px 10px;">`;
-                                
+                                if(torihikiStatus=="プレゼント完了"){
+                                        mikanryoRirekiList += `<span style="border-radius:20px;background:#898989;color:white;padding:5px 10px 5px 10px;">`;
+                                }else if(torihikiStatus == "ギフト準備中"){
+                                        mikanryoRirekiList += `<span style="border-radius:20px;background:#FF6070;color:white;padding:5px 10px 5px 10px;">`;
+                                }else{
+                                        mikanryoRirekiList += `<span style="border-radius:20px;background:#FFD760;color:white;padding:5px 10px 5px 10px;">`;
+                                }
                                 mikanryoRirekiList += torihikiStatus;
                                 mikanryoRirekiList += `</span>
                                 <span style="float:right;color:#898989;">`;
@@ -203,7 +209,7 @@ function kounyuRireki(){
                                 <div class="list-item__left list-item--material__left">
                                 <img id="`;
                                 kounyuRirekiList += "gift_log_image_"+j;
-                                kounyuRirekiList +=`" class="list-item__thumbnail list-item--material__thumbnail" src="img/loading.png">
+                                kounyuRirekiList +=`" class="list-item__thumbnail list-item--material__thumbnail" src="img/loading.png" style="object-fit: cover;">
                                 </div>
                                 <div class="list-item__center list-item--material__center">
                                 <div class="list-item__title list-item--material__title">
@@ -212,8 +218,10 @@ function kounyuRireki(){
                                 <div class="list-item__subtitle list-item--material__subtitle" style="margin-top:10px";>`;
                                 if(torihikiStatus=="プレゼント完了"){
                                         kounyuRirekiList += `<span style="border-radius:20px;background:#898989;color:white;padding:5px 10px 5px 10px;">`;
-                                }else{
+                                }else if(torihikiStatus == "ギフト準備中"){
                                         kounyuRirekiList += `<span style="border-radius:20px;background:#FF6070;color:white;padding:5px 10px 5px 10px;">`;
+                                }else{
+                                        kounyuRirekiList += `<span style="border-radius:20px;background:#FFD760;color:white;padding:5px 10px 5px 10px;">`;
                                 }
                                 kounyuRirekiList += torihikiStatus;
                                 kounyuRirekiList += `</span>
@@ -269,16 +277,20 @@ function mikanryoKounyuTorihikiList(){
                                 <div class="list-item__left list-item--material__left">
                                 <img id="`;
                                 mikanryoRirekiList += "gift_log_image_"+j;
-                                mikanryoRirekiList +=`" class="list-item__thumbnail list-item--material__thumbnail" src="img/loading.png">
+                                mikanryoRirekiList +=`" class="list-item__thumbnail list-item--material__thumbnail" src="img/loading.png" style="object-fit: cover;">
                                 </div>
                                 <div class="list-item__center list-item--material__center">
                                 <div class="list-item__title list-item--material__title">
                                         `+giftTitle+`
                                 </div>
                                 <div class="list-item__subtitle list-item--material__subtitle" style="margin-top:10px";>`;
-                                
-                                mikanryoRirekiList += `<span style="border-radius:20px;background:#FF6070;color:white;padding:5px 10px 5px 10px;">`;
-                                
+                                if(torihikiStatus=="プレゼント完了"){
+                                        mikanryoRirekiList += `<span style="border-radius:20px;background:#898989;color:white;padding:5px 10px 5px 10px;">`;
+                                }else if(torihikiStatus == "ギフト準備中"){
+                                        mikanryoRirekiList += `<span style="border-radius:20px;background:#FF6070;color:white;padding:5px 10px 5px 10px;">`;
+                                }else{
+                                        mikanryoRirekiList += `<span style="border-radius:20px;background:#FFD760;color:white;padding:5px 10px 5px 10px;">`;
+                                }
                                 mikanryoRirekiList += torihikiStatus;
                                 mikanryoRirekiList += `</span>
                                 <span style="float:right;color:#898989;">`;

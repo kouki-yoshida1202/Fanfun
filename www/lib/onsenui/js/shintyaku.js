@@ -1,8 +1,8 @@
 function shintyaku(shintyakuCounter){
         if(shintyakuCounter==0){
                 $("#shintyakuList").empty();
+                showLoad();
         }
-        showLoad();
         // console.log(shintyakuCounter);
         // カレントユーザー情報の取得
         var currentUser = ncmb.User.getCurrentUser();
@@ -14,6 +14,7 @@ function shintyaku(shintyakuCounter){
         if(userName!="テストアカウント"){
                 GiftData
                 .order('createDate', true)
+                .notEqualTo('ReleaseStatus',1)
                 .limit(10)
                 .skip(shintyakuCounter*10)
                 .fetchAll()                
@@ -37,6 +38,7 @@ function shintyaku(shintyakuCounter){
                                 var gift_stock = object[i].get("stock");
                                 var gift_user_id = object[i].get("userId");
                                 var BlockList = ncmb.DataStore("BlockList");
+                                var ReleaseStatus = object[i].get("ReleaseStatus");
                                 // BlockList
                                 // .equalTo("blockerId", objectId)
                                 // .equalTo("blockedId", gift_user_id)
@@ -51,7 +53,7 @@ function shintyaku(shintyakuCounter){
                                                 var card = `
                                                 <div class="gift-card" style="width:48%;height: auto; padding: 1px 0 0 0;display: inline-block;margin-top:5px;"onclick="
                                                 `;
-                                                card += "giftIdJudge('"+gift_uid+"','"+userName+"','"+gift_title+"','"+gift_text+"','"+objectId+"','"+create_date+"','"+gift_price+"','"+gift_user_id+"','"+gift_stock+"');";
+                                                card += "giftIdJudge('"+gift_uid+"','"+userName+"','"+gift_title+"','"+gift_text+"','"+objectId+"','"+create_date+"','"+gift_price+"','"+gift_user_id+"','"+gift_stock+"','"+ReleaseStatus+"');";
                                                 card +=`
                                                 ">
                                                         <input class="gift_uid" type="" value="`;
@@ -171,6 +173,7 @@ function shintyaku(shintyakuCounter){
                                 var gift_stock = object[i].get("stock");
                                 var gift_user_id = object[i].get("userId");
                                 var BlockList = ncmb.DataStore("BlockList");
+                                var ReleaseStatus = object[i].get("ReleaseStatus");
                                 // BlockList
                                 // .equalTo("blockerId", objectId)
                                 // .equalTo("blockedId", gift_user_id)
@@ -185,7 +188,7 @@ function shintyaku(shintyakuCounter){
                                                 var card = `
                                                 <div class="gift-card" style="width:48%;height: auto; padding: 1px 0 0 0;display: inline-block;margin-top:5px;"onclick="
                                                 `;
-                                                card += "giftIdJudge('"+gift_uid+"','"+userName+"','"+gift_title+"','"+gift_text+"','"+objectId+"','"+create_date+"','"+gift_price+"','"+gift_user_id+"','"+gift_stock+"');";
+                                                card += "giftIdJudge('"+gift_uid+"','"+userName+"','"+gift_title+"','"+gift_text+"','"+objectId+"','"+create_date+"','"+gift_price+"','"+gift_user_id+"','"+gift_stock+"','"+ReleaseStatus+"');";
                                                 card +=`
                                                 ">
                                                         <input class="gift_uid" type="" value="`;

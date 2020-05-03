@@ -4,8 +4,9 @@ var clientKey = "e007abb894e7e571efd683ba05b19e90ed4bb3633cf8e693f287451bb4d1db0
 var ncmb    　= new NCMB(appKey,clientKey);
 
 // -------[Demo1]データをmBaaSに保存する -------//
-function giftInsert() {
+function giftInsert(ReleaseStatus) {
         showGiftInsertLoad();
+        console.log(ReleaseStatus);
         //ユーザーの入力したデータを変数にセットする
         var gift_title = $("#gift_title").val();            
         var gift_text = $("#gift_text").val();
@@ -50,6 +51,7 @@ function giftInsert() {
                         .set("price",gift_price)
                         .set("giftUid",uid)
                         .set("stock",gift_stock)
+                        .set("ReleaseStatus",ReleaseStatus)
                         .save()
                         .then(function(gameScore){
                                 // 保存後の処理
@@ -63,6 +65,11 @@ function giftInsert() {
                                         // アップロード後処理
                                         hideGiftInsertLoad();
                                         giftInputOpen();
+                                        if(ReleaseStatus==1){
+                                                $('#giftInputSuccess').html("下書き保存しました。");
+                                        }else{
+                                                $('#giftInputSuccess').html("出品しました。");
+                                        }
                                 })
                                 .catch(function(err){
                                         // エラー処理
@@ -74,6 +81,11 @@ function giftInsert() {
                         // エラー処理
                                 hideGiftInsertLoad();
                                 giftInputMissOpen();
+                                if(ReleaseStatus==1){
+                                        $('#giftInputError').html("下書き保存が失敗しました。");
+                                }else{
+                                        $('#giftInputError').html("出品が失敗しました。");
+                                }
                         });
         }
 }
@@ -195,14 +207,14 @@ function giftNowInfo(){
 }
 
 function showGiftInsertLoad(){
-        $("#giftInsertButtonZone").LoadingOverlay("show", {
+        $("#giftInsertButtonZone,#giftShitagakiButtonZone").LoadingOverlay("show", {
                 image       : "",
                 fontawesome : "fa fa-refresh fa-spin",
         });
 }
 
 function hideGiftInsertLoad() {
-        $("#giftInsertButtonZone").LoadingOverlay("hide");
+        $("#giftInsertButtonZone,#giftShitagakiButtonZone").LoadingOverlay("hide");
 };
 
 function showGiftEditLoad(){
