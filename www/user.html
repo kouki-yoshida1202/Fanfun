@@ -85,6 +85,7 @@
             <button class="btn button" onclick="document.getElementById('navi').bringPageTop('giftLogList.html');">ギフトログ一覧管理画面へ</button>
             <br><br>
             <button class="btn button" onclick="document.getElementById('navi').bringPageTop('giftSearchAdmin.html');">ギフト検索管理画面へ</button>
+            <button class="btn button" onclick="stock();">在庫</button>
             <!-- <button onclick="document.getElementById('navi').pushPage('messagePush.html');">ユーザにメッセージ送信画面へ（管理者専用）</button>
             <br><br>
             <button onclick="document.getElementById('navi').pushPage('instagramPush.html');">instagram投稿へ（管理者専用）</button> -->
@@ -116,6 +117,8 @@
     <!-- 以下、javascript -->
     <script type="text/javascript">
         $('.action-sheet-mask,.action-sheet').hide();
+        // 保存後の処理
+        
         function tweetMyGift(){
             // どっちか使う
             var userName = $('#mypage_user_name').html();

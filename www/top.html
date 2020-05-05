@@ -46,7 +46,7 @@
             <div id="sp-content" class="swiper-container swiper-contents" style="min-height: 650px;">
                 <div class="swiper-wrapper sp-content" style="margin-top:35px;">
                     <div id="shintyakuArea" class="swiper-slide">
-                        <div id="shintyakuList"></div>
+                        <div id="shintyakuList" style="height:auto;"></div>
                     </div>
                     <div class="swiper-slide">
                         <div id="followGiftList"></div>
@@ -75,10 +75,11 @@
         function bottomRefresh(){
             $('#topBottom').on('inview',  function(event, isInView){
                 if (isInView) {
+                    console.log("見えてる");
                     shintyakuCounter++;
                     shintyaku(shintyakuCounter);
                 }else{
-                    
+                    console.log("見えてない");
                 }
             });
         }

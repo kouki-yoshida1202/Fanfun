@@ -2,12 +2,21 @@ function shopPushPage(){
         var currentUser = ncmb.User.getCurrentUser();
         var objectId = currentUser.get("objectId");
         var Influencer = currentUser.get("Influencer");
-        var minouHurikomi = currentUser.get("minouHurikomi");
-        if(minouHurikomi==""||minouHurikomi==null){
-                minouHurikomi=0;
-        }
-        $('#minouHurikomi').html(minouHurikomi + "円");
-        
+        var minouUriage = ncmb.DataStore("minouUriage");
+        minouUriage
+        .equalTo('userId',objectId)
+        .fetch()         
+        .then(function(result){
+                var object = result;
+                var minouUriage = object.get("minouUriage");
+                if(minouUriage==""||minouUriage==null){
+                        minouUriage=0;
+                }
+                $('#minouHurikomi').html(minouUriage + "円");
+        }).catch(function(err){
+                console.log(err);
+        });
+
         $(".mikanryo").LoadingOverlay("show", {
                 image       : "",
                 fontawesome : "fa fa-refresh fa-spin",
@@ -365,7 +374,7 @@ function hurikomiShinsei(){
         setTimeout(function(){
                 $('#hurikomiUserId').val(objectId);
                 $('#hurikomiMailaddress').val(mailAddress);
-                $('#hurikomiKingaku').val(minouHurikomi+"円");
+                $('#hurikomiKingaku').val(minouHurikomi);
         },500);
 }
 
@@ -379,47 +388,52 @@ function hurikomiFormSend(){
         var hurikomiMeigi = $('#hurikomiMeigi').val();
         var hurikomiKingaku = $('#hurikomiKingaku').val();
         var mailcheck = MailCheck(hurikomiMailaddress);
-
-        if(mailcheck){
-                var hurikomiForm = ncmb.DataStore("hurikomiForm");
-                // データストアへの登録
-                var hurikomiForm = new hurikomiForm();
-                hurikomiForm.set("userId", hurikomiUserId)
-                        .set("mailAddress", hurikomiMailaddress)
-                        .set("Ginkou",hurikomiGinkou)
-                        .set("Shiten",hurikomiShiten)
-                        .set("Shubetu",hurikomiShubetu)
-                        .set("Bangou",hurikomiBangou)
-                        .set("Meigi",hurikomiMeigi)
-                        .set("Kingaku",hurikomiKingaku)
-                        .save()
-                        .then(function(gameScore){
-                        // 保存後の処理
-                                $.ajax({
-                                        type: 'post',
-                                        url: 'https://fanfun2020.xsrv.jp/hurikomiSend.html',
-                                        data: {
-                                                "userId":hurikomiUserId,
-                                                "mailAddress": hurikomiMailaddress,
-                                                "Ginkou":hurikomiGinkou,
-                                                "Shiten":hurikomiShiten,
-                                                "Shubetu":hurikomiShubetu,
-                                                "Bangou":hurikomiBangou,
-                                                "Meigi":hurikomiMeigi,
-                                                "Kingaku":hurikomiKingaku,
-                                        },
-                                        success: function(data){
-                                                console.log(data);
-                                        }
-                                });
-                                alert("申請が完了しました。担当から改めてご連絡致します。");
-                                document.getElementById('navi').popPage();
-                        })
-                        .catch(function(err){
-                        // エラー処理
-                                alert("申請が失敗しました。お手数ですがお問い合わせお願い致します。");
-                        });
+        if(hurikomiMailaddress=="" || hurikomiGinkou=="" || hurikomiShiten=="" || hurikomiShubetu=="" || hurikomiBangou=="" || hurikomiMeigi=="" || hurikomiKingaku ==""){
+                alert("未入力項目があります");
+        }else if(Number(hurikomiKingaku)<1000){
+                alert("振込申請は1000円以上からとなります。");
         }else{
-                alert("メールアドレスが正しくありません");
+                if(mailcheck){
+                        var hurikomiForm = ncmb.DataStore("hurikomiForm");
+                        // データストアへの登録
+                        var hurikomiForm = new hurikomiForm();
+                        hurikomiForm.set("userId", hurikomiUserId)
+                                .set("mailAddress", hurikomiMailaddress)
+                                .set("Ginkou",hurikomiGinkou)
+                                .set("Shiten",hurikomiShiten)
+                                .set("Shubetu",hurikomiShubetu)
+                                .set("Bangou",hurikomiBangou)
+                                .set("Meigi",hurikomiMeigi)
+                                .set("Kingaku",hurikomiKingaku)
+                                .save()
+                                .then(function(gameScore){
+                                // 保存後の処理
+                                        $.ajax({
+                                                type: 'post',
+                                                url: 'https://fanfun2020.xsrv.jp/hurikomiSend.html',
+                                                data: {
+                                                        "userId":hurikomiUserId,
+                                                        "mailAddress": hurikomiMailaddress,
+                                                        "Ginkou":hurikomiGinkou,
+                                                        "Shiten":hurikomiShiten,
+                                                        "Shubetu":hurikomiShubetu,
+                                                        "Bangou":hurikomiBangou,
+                                                        "Meigi":hurikomiMeigi,
+                                                        "Kingaku":hurikomiKingaku,
+                                                },
+                                                success: function(data){
+                                                        console.log(data);
+                                                }
+                                        });
+                                        alert("申請が完了しました。担当から改めてご連絡致します。");
+                                        document.getElementById('navi').popPage();
+                                })
+                                .catch(function(err){
+                                // エラー処理
+                                        alert("申請が失敗しました。お手数ですがお問い合わせお願い致します。");
+                                });
+                }else{
+                        alert("メールアドレスが正しくありません");
+                }
         }
 }

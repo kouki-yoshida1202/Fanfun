@@ -20,18 +20,10 @@
   <script src="lib/onsenui/js/requestForm.js"></script>
   <script src="lib/onsenui/js/particles.min.js"></script>
   <script>
-    
-    // ons.ready(function() {
-    //   // バックグラウンドログイン
-    //   cloudLogin();
-    // });
-    // function handleOpenURL(url) {
-    //   setTimeout(function() {
-    //     var strValue = url;
-    //     strValue = strValue.replace('coolapp://','');
-    //     // アラートで確認
-    //     alert(strValue);
-    //   }, 0);
+    // ログイン状態
+    // if (NCMB.monaca) {
+      
+      
     // }
     if (ons.platform.isIPhoneX()) {
       document.documentElement.setAttribute('onsflag-iphonex-portrait', '');
@@ -47,33 +39,12 @@
       
     }else{
       const user = ncmb.User.getCurrentUser();
-      console.log(user);
       if (!user) {
       // 未ログイン
       }else{
-          // ログイン状態
-          window.location.href = 'home.html';
+        window.location.href = 'home.html';
       }
     }
-    
-    // $(function() {
-    //   setTimeout(function(){
-    //     $('.start img').fadeIn(1600);
-    //   },500); //0.5秒後にロゴをフェードイン!
-    //   setTimeout(function(){
-    //     $('.start').fadeOut(500);
-    //   },2500); //2.5秒後にロゴ含め真っ白背景をフェードアウト！
-    // });
-    // function login(){
-    //   var username = document.getElementById('username').value;
-    //   var password = document.getElementById('password').value;
-
-    //   if (username === 'kouki' && password === '123') {
-    //     
-    //   } else {
-    //     ons.notification.alert('ユーザー名かパスワードが正しくありません。');
-    //   }
-    // };
   </script>
   <style>
   .text-input{

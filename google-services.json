@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "515231646727",
+    "firebase_url": "https://fanfun-3b44f.firebaseio.com",
+    "project_id": "fanfun-3b44f",
+    "storage_bucket": "fanfun-3b44f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:515231646727:android:03af392d6548dd272956a2",
+        "android_client_info": {
+          "package_name": "com.monaca.fanfun20200309"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "515231646727-9upe10hir9qm8stpd66q493650jv6vc1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCUpJ5sNyNAYjLm5YAva3_8hNZGs73AEeM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "515231646727-9upe10hir9qm8stpd66q493650jv6vc1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

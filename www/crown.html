@@ -1,0 +1,144 @@
+<ons-page style="position: relative;">
+        <ons-toolbar class="toolbar" style="background-color: white;border-bottom:1px solid #898989;">
+                <div class="center" style="width:120%;color:#898989;">
+                        人気ユーザー
+                </div>
+        </ons-toolbar>
+        <style>
+                .rank1_img{
+                        width:120px;height:120px;object-fit:cover;margin:0 auto;
+                }
+
+                .rank1_name{
+                        width:100%;margin-bottom:2px;
+                }
+
+                .rank1_tag{
+                        margin:0px;color:#898989;font-size:0.8em;
+                }
+                .rank23_img{
+                        width:80px;height:80px;object-fit:cover;margin:0 auto;
+                }
+
+                .rank23_name{
+                        width:100%;margin-bottom:2px;font-size:0.8em;
+                }
+                
+                .rank23_tag{
+                        margin:0px;font-size:0.7em;color:#898989;
+                }
+                .rank456789_img{
+                        width:50px;height:50px;object-fit:cover;margin:0 auto;
+                }
+
+                .rank456789_name{
+                        width:100%;margin-bottom:2px;font-size:0.6em;
+                }
+
+                .rank456789_tag{
+                        margin:0px;font-size:0.5em;color:#898989;
+                }
+
+                .rank23,.rank456789{
+                        vertical-align: top;
+                }
+
+                .ranking_number{
+                        position: absolute;bottom:0;right:10px;width:40px;height:40px;border-radius: 50%;color:white;text-align: center;
+                }
+        </style>
+        <div id="userSearch" class="contents" style="width:100%;background-color:white;margin:0px;padding:10px 0px;" onclick="document.getElementById('navi').bringPageTop('userSearch.html');">
+                <p style="text-align: center;width:100%;margin:0px;padding-left:10px;">  <i class="fas fa-search-plus"></i> ユーザー検索へ <span style="float: right;padding-right:5%;transform: translateY(2px);">></span> </p>
+        </div>
+        <div id="rankingZone" class="contents" style="background-color:white;padding-top: 20px;">
+                <div id="rank_1" style="width:100%;display: inline-block;margin-bottom:10px;" onclick="clickCrown(1);">
+                        <div style="width:45%;margin:0 auto;text-align: center;">
+                                <div style="position: relative;">
+                                        <img id="rank_1_img" class="list-item__thumbnail list-item--material__thumbnail rank1_img" src="img/human.png">
+                                        <div class="card__content ranking_number" style="background: -moz-linear-gradient(top left,#C9A746,#F5ED7D 50%,#C9A746); 
+                                        background: -webkit-linear-gradient(top left,#C9A746,#F5ED7D 50%,#C9A746); 
+                                        background: linear-gradient(to bottom right,#C9A746,#F5ED7D 50%,#C9A746);">
+                                                <i class="fas fa-crown" style="margin-top:10px;"></i>
+                                        </div>
+                                </div>
+                                <p id="rank_1_name" class="rank1_name"></p>
+                                <p id="rank_1_tag" class="rank1_tag"></p>
+                        </div>
+                </div>
+                <div id="rank_2" class="rank23"style="width:49%;display:inline-block;margin-top:10px;margin-bottom:10px;"onclick="clickCrown(2);">
+                        <div style="width:80%;margin:0 auto;text-align: center;">
+                                <div style="position: relative;">
+                                        <img id="rank_2_img" class="list-item__thumbnail list-item--material__thumbnail rank1_img" src="img/human.png">
+                                        <div class="card__content ranking_number" style="background: -moz-linear-gradient(top left,#BBC2CA,#F2F3F5 50%,#BBC2CA); 
+                                        background: -webkit-linear-gradient(top left,#BBC2CA,#F2F3F5 50%,#BBC2CA); 
+                                        background: linear-gradient(to bottom right,#BBC2CA,#F2F3F5 50%,#BBC2CA);">
+                                                <i class="fas fa-crown" style="margin-top:10px;"></i>
+                                        </div>
+                                </div>
+                                <p id="rank_2_name" class="rank23_name">ユーザーが入ります</p>
+                                <p id="rank_2_tag" class="rank23_tag"></p>
+                        </div>
+                </div>
+                <div id="rank_3" class="rank23"style="width:49%;display:inline-block;margin-top:10px;margin-bottom:10px;"onclick="clickCrown(3);">
+                        <div style="width:80%;margin:0 auto;text-align: center;">
+                                <div style="position: relative;">
+                                        <img id="rank_3_img" class="list-item__thumbnail list-item--material__thumbnail rank1_img" src="img/human.png">
+                                        <div class="card__content ranking_number" style="background: -moz-linear-gradient(top left,#976A47,#F0AF78 50%,#976A47); 
+                                        background: -webkit-linear-gradient(top left,#976A47,#F0AF78 50%,#976A47); 
+                                        background: linear-gradient(to bottom right,#976A47,#F0AF78 50%,#976A47);">
+                                                <i class="fas fa-crown" style="margin-top:10px;"></i>
+                                        </div>
+                                </div>
+                                <p id="rank_3_name" class="rank23_name">ユーザーが入ります</p>
+                                <p id="rank_3_tag" class="rank23_tag"></p>
+                        </div>
+                </div>
+                <div id="rank_4" class="rank456789"style="width:32.5%;display:inline-block;margin-top:10px;margin-bottom:10px;"onclick="clickCrown(4);">
+                        <div style="width:80%;margin:0 auto;text-align: center;">
+                                <img id="rank_4_img" class="list-item__thumbnail list-item--material__thumbnail rank456789_img" src="img/human.png">
+                                <p id="rank_4_name" class="rank456789_name">ユーザーが入ります</p>
+                                <p id="rank_4_tag" class="rank456789_tag"></p>
+                        </div>
+                </div>
+                <div id="rank_5" class="rank456789" style="width:32.5%;display:inline-block;margin-top:10px;margin-bottom:10px;"onclick="clickCrown(5);">
+                        <div style="width:80%;margin:0 auto;text-align: center;">
+                                <img id="rank_5_img" class="list-item__thumbnail list-item--material__thumbnail rank456789_img" src="img/human.png">
+                                <p id="rank_5_name" class="rank456789_name">ユーザーが入ります</p>
+                                <p id="rank_5_tag" class="rank456789_tag"></p>
+                        </div>
+                </div>
+                <div id="rank_6" class="rank456789" style="width:32.5%;display:inline-block;margin-top:10px;margin-bottom:10px;"onclick="clickCrown(6);">
+                        <div style="width:80%;margin:0 auto;text-align: center;">
+                                <img id="rank_6_img" class="list-item__thumbnail list-item--material__thumbnail rank456789_img" src="img/human.png">
+                                <p id="rank_6_name" class="rank456789_name">ユーザーが入ります</p>
+                                <p id="rank_6_tag" class="rank456789_tag"></p>
+                        </div>
+                </div>
+                <div id="rank_7" class="rank456789" style="width:32.5%;display:inline-block;margin-top:10px;margin-bottom:10px;"onclick="clickCrown(7);">
+                        <div style="width:80%;margin:0 auto;text-align: center;">
+                                <img id="rank_7_img" class="list-item__thumbnail list-item--material__thumbnail rank456789_img" src="img/human.png">
+                                <p id="rank_7_name" class="rank456789_name">ユーザーが入ります</p>
+                                <p id="rank_7_tag" class="rank456789_tag"></p>
+                        </div>
+                </div>
+                <div id="rank_8" class="rank456789" style="width:32.5%;display:inline-block;margin-top:10px;margin-bottom:10px;"onclick="clickCrown(8);">
+                        <div style="width:80%;margin:0 auto;text-align: center;">
+                                <img id="rank_8_img" class="list-item__thumbnail list-item--material__thumbnail rank456789_img" src="img/human.png">
+                                <p id="rank_8_name" class="rank456789_name">ユーザーが入ります</p>
+                                <p id="rank_8_tag" class="rank456789_tag"></p>
+                        </div>
+                </div>
+                <div id="rank_9" class="rank456789" style="width:32.5%;display:inline-block;margin-top:10px;margin-bottom:10px;"onclick="clickCrown(9);">
+                        <div style="width:80%;margin:0 auto;text-align: center;">
+                                <img id="rank_9_img" class="list-item__thumbnail list-item--material__thumbnail rank456789_img" src="img/human.png" >
+                                <p id="rank_9_name" class="rank456789_name">ユーザーが入ります</p>
+                                <p id="rank_9_tag" class="rank456789_tag"></p>
+                        </div>
+                </div>
+        </div>
+        
+        <!-- 以下、javascript -->
+        <script type="text/javascript">
+
+        </script>
+</ons-page>

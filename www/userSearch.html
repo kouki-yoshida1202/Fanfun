@@ -1,0 +1,175 @@
+<ons-page>
+        <ons-toolbar class="toolbar" style="background-color: white;position: fixed;">
+                <div class="left" style="padding-left: 3%;">
+                <ons-back-button></ons-back-button>
+                </div>
+                <div class="center" style="color:#898989;">
+                ユーザー検索
+                </div>
+        </ons-toolbar>
+        <style>
+                label{
+                        cursor: pointer;
+                        padding:5px 10px;
+                        border: 1px solid #898989;
+                        border-radius: 20px;
+                        color:#898989;
+                        min-width:10%;
+                        height:30px;
+                        display:inline-block;
+                        margin:5px 1px;
+                        height:25px;line-height: 25px;
+                }
+                input[type=checkbox]{
+                        display: none;
+                }
+                .check_box:checked + .label {
+                        border:1px solid white;
+                        color:white;
+                        background: -moz-linear-gradient(bottom left, #FF1048, #FFAA95); 
+                        background: -webkit-linear-gradient(bottom left, #FF1048, #FFAA95); 
+                        background: linear-gradient(to top right, #FF1048, #FFAA95);
+                }
+                .ORborder {
+                        display: flex;
+                        align-items: center;
+                        width:100%;
+                        margin:0 auto;
+                        text-align: center;
+                        color:#898989;
+                        margin-top:25px;
+                        margin-bottom:25px;
+                }
+                .ORborder:before, .ORborder:after {
+                        content: "";
+                        flex-grow: 1;
+                        height: 1px; /* 線の太さを変えたいときはここを変える */
+                        background: #898989; /* 線の色を変えたいときはここを変える */
+                        margin:0 .4em; /* 文字と線の余白用 なくても良い */
+                }
+        </style>
+        <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:15px;">
+                <!-- <div style="margin-top:20px;">
+                <input type="searchd" value="" placeholder="Search" class="search-input search-input-detail" style="width:100%;margin-top:5px;">
+                </div> -->
+                <div class="card" style="width:100%;margin:0 auto;padding:20px 20px;border-radius: 10px;">
+                        
+                <div class="card__content">
+                        <div>
+                                <i class="fas fa-signature fa-lg" style="color:#FF6070;"></i> <span>ユーザー名検索</span>
+                        </div>
+                        <div style="margin-top:10px;">
+                                <input type="text" id="searchUserKeyword" class="search-input" style="background-color: white;border:1px solid #898989;width:80%;height:35px;line-height: 35px;"> 
+                                <button class="btn button" style="background:#898989;border-radius: 20px;line-height: 26px;font-size: 14px;width:18%;float:right;" onclick="searchUser('キーワード検索');">検索</button>   
+                        </div>
+                        <p class="ORborder">OR</p>
+                        <div>
+                                <i class="fab fa-youtube fa-lg" style="color:#FF6070;"></i> <span>ジャンル検索</span>
+                        </div>
+                        <div style="margin-top:10px;">
+                                <input type="checkbox" class="check_box search_user" id="YouTuber" name="userSearch" value="YouTuber">
+                                <label class="label" for="YouTuber">YouTuber</label>
+                                <input type="checkbox" class="check_box search_user" id="Instagramer" name="userSearch" value="Instagramer">
+                                <label class="label" for="Instagramer">Instagramer</label>
+                                <input type="checkbox" class="check_box search_user" id="アイドル" name="userSearch" value="アイドル">
+                                <label class="label" for="アイドル">アイドル</label>
+                                <input type="checkbox" class="check_box search_user" id="ライバー(Liver)" name="userSearch" value="ライバー(Liver)">
+                                <label class="label" for="ライバー(Liver)">ライバー(Liver)</label>
+                                <input type="checkbox" class="check_box search_user" id="モデル" name="userSearch" value="モデル">
+                                <label class="label" for="モデル">モデル</label>
+                                <input type="checkbox" class="check_box search_user" id="タレント" name="userSearch" value="タレント">
+                                <label class="label" for="タレント">タレント</label>
+                                <input type="checkbox" class="check_box search_user" id="Musician" name="userSearch" value="Musician">
+                                <label class="label" for="Musician">Musician</label>
+                                <input type="checkbox" class="check_box search_user" id="TikToker" name="userSearch" value="TikToker">
+                                <label class="label" for="TikToker">TikToker</label>
+                                <input type="checkbox" class="check_box search_user" id="俳優" name="userSearch" value="俳優">
+                                <label class="label" for="俳優">俳優</label>
+                                <input type="checkbox" class="check_box search_user" id="ビジネス" name="userSearch" value="ビジネス">
+                                <label class="label" for="ビジネス">ビジネス</label>
+                                <input type="checkbox" class="check_box search_user" id="その他" name="userSearch" value="その他">
+                                <label class="label" for="その他">その他</label>
+                        </div>
+                        <div style="margin-top:30px;">
+                                <button class="button "style="background:#898989;width:100%;padding-top:0px;padding-bottom:0px;line-height:auto;border-radius:30px;font-size:16px;line-height:35px;"onclick="searchUser('カテゴリ検索');">検索</button>
+                        </div>
+                </div>
+                </div>
+                <!-- </div>
+                <div style="margin-top:20px;">
+                <span>アップロード日</span>
+                </div>
+                <div class="segment" style="width: 100%; margin: 0 auto;margin-top:7px;">
+                <div class="segment__item">
+                        <input type="radio" class="segment__input" name="segment-b">
+                        <div class="segment__button">24時間以内</div>
+                </div>
+                <div class="segment__item">
+                        <input type="radio" class="segment__input" name="segment-b">
+                        <div class="segment__button">3日以内</div>
+                </div>
+                <div class="segment__item">
+                        <input type="radio" class="segment__input" name="segment-b">
+                        <div class="segment__button">1ヶ月以内</div>
+                </div>
+                <div class="segment__item">
+                        <input type="radio" class="segment__input" name="segment-b">
+                        <div class="segment__button">3ヶ月以内</div>
+                </div>
+                </div>
+                <div style="margin-top:20px;">
+                <span>ギフト種類</span>
+                </div>
+                <div class="segment" style="width: 100%; margin: 0 auto;margin-top:7px;">
+                <div class="segment__item">
+                        <input type="radio" class="segment__input" name="segment-c">
+                        <div class="segment__button">動画</div>
+                </div>
+                <div class="segment__item">
+                        <input type="radio" class="segment__input" name="segment-c">
+                        <div class="segment__button">サイン</div>
+                </div>
+                <div class="segment__item">
+                        <input type="radio" class="segment__input" name="segment-c">
+                        <div class="segment__button">私物</div>
+                </div>
+                <div class="segment__item">
+                        <input type="radio" class="segment__input" name="segment-c">
+                        <div class="segment__button">その他</div>
+                </div>
+                </div> -->
+                
+        </div>
+        <div class="alert-dialog-mask searchKeywordNo_dialog_mask" style="z-index:1000;"></div>
+        <div class="alert-dialog searchKeywordNo_dialog" style="z-index: 1001;">
+                <div class="alert-dialog-container">
+                <div class="alert-dialog-title">検索キーワードを<br>入力してください</div>
+                <div class="alert-dialog-footer">
+                        <button class="alert-dialog-button alert-dialog-button--primal" onclick="searchKeywordNoClose();">OK</button>
+                </div>
+                </div>
+        </div>
+        <div class="alert-dialog-mask categoryNo_dialog_mask"></div>
+        <div class="alert-dialog categoryNo_dialog">
+                <div class="alert-dialog-container">
+                <div class="alert-dialog-title">カテゴリを1つ以上<br>選択してください。</div>
+                <div class="alert-dialog-footer">
+                        <button class="alert-dialog-button alert-dialog-button--primal" onclick="categoryNoClose();">OK</button>
+                </div>
+                </div>
+        </div>
+        <script>
+                $('.searchKeywordNo_dialog_mask,.searchKeywordNo_dialog,.categoryNo_dialog_mask,.categoryNo_dialog').hide();
+                
+                function categoryNoOpen(){
+                $('.categoryNo_dialog_mask,.categoryNo_dialog').slideDown();
+                }
+                function categoryNoClose(){
+                $('.categoryNo_dialog').slideUp();
+                setTimeout(function(){
+                        $('.categoryNo_dialog_mask').slideUp();
+                },500);
+                }
+                
+        </script>
+</ons-page>

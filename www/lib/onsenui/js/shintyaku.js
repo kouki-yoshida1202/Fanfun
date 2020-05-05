@@ -128,17 +128,13 @@ function shintyaku(shintyakuCounter){
                                                 hideLoad();
                                                 loadingIcon = `
                                                 <div id="topBottom" class="" style="width:98%;height: auto; padding: 1px 0 0 0;display: inline-block;margin-top:5px;">
-                                                <i class="fas fa-spinner fa-3x fa-spin"></i><br><br><br>
+                                                <br><br><br><i class="fas fa-spinner fa-3x fa-spin"></i><br><br><br>
                                                 </div>`;
                                                 $('#shintyakuList').append(loadingIcon);
                                         }
                                 }else{
                                         if(i+1==object.length){
                                                 hideLoad();
-                                                loadingIcon = `
-                                                <div id="topBottom" class="" style="width:98%;height: auto; padding: 1px 0 0 0;display: inline-block;margin-top:5px;">
-                                                <i class="fas fa-spinner fa-3x fa-spin"></i><br><br><br>
-                                                </div>`;
                                                 $("#topBottom").appendTo('#shintyakuList');
                                         }
                                 }

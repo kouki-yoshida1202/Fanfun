@@ -110,7 +110,7 @@
                                 var influencerId = $('#influencerIdGinkou').val();
                                 var defaultPrice = $('#defaultPriceGinkou').val();
                                 var influencerMail = $('#influencerMailGinkou').val();
-                                console.log(objectId,gift_uid,price,userName,gift_title,mailaddress,send_human,nickname,request,influencerId,defaultPrice,influencerMail,ginkoumei,shitenmei,kouzabangou,meigi);
+                                
                                 $.ajax({
                                         type: 'post',
                                         url: 'https://fanfun2020.xsrv.jp/ginkouHurikomiMailTest.html',
@@ -133,9 +133,61 @@
                                                 "meigi":meigi,
                                         },
                                         success: function(data){
-                                                console.log(data);
-                                                alert("メールを送信しました！ご確認ください！");
-                                                window.location.href = 'home.html';
+                                                var data = JSON.parse(data);
+                                                showLoad();
+                                                var date = getNowYMD();
+                                                var defaultPrice = data[0];
+                                                var request = data[1];
+                                                var sendHuman = data[2];
+                                                var nickName = data[3];
+                                                var giftUid = data[4];
+                                                var tyumonId = data[5];
+                                                var objectId = data[6];
+                                                var influencerId = data[7];
+                                                var giftTitle = data[8];
+                                                var giftLog = ncmb.DataStore("giftLog");
+                                                var giftLog = new giftLog();
+                                                giftLog.set("buyDate",date)
+                                                        .set("buyKakaku",defaultPrice)
+                                                        .set("buyRequest",request)
+                                                        .set("buyUser",objectId)
+                                                        .set("buyUserAtena",sendHuman)
+                                                        .set("buyUserNickName",nickName)
+                                                        .set("giftCreateInfluencer",influencerId)
+                                                        .set("giftTitle",giftTitle)
+                                                        .set("giftUid",giftUid)
+                                                        .set("logId",tyumonId)
+                                                        .set("torihikiStatus","入金待ち")
+                                                        .save()
+                                                        .then(function(){
+                                                        // 保存後の処理
+                                                        var GiftData = ncmb.DataStore("giftData");
+                                                        GiftData.equalTo("giftUid", giftUid)
+                                                                .fetch()                
+                                                                .then(function(results){
+                                                                        var object = results;
+                                                                        var num = object.get("stock");
+                                                                        num = String(Number(num)-1);
+                                                                        results.set("stock", num).update();
+                                                                        return results;
+                                                                })
+                                                                .then(function(){
+                                                                        hideLoad();
+                                                                        setTimeout(function(){
+                                                                                alert("手続きが完了しました");
+                                                                                window.location.href = 'home.html';
+                                                                        },500);
+                                                                })
+                                                                .catch(function(err){
+                                                                        hideLoad();
+                                                                });
+                                                        })
+                                                        .catch(function(err){
+                                                        // エラー処理
+                                                        hideLoad();
+                                                        });
+                                                // alert("メールを送信しました！ご確認ください！");
+                                                // window.location.href = 'home.html';
                                         },
                                         error: function (response) {
                                                 console.log(response);

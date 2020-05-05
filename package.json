@@ -10,7 +10,8 @@
         "com.darktalker.cordova.screenshot": "file:res/custom_plugins/com.darktalker.cordova.screenshot",
         "cordova-plugin-x-socialsharing": "file:res/custom_plugins/cordova-plugin-x-socialsharing",
         "cordova-plugin-camera": "file:res/custom_plugins/cordova-plugin-camera",
-        "cordova-plugin-customurlscheme": "file:res/custom_plugins/cordova-plugin-customurlscheme"
+        "cordova-plugin-customurlscheme": "file:res/custom_plugins/cordova-plugin-customurlscheme",
+        "ncmb-push-monaca-plugin": "3.0.8"
     },
     "cordova": {
         "plugins": {
@@ -24,7 +25,8 @@
             "cordova-plugin-camera": {},
             "cordova-plugin-customurlscheme": {
                 "URL_SCHEME": "fanfun"
-            }
+            },
+            "ncmb-push-monaca-plugin": {}
         }
     },
     "scripts": {
