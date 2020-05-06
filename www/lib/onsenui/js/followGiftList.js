@@ -43,6 +43,7 @@ function followUserGift(){
                                 var gift_user_id = object[i].get("userId");
                                 var BlockList = ncmb.DataStore("BlockList");
                                 var ReleaseStatus = object[i].get("ReleaseStatus");
+                                var ohitotu = object[i].get("ohitotu");
                                 // BlockList
                                 // .equalTo("blockerId", objectId)
                                 // .equalTo("blockedId", gift_user_id)
@@ -57,7 +58,7 @@ function followUserGift(){
                                                 var card = `
                                                 <div class="gift-card" style="width:48%;height: auto; padding: 1px 0 0 0;display: inline-block;margin-top:5px;"onclick="
                                                 `;
-                                                card += "giftIdJudge('"+gift_uid+"','"+userName+"','"+gift_title+"','"+gift_text+"','"+objectId+"','"+create_date+"','"+gift_price+"','"+gift_user_id+"','"+gift_stock+"','"+ReleaseStatus+"');";
+                                                card += "giftIdJudge('"+gift_uid+"','"+userName+"','"+gift_title+"','"+gift_text+"','"+objectId+"','"+create_date+"','"+gift_price+"','"+gift_user_id+"','"+gift_stock+"','"+ReleaseStatus+"','"+ohitotu+"');";
                                                 card +=`
                                                 ">
                                                         <input class="gift_uid" type="" value="`;

@@ -45,7 +45,8 @@ function InstagramNews(){
         $("#js-instalib").empty();
         var currentUser = ncmb.User.getCurrentUser();
         var objectId = currentUser.get("objectId");
-        if(objectId != "5eUcid4PpPcG5iqM"){
+        var userKind = currentUser.get("userKind");
+        if(userKind != "test"){
                 var accessToken = '21244683227.1677ed0.cfdf4f10b42f45ea8a0aa9b84b71b0f0'; //取得したアクセストークンを貼り付ける
                 $.getJSON('https://api.instagram.com/v1/users/self/media/recent/?access_token='+accessToken+'&callback=?',function (insta) {
                         

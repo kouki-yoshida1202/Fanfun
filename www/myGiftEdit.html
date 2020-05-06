@@ -58,7 +58,7 @@
             }
 
             .alert-dialog{
-                top:120%;
+                top:130%;
             }
         </style>
     <ons-toolbar class="toolbar" style="background-color: white;position: fixed;">
@@ -145,11 +145,20 @@
             </div>
             <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:20px;">
                 <div>
-                    <span>4.在庫数(後から変更可能です)</span>
+                    <span>4.在庫数</span>
                 </div>
                 <div class="cp_iptxt">
                     <input type="tel" placeholder="0~999の整数で入力してください" id="gift_stock_edit"required>
                     <i class="fas fa-box fa-lg fa-fw" aria-hidden="true"></i>
+                </div>
+            </div>
+            <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:20px;">
+                <div>
+                    <span>5.投稿時間(変更不可です)</span>
+                </div>
+                <div class="cp_iptxt">
+                    <input type="text" id="yoyakuDateTimeEdit" disabled>
+                    <i class="far fa-calendar-check fa-lg fa-fw" aria-hidden="true"></i>
                 </div>
             </div>
             <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:20px;">
@@ -165,7 +174,7 @@
     <div class="alert-dialog giftEdit_dialog">
         <div class="alert-dialog-container">
             <div class="alert-dialog-title">
-                出品しました。
+                変更しました。
             </div>
             <div class="alert-dialog-footer">
                 <button class="alert-dialog-button alert-dialog-button--primal" onclick="giftEditClose();">OK</button>
@@ -176,7 +185,7 @@
     <div class="alert-dialog giftEditMiss_dialog">
         <div class="alert-dialog-container">
             <div class="alert-dialog-title">
-                出品が失敗しました。
+                変更が失敗しました。
             </div>
             <div class="alert-dialog-content">
                 再度送信頂くか、お問い合わせください。

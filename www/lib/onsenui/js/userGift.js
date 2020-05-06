@@ -1,5 +1,4 @@
 function MyGift(){
-        console.log("mygift");
         $("#myGiftList").empty();
         showUserLoad();
         // カレントユーザー情報の取得
@@ -47,7 +46,6 @@ function MyGift(){
                         hideUserLoad();
                 }
                 for(var i=0;i<object.length;i++){
-                        console.log(i);
                         var gift_title = object[i].get("giftTitle");
                         var gift_text =object[i].get("giftText");
                         var create_date = object[i].get("createDate");
@@ -57,12 +55,12 @@ function MyGift(){
                         var gift_price = object[i].get("price");
                         var gift_user_id = object[i].get("userId");
                         var ReleaseStatus = object[i].get("ReleaseStatus");
-                        
+                        var ohitotu = object[i].get("ohitotu");
                         //カードに出力していく
                         var card = `
                         <div class="gift-card" style="width:49%;height: auto; padding: 1px 0 0 0;display: inline-block;margin-top:5px;"onclick="
                         `;
-                        card += "giftIdJudge('"+gift_uid+"','"+userName+"','"+gift_title+"','"+gift_text+"','"+objectId+"','"+create_date+"','"+gift_price+"','"+gift_user_id+"','"+gift_stock+"','"+ReleaseStatus+"');";
+                        card += "giftIdJudge('"+gift_uid+"','"+userName+"','"+gift_title+"','"+gift_text+"','"+objectId+"','"+create_date+"','"+gift_price+"','"+gift_user_id+"','"+gift_stock+"','"+ReleaseStatus+"','"+ohitotu+"');";
                         card +=`
                         ">
                                 <input class="gift_uid" type="" value="`;
@@ -172,14 +170,14 @@ function giftImageGet(giftUid,i){
         });
 }
 
-function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date,price,gift_user_id,gift_stock,ReleaseStatus){
+function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date,price,gift_user_id,gift_stock,ReleaseStatus,ohitotu){
         // 日付のフォーマット変換
         ncmb.User
         .equalTo("objectId", gift_user_id)
         .fetch()
         .then(function(results){
                 var gift_user_name = results.get("userName");
-                if(gift_user_id == objectId || objectId=="V5wsDER2rALwDReh"){
+                if(gift_user_id == objectId){
                         //自分のギフト
                         document.getElementById('navi').bringPageTop('myGiftDetail.html');
                         function formatDate(date) {
@@ -242,6 +240,10 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
                                         $('#shitagakiButton').text("公開する");
                                         $('#shitagakiTitle').html("公開しますか？");
                                 }
+                                console.log(ohitotu);
+                                if(ohitotu=="ON"){
+                                        $('#mygift_detail_ohitotu').css("display","block");
+                                }
                         },500);
                 }else{
                         document.getElementById('navi').bringPageTop('detail.html');
@@ -299,6 +301,22 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
                                 if(gift_stock == 0 || gift_stock == '' || gift_stock==undefined){
                                         $('#ReleaseStatusButton').prop("disabled",true);
                                         $('#ReleaseStatusButton').html("在庫切れ");
+                                }
+                                if(ohitotu=="ON"){
+                                        $('#gift_detail_ohitotu').css("display","block");
+                                        // 購入済みかどうか
+                                        var giftLog = ncmb.DataStore("giftLog");
+                                        giftLog
+                                        .equalTo('buyUser',objectId)
+                                        .equalTo('giftUid',gift_uid)
+                                        .fetchAll()         
+                                        .then(function(results){
+                                                var object = results;
+                                                if(object.length > 0){
+                                                        $('#ReleaseStatusButton').prop("disabled",true);
+                                                        $('#ReleaseStatusButton').html("購入済み");
+                                                }
+                                        });
                                 }
                         },500);
                 }

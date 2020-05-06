@@ -9,6 +9,7 @@ function influencerChange(){
         var currentUser = ncmb.User.getCurrentUser();
         var objectId = currentUser.get('objectId');
         var userName = currentUser.get("userName");
+        var mailAddress = currentUser.get("mailAddress");
         var user = new ncmb.User();
         var genre = $('.checkbox__input:checked').map(function() {
                 return $(this).val();
@@ -26,9 +27,10 @@ function influencerChange(){
                 // 運営へ通知
                 $.ajax({
                         type: 'post',
-                        url: 'https://fanfun2020.xsrv.jp/influencerOrder.html',
+                        url: 'https://fanfun2020.xsrv.jp/influencerOrderChange.html',
                         data: {
                                 'username': userName,
+                                'mailAddress':mailAddress,
                         },
                         success: function(data){
                                 console.log("----success.----");

@@ -9,12 +9,18 @@ function shintyaku(shintyakuCounter){
         var objectId = currentUser.get("objectId");
         $('.current_user_id').val(objectId);
         var userName = currentUser.get("userName");
+        var userKind = currentUser.get("userKind");
         //データストアから取得して、1件表示する
         var GiftData = ncmb.DataStore("giftData");
-        if(userName!="テストアカウント"){
+        var time = new Date();
+        var iso = moment(time).format();
+        var subquery1 = GiftData.equalTo("releaseDate", null);
+        var subquery2 = GiftData.lessThan("releaseDate", iso);
+        if(userKind!="test"){
                 GiftData
-                .order('createDate', true)
+                .order('releaseDate', true)
                 .notEqualTo('ReleaseStatus',1)
+                .or([subquery1, subquery2])
                 .limit(10)
                 .skip(shintyakuCounter*10)
                 .fetchAll()                
@@ -39,6 +45,7 @@ function shintyaku(shintyakuCounter){
                                 var gift_user_id = object[i].get("userId");
                                 var BlockList = ncmb.DataStore("BlockList");
                                 var ReleaseStatus = object[i].get("ReleaseStatus");
+                                var ohitotu = object[i].get("ohitotu");
                                 // BlockList
                                 // .equalTo("blockerId", objectId)
                                 // .equalTo("blockedId", gift_user_id)
@@ -53,7 +60,7 @@ function shintyaku(shintyakuCounter){
                                                 var card = `
                                                 <div class="gift-card" style="width:48%;height: auto; padding: 1px 0 0 0;display: inline-block;margin-top:5px;"onclick="
                                                 `;
-                                                card += "giftIdJudge('"+gift_uid+"','"+userName+"','"+gift_title+"','"+gift_text+"','"+objectId+"','"+create_date+"','"+gift_price+"','"+gift_user_id+"','"+gift_stock+"','"+ReleaseStatus+"');";
+                                                card += "giftIdJudge('"+gift_uid+"','"+userName+"','"+gift_title+"','"+gift_text+"','"+objectId+"','"+create_date+"','"+gift_price+"','"+gift_user_id+"','"+gift_stock+"','"+ReleaseStatus+"','"+ohitotu+"');";
                                                 card +=`
                                                 ">
                                                         <input class="gift_uid" type="" value="`;
@@ -170,6 +177,7 @@ function shintyaku(shintyakuCounter){
                                 var gift_user_id = object[i].get("userId");
                                 var BlockList = ncmb.DataStore("BlockList");
                                 var ReleaseStatus = object[i].get("ReleaseStatus");
+                                var ohitotu = object[i].get("ohitotu");
                                 // BlockList
                                 // .equalTo("blockerId", objectId)
                                 // .equalTo("blockedId", gift_user_id)
@@ -184,7 +192,7 @@ function shintyaku(shintyakuCounter){
                                                 var card = `
                                                 <div class="gift-card" style="width:48%;height: auto; padding: 1px 0 0 0;display: inline-block;margin-top:5px;"onclick="
                                                 `;
-                                                card += "giftIdJudge('"+gift_uid+"','"+userName+"','"+gift_title+"','"+gift_text+"','"+objectId+"','"+create_date+"','"+gift_price+"','"+gift_user_id+"','"+gift_stock+"','"+ReleaseStatus+"');";
+                                                card += "giftIdJudge('"+gift_uid+"','"+userName+"','"+gift_title+"','"+gift_text+"','"+objectId+"','"+create_date+"','"+gift_price+"','"+gift_user_id+"','"+gift_stock+"','"+ReleaseStatus+"','"+ohitotu+"');";
                                                 card +=`
                                                 ">
                                                         <input class="gift_uid" type="" value="`;

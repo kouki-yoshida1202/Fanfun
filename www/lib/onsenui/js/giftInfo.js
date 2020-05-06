@@ -13,17 +13,29 @@ function giftInsert(ReleaseStatus) {
         var gift_text = gift_text.replace(/\r?\n/g,'');
         var gift_price = $("#gift_price").val(); 
         var gift_stock = $("#gift_stock").val(); 
+        var yoyaku = $('.segment-yoyaku:checked').val();
+        if(yoyaku=="今すぐ"){
+                var time = new Date();
+        }else{
+                var date = $('#yoyakuDate').val();
+                var time = $('#yoyakuTime').val();
+                var time = date+"T"+time;
+        }
+        var iso = moment(time).format();
+        var ohitotu = $('.segment-ohitotu:checked').val();
         var profileGiftInputStatus = $('#profileGiftInputStatus').val();
         if(gift_title ==''){
                 hideGiftInsertLoad();
-                giftTitleCheckOpen();
+                alert("ギフト名が未入力です");
         }else if(gift_text == ""){
                 hideGiftInsertLoad();
                 alert("ギフト説明文が未入力です");
-        }else if(profileGiftInputStatus == 0){
+        }
+        else if(profileGiftInputStatus == 0){
                 hideGiftInsertLoad();
                 alert("ギフト画像が未登録です");
-        }else if(gift_price == ""){
+        }
+        else if(gift_price == ""){
                 hideGiftInsertLoad();
                 alert("ギフト価格が未入力です");
         }else if(gift_stock == ""){
@@ -32,6 +44,9 @@ function giftInsert(ReleaseStatus) {
         }else if(gift_stock > 999){
                 hideGiftInsertLoad();
                 alert("ギフト在庫数は0~999です");
+        }else if(yoyaku=="予約"&&(date==""||time=="")){
+                hideGiftInsertLoad();
+                alert("日時が未入力です");
         }else if(!Number.isInteger(Number(gift_stock)) || !Number.isInteger(Number(gift_price)) || gift_price < 1 || gift_stock < 0){
                 hideGiftInsertLoad();
                 alert("数値を1以上の整数で入力してください");
@@ -51,6 +66,8 @@ function giftInsert(ReleaseStatus) {
                         .set("price",gift_price)
                         .set("giftUid",uid)
                         .set("stock",gift_stock)
+                        .set("releaseDate",iso)
+                        .set("ohitotu",ohitotu)
                         .set("ReleaseStatus",ReleaseStatus)
                         .save()
                         .then(function(gameScore){
@@ -64,11 +81,14 @@ function giftInsert(ReleaseStatus) {
                                 .then(function(res){
                                         // アップロード後処理
                                         hideGiftInsertLoad();
-                                        giftInputOpen();
+                                        // giftInputOpen();
+                                        
                                         if(ReleaseStatus==1){
-                                                $('#giftInputSuccess').html("下書き保存しました。");
+                                                alert("下書き保存しました。");
+                                                window.location.href = 'home.html';
                                         }else{
-                                                $('#giftInputSuccess').html("出品しました。");
+                                                alert("出品成功しました。");
+                                                window.location.href = 'home.html';
                                         }
                                 })
                                 .catch(function(err){
@@ -80,11 +100,11 @@ function giftInsert(ReleaseStatus) {
                         .catch(function(err){
                         // エラー処理
                                 hideGiftInsertLoad();
-                                giftInputMissOpen();
+                                
                                 if(ReleaseStatus==1){
-                                        $('#giftInputError').html("下書き保存が失敗しました。");
+                                        alert("下書き保存が失敗しました。");
                                 }else{
-                                        $('#giftInputError').html("出品が失敗しました。");
+                                        alert("出品が失敗しました。");
                                 }
                         });
         }
@@ -151,7 +171,8 @@ function giftEdit() {
                                         .then(function(res){
                                                 // アップロード後処理
                                                 hideGiftEditLoad();
-                                                giftEditOpen();
+                                                alert("変更しました。");
+                                                window.location.href = 'home.html';
                                         })
                                         .catch(function(err){
                                                 // エラー処理
@@ -187,6 +208,29 @@ function giftNowInfo(){
                 $('.tesuryou').text(tesuryou);
                 $('.rieki').text(rieki);
                 $('#gift_stock_edit').val(gift_stock);
+                var GiftData = ncmb.DataStore("giftData");
+                GiftData.equalTo("giftUid", gift_uid)
+                        .fetch()
+                        .then(function(results){
+                                var object = results;
+                                console.log(object);
+                                var releaseDate = object.get("releaseDate");
+                                var dt = new Date(releaseDate);
+                                var y = dt.getFullYear();
+                                var m = ("00" + (dt.getMonth()+1)).slice(-2);
+                                var d = ("00" + dt.getDate()).slice(-2);
+                                var date = y + "-" + m + "-" + d;
+                                var hh = dt.getHours();
+                                if (hh < 10) {
+                                        hh = "0" + hh;
+                                }
+                                var mm = dt.getMinutes();
+                                if (mm < 10) {
+                                        mm = "0" + mm;
+                                }
+                                var time = hh + ":" + mm;
+                                $('#yoyakuDateTimeEdit').val(date + " "+ time);
+                        });
 
                 ncmb.File.download(gift_uid, "blob")
                 .then(function(fileData) {

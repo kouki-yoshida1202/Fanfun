@@ -58,7 +58,7 @@
         }
 
         .alert-dialog{
-            top:120%;
+            top:130%;
         }
     </style>
     <ons-toolbar class="toolbar" style="background-color: white;position: fixed;">
@@ -143,12 +143,46 @@
             </div>
             <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:20px;">
                 <div>
-                    <span>4.在庫数(後から変更可能です)</span>
+                    <span>4.在庫数</span>
                 </div>
                 <div class="cp_iptxt">
                     <input type="tel" placeholder="0~999の整数で入力してください" id="gift_stock"required>
                     <i class="fas fa-box fa-lg fa-fw" aria-hidden="true"></i>
                     <span style="padding-left:10px;font-size:12px;color:#FF6070;">※5個前後が希少感が出るためオススメです！</span>
+                </div>
+            </div>
+            <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:20px;">
+                <div>
+                    <span>5.投稿時間(後から変更不可です)</span>
+                </div>
+                <div class="segment" style="width: 100%; margin: 0 auto;margin-top:7px;">
+                    <div class="segment__item" style="width:49%;">
+                        <input type="radio" class="segment__input segment-yoyaku" name="segment-yoyaku" value="今すぐ"checked>
+                        <div class="segment__button" style="height:35px;line-height: 35px;">今すぐ</div>
+                    </div>
+                    <div class="segment__item" style="width:49%;">
+                        <input type="radio" class="segment__input segment-yoyaku" name="segment-yoyaku" value="予約">
+                        <div class="segment__button" style="height:35px;line-height: 35px;">予約</div>
+                    </div>
+                </div>
+                <div class="cp_iptxt">
+                    <input type="date" id="yoyakuDate" style="display:inline-block;" disabled>
+                    <input type="time" id="yoyakuTime" style="display:inline-block;"disabled>
+                </div>
+            </div>
+            <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:20px;">
+                <div>
+                    <span>6.お一人様お一つまで(後から変更不可です)</span>
+                </div>
+                <div class="segment" style="width: 100%; margin: 0 auto;margin-top:7px;">
+                    <div class="segment__item" style="width:49%;">
+                        <input type="radio" class="segment__input segment-ohitotu" name="segment-ohitotu" value="OFF"checked>
+                        <div class="segment__button" style="height:35px;line-height: 35px;">OFF</div>
+                    </div>
+                    <div class="segment__item" style="width:49%;">
+                        <input type="radio" class="segment__input segment-ohitotu" name="segment-ohitotu" value="ON">
+                        <div class="segment__button" style="height:35px;line-height: 35px;">ON</div>
+                    </div>
                 </div>
             </div>
             <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:20px;">
@@ -229,6 +263,32 @@
     </div>
     
     <script>
+    var dt = new Date();
+    var y = dt.getFullYear();
+    var m = ("00" + (dt.getMonth()+1)).slice(-2);
+    var d = ("00" + dt.getDate()).slice(-2);
+    var date = y + "-" + m + "-" + d;
+    var hh = dt.getHours();
+    if (hh < 10) {
+            hh = "0" + hh;
+    }
+    var mm = dt.getMinutes();
+    if (mm < 10) {
+            mm = "0" + mm;
+    }
+    var time = hh + ":" + mm;
+    $('#yoyakuDate').val(date);
+    $('#yoyakuTime').val(time);
+    $(".segment-yoyaku").change(function(){
+        if($(this).val()=="今すぐ"){
+            $('#yoyakuDate').prop("disabled",true);
+            $('#yoyakuTime').prop("disabled",true);
+        }else{
+            $('#yoyakuDate').prop("disabled",false);
+            $('#yoyakuTime').prop("disabled",false);
+        }
+    });
+    
     function giftInputCamera(){
         window.navigator.camera.getPicture((imageData) => {
             //成功時

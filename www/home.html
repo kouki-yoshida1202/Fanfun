@@ -62,6 +62,7 @@
   <script src="lib/onsenui/js/crown.js"></script>
   <script src="lib/onsenui/js/jquery.inview.min.js"></script>
   <script src="lib/onsenui/js/searchUser.js"></script>
+  <script src="lib/onsenui/js/moment.js"></script>
   <!-- <script src="lib/onsenui/js/fileUpload.js"></script> -->
 
   <script>
@@ -150,8 +151,9 @@
             var userName = currentUser.get("userName");
             var mailaddress = currentUser.get("mailAddress");
             var objectId = currentUser.get("objectId");
+            var ohitotu = object.get("ohitotu");
             // アラートで確認
-            giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date,price,gift_user_id,gift_stock,ReleaseStatus);
+            giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date,price,gift_user_id,gift_stock,ReleaseStatus,ohitotu);
           })
           .catch(function(err){
                   // エラー処理

@@ -1,7 +1,8 @@
 function crown(){
         var currentUser = ncmb.User.getCurrentUser();
         var objectId = currentUser.get("objectId");
-        if(objectId != "5eUcid4PpPcG5iqM"){
+        var userKind = currentUser.get("userKind");
+        if(userKind != "test"){
                 var crownCounter = 0;
                 if(crownCounter==0){
                         crownCounter++;
@@ -27,20 +28,23 @@ function crown(){
         }
 }
 function clickCrown(rank){
-        var clickCounter = 0;
-        if(clickCounter==0){
-                clickCounter++;
-                var crownData = ncmb.DataStore("crownData");
-                crownData
-                .equalTo('rank',String(rank))
-                .fetch()
-                .then(function(results){
-                        var userId = results.get("userId");
-                        document.getElementById('navi').bringPageTop('otherpage.html');
-                        otherPageUserId(userId);
-                }).catch(function(err){
-                        console.log(err);
-                });     
+        var userKind = currentUser.get("userKind");
+        if(userKind != "test"){
+                var clickCounter = 0;
+                if(clickCounter==0){
+                        clickCounter++;
+                        var crownData = ncmb.DataStore("crownData");
+                        crownData
+                        .equalTo('rank',String(rank))
+                        .fetch()
+                        .then(function(results){
+                                var userId = results.get("userId");
+                                document.getElementById('navi').bringPageTop('otherpage.html');
+                                otherPageUserId(userId);
+                        }).catch(function(err){
+                                console.log(err);
+                        });     
+                }
         }
 }
 

@@ -18,31 +18,44 @@ function insertUser() {
     }else if(password == ""){
         passwordNoOpen();
     }else{
-        var user = new ncmb.User();
-        // ユーザー名・パスワードを設定
-        var mailcheck = MailCheck(mailaddress);
-        if(mailcheck){
-            user.set("userName", username) /* ユーザー名 */
-            .set("password", password) /* パスワード */
-            .set("mailAddress", mailaddress) /* 任意フィールドも追加可能 */
-            .set("BoughtCount",0)
-            .set("Review",0)
-            .set("Influencer",false);
-            //   ユーザーの新規登録処理
-            user.signUpByAccount()
-                .then(function(){
-                    //   登録後処理
-                    //  保存に成功した場合の処理
-                    userCreateCheckOpen();
-                })
-                .catch(function(err){
-                    //   エラー処理
-                    //  保存に失敗した場合の処理
-                    userCreateMissOpen();
-                });
-        }else{
-            userCreateMailMissOpen();
-        }
+        $.ajax({
+            type: 'post',
+            url: 'https://fanfun2020.xsrv.jp/vsApple.html',
+            data: {
+            },
+            success: function(test){
+                console.log(test);
+                var user = new ncmb.User();
+                // ユーザー名・パスワードを設定
+                var mailcheck = MailCheck(mailaddress);
+                if(mailcheck){
+                    user.set("userName", username) /* ユーザー名 */
+                    .set("password", password) /* パスワード */
+                    .set("mailAddress", mailaddress) /* 任意フィールドも追加可能 */
+                    .set("BoughtCount",0)
+                    .set("Review",0)
+                    .set("userKind",test)
+                    .set("Influencer",false);
+                    
+                    //   ユーザーの新規登録処理
+                    user.signUpByAccount()
+                        .then(function(){
+                            //   登録後処理
+                            //  保存に成功した場合の処理
+                            userCreateCheckOpen();
+                        })
+                        .catch(function(err){
+                            //   エラー処理
+                            //  保存に失敗した場合の処理
+                            userCreateMissOpen();
+                        });
+                }else{
+                    userCreateMailMissOpen();
+                }
+            }
+        
+        });
+        
     }
 }
 // -------[Demo1]データをmBaaSに保存する -------//
@@ -63,51 +76,60 @@ function insertInfluencer() {
     }else if(password == ""){
         passwordNoOpen();
     }else{
-        var user = new ncmb.User();
-        // ユーザー名・パスワードを設定
-        var mailcheck = MailCheck(mailaddress);
-        if(mailcheck){
-            user.set("userName", username) /* ユーザー名 */
-            .set("password", password) /* パスワード */
-            .set("mailAddress", mailaddress) /* 任意フィールドも追加可能 */
-            .set("BoughtCount",0)
-            .set("Review",0)
-            .set("Genre",genre)
-            .set("Influencer",true);
-            //   ユーザーの新規登録処理
-            user.signUpByAccount()
-                .then(function(){
-                    //   登録後処理
-                    
-                    // // 運営へ通知
-                    // monaca.cloud.Mailer.sendMail("oid", "template_name", null)
-                    // .done(function(result) {
-                    //     console.log("Send mail success");
-                    // })
-                    // .fail(function(err) {
-                    //     console.log("Mail Err#" + err.code +": " + err.message);
-                    // });
-                    $.ajax({
-                        type: 'post',
-                        url: 'https://fanfun2020.xsrv.jp/influencerOrder.html',
-                        data: {
-                                'username': username,
-                                'mailaddress':mailaddress
-                        },
-                        success: function(data){
-                                console.log("----success.----");
-                        }
-                    });
-                    userCreateCheckOpen();
-                })
-                .catch(function(err){
-                    //   エラー処理
-                    //  保存に失敗した場合の処理
-                    userCreateMissOpen();
-                });
-        }else{
-            userCreateMailMissOpen();
-        }
+        $.ajax({
+            type: 'post',
+            url: 'https://fanfun2020.xsrv.jp/vsApple.html',
+            data: {
+            },
+            success: function(test){
+                var user = new ncmb.User();
+                // ユーザー名・パスワードを設定
+                var mailcheck = MailCheck(mailaddress);
+                if(mailcheck){
+                    user.set("userName", username) /* ユーザー名 */
+                    .set("password", password) /* パスワード */
+                    .set("mailAddress", mailaddress) /* 任意フィールドも追加可能 */
+                    .set("BoughtCount",0)
+                    .set("Review",0)
+                    .set("Genre",genre)
+                    .set("userKind",test)
+                    .set("Influencer",true);
+                    //   ユーザーの新規登録処理
+                    user.signUpByAccount()
+                        .then(function(){
+                            //   登録後処理
+                            
+                            // // 運営へ通知
+                            // monaca.cloud.Mailer.sendMail("oid", "template_name", null)
+                            // .done(function(result) {
+                            //     console.log("Send mail success");
+                            // })
+                            // .fail(function(err) {
+                            //     console.log("Mail Err#" + err.code +": " + err.message);
+                            // });
+                            $.ajax({
+                                type: 'post',
+                                url: 'https://fanfun2020.xsrv.jp/influencerOrder.html',
+                                data: {
+                                        'username': username,
+                                        'mailaddress':mailaddress
+                                },
+                                success: function(data){
+                                        console.log("----success.----");
+                                }
+                            });
+                            userCreateCheckOpen();
+                        })
+                        .catch(function(err){
+                            //   エラー処理
+                            //  保存に失敗した場合の処理
+                            userCreateMissOpen();
+                        });
+                }else{
+                    userCreateMailMissOpen();
+                }
+            }
+        });
     }
 }
 // -------------------------------------------------------------------

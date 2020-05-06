@@ -319,8 +319,6 @@ function mikanryoKounyuTorihikiList(){
 }
 
 function giftLogDetail(buyUserAtena,buyUserNickName,buyRequest,buyKakaku,giftUid,torihikiStatus,buyDate,status,logId){
-        console.log(status);
-        console.log(buyUserAtena,buyUserNickName,buyRequest,buyKakaku,giftUid,torihikiStatus,buyDate,status,logId);
         document.getElementById('navi').pushPage('giftLogDetail.html');
         var buyKakaku = String( buyKakaku );
         var giftData = ncmb.DataStore("giftData");
