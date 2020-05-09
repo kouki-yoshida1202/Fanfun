@@ -4,77 +4,128 @@
                         <ons-back-button></ons-back-button>
                 </div>
                 <div class="center" style="width:120%;color:#898989;">
-                        ギフトログリスト
+                        ギフトログ検索
                 </div>
         </ons-toolbar>
         
-        <div class="contents" style="background-color: white;margin:5px;">
-                <ul id="giftLogList"class="list list--material" style="margin-top:10px;">
-        
-                </ul>
+        <div class="contents" style="margin:5px;">
+                <input type="text" readonly id="kanriObjectId" class="text-input" style="background-color: white;border:1px solid black;width:100%;">
+                <span>ログID</span>
+                <input type="text" readonly id="kanriLogId" class="text-input" style="background-color: white;border:1px solid black;width:100%;">
+                <span>タイトル</span>
+                <input type="text" readonly id="kanriTitle" class="text-input" style="background-color: white;border:1px solid black;width:100%;">
+                <span>ニックネーム</span>
+                <input type="text" readonly id="kanriNickName" class="text-input" style="background-color: white;border:1px solid black;width:100%;">
+                <span>購入者</span>
+                <input type="text" readonly id="kanriBuyId" class="text-input" style="background-color: white;border:1px solid black;width:100%;">
+                <span>インフルエンサー</span>
+                <input type="text" readonly id="kanriInfluencerId" class="text-input" style="background-color: white;border:1px solid black;width:100%;">
+                <span>状態</span>
+                <input type="text" readonly id="torihikiStatusBefore"class="text-input" style="background-color: white;border:1px solid black;width:100%;">
+                
+                <select id="torihikiStatusAfter" class="select-input">
+                        <option val="ギフト準備中">ギフト準備中</option>
+                        <option val="ギフト内容確認中">ギフト内容確認中</option>
+                        <option val="プレゼント完了">プレゼント完了</option>
+                        <option val="入金待ち">入金待ち</option>
+                        <option val="保留中">保留中</option>
+                </select>
+
+                <button class="btn button" onclick="torihikiStatusChange();">変更</button>
         </div>
         <!-- 以下、javascript -->
         <script type="text/javascript">
-        
-        var currentUser = ncmb.User.getCurrentUser();
-        var userName = currentUser.get("userName");
-        var mailaddress = currentUser.get("mailAddress");
-        var objectId = currentUser.get("objectId");
-        
-        $("#giftLogList").empty();
-        var giftLog = ncmb.DataStore("giftLog");
-        giftLog
-        .order('createDate', true)
-        .fetchAll()                
-        .then(function(results){
-                var object = results;
-                for(var j=0;j<object.length;j++){
-                        var giftUid = object[j].get("giftUid");
-                        var giftTitle = object[j].get("giftTitle");
-                        var torihikiStatus = object[j].get("torihikiStatus");
-                        var buyUser = object[j].get("buyUser");
-                        var buyUserAtena = object[j].get("buyUserAtena");
-                        var buyUserNickName = object[j].get("buyUserNickName");
-                        var buyKakaku = object[j].get("buyKakaku");
-                        var buyRequest = object[j].get("buyRequest");
-                        var buyDate = object[j].get("buyDate");
-                        var logId = object[j].get("logId");
-                        var giftLogList = `
-                        <li class="list-item list-item--material" onclick="
-                        `;
-                        giftLogList += "giftLogDetail('"+buyUserAtena+"','"+buyUserNickName+"','"+buyRequest+"','"+buyKakaku+"','"+giftUid+"','"+torihikiStatus+"','"+buyDate+"','出品','"+logId+"');";
-                        giftLogList +=`
-                                ">
-                                <div class="list-item__left list-item--material__left">
-                                <img id="`;
-                                giftLogList += "gift_log_image_"+j;
-                                giftLogList +=`" class="list-item__thumbnail list-item--material__thumbnail" src="img/loading.png">
-                                </div>
-                                <div class="list-item__center list-item--material__center">
-                                <div class="list-item__title list-item--material__title">
-                                        `+giftTitle+`
-                                </div>
-                                <div class="list-item__subtitle list-item--material__subtitle" style="margin-top:10px";>`;
-                                if(torihikiStatus=="プレゼント完了"){
-                                        giftLogList += `<span style="border-radius:20px;background:#898989;color:white;padding:5px 10px 5px 10px;">`;
+                function torihikiStatusChange(){
+                        var kanriObjectId = $('#kanriObjectId').val();
+                        var torihikiStatusBefore = $('#torihikiStatusBefore').val(); 
+                        var torihikiStatusAfter = $('#torihikiStatusAfter').val(); 
+                        var kanriLogId = $('#kanriLogId').val();
+                        var kanriBuyId = $('#kanriBuyId').val();
+                        var kanriInfluencerId = $('#kanriInfluencerId').val();
+
+                        var giftLog = ncmb.DataStore("giftLog");
+                        giftLog
+                        .equalTo('objectId',kanriObjectId)
+                        .fetch()         
+                        .then(function(results){
+                                results.set("torihikiStatus", torihikiStatusAfter)
+                                        .update(); 
+                                alert("更新成功");
+                                if(torihikiStatusBefore=="入金待ち" && torihikiStatusAfter=="ギフト準備中"){
+                                        ////////////////////////////
+                                        ///////// 出品者に通知
+                                        var push = new ncmb.Push();
+                                        push.set("immediateDeliveryFlag", true)
+                                        .set("message", "注文ID:"+kanriLogId+" の入金が確認されました。ギフトの準備をお願いします。")
+                                        .set("target", ["ios", "android"])
+                                        .set('searchCondition', {
+                                                userObjectId: kanriInfluencerId,
+                                        });
+                                        push.send()
+                                        .then(function(push){
+                                                //////////////////////////////
+                                                ///////// 購入者に通知
+                                                var push = new ncmb.Push();
+                                                push.set("immediateDeliveryFlag", true)
+                                                .set("message", "注文ID:"+kanriLogId+" の入金が確認され、「ギフト準備中」状態となりました。")
+                                                .set("target", ["ios", "android"])
+                                                .set('searchCondition', {
+                                                        userObjectId: kanriBuyId,
+                                                });
+                                                push.send()
+                                                .then(function(push){
+                                                        // 送信後処理
+                                                        alert("送信OK");
+                                                })
+                                                .catch(function(err){
+                                                        // エラー処理
+                                                        alert("送信NG");
+                                                });
+                                        })
+                                        .catch(function(err){
+                                                // エラー処理
+                                                alert("送信NG");
+                                        });
                                 }else{
-                                        giftLogList += `<span style="border-radius:20px;background:#FF6070;color:white;padding:5px 10px 5px 10px;">`;
+                                        ////////////////////////////
+                                        ///////// 出品者に通知
+                                        var push = new ncmb.Push();
+                                        push.set("immediateDeliveryFlag", true)
+                                        .set("message", "注文ID:"+kanriLogId+" が「"+torihikiStatusAfter+"」状態に変わりました。")
+                                        .set("target", ["ios", "android"])
+                                        .set('searchCondition', {
+                                                userObjectId: kanriInfluencerId,
+                                        });
+                                        push.send()
+                                        .then(function(push){
+                                                ////////////////////////////
+                                                // 購入者に通知
+                                                var push = new ncmb.Push();
+                                                push.set("immediateDeliveryFlag", true)
+                                                .set("message", "注文ID:"+kanriLogId+" が「"+torihikiStatusAfter+"」状態に変わりました。")
+                                                .set("target", ["ios", "android"])
+                                                .set('searchCondition', {
+                                                        userObjectId: kanriBuyId,
+                                                });
+                                                push.send()
+                                                .then(function(push){
+                                                // 送信後処理
+                                                        alert("送信OK");
+                                                })
+                                                .catch(function(err){
+                                                        // エラー処理
+                                                        alert("送信NG");
+                                                });
+                                        })
+                                        .catch(function(err){
+                                                // エラー処理
+                                                alert("送信NG");
+                                        });
                                 }
-                                giftLogList += torihikiStatus;
-                                giftLogList += `</span>
-                                <span style="float:right;color:#898989;">`;
-                                        giftLogList += buyDate;
-                                        giftLogList +=`
-                                        </span>
-                                </div>
-                                </div>
-                        </li>
-                        `;
-                        $('#giftLogList').append(giftLogList);
-                        giftLogImage(giftUid,j);
+                                
+                        }).catch(function(){
+                                alert("更新失敗");
+                        });
                 }
-        }).catch(function(err){
-                console.log(err);
-        });  
         </script>
 </ons-page>

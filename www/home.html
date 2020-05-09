@@ -232,7 +232,26 @@
                                         hideLoad();
                                         setTimeout(function(){
                                           alert("手続きが完了しました");
-                                          window.location.href = 'home.html';
+                                          var push = new ncmb.Push();
+                                          push.set("immediateDeliveryFlag", true)
+                                              .set("message", "商品が購入されました！アプリ内でご確認ください！")
+                                              .set("target", ["ios", "android"])
+                                              .set('searchCondition', {
+                                                  userObjectId: influencerId,
+                                              });
+
+                                          push.send()
+                                              .then(function(push){
+                                              // 送信後処理
+                                                console.log(push);
+                                                window.location.href = 'home.html';
+                                              })
+                                              .catch(function(err){
+                                              // エラー処理
+                                                console.log(err);
+                                                window.location.href = 'home.html';
+                                              });
+                                          
                                         },500);
                                       })
                                       .catch(function(err){

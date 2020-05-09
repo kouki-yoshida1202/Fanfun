@@ -75,26 +75,15 @@
         <div id="influencerTouroku" style="background-color: #efeff4;text-align: center;padding-top:50px;padding-bottom:50px;">
             
         </div>
-        <div id="kanrisyabox"style="display: none;background-color: #efeff4;">
-            <button class="btn button" onclick="document.getElementById('navi').bringPageTop('giftLogList.html');">ギフトログ一覧管理画面へ</button>
-            <br><br>
-            <button class="btn button" onclick="document.getElementById('navi').bringPageTop('giftSearchAdmin.html');">ギフト検索管理画面へ</button>
-            <button class="btn button" onclick="stock();">在庫</button>
-            <!-- <button onclick="document.getElementById('navi').pushPage('messagePush.html');">ユーザにメッセージ送信画面へ（管理者専用）</button>
-            <br><br>
-            <button onclick="document.getElementById('navi').pushPage('instagramPush.html');">instagram投稿へ（管理者専用）</button> -->
-            <!-- <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-                <input type="hidden" name="cmd" value="_s-xclick">
-                <input type="hidden" name="hosted_button_id" value="H6FMWEGUHL7HG">
-                <input type="image" src="https://www.paypalobjects.com/ja_JP/JP/i/btn/btn_buynow_LG.gif" border="0" name="submit" alt="PayPal - オンラインでより安全・簡単にお支払い">
-                <img alt="" border="0" src="https://www.paypalobjects.com/ja_JP/i/scr/pixel.gif" width="1" height="1">
-            </form> -->
-                
+        <br>
+        <div id="kanrisyabox"style="display: none;background-color: #efeff4;width:100%;">
+            <input type="tel" id="giftLogSearchInput" class="text-input" style="background-color: white;border:1px solid black;">
+            <button class="btn button" onclick="giftLogSearchInput($('#giftLogSearchInput').val());">ギフトログ管理画面へ</button>
+            <!-- <button class="btn button" onclick="pushSend();">通知テスト</button> -->
         </div>
     </div>
     <div class="action-sheet-mask"></div>
     <div class="action-sheet modal1">
-        <!-- <button class="action-sheet-button" onclick="userShare();">共有</button> -->
         <button class="action-sheet-button" onclick="userActionClose();setTimeout(function(){share($('.current_user_id').val(),'userPage');},1500);">SNS共有</button>
         <button class="action-sheet-button" onclick="myShitagakiGift();">下書き状態のギフト</button>
         <button class="action-sheet-button" onclick="myFavoriteGift();">Myいいねギフト一覧</button>
@@ -112,13 +101,34 @@
     <script type="text/javascript">
         $('.action-sheet-mask,.action-sheet').hide();
         // 保存後の処理
-        
-        function tweetMyGift(){
-            // どっちか使う
-            var userName = $('#mypage_user_name').html();
-            var link = 'http://twitter.com/share?url=https://fanfun/&text=ユーザー名：「'+userName+'」で検索！';
-            window.open(link, '_system', 'location=yes');
-            return false;
+
+        function giftLogSearchInput(logId){
+            var logId = String(logId);
+            var giftLog = ncmb.DataStore("giftLog");
+            giftLog
+            .order('createDate', true)
+            .equalTo('logId',logId)
+            .fetch()         
+            .then(function(results){
+                document.getElementById('navi').bringPageTop('giftLogList.html');
+                var object = results;
+                var torihikiStatus = object.get("torihikiStatus");
+                var objectId = object.get("objectId");
+                var buyUser = object.get("buyUser");
+                var buyUserNickName = object.get("buyUserNickName");
+                var giftTitle = object.get("giftTitle");
+                var giftCreateInfluencer = object.get("giftCreateInfluencer");
+                console.log(torihikiStatus);
+                setTimeout(function(){
+                    $('#torihikiStatusBefore').val(torihikiStatus);
+                    $('#kanriBuyId').val(buyUser);
+                    $('#kanriNickName').val(buyUserNickName);
+                    $('#kanriTitle').val(giftTitle);
+                    $('#kanriInfluencerId').val(giftCreateInfluencer);
+                    $('#kanriLogId').val(logId);
+                    $('#kanriObjectId').val(objectId);
+                },500);
+            });
         }
         function userActionOpen(){
             $('.action-sheet-mask,.modal1').slideDown();
@@ -135,12 +145,6 @@
             },500);
             // スクロール無効を解除する
             $(window).off('.noScroll');
-        }
-
-        function userShare(){
-            scrollTo(0, 0);
-            $('.modal1').slideUp();
-            $('.modal2').slideDown();
         }
 
         function myShitagakiGift(){

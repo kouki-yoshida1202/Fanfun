@@ -53,7 +53,7 @@
         </style>
         <link href="https://fonts.googleapis.com/css?family=Damion" rel="stylesheet">
         <ons-toolbar class="toolbar top_toolbar" style="background-color: white;">
-            <div class="center" style="width:120%;">
+            <div id="fanfun_logo"class="center" style="width:120%;">
                 <!-- <img src="img/custom – 5.png" alt="" style="width:120px;height:auto;">
                 -->
                 <span style="font-family: 'Damion';color:#FF6070;font-size:1.7em;vertical-align: middle;">Fan fun</span>
@@ -78,7 +78,7 @@
         </div>
         <div id="content" class="content top_content">
             <div id="sp-content" class="swiper-container swiper-contents">
-                <div class="swiper-wrapper sp-content">
+                <div id="aaaaa"class="swiper-wrapper sp-content">
                     <div id="shintyakuArea" class="swiper-slide">
                         <div id="shintyakuList" style="height:auto;"></div>
                     </div>
@@ -112,7 +112,9 @@
         setTimeout(function(){
             bottomRefresh();
         },2000);
-
+        $('#fanfun_logo').click(function(){
+            $('.top_content').animate({scrollTop:0});
+        });
         function bottomRefresh(){
             $('#topBottom').on('inview',  function(event, isInView){
                 if (isInView) {

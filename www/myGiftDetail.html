@@ -77,11 +77,6 @@
             </button>
         </div>
     </div>
-    <div class="action-sheet-mask mygift_mask"></div>
-    <div class="action-sheet mygift_modal">
-        <button class="action-sheet-button" onclick="tweetMyGift();">Tweet</button>
-        <button class="action-sheet-button" onclick="mygiftShareClose();">Cancel</button>
-    </div>
     <div class="action-sheet-mask mygift_option_mask"></div>
     <div id="option_modal" class="action-sheet mygift_option_modal">
         <button id="shitagakiButton" class="action-sheet-button" onclick="shitagakiCheck();">下書きに戻す</button>
@@ -156,14 +151,6 @@
     </div>
     <script>
         $('.mygift_mask,.mygift_modal,.mygift_option_mask,.mygift_option_modal,.gift_delete_dialog_mask,.gift_delete_dialog,.deleteEnd_dialog_mask,.deleteEnd_dialog,.deleteEndMiss_dialog_mask,.deleteEndMiss_dialog,.gift_shitagaki_dialog_mask,.gift_shitagaki_dialog,.shitagakiEnd_dialog_mask,.shitagakiEnd_dialog,.shitagakiEndMiss_dialog_mask,.shitagakiEndMiss_dialog').hide();
-        
-        function tweetMyGift(){
-            // どっちか使う
-            var userName = $('#gift_detail_username').html();
-            var link = 'http://twitter.com/share?url=https://fanfun/&text=ユーザー名：「'+userName+'」で検索！';
-            window.open(link, '_system', 'location=yes');
-            return false;
-        }
         function mygiftHoukoku(){
             document.getElementById('navi').bringPageTop('houkokuForm.html');
             setTimeout(function(){
@@ -173,16 +160,7 @@
             }, 500);
         }
         
-        function mygiftShare(){
-            $('.mygift_mask,.mygift_modal').slideDown();
-        }
         
-        function mygiftShareClose(){
-            $('.mygift_modal').slideUp();
-            setTimeout(function(){
-                $('.mygift_mask').slideUp();
-            },500);
-        }
         function mygiftAction(){
             $('.mygift_option_mask,.mygift_option_modal').slideDown();
         }

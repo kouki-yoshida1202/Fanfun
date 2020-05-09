@@ -9,7 +9,7 @@ function loginInfo(){
         $('#myGenre').empty();
         
         if(objectId == "V5wsDER2rALwDReh"){
-                $('#kanrisyabox').show();
+                $('#kanrisyabox').css("display","inline-block");
         }
         if(Genre){
                 for(var n=0;n<Genre.length;n++){
