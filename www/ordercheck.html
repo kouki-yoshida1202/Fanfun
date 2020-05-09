@@ -115,6 +115,11 @@
                     var object = results;
                     var influencerId = object.get("userId");
                     var defaultPrice = object.get("price");
+                    var stock = object.get("stock");
+                    if(stock <= 0 || stock == '' || stock==undefined){
+                        alert("申し訳ございません。在庫が0になりました。");
+                        window.location.href = 'home.html';
+                    }
                     ncmb.User
                         .equalTo('objectId',influencerId)
                         .fetch()
@@ -161,6 +166,11 @@
                     var object = results;
                     var influencerId = object.get("userId");
                     var defaultPrice = object.get("price");
+                    var stock = object.get("stock");
+                    if(stock <= 0 || stock == '' || stock==undefined){
+                        alert("申し訳ございません。在庫が0になりました。");
+                        window.location.href = 'home.html';
+                    }
                     ncmb.User
                         .equalTo('objectId',influencerId)
                         .fetch()

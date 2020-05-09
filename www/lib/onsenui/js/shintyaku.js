@@ -12,15 +12,10 @@ function shintyaku(shintyakuCounter){
         var userKind = currentUser.get("userKind");
         //データストアから取得して、1件表示する
         var GiftData = ncmb.DataStore("giftData");
-        var time = new Date();
-        var iso = moment(time).format();
-        var subquery1 = GiftData.equalTo("releaseDate", null);
-        var subquery2 = GiftData.lessThan("releaseDate", iso);
         if(userKind!="test"){
                 GiftData
                 .order('releaseDate', true)
                 .notEqualTo('ReleaseStatus',1)
-                .or([subquery1, subquery2])
                 .limit(10)
                 .skip(shintyakuCounter*10)
                 .fetchAll()                
@@ -58,7 +53,7 @@ function shintyaku(shintyakuCounter){
                                 //         }else{
                                                 //カードに出力していく
                                                 var card = `
-                                                <div class="gift-card" style="width:48%;height: auto; padding: 1px 0 0 0;display: inline-block;margin-top:5px;"onclick="
+                                                <div class="gift-card" style="width:48%;height: 298px; padding: 1px 0 0 0;display: inline-block;margin-top:5px;"onclick="
                                                 `;
                                                 card += "giftIdJudge('"+gift_uid+"','"+userName+"','"+gift_title+"','"+gift_text+"','"+objectId+"','"+create_date+"','"+gift_price+"','"+gift_user_id+"','"+gift_stock+"','"+ReleaseStatus+"','"+ohitotu+"');";
                                                 card +=`
@@ -68,12 +63,14 @@ function shintyaku(shintyakuCounter){
                                                         card += `
                                                         " hidden>
                                                         <div class="card" style="height:99%;margin:3px;border-radius:20px;">
-                                                                <div class="card__content" style="height:auto;">
+                                                                <div class="card__content" style="height:auto;position:relative;">
                                                                         <img id="`;
                                                                         card += "gift_image_top_"+card_number;
                                                                         card +=`"class="gift_image" src="img/loading.png" alt="" style="width:100%;height:154px;object-fit:cover;border-radius: 20px;">
                                                                 </div>
-                                                                <div class="card__content" style="height:45px;">
+                                                                <div id="shintyaku_card_content_`;
+                                                                card +=card_number;
+                                                                card +=`" class="card__content" style="height:45px;">
                                                                         <ul class="list" style="background-image:none;background:transparent;margin-top:-13px;">
                                                                         <li class="list-item" style="padding:0px;">
                                                                                 <div class="list-item__left" style="padding:0px;">
@@ -122,7 +119,7 @@ function shintyaku(shintyakuCounter){
                                                 `;
                                                 $('#shintyakuList').append(card);
                                                 giftUserGet(gift_user_id,card_number);
-                                                giftImageGetTop(gift_uid,card_number);
+                                                giftImageGetTop(gift_uid,card_number,gift_stock);
                                                 giftUserImageTop(gift_user_id,card_number);
                                                 gift_favorite_check(gift_uid,card_number);
                                 //         }
@@ -138,11 +135,19 @@ function shintyaku(shintyakuCounter){
                                                 <br><br><br><i class="fas fa-spinner fa-3x fa-spin"></i><br><br><br>
                                                 </div>`;
                                                 $('#shintyakuList').append(loadingIcon);
+                                                $('.sp-content').height($(".swiper-slide-active").height());
+                                                setTimeout(function(){
+                                                        $('#sp-content').height($('.sp-content').height());
+                                                },500);
                                         }
                                 }else{
                                         if(i+1==object.length){
                                                 hideLoad();
                                                 $("#topBottom").appendTo('#shintyakuList');
+                                                $('.sp-content').height($(".swiper-slide-active").height());
+                                                setTimeout(function(){
+                                                        $('#sp-content').height($('.sp-content').height());
+                                                },500);
                                         }
                                 }
                                 
@@ -158,9 +163,10 @@ function shintyaku(shintyakuCounter){
                 });   
         }else{
                 // テストアカウント用
-                GiftData
+                hideLoad();
+                var giftDataTest = ncmb.DataStore("giftDataTest");
+                giftDataTest
                 .order('createDate', true)
-                .equalTo("userId", "V5wsDER2rALwDReh")
                 .fetchAll()                
                 .then(function(results){
                         var object = results;
@@ -190,7 +196,7 @@ function shintyaku(shintyakuCounter){
                                 //         }else{
                                                 //カードに出力していく
                                                 var card = `
-                                                <div class="gift-card" style="width:48%;height: auto; padding: 1px 0 0 0;display: inline-block;margin-top:5px;"onclick="
+                                                <div class="gift-card" style="width:48%;height: 298px;padding: 1px 0 0 0;display: inline-block;margin-top:5px;"onclick="
                                                 `;
                                                 card += "giftIdJudge('"+gift_uid+"','"+userName+"','"+gift_title+"','"+gift_text+"','"+objectId+"','"+create_date+"','"+gift_price+"','"+gift_user_id+"','"+gift_stock+"','"+ReleaseStatus+"','"+ohitotu+"');";
                                                 card +=`
@@ -254,7 +260,7 @@ function shintyaku(shintyakuCounter){
                                                 `;
                                                 $('#shintyakuList').append(card);
                                                 giftUserGet(gift_user_id,i);
-                                                giftImageGetTop(gift_uid,i);
+                                                giftImageGetTop(gift_uid,i,gift_stock);
                                                 giftUserImageTop(gift_user_id,i);
                                                 gift_favorite_check(gift_uid,i);
                                 //         }
@@ -262,8 +268,22 @@ function shintyaku(shintyakuCounter){
                                 // .catch(function(err){
                                 //         console.log(err);
                                 // }); 
-                                if(i+1==object.length){
-                                        hideLoad();
+                                if(shintyakuCounter==0){
+                                        if(i+1==object.length){
+                                                hideLoad();
+                                                $('.sp-content').height($(".swiper-slide-active").height());
+                                                setTimeout(function(){
+                                                        $('#sp-content').height($('.sp-content').height());
+                                                },500);
+                                        }
+                                }else{
+                                        if(i+1==object.length){
+                                                hideLoad();
+                                                $('.sp-content').height($(".swiper-slide-active").height());
+                                                setTimeout(function(){
+                                                        $('#sp-content').height($('.sp-content').height());
+                                                },500);
+                                        }
                                 }
                         }
                         
@@ -289,7 +309,7 @@ function giftUserGet(gift_user_id,i){
         });
 }
 
-function giftImageGetTop(giftUid,i){
+function giftImageGetTop(giftUid,i,gift_stock){
         ncmb.File.download(giftUid, "blob")
         .then(function(fileData) {
                 var reader = new FileReader();
@@ -300,6 +320,14 @@ function giftImageGetTop(giftUid,i){
                 }
                 // DataURLとして読み込む
                 reader.readAsDataURL(fileData);
+
+                if(gift_stock==0){
+                        var sold_out = `<img class="sold_out" src="img/custom – 8.png" style="border-radius:20px;">`;
+                        $("#gift_image_top_"+i).before(sold_out);
+                        $("#gift_image_top_"+i).addClass("sold_img");
+                        $("#gift_image_top_"+i).parent().addClass("sold_img_parent");
+                        $('#shintyaku_card_content_'+i).css("margin-top","5px");
+                }
         })
         .catch(function(err){
         // エラー処理

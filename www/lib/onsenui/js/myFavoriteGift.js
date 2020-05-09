@@ -40,9 +40,6 @@ function myFavoriteGift(){
                                 var gift_user_id = object[i].get("userId");
                                 var ReleaseStatus = object[i].get("ReleaseStatus");
                                 var ohitotu = object[i].get("ohitotu");
-                                // ユーザ名の取得
-                                
-                        
                                 //カードに出力していく
                                 var card = `
                                 <div class="gift-card" style="width:48%;height: auto; padding: 1px 0 0 0;display: inline-block;margin-top:5px;"onclick="

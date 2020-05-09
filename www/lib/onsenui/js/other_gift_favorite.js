@@ -47,7 +47,6 @@ function gift_favorite_button(){
     ////////////////////////////////
     // ギフト一覧でイイネ数を表示する関数
     function gift_favorite_check(gift_uid,i){
-    
         var currentUser = ncmb.User.getCurrentUser();
         var myUserId = currentUser.get('objectId');
     

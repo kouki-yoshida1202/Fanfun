@@ -58,7 +58,7 @@ function MyGift(){
                         var ohitotu = object[i].get("ohitotu");
                         //カードに出力していく
                         var card = `
-                        <div class="gift-card" style="width:49%;height: auto; padding: 1px 0 0 0;display: inline-block;margin-top:5px;"onclick="
+                        <div class="gift-card" style="width:49%;height: 298px;padding: 1px 0 0 0;display: inline-block;margin-top:5px;"onclick="
                         `;
                         card += "giftIdJudge('"+gift_uid+"','"+userName+"','"+gift_title+"','"+gift_text+"','"+objectId+"','"+create_date+"','"+gift_price+"','"+gift_user_id+"','"+gift_stock+"','"+ReleaseStatus+"','"+ohitotu+"');";
                         card +=`
@@ -68,12 +68,14 @@ function MyGift(){
                                 card += `
                                 " hidden>
                                 <div class="card" style="height:99%;margin:3px;border-radius:20px;">
-                                        <div class="card__content" style="height:auto;">
+                                        <div class="card__content" style="height:auto;position:relative;">
                                                 <img id="`;
                                                 card += "gift_image_"+i;
                                                 card +=`"class="gift_image" src="" alt="" style="width:100%;height:157px;object-fit:cover;border-radius: 20px;">
                                         </div>
-                                        <div class="card__content" style="height:45px;">
+                                        <div id="mypage_card_content_`;
+                                        card +=i;
+                                        card +=`" class="card__content" style="height:45px;">
                                                 <ul class="list" style="background-image:none;background:transparent;margin-top:-13px;">
                                                 <li class="list-item" style="padding:0px;">
                                                         <div class="list-item__left" style="padding:0px;">
@@ -119,7 +121,7 @@ function MyGift(){
                         `;
                         $('#myGiftList').append(card);
                         $('.my_page_user_name').html(userName);
-                        giftImageGet(gift_uid,i);
+                        giftImageGet(gift_uid,i,gift_stock);
                         giftUserImage(objectId,i);
                         my_gift_favorite_check(gift_uid,i);
                         if(i+1==object.length){
@@ -151,7 +153,7 @@ function giftUserImage(objectId,i){
                 console.log('error = ' + err);
         });
 }
-function giftImageGet(giftUid,i){
+function giftImageGet(giftUid,i,gift_stock){
         ncmb.File.download(giftUid, "blob")
         .then(function(fileData) {
                 var reader = new FileReader();
@@ -163,6 +165,13 @@ function giftImageGet(giftUid,i){
                 }
                 // DataURLとして読み込む
                 reader.readAsDataURL(fileData);
+                if(gift_stock==0){
+                        var sold_out = `<img class="sold_out" src="img/custom – 8.png" style="border-radius:20px;"></div>`;
+                        $("#gift_image_"+i).after(sold_out);
+                        $("#gift_image_"+i).addClass("sold_img");
+                        $("#gift_image_"+i).parent().addClass("sold_img_parent");
+                        $('#mypage_card_content_'+i).css("margin-top","5px");
+                }
         })
         .catch(function(err){
         // エラー処理
@@ -286,6 +295,36 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
                         // エラー処理
                                 console.log('error = ' + err);
                         });
+                        var giftData = ncmb.DataStore("giftData");
+                        giftData
+                        .equalTo('giftUid',gift_uid)
+                        .fetch()         
+                        .then(function(result){
+                                var ReleaseStatus = result.get("ReleaseStatus");
+                                if(ReleaseStatus==1){
+                                        $('#ReleaseStatusButton').prop("disabled",true);
+                                        $('#ReleaseStatusButton').html("購入不可");
+                                }
+                                var releaseDate = result.get("releaseDate");
+                                var time = new Date();
+                                var iso = moment(time).format();
+                                if(releaseDate > iso){
+                                        var dt = new Date(releaseDate);
+                                        var m = ("00" + (dt.getMonth()+1)).slice(-2);
+                                        var d = ("00" + dt.getDate()).slice(-2);
+                                        var hh = dt.getHours();
+                                        if (hh < 10) {
+                                                hh = "0" + hh;
+                                        }
+                                        var mm = dt.getMinutes();
+                                        if (mm < 10) {
+                                                mm = "0" + mm;
+                                        }
+                                        var time = m + "/" + d + " " +hh + ":" + mm;
+                                        $('#ReleaseStatusButton').prop("disabled",true);
+                                        $('#ReleaseStatusButton').html(time+"公開");
+                                }
+                        });
                         // 各テキストを入れる
                         setTimeout(function() {
                                 gift_price = "¥"+price;
@@ -298,7 +337,8 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
                                 $('#gift_id').val(gift_uid);
                                 $('#stock').html(gift_stock);
                                 gift_favorite_check_detail(gift_uid);
-                                if(gift_stock == 0 || gift_stock == '' || gift_stock==undefined){
+
+                                if(gift_stock <= 0 || gift_stock == '' || gift_stock==undefined){
                                         $('#ReleaseStatusButton').prop("disabled",true);
                                         $('#ReleaseStatusButton').html("在庫切れ");
                                 }

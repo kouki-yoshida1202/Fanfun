@@ -17,8 +17,6 @@ function influencerChange(){
         //更新処理開始
         user
         .set('objectId', objectId)
-        .set("BoughtCount",0)
-        .set("Review",0)
         .set("Genre",genre)
         .set("Influencer",true)
         .update()

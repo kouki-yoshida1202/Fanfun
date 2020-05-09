@@ -8,7 +8,6 @@ function followUserGift(){
         var userName = currentUser.get("userName");
         var GiftData = ncmb.DataStore("giftData");
         //データストアから取得して、1件表示する
-
         var FollowData = ncmb.DataStore("follow");
         FollowData
         .equalTo("followId", objectId)
@@ -56,7 +55,7 @@ function followUserGift(){
                                 //         }else{
                                                 //カードに出力していく
                                                 var card = `
-                                                <div class="gift-card" style="width:48%;height: auto; padding: 1px 0 0 0;display: inline-block;margin-top:5px;"onclick="
+                                                <div class="gift-card" style="width:48%;height: 298px;padding: 1px 0 0 0;display: inline-block;margin-top:5px;"onclick="
                                                 `;
                                                 card += "giftIdJudge('"+gift_uid+"','"+userName+"','"+gift_title+"','"+gift_text+"','"+objectId+"','"+create_date+"','"+gift_price+"','"+gift_user_id+"','"+gift_stock+"','"+ReleaseStatus+"','"+ohitotu+"');";
                                                 card +=`
@@ -66,12 +65,14 @@ function followUserGift(){
                                                         card += `
                                                         " hidden>
                                                         <div class="card" style="height:99%;margin:3px;border-radius:20px;">
-                                                                <div class="card__content" style="height:auto;">
+                                                                <div class="card__content" style="height:auto;position:relative;">
                                                                         <img id="`;
                                                                         card += "follow_gift_image_top_"+i;
                                                                         card +=`"class="gift_image" src="img/loading.png" alt="" style="width:100%;height:154px;object-fit:cover;border-radius: 20px;">
                                                                 </div>
-                                                                <div class="card__content" style="height:45px;">
+                                                                <div id="follow_card_content_`;
+                                                                card +=i;
+                                                                card +=`" class="card__content" style="height:45px;">
                                                                         <ul class="list" style="background-image:none;background:transparent;margin-top:-13px;">
                                                                         <li class="list-item" style="padding:0px;">
                                                                                 <div class="list-item__left" style="padding:0px;">
@@ -121,7 +122,7 @@ function followUserGift(){
                                                 // console.log(card);
                                                 $('#followGiftList').append(card);
                                                 followgiftUserGet(gift_user_id,i);
-                                                followgiftImageGetTop(gift_uid,i);
+                                                followgiftImageGetTop(gift_uid,i,gift_stock);
                                                 followgiftUserImageTop(gift_user_id,i);
                                                 followgift_favorite_check(gift_uid,i);
                                 //         }
@@ -131,6 +132,10 @@ function followUserGift(){
                                 // }); 
                                 if(i+1==object.length){
                                         hideLoad();
+                                        $('.sp-content').height($(".swiper-slide-active").height());
+                                        setTimeout(function(){
+                                                $('#sp-content').height($('.sp-content').height());
+                                        },500);
                                 }
                         }
                         
@@ -158,7 +163,7 @@ function followgiftUserGet(gift_user_id,i){
         });
 }
 
-function followgiftImageGetTop(giftUid,i){
+function followgiftImageGetTop(giftUid,i,gift_stock){
         ncmb.File.download(giftUid, "blob")
         .then(function(fileData) {
                 var reader = new FileReader();
@@ -169,6 +174,13 @@ function followgiftImageGetTop(giftUid,i){
                 }
                 // DataURLとして読み込む
                 reader.readAsDataURL(fileData);
+                if(gift_stock==0){
+                        var sold_out = `<img class="sold_out" src="img/custom – 8.png" style="border-radius:20px;"></div>`;
+                        $("#follow_gift_image_top_"+i).after(sold_out);
+                        $("#follow_gift_image_top_"+i).addClass("sold_img");
+                        $("#follow_gift_image_top_"+i).parent().addClass("sold_img_parent");
+                        $('#follow_card_content_'+i).css("margin-top","5px");
+                }
         })
         .catch(function(err){
         // エラー処理

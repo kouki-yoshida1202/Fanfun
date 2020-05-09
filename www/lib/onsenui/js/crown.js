@@ -24,10 +24,37 @@ function crown(){
                         });
                 }
         }else{
-                $('#userSearch').hide();
+                $('#userSearchTab').hide();
+                $('#rank_7').hide();
+                $('#rank_8').hide();
+                $('#rank_9').hide();
+                $('#rank_10').hide();
+                $('#rank_11').hide();
+                $('#rank_12').hide();
+                var crownCounter = 0;
+                if(crownCounter==0){
+                        crownCounter++;
+                        var crownData = ncmb.DataStore("crownDataTest");
+                        crownData
+                        .order('rank')
+                        .fetchAll()
+                        .then(function(results){
+                                crownCounter++;
+                                for (var i = 0; i < results.length; i++) {
+                                        var userId = results[i].get("userId");
+                                        var j = i+1;
+                                        crownImg(j,userId);
+                                        crownNameTag(j,userId);
+                                        // crownClick(j,userId);
+                                }
+                        }).catch(function(err){
+                                console.log(err);
+                        });
+                }
         }
 }
 function clickCrown(rank){
+        var currentUser = ncmb.User.getCurrentUser();
         var userKind = currentUser.get("userKind");
         if(userKind != "test"){
                 var clickCounter = 0;
@@ -35,7 +62,7 @@ function clickCrown(rank){
                         clickCounter++;
                         var crownData = ncmb.DataStore("crownData");
                         crownData
-                        .equalTo('rank',String(rank))
+                        .equalTo('rank',rank)
                         .fetch()
                         .then(function(results){
                                 var userId = results.get("userId");
@@ -54,7 +81,6 @@ function crownNameTag(j,userId){
         .fetch()
         .then(function(results){
                 var userName = results.get("userName");
-                console.log(userName);
                 var genre = results.get("Genre");
                 var tag1 = '#'+genre[0];
                 if(genre[1]!=null){

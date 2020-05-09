@@ -69,6 +69,11 @@
     // ログインしたらまずTopページにくるようにTopのアイコンを押す
     ons.ready(function() {
       $('#topPageTab').click();
+      var currentUser = ncmb.User.getCurrentUser();
+      var userKind = currentUser.get("userKind");
+      if(userKind=="test"){
+        $('#instagramPageTab').hide();
+      }
     });
     // dataURIをBlobに変換する関数
     function toBlob(dataURI){
@@ -81,12 +86,14 @@
             type: mimeType ,
         }) ;
     }
-    var osVer ="Android";
-    var osVer2 = "iPhone";
-    if(navigator.userAgent.indexOf(osVer)>0 || navigator.userAgent.indexOf(osVer2)>0){
+    // var osVer ="Android";
+    // var osVer2 = "iPhone";
+    // if(navigator.userAgent.indexOf(osVer)>0 || navigator.userAgent.indexOf(osVer2)>0){
+
+    document.addEventListener("deviceready", function(){
       applicationKey="2a769bb0b55358cb641215e139e1e4c409bfba09b1177e468e736635af5c7f58";
       clientKey="e007abb894e7e571efd683ba05b19e90ed4bb3633cf8e693f287451bb4d1db06";
-      NCMB.monaca.setDeviceToken(
+      window.NCMB.monaca.setDeviceToken(
         applicationKey,
         clientKey,
         (result) => {
@@ -94,7 +101,8 @@
         },
         (err) => console.log("通知設定エラー："+JSON.stringify(err))
       );
-    }
+    });
+    // }
     // 通知クラスにobjectIdを入れる
     setTimeout((function(){
       getInstallationId();
@@ -184,46 +192,67 @@
           var giftTitle = urlPrm.giftTitle;
 
           var giftLog = ncmb.DataStore("giftLog");
-          var giftLog = new giftLog();
-          giftLog.set("buyDate",date)
-                  .set("buyKakaku",defaultPrice)
-                  .set("buyRequest",request)
-                  .set("buyUser",objectId)
-                  .set("buyUserAtena",sendHuman)
-                  .set("buyUserNickName",nickName)
-                  .set("giftCreateInfluencer",influencerId)
-                  .set("giftTitle",giftTitle)
-                  .set("giftUid",giftUid)
-                  .set("logId",tyumonId)
-                  .set("torihikiStatus","ギフト準備中")
-                  .save()
-                  .then(function(){
-                    // 保存後の処理
-                    var GiftData = ncmb.DataStore("giftData");
-                    GiftData.equalTo("giftUid", giftUid)
-                            .fetch()                
-                            .then(function(results){
-                                    var object = results;
-                                    var num = object.get("stock");
-                                    num = String(Number(num)-1);
-                                    results.set("stock", num).update();
-                                    return results;
-                            })
+          giftLog.equalTo("logId",tyumonId)
+                .fetchAll()
+                .then(function(result){
+                  if(result.length>0){
+                    hideLoad();
+                    setTimeout(function(){
+                      alert("手続きは既に終えております。");
+                      window.location.href = 'home.html';
+                    },500);
+                  }else{
+                    var giftLog = ncmb.DataStore("giftLog");
+                    var giftLog = new giftLog();
+                    giftLog.set("buyDate",date)
+                            .set("buyKakaku",defaultPrice)
+                            .set("buyRequest",request)
+                            .set("buyUser",objectId)
+                            .set("buyUserAtena",sendHuman)
+                            .set("buyUserNickName",nickName)
+                            .set("giftCreateInfluencer",influencerId)
+                            .set("giftTitle",giftTitle)
+                            .set("giftUid",giftUid)
+                            .set("logId",tyumonId)
+                            .set("torihikiStatus","ギフト準備中")
+                            .save()
                             .then(function(){
-                              hideLoad();
-                              setTimeout(function(){
-                                alert("手続きが完了しました");
-                                window.location.href = 'home.html';
-                              },500);
+                              // 保存後の処理
+                              var GiftData = ncmb.DataStore("giftData");
+                              GiftData.equalTo("giftUid", giftUid)
+                                      .fetch()                
+                                      .then(function(results){
+                                              var object = results;
+                                              var num = object.get("stock");
+                                              num = String(Number(num)-1);
+                                              results.set("stock", num).update();
+                                              return results;
+                                      })
+                                      .then(function(){
+                                        hideLoad();
+                                        setTimeout(function(){
+                                          alert("手続きが完了しました");
+                                          window.location.href = 'home.html';
+                                        },500);
+                                      })
+                                      .catch(function(err){
+                                        alert("大変お手数ですが運営にエラーコードと共にお問い合わせくださいませ。エラーコード：238");
+                                        hideLoad();
+                                      });
                             })
                             .catch(function(err){
+                              // エラー処理
+                              alert("大変お手数ですが運営にエラーコードと共にお問い合わせくださいませ。エラーコード：244");
                               hideLoad();
                             });
-                  })
-                  .catch(function(err){
-                    // エラー処理
-                    hideLoad();
-                  });
+                  }
+          })
+          .catch(function(err){
+            // エラー処理
+            alert(err);
+            alert("大変お手数ですが運営にエラーコードと共にお問い合わせくださいませ。エラーコード：251");
+            hideLoad();
+          });
         }
       }, 0);
     }
@@ -340,10 +369,10 @@
     document.addEventListener("init", function(event) {
 
           // トップページにて、上下スクロール中は上部のメニューを非表示
-          $(window).on('scroll touchmove',function() {
-            $(".swiper-navigation").stop(); //アニメーションしている場合、アニメーションを強制停止
-			      $(".swiper-navigation").css('display', 'none').delay(500).fadeIn('fast');
-          });
+          // $(window).on('scroll touchmove',function() {
+          //   $(".swiper-navigation").stop(); //アニメーションしている場合、アニメーションを強制停止
+			    //   $(".swiper-navigation").css('display', 'none').delay(500).fadeIn('fast');
+          // });
 
           //このあたりはswiper.jsというライブラリのサンプルを結構そのまま持ってきたので、何をやっているか具体的にまでわかりません。
           function setCurrentSlide(ele, index) {
@@ -370,6 +399,10 @@
               slideControl(index);
               setCurrentSlide($('.swiper-navigation .swiper-slide').eq(index), index);
               // swiperNavigation.slideTo(index, 500, false);
+              $('.sp-content').height($(".swiper-slide-active").height());
+              setTimeout(function(){
+                      $('#sp-content').height($('.sp-content').height());
+              },500);              
             },250);
           });
           
@@ -427,7 +460,11 @@
       if(homeCounter==1){
         homeJudge();
         loginImage();
+        setTimeout(function(){
+          crown();
+        },1500);
       }
+
   </script>
   <style>
     *{
@@ -457,6 +494,13 @@
       background: -webkit-linear-gradient(bottom left, #FF1048, #FFAA95); 
       background: linear-gradient(to top right, #FF1048, #FFAA95);
       border-radius:20px;
+    }
+
+    .action-sheet{
+      z-index:100;
+    }
+    .action-sheet{
+      z-index:99;
     }
     .navi-menu{
       padding:5px 20px 3px 20px;
@@ -552,6 +596,7 @@
       font-size:18px !important;
       transform: translateY(-1px);
     }
+
   </style>
 </head>
 <body>
@@ -559,8 +604,8 @@
     <ons-page>
       <ons-tabbar position="bottom">
           <ons-tab id="topPageTab"page="top.html" label="ホーム"icon="home" onclick="" active></ons-tab>
-          <ons-tab page="crown.html" label="ランキング" icon="crown" onclick="crown();"></ons-tab>
-          <ons-tab page="instagram.html" label="ニュース"icon="instagram" onclick="InstagramNews();"></ons-tab>
+          <ons-tab id="crownPageTab" page="crown.html" label="ランキング" icon="crown" onclick=""></ons-tab>
+          <ons-tab id="instagramPageTab" page="instagram.html" label="ニュース"icon="instagram" onclick="InstagramNews();"></ons-tab>
           <!-- <ons-tab page="pointList.html" label="ショップ"icon="ticket" onclick=""></ons-tab> -->
           <ons-tab label="コンタクト"page="request.html" icon="fa-rocketchat" onclick=""></ons-tab>
           <ons-tab label="出品/購入"page="shop.html" icon="fa-yen-sign" onclick="shopPushPage();"></ons-tab>

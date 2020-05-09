@@ -16,6 +16,7 @@ function searchUser(search_way){
 
                         ncmb.User.regularExpressionTo("userName", "^(?=.*"+user_name+").*$")
                         .equalTo("Authentication","OK")
+                        .notEqualTo('userKind','test')
                         .fetchAll()
                         .then(function(userList){
                                 var userList = userList;
@@ -78,6 +79,7 @@ function searchUser(search_way){
                         .order('createDate', true)
                         .equalTo("Authentication","OK")
                         .inArray("Genre",genre)
+                        .notEqualTo('userKind','test')
                         .fetchAll()
                         .then(function(results){
                                 var object = results;
@@ -151,9 +153,6 @@ function searchUser(search_way){
                                         var gift_stock = object[i].get("stock");
                                         var ReleaseStatus = object[i].get("ReleaseStatus");
                                         var ohitotu = object[i].get("ohitotu");
-                                        // ユーザ名の取得
-                                        
-                                
                                         //カードに出力していく
                                         var card = `
                                         <div class="gift-card" style="width:48%;height: auto; padding: 1px 0 0 0;display: inline-block;margin-top:5px;"onclick="

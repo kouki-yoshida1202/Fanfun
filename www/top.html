@@ -1,4 +1,4 @@
-<ons-page>
+<ons-page id="top-page">
         <style>
             .toolbar{
                 background-image: none;
@@ -18,22 +18,54 @@
             /* .toolbar+.page__background+.page__content{
                 top:64px;
             } */
+            .top_header {
+                    position: absolute;
+                    margin: 0;
+                    padding: 0;
+                    border: 0;
+                    top: 0px;
+                    left: 0;
+                    width: 100%;
+                    height: auto;
+                    z-index: 2;
+            }
+
+            .sold_out{
+                position: absolute;
+                top:0px;left:0px;
+                z-index: 2;
+                height:100px;width:100px;
+            }
+
+            .sold_img{
+                display: block;
+                opacity: 0.4;
+            }
+
+            .sold_img_parent{
+                background:#000;
+                border-radius: 20px;
+            }
+
+            .swiper-slide{
+                min-height: 600px !important;
+            }
         </style>
-        <ons-toolbar class="toolbar" style="background-color: white;">
-            <div class="right" style="padding-right:5px;float:right;">
-                <button class="button" style="border-radius:30px;background: gray;height:80%;line-height: initial;vertical-align: middle;font-size:12px;margin-bottom:3px;" onclick="searchGift('キーワード検索');">検索</button>
-                <button class="button" style="border-radius:30px;background: transparent;height:80%;line-height: initial;vertical-align: middle;font-size:12px;" onclick="location.reload();"><i class="fas fa-redo-alt fa-2x" style="color:gray;"></i></button>
+        <link href="https://fonts.googleapis.com/css?family=Damion" rel="stylesheet">
+        <ons-toolbar class="toolbar top_toolbar" style="background-color: white;">
+            <div class="center" style="width:120%;">
+                <!-- <img src="img/custom – 5.png" alt="" style="width:120px;height:auto;">
+                -->
+                <span style="font-family: 'Damion';color:#FF6070;font-size:1.7em;vertical-align: middle;">Fan fun</span>
             </div>
-            <div class="center" style="width:0%;">
-            </div>
-            <div class="left" style="width:80%;float:left;max-width: 80%;padding-left:10px;">
-                <input id="user_name_search"type="search" value="" placeholder="ユーザー名で検索" class="search-input" style="width:100%;border-radius: 20px;margin-top:5px;" required>
+            <div class="right" style="padding-right: 5%;"onclick="userActionOpen();">
+                    <button class="button" style="border-radius:30px;background: transparent;height:80%;line-height: initial;vertical-align: middle;font-size:12px;" onclick="window.location.href = 'home.html';"><i class="fas fa-redo-alt fa-lg" style="color:#FF6070;"></i></button>
             </div>
         </ons-toolbar>
-        <div id="ptr">
-        </div>
-        <div id="content" class="container contents top-container" style="position:relative;">
-            <div id="swiper_menu"class="swiper-container swiper-navigation" style="position: fixed;left:0px;width:100%;height:35px;background-color: white;z-index:100;">
+        <!-- <div id="ptr">
+        </div> -->
+        <div class="top_header">
+            <div id="swiper_menu"class="swiper-container swiper-navigation" style="width:100%;height:35px;background-color: white;z-index:100;border-bottom:1px solid #898989;">
                 <div class="swiper-wrapper sp-navi">
                     <div class="swiper-slide selected sp-slide">
                         <span class="navi-menu">新着</span>
@@ -43,8 +75,10 @@
                     </div>
                 </div>
             </div>
-            <div id="sp-content" class="swiper-container swiper-contents" style="min-height: 650px;">
-                <div class="swiper-wrapper sp-content" style="margin-top:35px;">
+        </div>
+        <div id="content" class="content top_content">
+            <div id="sp-content" class="swiper-container swiper-contents">
+                <div class="swiper-wrapper sp-content">
                     <div id="shintyakuArea" class="swiper-slide">
                         <div id="shintyakuList" style="height:auto;"></div>
                     </div>
@@ -67,10 +101,17 @@
     <script>
         $('.searchKeywordNo_dialog_mask,.searchKeywordNo_dialog').hide();
         var shintyakuCounter=0;
-        
+        ons.ready(function() {
+                var page = document.getElementById("top-page");
+                var toolbar = page.querySelector(".top_toolbar");
+                var header = page.querySelector(".top_header");
+                var content = page.querySelector(".top_content");
+                header.style.top = toolbar.clientHeight + "px";
+                content.style.marginTop = header.clientHeight + "px";
+        });
         setTimeout(function(){
             bottomRefresh();
-        },1000);
+        },2000);
 
         function bottomRefresh(){
             $('#topBottom').on('inview',  function(event, isInView){
@@ -93,22 +134,22 @@
                 $('.searchKeywordNo_dialog_mask').slideUp();
             },500);
         }
-        $(document).ready(function(){
-            var ptr = new PullToReload({ 
-                'callback-loading': function(){
-                    setTimeout(function(){
-                        ptr.loadingEnd();
-                        location.reload();
-                    }, 1000);
+        // $(document).ready(function(){
+        //     var ptr = new PullToReload({ 
+        //         'callback-loading': function(){
+        //             setTimeout(function(){
+        //                 ptr.loadingEnd();
+        //                 window.location.href = 'home.html';
+        //             }, 1000);
                     
-                },
-                'height': 40,
-                'font-size': '20px',
-                'threshold': 20,
-                'pre-content': 'Loading...',
-                'loading-content': 'Loading...',
-            });
-        });
+        //         },
+        //         'height': 40,
+        //         'font-size': '20px',
+        //         'threshold': 20,
+        //         'pre-content': 'Loading...',
+        //         'loading-content': 'Loading...',
+        //     });
+        // });
         
         // this.opts = {
         //     'refresh-element': 'ptr', //Required

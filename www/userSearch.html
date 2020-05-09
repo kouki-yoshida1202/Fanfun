@@ -37,8 +37,8 @@
                         margin:0 auto;
                         text-align: center;
                         color:#898989;
-                        margin-top:25px;
-                        margin-bottom:25px;
+                        margin-top:30px;
+                        margin-bottom:30px;
                 }
                 .ORborder:before, .ORborder:after {
                         content: "";
@@ -59,8 +59,10 @@
                                 <i class="fas fa-signature fa-lg" style="color:#FF6070;"></i> <span>ユーザー名検索</span>
                         </div>
                         <div style="margin-top:10px;">
-                                <input type="text" id="searchUserKeyword" class="search-input" style="background-color: white;border:1px solid #898989;width:80%;height:35px;line-height: 35px;"> 
-                                <button class="btn button" style="background:#898989;border-radius: 20px;line-height: 26px;font-size: 14px;width:18%;float:right;" onclick="searchUser('キーワード検索');">検索</button>   
+                                <input type="text" id="searchUserKeyword" class="search-input" style="background-color: white;border:1px solid #898989;width:100%;height:35px;line-height: 35px;border-radius: 20px;"> 
+                        </div>
+                        <div style="margin-top:20px;">
+                                <button class="button" style="background:#898989;width:100%;padding-top:0px;padding-bottom:0px;line-height:auto;border-radius:30px;font-size:16px;line-height:35px;" onclick="searchUser('キーワード検索');">検索</button>   
                         </div>
                         <p class="ORborder">OR</p>
                         <div>
@@ -90,7 +92,7 @@
                                 <input type="checkbox" class="check_box search_user" id="その他" name="userSearch" value="その他">
                                 <label class="label" for="その他">その他</label>
                         </div>
-                        <div style="margin-top:30px;">
+                        <div style="margin-top:20px;">
                                 <button class="button "style="background:#898989;width:100%;padding-top:0px;padding-bottom:0px;line-height:auto;border-radius:30px;font-size:16px;line-height:35px;"onclick="searchUser('カテゴリ検索');">検索</button>
                         </div>
                 </div>

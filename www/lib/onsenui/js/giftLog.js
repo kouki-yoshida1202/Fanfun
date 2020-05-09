@@ -365,14 +365,10 @@ function hurikomiShinsei(){
         var currentUser = ncmb.User.getCurrentUser();
         var objectId = currentUser.get("objectId");
         var mailAddress = currentUser.get("mailAddress");
-        var minouHurikomi = currentUser.get("minouHurikomi");
-        if(minouHurikomi==""||minouHurikomi==null){
-                minouHurikomi=0;
-        }
+
         setTimeout(function(){
                 $('#hurikomiUserId').val(objectId);
                 $('#hurikomiMailaddress').val(mailAddress);
-                $('#hurikomiKingaku').val(minouHurikomi);
         },500);
 }
 

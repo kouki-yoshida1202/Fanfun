@@ -54,59 +54,112 @@ function giftInsert(ReleaseStatus) {
                 var currentUser = ncmb.User.getCurrentUser();
                 var objectId = currentUser.get("objectId");
                 // クラスのTestClassを作成
-                var GiftData = ncmb.DataStore("giftData");
                 var strong = 1000;
                 var uid = new Date().getTime().toString(16)  + Math.floor(strong*Math.random()).toString(16);
                 // データストアへの登録
-                var giftData = new GiftData();
-                
-                giftData.set("userId", objectId)
-                        .set("giftTitle", gift_title)
-                        .set("giftText", gift_text)
-                        .set("price",gift_price)
-                        .set("giftUid",uid)
-                        .set("stock",gift_stock)
-                        .set("releaseDate",iso)
-                        .set("ohitotu",ohitotu)
-                        .set("ReleaseStatus",ReleaseStatus)
-                        .save()
-                        .then(function(gameScore){
-                                // 保存後の処理
-                                var img = document.getElementById('gift_image_insert');
-                                var dataURI = img.getAttribute('src');
-                                // dataURIをBlobに変換する
-                                var blob = toBlob(dataURI);
-                                ncmb.File
-                                .upload(uid,blob)
-                                .then(function(res){
-                                        // アップロード後処理
-                                        hideGiftInsertLoad();
-                                        // giftInputOpen();
-                                        
-                                        if(ReleaseStatus==1){
-                                                alert("下書き保存しました。");
-                                                window.location.href = 'home.html';
-                                        }else{
-                                                alert("出品成功しました。");
-                                                window.location.href = 'home.html';
-                                        }
+                var currentUser = ncmb.User.getCurrentUser();
+                var userKind = currentUser.get("userKind");
+                if(userKind!="test"){
+                        var GiftData = ncmb.DataStore("giftData");
+                        var giftData = new GiftData();
+                        giftData.set("userId", objectId)
+                                .set("giftTitle", gift_title)
+                                .set("giftText", gift_text)
+                                .set("price",gift_price)
+                                .set("giftUid",uid)
+                                .set("stock",gift_stock)
+                                .set("releaseDate",iso)
+                                .set("ohitotu",ohitotu)
+                                .set("ReleaseStatus",ReleaseStatus)
+                                .save()
+                                .then(function(gameScore){
+                                        // 保存後の処理
+                                        var img = document.getElementById('gift_image_insert');
+                                        var dataURI = img.getAttribute('src');
+                                        // dataURIをBlobに変換する
+                                        var blob = toBlob(dataURI);
+                                        ncmb.File
+                                        .upload(uid,blob)
+                                        .then(function(res){
+                                                // アップロード後処理
+                                                hideGiftInsertLoad();
+                                                // giftInputOpen();
+                                                
+                                                if(ReleaseStatus==1){
+                                                        alert("下書き保存しました。");
+                                                        window.location.href = 'home.html';
+                                                }else{
+                                                        alert("出品成功しました。");
+                                                        window.location.href = 'home.html';
+                                                }
+                                        })
+                                        .catch(function(err){
+                                                // エラー処理
+                                                hideGiftInsertLoad();
+                                                giftInputImageMissOpen();
+                                        });
                                 })
                                 .catch(function(err){
-                                        // エラー処理
+                                // エラー処理
                                         hideGiftInsertLoad();
-                                        giftInputImageMissOpen();
+                                        
+                                        if(ReleaseStatus==1){
+                                                alert("下書き保存が失敗しました。");
+                                        }else{
+                                                alert("出品が失敗しました。");
+                                        }
                                 });
-                        })
-                        .catch(function(err){
-                        // エラー処理
-                                hideGiftInsertLoad();
-                                
-                                if(ReleaseStatus==1){
-                                        alert("下書き保存が失敗しました。");
-                                }else{
-                                        alert("出品が失敗しました。");
-                                }
-                        });
+                }else{
+                        var GiftDataTest = ncmb.DataStore("giftDataTest");
+                        var giftDataTest = new GiftDataTest();
+                        giftDataTest.set("userId", objectId)
+                                .set("giftTitle", gift_title)
+                                .set("giftText", gift_text)
+                                .set("price",gift_price)
+                                .set("giftUid",uid)
+                                .set("stock",gift_stock)
+                                .set("releaseDate",iso)
+                                .set("ohitotu",ohitotu)
+                                .set("ReleaseStatus",ReleaseStatus)
+                                .save()
+                                .then(function(gameScore){
+                                        // 保存後の処理
+                                        var img = document.getElementById('gift_image_insert');
+                                        var dataURI = img.getAttribute('src');
+                                        // dataURIをBlobに変換する
+                                        var blob = toBlob(dataURI);
+                                        ncmb.File
+                                        .upload(uid,blob)
+                                        .then(function(res){
+                                                // アップロード後処理
+                                                hideGiftInsertLoad();
+                                                // giftInputOpen();
+                                                
+                                                if(ReleaseStatus==1){
+                                                        alert("下書き保存しました。");
+                                                        window.location.href = 'home.html';
+                                                }else{
+                                                        alert("出品成功しました。");
+                                                        window.location.href = 'home.html';
+                                                }
+                                        })
+                                        .catch(function(err){
+                                                // エラー処理
+                                                hideGiftInsertLoad();
+                                                giftInputImageMissOpen();
+                                        });
+                                })
+                                .catch(function(err){
+                                // エラー処理
+                                        hideGiftInsertLoad();
+                                        
+                                        if(ReleaseStatus==1){
+                                                alert("下書き保存が失敗しました。");
+                                        }else{
+                                                alert("出品が失敗しました。");
+                                        }
+                                });
+                }
         }
 }
 
@@ -271,3 +324,4 @@ function showGiftEditLoad(){
 function hideGiftEditLoad() {
         $("#giftEditButtonZone").LoadingOverlay("hide");
 };
+

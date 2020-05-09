@@ -6,7 +6,6 @@ function loginInfo(){
         var text = currentUser.get('Text');
         var objectId = currentUser.get("objectId");
         var Genre = currentUser.get("Genre");
-        var BoughtCount = "("+currentUser.get("BoughtCount")+")";
         $('#myGenre').empty();
         
         if(objectId == "V5wsDER2rALwDReh"){
@@ -20,19 +19,6 @@ function loginInfo(){
         $('#mypage_user_name').html(userName);
         $('.current_text').html(text);
         $('.current_user_id').val(objectId);
-        // $('#myGenre').html(Genre);
-        // var star = `<i class="fas fa-star" style="font-size: 12px;color:#FFBB00;"></i>`;
-        // var no_star = `<i class="fas fa-star" style="font-size: 12px;color:gray;"></i>`;
-        // $('#myReview').empty();
-        // for(var i=0;i<5;i++){
-        //         if(i<Review){
-        //                 $('#myReview').append(star);
-        //         }else{
-        //                 $('#myReview').append(no_star);
-        //         }
-        // }
-        // var myBoughtCount = `<span id="myBoughtCount"style="color:#898989;font-size: 12px;">`+BoughtCount+`</span>`;
-        // $('#myReview').append(myBoughtCount);
         //フォローフォロワー数
         var FollowData = ncmb.DataStore("follow");
 
