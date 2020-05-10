@@ -122,7 +122,7 @@ function followList(){
                                 <li class="list-item list-item--material">
                                         <div class="list-item__left list-item--material__left" onclick="document.getElementById('navi').bringPageTop('otherpage.html');
                                         `;
-                                        follow_list += "toOtherPageFromFollowList('"+object_id+"');";
+                                        follow_list += "document.getElementById('navi').bringPageTop('otherpage.html');otherPageUserId('"+object_id+"');";
                                         follow_list +=`
                                         ;">
                                                 <img id="follow_user_image_`;
@@ -178,7 +178,7 @@ function followerList(){
                         <li class="list-item list-item--material">
                                 <div class="list-item__left list-item--material__left" onclick="document.getElementById('navi').bringPageTop('otherpage.html');
                                 `;
-                                follower_list += "toOtherPageFromFollowList('"+object_id+"');";
+                                follower_list += "document.getElementById('navi').bringPageTop('otherpage.html');otherPageUserId('"+object_id+"');";
                                 follower_list +=`
                                 ;">
                                         <img id="follower_user_image_`;
