@@ -15,9 +15,81 @@
         .giftLogSub{
                 font-size:14px;width:90%;margin:0 auto;
         }
+
+        @-webkit-keyframes pulse {
+        from {
+        opacity: 1.0;/*透明度100%*/
+        }
+        to {
+        opacity: 0.2;/*透明度80%*/
+        }
+        }
+        .blinking{
+        -webkit-animation-name: pulse;/* 実行する名前 */
+        -webkit-animation-duration: 0.9s;/* 0.3秒かけて実行 */
+        -webkit-animation-iteration-count:infinite;/* 何回実行するか。infiniteで無限 */
+        -webkit-animation-timing-function:ease-in-out;/* イーズインアウト */
+        -webkit-animation-direction: alternate;/* alternateにするとアニメーションが反復 */
+        -webkit-animation-delay: 0s; /* 実行までの待ち時間 */
+        }
+
+        .giftStatusNow{
+                width:21%;
+                display: inline-block;
+                vertical-align: top;
+                text-align: center;
+        }
+
+        .fa-angle-right{
+                line-height: 43px;
+                color:#898989;
+
+        }
         </style>
+        <input type="hidden" id="giftLogtorihikiStatus">
         <div class="contents">
-                <div class="card">
+                <div class="card" style="padding-top:20px;">
+                        <div style="margin:0 auto;">
+                                <div id="入金待ち"class="giftStatusNow">
+                                        <div style="margin:0 auto;width:30px;height:30px;border-radius:50%;background-color: lightgray;">
+                                                <i class="fas fa-yen-sign" style="line-height: 31px;color:#898989;"></i>
+                                        </div>
+                                        <p style="font-size:10px;color:#898989;">
+                                                入金待ち
+                                        </p>
+                                </div>
+                                <i class="fas fa-angle-right"></i>
+                                <div id="ギフト準備中"class="giftStatusNow">
+                                        <div style="margin:0 auto;width:30px;height:30px;border-radius:50%;background-color: lightgray;">
+                                                <i class="fas fa-camera " style="line-height: 31px;color:#898989;"></i>
+                                        </div>
+                                        <p style="font-size:10px;color:#898989;">
+                                                ギフト準備中
+                                        </p>
+                                </div>
+                                <i class="fas fa-angle-right"></i>
+                                <div id="ギフト内容確認中"class="giftStatusNow">
+                                        <div style="margin:0 auto;width:30px;height:30px;border-radius:50%;background-color: lightgray;">
+                                                <i class="fas fa-check-square " style="line-height: 31px;color:#898989;"></i>
+                                        </div>
+                                        <p style="font-size:10px;color:#898989;">
+                                                ギフト内容<br>確認中
+                                        </p>
+                                </div>
+                                <i class="fas fa-angle-right"></i>
+                                <div id="プレゼント完了"class="giftStatusNow">
+                                        <div style="margin:0 auto;width:30px;height:30px;border-radius:50%;background-color: lightgray;">
+                                                <i class="fas fa-gift " style="line-height: 31px;color:#898989;"></i>
+                                        </div>
+                                        <p style="font-size:10px;color:#898989;">
+                                                プレゼント<br>完了
+                                        </p>
+                                </div>
+                        </div>
+                        <div id="giftLogDetailHelp" style="display: none;">
+                                <p style="font-size:0.8em;color:#898989;">※もしプレゼント完了となっているのにメールで商品が届かない場合は「fanfun-ordercheck@gonmura.info」を受信拒否している可能性がございます。恐れ入りますが、受信を許可した上でお問い合わせください。
+                                </p>
+                        </div>
                         <div style="width:100%;">
                                 <p class="giftLogMidashi">◎注文ID</p>
                                 <p id="giftLogId" class="giftLogSub"></p>
@@ -43,6 +115,15 @@
         </div>
         <!-- 以下、javascript -->
         <script type="text/javascript">
+        setTimeout(function(){
+                var torihikiStatusNow = $('#giftLogtorihikiStatus').val();
+                $('#'+torihikiStatusNow).addClass('blinking');
+                console.log(torihikiStatusNow);
+
+                if(torihikiStatusNow=="プレゼント完了"){
+                        $('#giftLogDetailHelp').show();
+                }
+        },500);
                 
         </script>
 </ons-page>

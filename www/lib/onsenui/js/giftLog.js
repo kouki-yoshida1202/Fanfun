@@ -335,6 +335,7 @@ function giftLogDetail(buyUserAtena,buyUserNickName,buyRequest,buyKakaku,giftUid
                 $("#giftLogAtena").html(buyUserAtena);
                 $("#giftLogNickName").html(buyUserNickName);
                 $("#giftLogRequest").html(buyRequest);
+                $('#giftLogtorihikiStatus').val(torihikiStatus);
                 if(status=="出品" && torihikiStatus=="ギフト準備中"){
                         $('#giftUploadButton').css("display","block");
                 }

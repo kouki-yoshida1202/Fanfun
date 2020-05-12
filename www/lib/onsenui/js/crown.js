@@ -31,6 +31,9 @@ function crown(){
                 $('#rank_10').hide();
                 $('#rank_11').hide();
                 $('#rank_12').hide();
+                $('#rank_13').hide();
+                $('#rank_14').hide();
+                $('#rank_15').hide();
                 var crownCounter = 0;
                 if(crownCounter==0){
                         crownCounter++;

@@ -480,9 +480,6 @@
       if(homeCounter==1){
         homeJudge();
         loginImage();
-        setTimeout(function(){
-          crown();
-        },1500);
       }
 
   </script>
@@ -624,7 +621,7 @@
     <ons-page>
       <ons-tabbar position="bottom">
           <ons-tab id="topPageTab"page="top.html" label="ホーム"icon="home" onclick="" active></ons-tab>
-          <ons-tab id="crownPageTab" page="crown.html" label="ランキング" icon="crown" onclick=""></ons-tab>
+          <ons-tab id="crownPageTab" page="crown.html" label="ランキング" icon="crown" onclick="crown();"></ons-tab>
           <ons-tab id="instagramPageTab" page="instagram.html" label="ニュース"icon="instagram" onclick="InstagramNews();"></ons-tab>
           <!-- <ons-tab page="pointList.html" label="ショップ"icon="ticket" onclick=""></ons-tab> -->
           <ons-tab label="コンタクト"page="request.html" icon="fa-rocketchat" onclick=""></ons-tab>

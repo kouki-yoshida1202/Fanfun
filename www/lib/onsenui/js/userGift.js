@@ -21,6 +21,7 @@ function MyGift(){
                 $('#exhibition_button').prop("disabled",false);
                 var influencer_button = `
                 <button id="influencer_button" class="button "style="width:80%;padding-top:0px;padding-bottom:0px;line-height:auto;border-radius:30px;font-size:16px;margin:0 auto;" onclick="honninCheck();">本人確認マークの申請</button>
+                <p style="width:80%;margin:0 auto;font-size:0.8em;margin-top:15px;text-align:left;">本人確認がお済みでない限り、出品は出来ますがファンの方は購入できません。</p>
                 `;
                 $('#influencerTouroku').html(influencer_button);
         }else{
@@ -190,6 +191,7 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
         .fetch()
         .then(function(results){
                 var gift_user_name = results.get("userName");
+                var Authentication = results.get("Authentication");
                 if(gift_user_id == objectId){
                         //自分のギフト
                         document.getElementById('navi').bringPageTop('myGiftDetail.html');
@@ -256,6 +258,9 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
                                 console.log(ohitotu);
                                 if(ohitotu=="ON"){
                                         $('#mygift_detail_ohitotu').css("display","block");
+                                }
+                                if(Authentication!="OK"){
+                                        alert("本人確認が未完了のため、購入されません。");
                                 }
                         },500);
                 }else{
@@ -341,7 +346,9 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
                                 $('#gift_id').val(gift_uid);
                                 $('#stock').html(gift_stock);
                                 gift_favorite_check_detail(gift_uid);
-
+                                if(Authentication!="OK"){
+                                        $('#ReleaseStatusButton').prop("disabled",true);
+                                }
                                 if(gift_stock <= 0 || gift_stock == '' || gift_stock==undefined){
                                         $('#ReleaseStatusButton').prop("disabled",true);
                                         $('#ReleaseStatusButton').html("在庫切れ");
@@ -361,6 +368,9 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
                                                         $('#ReleaseStatusButton').html("購入済み");
                                                 }
                                         });
+                                }
+                                if(Authentication!="OK"){
+                                        alert("このギフトは本人確認が済んでいない出品者のため購入不可です。")
                                 }
                         },500);
                 }
