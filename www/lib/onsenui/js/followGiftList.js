@@ -57,7 +57,7 @@ function followUserGift(){
                                                 var card = `
                                                 <div class="gift-card" style="width:48%;height: 298px;padding: 1px 0 0 0;display: inline-block;margin-top:5px;"onclick="
                                                 `;
-                                                card += "giftIdJudge('"+gift_uid+"','"+userName+"','"+gift_title+"','"+gift_text+"','"+objectId+"','"+create_date+"','"+gift_price+"','"+gift_user_id+"','"+gift_stock+"','"+ReleaseStatus+"','"+ohitotu+"');";
+                                                card += "prevPage('follow');giftIdJudge('"+gift_uid+"','"+userName+"','"+gift_title+"','"+gift_text+"','"+objectId+"','"+create_date+"','"+gift_price+"','"+gift_user_id+"','"+gift_stock+"','"+ReleaseStatus+"','"+ohitotu+"');";
                                                 card +=`
                                                 ">
                                                         <input class="gift_uid" type="" value="`;
@@ -210,34 +210,64 @@ function followgiftUserImageTop(gift_user_id,i){
     // ギフト一覧でイイネ数を表示する関数
 function followgift_favorite_check(gift_uid,i){
 
-var currentUser = ncmb.User.getCurrentUser();
-var myUserId = currentUser.get('objectId');
+        var currentUser = ncmb.User.getCurrentUser();
+        var myUserId = currentUser.get('objectId');
 
-var GiftFavorite = ncmb.DataStore("GiftFavorite");
+        var GiftFavorite = ncmb.DataStore("GiftFavorite");
 
-GiftFavorite
-.equalTo("giftUid", gift_uid)
-.fetchAll()
-.then(function(results){
-        var favorite_count = results.length;
-        $('#follow_gift_favorite_span_'+i).html(favorite_count);
-});
+        GiftFavorite
+        .equalTo("giftUid", gift_uid)
+        .fetchAll()
+        .then(function(results){
+                var favorite_count = results.length;
+                $('#follow_gift_favorite_span_'+i).html(favorite_count);
+        });
 
 
-GiftFavorite
-.equalTo("UserId", myUserId)
-.equalTo("giftUid", gift_uid)
-.fetch()               
-.then(function(results){
-        if(Object.keys(results).length != 0){
-        $('#follow_gift_favorite_'+i).addClass("favorite_on").removeClass("favorite_off");
-        $('#follow_gift_favorite_span_'+i).addClass("favorite_on").removeClass("favorite_off");
-        }else{
-        $('#follow_gift_favorite_'+i).removeClass("favorite_on").addClass("favorite_off");
-        $('#follow_gift_favorite_span_'+i).removeClass("favorite_on").addClass("favorite_off");
+        GiftFavorite
+        .equalTo("UserId", myUserId)
+        .equalTo("giftUid", gift_uid)
+        .fetch()               
+        .then(function(results){
+                if(Object.keys(results).length != 0){
+                $('#follow_gift_favorite_'+i).addClass("favorite_on").removeClass("favorite_off");
+                $('#follow_gift_favorite_span_'+i).addClass("favorite_on").removeClass("favorite_off");
+                }else{
+                $('#follow_gift_favorite_'+i).removeClass("favorite_on").addClass("favorite_off");
+                $('#follow_gift_favorite_span_'+i).removeClass("favorite_on").addClass("favorite_off");
+                }
+        })
+        .catch(function(err){
+                console.log(err);
+        });
+}
+
+function prevPage(prevPage){
+        setTimeout(function(){
+                $('#prev_page').val(prevPage);
+        },500);
+}
+function followGiftList(){
+        if($('#prev_page').val()=='follow'){
+                $('#followArea').removeClass('swiper-slide-next').addClass('swiper-slide-active');
+                $('#shintyakuArea').addClass('swiper-slide-prev').removeClass('swiper-slide-active');
+                swiperContents.slideTo(1);
+                setTimeout(function(){
+                        var index = $('div.sp-content > div.swiper-slide-active').index();
+                        console.log(index);
+                        setCurrentSlide($('.swiper-navigation .swiper-slide').eq(index), index);
+                        // swiperNavigation.slideTo(index, 500, false);
+                        $('.sp-content').height($("#followArea").height());
+                        console.log($(".swiper-slide-active").height());
+                        setTimeout(function(){
+                                $('#sp-content').height($('.sp-content').height());
+                                console.log($('.sp-content').height());
+                        },50);
+                },50);
         }
-})
-.catch(function(err){
-        console.log(err);
-});
+}
+
+function setCurrentSlide(ele, index) {
+        $(".swiper-navigation .swiper-slide").removeClass('selected');
+        ele.addClass('selected');
 }

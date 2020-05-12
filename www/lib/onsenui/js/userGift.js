@@ -7,16 +7,20 @@ function MyGift(){
         $('.current_user_id').val(objectId);
         var influencer = currentUser.get("Influencer");
         var authentication = currentUser.get("Authentication");
-        if(influencer==true && authentication=="OK"){
+        var userKind = currentUser.get("userKind");
+        if(userKind=="test"){
+                var userNameTitle = currentUser.get("userName");
+                $('#myGiftList').hide();
+        }else if(influencer==true && authentication=="OK"){
                 $('#exhibition_button').prop("disabled",false);
-                var userNameTitle = currentUser.get("userName") + " <i class='far fa-check-circle' style='color:#FF6070;'></i>";
+                var userNameTitle = currentUser.get("userName") + " <span style='color:#FF6070;border:1px solid #FF6070;border-radius:20px;font-size:0.5em;padding:3px;vertical-align:middle;'>本人確認済</span>";
                 $('#influencerTouroku').hide();
         }else if(influencer==true && authentication!="OK"){
                 var userNameTitle = currentUser.get("userName");
-                $('#myGiftList').hide();
-
+                // $('#myGiftList').hide();
+                $('#exhibition_button').prop("disabled",false);
                 var influencer_button = `
-                <button id="influencer_button" class="button "style="width:70%;padding-top:0px;padding-bottom:0px;line-height:auto;border-radius:30px;font-size:16px;margin:0 auto;" disabled>インフルエンサー申請中</button>
+                <button id="influencer_button" class="button "style="width:80%;padding-top:0px;padding-bottom:0px;line-height:auto;border-radius:30px;font-size:16px;margin:0 auto;" onclick="honninCheck();">本人確認マークの申請</button>
                 `;
                 $('#influencerTouroku').html(influencer_button);
         }else{
@@ -24,7 +28,7 @@ function MyGift(){
                 $('#myGiftList').hide();
 
                 var influencer_button = `
-                <button id="influencer_button" class="button "style="width:70%;padding-top:0px;padding-bottom:0px;line-height:auto;border-radius:30px;font-size:16px;margin:0 auto;"onclick="document.getElementById('navi').bringPageTop('influencerChangeKiyaku.html');influencerChangeKiyaku();">インフルエンサー申請</button>
+                <button id="influencer_button" class="button "style="width:70%;padding-top:0px;padding-bottom:0px;line-height:auto;border-radius:30px;font-size:16px;margin:0 auto;"onclick="document.getElementById('navi').bringPageTop('influencerChangeKiyaku.html');influencerChangeKiyaku();">インフルエンサー登録</button>
                 `;
                 $('#influencerTouroku').html(influencer_button);
         }
@@ -399,25 +403,38 @@ function syoryaku(){
                 // 対象の要素を、高さにautoを指定し非表示で複製する
                 var $clone = $target.clone();
                 $clone
-                  .css({
-                    display: 'none',
-                    position : 'absolute',
-                    overflow : 'visible'
-                  })
-                  .width($target.width())
-                  .height('auto');
-            
+                        .css({
+                        display: 'none',
+                        position : 'absolute',
+                        overflow : 'visible'
+                        })
+                        .width($target.width())
+                        .height('auto');
+        
                 // DOMを一旦追加
                 $target.after($clone);
-            
+        
                 // 指定した高さになるまで、1文字ずつ消去していく
                 while((html.length > 0) && ($clone.height() > $target.height())) {
-                  html = html.substr(0, html.length - 1);
-                  $clone.html(html + '...');
+                        html = html.substr(0, html.length - 1);
+                        $clone.html(html + '...');
                 }
-            
+        
                 // 文章を入れ替えて、複製した要素を削除する
                 $target.html($clone.html());
                 $clone.remove();
         });
+}
+
+function honninCheck(){
+        document.getElementById('navi').bringPageTop('honninCheck.html');
+        var currentUser = ncmb.User.getCurrentUser();
+        var objectId = currentUser.get("objectId");
+        var mailAddress = currentUser.get("mailAddress");
+        var userName = currentUser.get("userName");
+        setTimeout(function(){
+                $('#honninUserId').val(objectId);
+                $('#honninMailaddress').val(mailAddress);
+                $('#honninUserName').val(userName);
+        },500);
 }

@@ -1,7 +1,7 @@
 <ons-page>
         <ons-toolbar class="toolbar" style="background-color: white;position: fixed;">
             <div class="left" style="padding-left: 3%;">
-                <ons-back-button></ons-back-button>
+                <ons-back-button onclick="followGiftList();"></ons-back-button>
             </div>
             <div class="center" style="color:#898989;">
                 ギフト詳細
@@ -9,6 +9,7 @@
         </ons-toolbar>
         <input type="hidden" id="other_user_id">
         <input type="hidden" id="gift_id">
+        <input type="hidden" id="prev_page">
         <div class="container contents" style="background-color:#efeff4;padding-bottom:50px;">
             <!-- カードリスト部分 -->
             <div class="" style="width:100%;height: auto; padding: 1px 0 0 0;display: inline-block;">

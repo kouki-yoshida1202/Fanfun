@@ -25,10 +25,10 @@ function influencerChange(){
                 // 運営へ通知
                 $.ajax({
                         type: 'post',
-                        url: 'https://fanfun2020.xsrv.jp/influencerOrderChange.html',
+                        url: 'https://fanfun2020.xsrv.jp/influencerOrder.html',
                         data: {
                                 'username': userName,
-                                'mailAddress':mailAddress,
+                                'mailaddress':mailAddress,
                         },
                         success: function(data){
                                 console.log("----success.----");

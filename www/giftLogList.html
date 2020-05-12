@@ -49,14 +49,13 @@
                         .fetch()         
                         .then(function(results){
                                 results.set("torihikiStatus", torihikiStatusAfter)
-                                        .update(); 
-                                alert("更新成功");
+                                        .update();
                                 if(torihikiStatusBefore=="入金待ち" && torihikiStatusAfter=="ギフト準備中"){
                                         ////////////////////////////
                                         ///////// 出品者に通知
                                         var push = new ncmb.Push();
                                         push.set("immediateDeliveryFlag", true)
-                                        .set("message", "注文ID:"+kanriLogId+" の入金が確認されました。ギフトの準備をお願いします。")
+                                        .set("message", "注文ID:"+kanriLogId+" の入金が確認されました！ギフトの準備をお願いします！")
                                         .set("target", ["ios", "android"])
                                         .set('searchCondition', {
                                                 userObjectId: kanriInfluencerId,
@@ -67,7 +66,7 @@
                                                 ///////// 購入者に通知
                                                 var push = new ncmb.Push();
                                                 push.set("immediateDeliveryFlag", true)
-                                                .set("message", "注文ID:"+kanriLogId+" の入金が確認され、「ギフト準備中」状態となりました。")
+                                                .set("message", "注文ID:"+kanriLogId+" の入金が確認され、「ギフト準備中」状態となりました！")
                                                 .set("target", ["ios", "android"])
                                                 .set('searchCondition', {
                                                         userObjectId: kanriBuyId,
@@ -76,6 +75,43 @@
                                                 .then(function(push){
                                                         // 送信後処理
                                                         alert("送信OK");
+                                                        document.getElementById('navi').popPage();
+                                                })
+                                                .catch(function(err){
+                                                        // エラー処理
+                                                        alert("送信NG");
+                                                });
+                                        })
+                                        .catch(function(err){
+                                                // エラー処理
+                                                alert("送信NG");
+                                        });
+                                }else if(torihikiStatusAfter=="プレゼント完了"){
+                                        ////////////////////////////
+                                        ///////// 出品者に通知
+                                        var push = new ncmb.Push();
+                                        push.set("immediateDeliveryFlag", true)
+                                        .set("message", "注文ID:"+kanriLogId+" がプレゼント完了しました！ご協力頂きありがとうございました！")
+                                        .set("target", ["ios", "android"])
+                                        .set('searchCondition', {
+                                                userObjectId: kanriInfluencerId,
+                                        });
+                                        push.send()
+                                        .then(function(push){
+                                                //////////////////////////////
+                                                ///////// 購入者に通知
+                                                var push = new ncmb.Push();
+                                                push.set("immediateDeliveryFlag", true)
+                                                .set("message", "注文ID:"+kanriLogId+" がプレゼント完了しました！メールをご確認くださいませ！")
+                                                .set("target", ["ios", "android"])
+                                                .set('searchCondition', {
+                                                        userObjectId: kanriBuyId,
+                                                });
+                                                push.send()
+                                                .then(function(push){
+                                                        // 送信後処理
+                                                        alert("送信OK");
+                                                        document.getElementById('navi').popPage();
                                                 })
                                                 .catch(function(err){
                                                         // エラー処理
@@ -91,7 +127,7 @@
                                         ///////// 出品者に通知
                                         var push = new ncmb.Push();
                                         push.set("immediateDeliveryFlag", true)
-                                        .set("message", "注文ID:"+kanriLogId+" が「"+torihikiStatusAfter+"」状態に変わりました。")
+                                        .set("message", "注文ID:"+kanriLogId+" が「"+torihikiStatusAfter+"」状態に変わりました！")
                                         .set("target", ["ios", "android"])
                                         .set('searchCondition', {
                                                 userObjectId: kanriInfluencerId,
@@ -102,7 +138,7 @@
                                                 // 購入者に通知
                                                 var push = new ncmb.Push();
                                                 push.set("immediateDeliveryFlag", true)
-                                                .set("message", "注文ID:"+kanriLogId+" が「"+torihikiStatusAfter+"」状態に変わりました。")
+                                                .set("message", "注文ID:"+kanriLogId+" が「"+torihikiStatusAfter+"」状態に変わりました！")
                                                 .set("target", ["ios", "android"])
                                                 .set('searchCondition', {
                                                         userObjectId: kanriBuyId,
@@ -111,6 +147,7 @@
                                                 .then(function(push){
                                                 // 送信後処理
                                                         alert("送信OK");
+                                                        document.getElementById('navi').popPage();
                                                 })
                                                 .catch(function(err){
                                                         // エラー処理

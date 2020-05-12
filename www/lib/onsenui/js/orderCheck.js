@@ -6,6 +6,7 @@ function orderCheck(){
         var nickname_input = $('#nickname_input').val();
         // リクエストメッセージ
         var request_message_input = $('#request_message_input').val();
+        var request_message_input = request_message_input.replace(/\r?\n/g,'');
         var gift_title = $('#buypage_title').html();
         var price = $('#buypage_price_number').val();
         var gift_uid = $('#buypage_gift_uid').val();

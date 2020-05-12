@@ -10,7 +10,7 @@ function giftInsert(ReleaseStatus) {
         //ユーザーの入力したデータを変数にセットする
         var gift_title = $("#gift_title").val();            
         var gift_text = $("#gift_text").val();
-        var gift_text = gift_text.replace(/\r?\n/g,'');
+        var gift_text = gift_text.replace(/\r?\n/g,'<br>');
         var gift_price = $("#gift_price").val(); 
         var gift_stock = $("#gift_stock").val(); 
         var yoyaku = $('.segment-yoyaku:checked').val();
@@ -168,7 +168,7 @@ function giftEdit() {
         //ユーザーの入力したデータを変数にセットする
         var gift_title = $("#gift_title_edit").val();            //お名前
         var gift_text = $("#gift_text_edit").val();     //メールアドレス
-        var gift_text = gift_text.replace(/\r?\n/g,'');
+        var gift_text = gift_text.replace(/\r?\n/g,'<br>');
         var gift_price = $("#gift_price_edit").val();      //パスワード
         var gift_stock = $("#gift_stock_edit").val();
         var profileGiftEditStatus = $('#profileGiftEditStatus').val();
@@ -247,6 +247,7 @@ function giftEdit() {
 function giftNowInfo(){
         var gift_title = $('#gift_detail_title').html();
         var gift_text = $('#gift_detail_text').html();
+        var gift_text = gift_text.replace(/<br>/g,"\n");
         var gift_price = $('#gift_detail_price').html();
         var gift_price = Number(gift_price.slice(1));
         var gift_uid = $('#my_gift_id').val();

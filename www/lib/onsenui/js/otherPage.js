@@ -66,7 +66,7 @@ function otherPageUserId(other_user_id){
                 var influencer = results.get("Influencer");
                 var authentication = results.get("Authentication");
                 if(influencer==true && authentication=="OK"){
-                        var other_user_name_title = results.get("userName") + " <i class='far fa-check-circle' style='color:#FF6070;'></i>";
+                        var other_user_name_title = results.get("userName") + " <span style='color:#FF6070;border:1px solid #FF6070;border-radius:20px;font-size:0.5em;padding:3px;vertical-align:middle;'>本人確認済</span>";
                 }else{
                         var other_user_name_title = results.get("userName");
                 }

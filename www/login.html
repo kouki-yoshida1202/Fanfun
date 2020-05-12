@@ -85,7 +85,8 @@
         <div class="alert-dialog-container">
             <div class="alert-dialog-title">メールアドレスかパスワードが<br>間違っています</div>
             <div class="alert-dialog-footer">
-                <button class="alert-dialog-button alert-dialog-button--primal" onclick="loginMissClose();">OK</button>
+                <button class="alert-dialog-button" onclick="loginMissClose();">閉じる</button>
+                <button class="alert-dialog-button alert-dialog-button--primal" onclick="document.getElementById('login').bringPageTop('loginHelp.html')">ログインできない場合</button>
             </div>
         </div>
     </div>
