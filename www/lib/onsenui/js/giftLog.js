@@ -389,44 +389,59 @@ function hurikomiFormSend(){
                 alert("振込申請は1000円以上からとなります。");
         }else{
                 if(mailcheck){
-                        var hurikomiForm = ncmb.DataStore("hurikomiForm");
-                        // データストアへの登録
-                        var hurikomiForm = new hurikomiForm();
-                        hurikomiForm.set("userId", hurikomiUserId)
-                                .set("mailAddress", hurikomiMailaddress)
-                                .set("Ginkou",hurikomiGinkou)
-                                .set("Shiten",hurikomiShiten)
-                                .set("Shubetu",hurikomiShubetu)
-                                .set("Bangou",hurikomiBangou)
-                                .set("Meigi",hurikomiMeigi)
-                                .set("Kingaku",hurikomiKingaku)
-                                .save()
-                                .then(function(gameScore){
-                                // 保存後の処理
-                                        $.ajax({
-                                                type: 'post',
-                                                url: 'https://fanfun2020.xsrv.jp/hurikomiSend.html',
-                                                data: {
-                                                        "userId":hurikomiUserId,
-                                                        "mailAddress": hurikomiMailaddress,
-                                                        "Ginkou":hurikomiGinkou,
-                                                        "Shiten":hurikomiShiten,
-                                                        "Shubetu":hurikomiShubetu,
-                                                        "Bangou":hurikomiBangou,
-                                                        "Meigi":hurikomiMeigi,
-                                                        "Kingaku":hurikomiKingaku,
-                                                },
-                                                success: function(data){
-                                                        console.log(data);
-                                                }
-                                        });
-                                        alert("申請が完了しました。担当から改めてご連絡致します。");
-                                        document.getElementById('navi').popPage();
-                                })
-                                .catch(function(err){
-                                // エラー処理
-                                        alert("申請が失敗しました。お手数ですがお問い合わせお願い致します。");
-                                });
+                        var minouUriage = ncmb.DataStore("minouUriage");
+                        minouUriage
+                        .equalTo('userId',hurikomiUserId)
+                        .fetch()                
+                        .then(function(results){
+                                var minouUriage = results.get("minouUriage");
+                                if(Number(minouUriage)<Number(hurikomiKingaku)){
+                                        alert("売上金よりも上回る金額は設定できません。");
+                                }else{
+                                        var hurikomiForm = ncmb.DataStore("hurikomiForm");
+                                        // データストアへの登録
+                                        var hurikomiForm = new hurikomiForm();
+                                        hurikomiForm.set("userId", hurikomiUserId)
+                                                .set("mailAddress", hurikomiMailaddress)
+                                                .set("Ginkou",hurikomiGinkou)
+                                                .set("Shiten",hurikomiShiten)
+                                                .set("Shubetu",hurikomiShubetu)
+                                                .set("Bangou",hurikomiBangou)
+                                                .set("Meigi",hurikomiMeigi)
+                                                .set("Kingaku",hurikomiKingaku)
+                                                .save()
+                                                .then(function(gameScore){
+                                                // 保存後の処理
+                                                        $.ajax({
+                                                                type: 'post',
+                                                                url: 'https://fanfun2020.xsrv.jp/hurikomiSend.html',
+                                                                data: {
+                                                                        "userId":hurikomiUserId,
+                                                                        "mailAddress": hurikomiMailaddress,
+                                                                        "Ginkou":hurikomiGinkou,
+                                                                        "Shiten":hurikomiShiten,
+                                                                        "Shubetu":hurikomiShubetu,
+                                                                        "Bangou":hurikomiBangou,
+                                                                        "Meigi":hurikomiMeigi,
+                                                                        "Kingaku":hurikomiKingaku,
+                                                                },
+                                                                success: function(data){
+                                                                        console.log(data);
+                                                                }
+                                                        });
+                                                        alert("申請が完了しました。担当から改めてご連絡致します。");
+                                                        document.getElementById('navi').popPage();
+                                                })
+                                                .catch(function(err){
+                                                // エラー処理
+                                                        alert("申請が失敗しました。お手数ですがお問い合わせお願い致します。");
+                                                });
+                                }
+                        }).catch(function(err){
+                        // エラー処理
+                                alert("申請が失敗しました。お手数ですがお問い合わせお願い致します。");
+                        });
+                        
                 }else{
                         alert("メールアドレスが正しくありません");
                 }
