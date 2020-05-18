@@ -16,6 +16,9 @@ function profileEdit(){
         var username_edit = $("#current_user_name_profile").val();            //お名前
         var mailaddress_edit = $("#current_mailaddress_profile").val();     //メールアドレス
         var text_edit = $("#current_text_profile").val();
+        var myTwitterURL = $("#editMyTwitterURL").val();
+        var myInstagramURL = $("#editMyInstagramURL").val();
+        var myYouTubeURL = $("#editMyYouTubeURL").val();
         var mailAddress_changeOnOff = $('input[name="mailaddress-radio"]:checked').val();
         if(mailAddress_changeOnOff == "onChange"){
                 var mailcheck = MailCheck(mailaddress_edit);
@@ -26,6 +29,9 @@ function profileEdit(){
                                 .set('userName', username_edit)
                                 .set('mailAddress',mailaddress_edit)
                                 .set('Text',text_edit)
+                                .set('URLtwitter',myTwitterURL)
+                                .set('URLinstagram',myInstagramURL)
+                                .set('URLyoutube',myYouTubeURL)
                                 .update()
                                 .then(function(data) {
                                 // 更新完了
@@ -68,6 +74,9 @@ function profileEdit(){
                 .set('objectId', objectId)
                 .set('userName', username_edit)
                 .set('Text',text_edit)
+                .set('URLtwitter',myTwitterURL)
+                .set('URLinstagram',myInstagramURL)
+                .set('URLyoutube',myYouTubeURL)
                 .update()
                 .then(function(data) {
                 // 更新完了

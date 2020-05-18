@@ -73,10 +73,25 @@ function otherPageUserId(other_user_id){
                 var other_user_name = results.get("userName");
                 var other_profile_text = results.get("Text");
                 var Genre = results.get("Genre");
+                var URLtwitter = results.get("URLtwitter");
+                var URLinstagram = results.get("URLinstagram");
+                var URLyoutube = results.get("URLyoutube");
                 $('#other_page_user_id').val(other_user_id);
                 $('#other_user_name').html(other_user_name_title);
                 $('#other_page_header').html(other_user_name);
                 $('#other_profile').html(other_profile_text);
+                $('#otherTwitterURL').val(URLtwitter);
+                $('#otherInstagramURL').val(URLinstagram);
+                $('#otherYouTubeURL').val(URLyoutube);
+                if(URLtwitter == ''||URLtwitter==null){
+                        $('#otherTwitter').hide();
+                }
+                if(URLinstagram == ''||URLinstagram==null){
+                        $('#otherInstagram').hide();
+                }
+                if(URLyoutube == ''||URLyoutube==null){
+                        $('#otherYouTube').hide();
+                }
                 $('#otherGenre').empty();
                 if(Genre){
                         for(var n=0;n<Genre.length;n++){
@@ -127,7 +142,7 @@ function otherPageUserId(other_user_id){
                                         for(var i=0;i<object.length;i++){
                                                 var gift_title = object[i].get("giftTitle");
                                                 var gift_text =object[i].get("giftText");
-                                                var create_date = object[i].get("createDate");
+                                                var create_date = object[i].get("releaseDate");
                                                 var time = jikanCulc(create_date);
                                                 var gift_uid = object[i].get("giftUid");
                                                 var gift_price = object[i].get("price");

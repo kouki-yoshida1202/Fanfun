@@ -34,7 +34,7 @@ function followUserGift(){
                         for(var i=0;i<object.length;i++){
                                 var gift_title = object[i].get("giftTitle");
                                 var gift_text =object[i].get("giftText");
-                                var create_date = object[i].get("createDate");
+                                var create_date = object[i].get("releaseDate");
                                 var time = jikanCulc(create_date);
                                 var gift_uid = object[i].get("giftUid");
                                 var gift_price = object[i].get("price");
@@ -55,7 +55,7 @@ function followUserGift(){
                                 //         }else{
                                                 //カードに出力していく
                                                 var card = `
-                                                <div class="gift-card" style="width:48%;height: 298px;padding: 1px 0 0 0;display: inline-block;margin-top:5px;"onclick="
+                                                <div class="gift-card" style="width:49%;height: 298px;padding: 1px 0 0 0;display: inline-block;margin-top:5px;"onclick="
                                                 `;
                                                 card += "prevPage('follow');giftIdJudge('"+gift_uid+"','"+userName+"','"+gift_title+"','"+gift_text+"','"+objectId+"','"+create_date+"','"+gift_price+"','"+gift_user_id+"','"+gift_stock+"','"+ReleaseStatus+"','"+ohitotu+"');";
                                                 card +=`

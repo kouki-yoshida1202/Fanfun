@@ -32,7 +32,7 @@ function myFavoriteGift(){
                         for(var i=0;i<object.length;i++){
                                 var gift_title = object[i].get("giftTitle");
                                 var gift_text =object[i].get("giftText");
-                                var create_date = object[i].get("createDate");
+                                var create_date = object[i].get("releaseDate");
                                 var time = jikanCulc(create_date);
                                 var gift_uid = object[i].get("giftUid");
                                 var gift_price = object[i].get("price");

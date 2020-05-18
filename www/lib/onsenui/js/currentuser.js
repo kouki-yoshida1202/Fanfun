@@ -6,6 +6,9 @@ function loginInfo(){
         var text = currentUser.get('Text');
         var objectId = currentUser.get("objectId");
         var Genre = currentUser.get("Genre");
+        var URLtwitter = currentUser.get("URLtwitter");
+        var URLinstagram = currentUser.get("URLinstagram");
+        var URLyoutube = currentUser.get("URLyoutube");
         $('#myGenre').empty();
         
         if(objectId == "V5wsDER2rALwDReh"){
@@ -19,6 +22,18 @@ function loginInfo(){
         $('#mypage_user_name').html(userName);
         $('.current_text').html(text);
         $('.current_user_id').val(objectId);
+        $('#myTwitterURL').val(URLtwitter);
+        $('#myInstagramURL').val(URLinstagram);
+        $('#myYouTubeURL').val(URLyoutube);
+        if(URLtwitter == ''||URLtwitter==null){
+                $('#myTwitter').hide();
+        }
+        if(URLinstagram == ''||URLinstagram==null){
+                $('#myInstagram').hide();
+        }
+        if(URLyoutube == ''||URLyoutube==null){
+                $('#myYouTube').hide();
+        }
         //フォローフォロワー数
         var FollowData = ncmb.DataStore("follow");
 
@@ -60,12 +75,18 @@ function profilePage(){
         var mailaddress = currentUser.get("mailAddress");
         var text = currentUser.get('Text');
         var objectId = currentUser.get("objectId");
+        var URLtwitter = currentUser.get("URLtwitter");
+        var URLinstagram = currentUser.get("URLinstagram");
+        var URLyoutube = currentUser.get("URLyoutube");
 
         if (currentUser) {
                 setTimeout(function() {
                         $('#current_user_name_profile').val(userName);
                         $('#current_mailaddress_profile').val(mailaddress);
                         $('#current_text_profile').val(text);
+                        $('#editMyTwitterURL').val(URLtwitter);
+                        $('#editMyInstagramURL').val(URLinstagram);
+                        $('#editMyYouTubeURL').val(URLyoutube);
                 }, 500);
                 
         }

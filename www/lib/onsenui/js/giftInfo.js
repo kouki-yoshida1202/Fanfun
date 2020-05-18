@@ -8,8 +8,13 @@ function giftInsert(ReleaseStatus) {
         showGiftInsertLoad();
         console.log(ReleaseStatus);
         //ユーザーの入力したデータを変数にセットする
-        var gift_title = $("#gift_title").val();            
+        var gift_title = $("#gift_title").val();  
+        var gift_title = gift_title.replace(/'/g,"’");
+        var gift_title = gift_title.replace(/"/g,"’");          
         var gift_text = $("#gift_text").val();
+        var gift_text = gift_text.replace(/'/g,"’");
+        var gift_text = gift_text.replace(/"/g,"’");
+        var gift_text = gift_text.replace(/\r?\n/g,'<br>');
         var gift_text = gift_text.replace(/\r?\n/g,'<br>');
         var gift_price = $("#gift_price").val(); 
         var gift_stock = $("#gift_stock").val(); 
@@ -23,6 +28,7 @@ function giftInsert(ReleaseStatus) {
         }
         var iso = moment(time).format();
         var ohitotu = $('.segment-ohitotu:checked').val();
+        var timeLimit = $('.segment-limit:checked').val();
         var profileGiftInputStatus = $('#profileGiftInputStatus').val();
         if(gift_title ==''){
                 hideGiftInsertLoad();
@@ -32,6 +38,7 @@ function giftInsert(ReleaseStatus) {
                 alert("ギフト説明文が未入力です");
         }
         else if(profileGiftInputStatus == 0){
+                console.log(gift_text);
                 hideGiftInsertLoad();
                 alert("ギフト画像が未登録です");
         }
@@ -70,6 +77,7 @@ function giftInsert(ReleaseStatus) {
                                 .set("stock",gift_stock)
                                 .set("releaseDate",iso)
                                 .set("ohitotu",ohitotu)
+                                .set("timeLimit",String(timeLimit))
                                 .set("ReleaseStatus",ReleaseStatus)
                                 .save()
                                 .then(function(gameScore){
@@ -120,6 +128,7 @@ function giftInsert(ReleaseStatus) {
                                 .set("stock",gift_stock)
                                 .set("releaseDate",iso)
                                 .set("ohitotu",ohitotu)
+                                .set("timeLimit",String(timeLimit))
                                 .set("ReleaseStatus",ReleaseStatus)
                                 .save()
                                 .then(function(gameScore){
@@ -167,11 +176,16 @@ function giftEdit() {
         showGiftEditLoad();
         //ユーザーの入力したデータを変数にセットする
         var gift_title = $("#gift_title_edit").val();            //お名前
+        var gift_title = gift_title.replace(/'/g,"’");
+        var gift_title = gift_title.replace(/"/g,"’");                  
         var gift_text = $("#gift_text_edit").val();     //メールアドレス
+        var gift_text = gift_text.replace(/'/g,"’");
+        var gift_text = gift_text.replace(/"/g,"’");
         var gift_text = gift_text.replace(/\r?\n/g,'<br>');
         var gift_price = $("#gift_price_edit").val();      //パスワード
         var gift_stock = $("#gift_stock_edit").val();
         var profileGiftEditStatus = $('#profileGiftEditStatus').val();
+        var ohitotu = $('.segment-ohitotu:checked').val();
         if(gift_title ==''){
                 hideGiftEditLoad();
                 alert("ギフトタイトルが未入力です");
@@ -211,6 +225,7 @@ function giftEdit() {
                                         .set("giftText", gift_text)
                                         .set("price",gift_price)
                                         .set("stock",gift_stock)
+                                        .set("ohitotu",ohitotu)
                                         .update();
 
                                 if(profileGiftEditStatus != 0){
@@ -269,6 +284,13 @@ function giftNowInfo(){
                                 var object = results;
                                 console.log(object);
                                 var releaseDate = object.get("releaseDate");
+                                var ohitotu = object.get("ohitotu");
+                                if(ohitotu=="ON"){
+                                        var ohitotu = "ohitotuON";
+                                }else{
+                                        var ohitotu = "ohitotuOFF";
+                                }
+                                $('#'+ohitotu).prop("checked",true);
                                 var dt = new Date(releaseDate);
                                 var y = dt.getFullYear();
                                 var m = ("00" + (dt.getMonth()+1)).slice(-2);

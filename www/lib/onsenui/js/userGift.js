@@ -53,7 +53,7 @@ function MyGift(){
                 for(var i=0;i<object.length;i++){
                         var gift_title = object[i].get("giftTitle");
                         var gift_text =object[i].get("giftText");
-                        var create_date = object[i].get("createDate");
+                        var create_date = object[i].get("releaseDate");
                         var time = jikanCulc(create_date);
                         var gift_uid = object[i].get("giftUid");
                         var gift_stock = object[i].get("stock");
@@ -379,28 +379,35 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
 
 function jikanCulc(create_date){
         var datetime = create_date;
-        var from = new Date(datetime);
-
-        // 現在時刻との差分＝経過時間
-        var diff = new Date().getTime() - from.getTime();
-        // 経過時間をDateに変換
-        var elapsed = new Date(diff);
-
-        // 大きい単位から順に表示
-        if (elapsed.getUTCFullYear() - 1970) {
-                var time = elapsed.getUTCFullYear() - 1970 + '年前';
-        } else if (elapsed.getUTCMonth()) {
-                var time = elapsed.getUTCMonth() + 'ヶ月前';
-        } else if (elapsed.getUTCDate() - 1) {
-                var time = elapsed.getUTCDate() - 1 + '日前';
-        } else if (elapsed.getUTCHours()) {
-                var time = elapsed.getUTCHours() + '時間前';
-        } else if (elapsed.getUTCMinutes()) {
-                var time = elapsed.getUTCMinutes() + '分前';
-        } else {
-                var time = 'たった今';
-        }
-        return time;
+        var time = new Date();
+        var iso = moment(time).format();
+        if(datetime > iso){
+                var time = "公開待ち"
+                return time;
+        }else{
+                var from = new Date(datetime);
+        
+                // 現在時刻との差分＝経過時間
+                var diff = new Date().getTime() - from.getTime();
+                // 経過時間をDateに変換
+                var elapsed = new Date(diff);
+        
+                // 大きい単位から順に表示
+                if (elapsed.getUTCFullYear() - 1970) {
+                        var time = elapsed.getUTCFullYear() - 1970 + '年前';
+                } else if (elapsed.getUTCMonth()) {
+                        var time = elapsed.getUTCMonth() + 'ヶ月前';
+                } else if (elapsed.getUTCDate() - 1) {
+                        var time = elapsed.getUTCDate() - 1 + '日前';
+                } else if (elapsed.getUTCHours()) {
+                        var time = elapsed.getUTCHours() + '時間前';
+                } else if (elapsed.getUTCMinutes()) {
+                        var time = elapsed.getUTCMinutes() + '分前';
+                } else {
+                        var time = 'たった今';
+                }
+                return time;
+        }å
 }
 
 function syoryaku(){
