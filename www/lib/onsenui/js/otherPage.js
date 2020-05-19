@@ -59,6 +59,16 @@ function otherGiftImageGet(giftUid,i,gift_stock){
 
 function otherPageUserId(other_user_id){
         $('#otherGiftList').empty();
+        $('#other_page_user_id').empty();
+        $('#other_user_name').empty();
+        $('#other_page_header').empty();
+        $('#other_profile').empty();
+        $('#otherTwitterURL').empty();
+        $('#otherInstagramURL').empty();
+        $('#otherYouTubeURL').empty();
+        $('#other_user_image').attr('src','img/human.png');
+        $('#other_follow_button').removeClass("follow_on").html("フォローする");
+        
         ncmb.User
         .equalTo("objectId", other_user_id)
         .fetch()
@@ -67,8 +77,10 @@ function otherPageUserId(other_user_id){
                 var authentication = results.get("Authentication");
                 if(influencer==true && authentication=="OK"){
                         var other_user_name_title = results.get("userName") + " <span style='color:#FF6070;border:1px solid #FF6070;border-radius:20px;font-size:0.5em;padding:3px;vertical-align:middle;'>本人確認済</span>";
+                        $('#fanRankDiv').show();
                 }else{
                         var other_user_name_title = results.get("userName");
+                        $('#fanRankDiv').hide();
                 }
                 var other_user_name = results.get("userName");
                 var other_profile_text = results.get("Text");
@@ -128,6 +140,11 @@ function otherPageUserId(other_user_id){
                         // ブロックしてるかのチェック
                         var currentUser = ncmb.User.getCurrentUser();
                         var objectId = currentUser.get("objectId");
+                        var userKind = currentUser.get("userKind");
+
+                        if(userKind=="test"){
+                                $('#fanRankDiv').hide();
+                        }
                         var BlockList = ncmb.DataStore("BlockList");
                         BlockList
                         .equalTo("blockerId", objectId)

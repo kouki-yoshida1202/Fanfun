@@ -1,0 +1,193 @@
+<ons-page id="fanRank-page">
+        <ons-toolbar class="toolbar crown_toolbar" style="background-color: white;">
+                <div class="left" style="padding-left: 3%;">
+                        <ons-back-button></ons-back-button>
+                </div>
+                <div class="center" style="width:120%;color:#898989;">
+                        Fanランキング
+                </div>
+        </ons-toolbar>
+        <style>
+                .fanRank1_img{
+                        width:120px;height:120px;object-fit:cover;margin:0 auto;
+                }
+
+                .fanRank1_name{
+                        width:100%;margin-bottom:2px;
+                }
+
+                .fanRank1_tag{
+                        margin:0px;color:#898989;font-size:0.8em;
+                }
+                .fanRank23_img{
+                        width:90px;height:90px;object-fit:cover;margin:0 auto;
+                }
+
+                .fanRank23_name{
+                        width:100%;margin-bottom:2px;font-size:0.8em;
+                }
+                
+                .fanRank23_tag{
+                        margin:0px;font-size:0.7em;color:#898989;
+                }
+                .fanRank4_9_img{
+                        width:50px;height:50px;object-fit:cover;margin:0 auto;
+                }
+
+                .fanRank4_9_name{
+                        width:100%;margin-bottom:2px;font-size:0.6em;
+                }
+
+                .fanRank4_9_tag{
+                        margin:0px;font-size:0.5em;color:#898989;
+                }
+
+                .fanRank23,.fanRank4_9{
+                        vertical-align: top;
+                }
+
+                .fanRanking_number{
+                        position: absolute;bottom:0;right:10px;width:40px;height:40px;border-radius: 50%;color:white;text-align: center;
+                }
+                .crown_header {
+                        position: absolute;
+                        margin: 0;
+                        padding: 0;
+                        border: 0;
+                        top: 0px;
+                        left: 0;
+                        width: 100%;
+                        height: auto;
+                        z-index: 2;
+                }
+        </style>
+        <div class="crown_header">
+                <div class="contents" style="width:100%;background-color:white;margin:0px;padding:10px 0px;border-bottom:1px solid #898989;">
+                        <ul id="searchUser" class="list list--material">
+                                <li class="list-item list-item--material">
+                                        <div class="list-item__left list-item--material__left">
+                                                <img id="fanRankImg"class="list-item__thumbnail list-item--material__thumbnail follow_thumbnanil" src="img/human.png" style="width:50px;height:50px;object-fit:cover;">
+                                        </div>
+                                        <div class="list-item__center list-item--material__center">
+                                                <p id="fanRankName" style="width:100%;margin:3px;">
+                                                </p>
+                                                <p style="width:100%;margin:3px;">
+                                                        のトップFanユーザー<i class="fas fa-trophy fa-lg fa-fw" style="padding-right:5px;color:#F5ED7D;"></i>
+                                                </p>
+                                        </div>
+                                </li>
+                        </ul>
+                </div>
+        </div>
+        <div class="content crown_content" style="background-color: white;padding-bottom:50px;">
+                <input type="hidden" id="fanRankUserId_1">
+                <input type="hidden" id="fanRankUserId_2">
+                <input type="hidden" id="fanRankUserId_3">
+                <input type="hidden" id="fanRankUserId_4">
+                <input type="hidden" id="fanRankUserId_5">
+                <input type="hidden" id="fanRankUserId_6">
+                <input type="hidden" id="fanRankUserId_7">
+                <input type="hidden" id="fanRankUserId_8">
+                <input type="hidden" id="fanRankUserId_9">
+                <div id="fanRankingZone" class="contents" style="background-color:white;padding-top: 20px;">
+                        <div id="fanRank_1" style="width:100%;display: inline-block;margin-bottom:10px;" onclick="clickFanRank(1);">
+                                <div style="width:45%;margin:0 auto;text-align: center;">
+                                        <div style="position: relative;">
+                                                <img id="fanRank_1_img" class="list-item__thumbnail list-item--material__thumbnail fanRank1_img" src="img/human.png">
+                                                <div class="card__content fanRanking_number" style="background: -moz-linear-gradient(top left,#C9A746,#F5ED7D 50%,#C9A746); 
+                                                background: -webkit-linear-gradient(top left,#C9A746,#F5ED7D 50%,#C9A746); 
+                                                background: linear-gradient(to bottom right,#C9A746,#F5ED7D 50%,#C9A746);">
+                                                        <i class="fas fa-crown" style="margin-top:10px;"></i>
+                                                </div>
+                                        </div>
+                                        <p id="fanRank_1_name" class="fanRank1_name"></p>
+                                        <p id="fanRank_1_tag" class="fanRank1_tag"></p>
+                                </div>
+                        </div>
+                        <div id="fanRank_2" class="fanRank23"style="width:49%;display:inline-block;margin-top:10px;margin-bottom:10px;"onclick="clickFanRank(2);">
+                                <div style="width:80%;margin:0 auto;text-align: center;">
+                                        <div style="position: relative;">
+                                                <img id="fanRank_2_img" class="list-item__thumbnail list-item--material__thumbnail fanRank23_img" src="img/human.png">
+                                                <div class="card__content fanRanking_number" style="background: -moz-linear-gradient(top left,#BBC2CA,#F2F3F5 50%,#BBC2CA); 
+                                                background: -webkit-linear-gradient(top left,#BBC2CA,#F2F3F5 50%,#BBC2CA); 
+                                                background: linear-gradient(to bottom right,#BBC2CA,#F2F3F5 50%,#BBC2CA);">
+                                                        <i class="fas fa-crown" style="margin-top:10px;"></i>
+                                                </div>
+                                        </div>
+                                        <p id="fanRank_2_name" class="fanRank23_name"></p>
+                                        <p id="fanRank_2_tag" class="fanRank23_tag"></p>
+                                </div>
+                        </div>
+                        <div id="fanRank_3" class="fanRank23"style="width:49%;display:inline-block;margin-top:10px;margin-bottom:10px;"onclick="clickFanRank(3);">
+                                <div style="width:80%;margin:0 auto;text-align: center;">
+                                        <div style="position: relative;">
+                                                <img id="fanRank_3_img" class="list-item__thumbnail list-item--material__thumbnail fanRank23_img" src="img/human.png">
+                                                <div class="card__content fanRanking_number" style="background: -moz-linear-gradient(top left,#976A47,#F0AF78 50%,#976A47); 
+                                                background: -webkit-linear-gradient(top left,#976A47,#F0AF78 50%,#976A47); 
+                                                background: linear-gradient(to bottom right,#976A47,#F0AF78 50%,#976A47);">
+                                                        <i class="fas fa-crown" style="margin-top:10px;"></i>
+                                                </div>
+                                        </div>
+                                        <p id="fanRank_3_name" class="fanRank23_name"></p>
+                                        <p id="fanRank_3_tag" class="fanRank23_tag"></p>
+                                </div>
+                        </div>
+                        <div id="fanRank_4" class="fanRank4_9"style="width:32.5%;display:inline-block;margin-top:10px;margin-bottom:10px;"onclick="clickFanRank(4);">
+                                <div style="width:80%;margin:0 auto;text-align: center;">
+                                        <img id="fanRank_4_img" class="list-item__thumbnail list-item--material__thumbnail fanRank4_9_img" src="img/human.png">
+                                        <p id="fanRank_4_name" class="fanRank4_9_name"></p>
+                                        <p id="fanRank_4_tag" class="fanRank4_9_tag"></p>
+                                </div>
+                        </div>
+                        <div id="fanRank_5" class="fanRank4_9" style="width:32.5%;display:inline-block;margin-top:10px;margin-bottom:10px;"onclick="clickFanRank(5);">
+                                <div style="width:80%;margin:0 auto;text-align: center;">
+                                        <img id="fanRank_5_img" class="list-item__thumbnail list-item--material__thumbnail fanRank4_9_img" src="img/human.png">
+                                        <p id="fanRank_5_name" class="fanRank4_9_name"></p>
+                                        <p id="fanRank_5_tag" class="fanRank4_9_tag"></p>
+                                </div>
+                        </div>
+                        <div id="fanRank_6" class="fanRank4_9" style="width:32.5%;display:inline-block;margin-top:10px;margin-bottom:10px;"onclick="clickFanRank(6);">
+                                <div style="width:80%;margin:0 auto;text-align: center;">
+                                        <img id="fanRank_6_img" class="list-item__thumbnail list-item--material__thumbnail fanRank4_9_img" src="img/human.png">
+                                        <p id="fanRank_6_name" class="fanRank4_9_name"></p>
+                                        <p id="fanRank_6_tag" class="fanRank4_9_tag"></p>
+                                </div>
+                        </div>
+                        <div id="fanRank_7" class="fanRank4_9" style="width:32.5%;display:inline-block;margin-top:10px;margin-bottom:10px;"onclick="clickFanRank(7);">
+                                <div style="width:80%;margin:0 auto;text-align: center;">
+                                        <img id="fanRank_7_img" class="list-item__thumbnail list-item--material__thumbnail fanRank4_9_img" src="img/human.png">
+                                        <p id="fanRank_7_name" class="fanRank4_9_name"></p>
+                                        <p id="fanRank_7_tag" class="fanRank4_9_tag"></p>
+                                </div>
+                        </div>
+                        <div id="fanRank_8" class="fanRank4_9" style="width:32.5%;display:inline-block;margin-top:10px;margin-bottom:10px;"onclick="clickFanRank(8);">
+                                <div style="width:80%;margin:0 auto;text-align: center;">
+                                        <img id="fanRank_8_img" class="list-item__thumbnail list-item--material__thumbnail fanRank4_9_img" src="img/human.png">
+                                        <p id="fanRank_8_name" class="fanRank4_9_name"></p>
+                                        <p id="fanRank_8_tag" class="fanRank4_9_tag"></p>
+                                </div>
+                        </div>
+                        <div id="fanRank_9" class="fanRank4_9" style="width:32.5%;display:inline-block;margin-top:10px;margin-bottom:10px;"onclick="clickFanRank(9);">
+                                <div style="width:80%;margin:0 auto;text-align: center;">
+                                        <img id="fanRank_9_img" class="list-item__thumbnail list-item--material__thumbnail fanRank4_9_img" src="img/human.png" >
+                                        <p id="fanRank_9_name" class="fanRank4_9_name"></p>
+                                        <p id="fanRank_9_tag" class="fanRank4_9_tag"></p>
+                                </div>
+                        </div>
+                </div>
+        </div>
+        
+        <!-- 以下、javascript -->
+        <script type="text/javascript">
+        ons.ready(function() {
+                var page = document.getElementById("fanRank-page");
+                var toolbar = page.querySelector(".crown_toolbar");
+                var header = page.querySelector(".crown_header");
+                var content = page.querySelector(".crown_content");
+                header.style.top = toolbar.clientHeight + "px";
+                content.style.marginTop = header.clientHeight + "px";
+        });
+
+
+        </script>
+</ons-page>

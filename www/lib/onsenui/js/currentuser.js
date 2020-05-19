@@ -6,6 +6,7 @@ function loginInfo(){
         var text = currentUser.get('Text');
         var objectId = currentUser.get("objectId");
         var Genre = currentUser.get("Genre");
+        var userKind = currentUser.get("userKind");
         var URLtwitter = currentUser.get("URLtwitter");
         var URLinstagram = currentUser.get("URLinstagram");
         var URLyoutube = currentUser.get("URLyoutube");
@@ -33,6 +34,10 @@ function loginInfo(){
         }
         if(URLyoutube == ''||URLyoutube==null){
                 $('#myYouTube').hide();
+        }
+
+        if(userKind=="test"){
+                $('#mypageFanRankDiv').hide();
         }
         //フォローフォロワー数
         var FollowData = ncmb.DataStore("follow");
