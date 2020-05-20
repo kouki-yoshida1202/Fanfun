@@ -248,5 +248,18 @@
                     });
             }
         }
+
+        var otherCounter=0;
+        function otherPageRefresh(){
+            $('#otherPageBottom').on('inview',  function(event, isInView){
+                if (isInView) {
+                    console.log("other見えてる");
+                    otherCounter++;
+                    otherPageGiftList($('#other_page_user_id').val(),$('#other_page_header').text(),otherCounter)
+                }else{
+                    console.log("other見えてない");
+                }
+            });
+        }
     </script>
 </ons-page>
