@@ -1,49 +1,51 @@
 <ons-page id="crown-page">
         <ons-toolbar class="toolbar crown_toolbar" style="background-color: white;">
                 <div class="center" style="width:120%;color:#898989;">
-                        人気ユーザー
+                        <div id="userSearchTab" class="contents" style="width:100%;background-color:white;margin:0px;padding:10px 0px;border-bottom:1px solid #898989;" onclick="document.getElementById('navi').bringPageTop('userSearch.html');">
+                                <p style="text-align: center;width:100%;margin:0px;">  <i class="fas fa-search-plus"></i> ユーザー検索へ <span style="float: right;transform: translateY(2px);transform: translateX(-10px);">></span> </p>
+                        </div>
                 </div>
         </ons-toolbar>
         <style>
-                .rank1_img{
+                .rank1_img,.kyujosyo1_img{
                         width:120px;height:120px;object-fit:cover;margin:0 auto;
                 }
 
-                .rank1_name{
+                .rank1_name,.kyujosyo1_name{
                         width:100%;margin-bottom:2px;
                 }
 
-                .rank1_tag{
+                .rank1_tag,.kyujosyo1_tag{
                         margin:0px;color:#898989;font-size:0.8em;
                 }
-                .rank23_img{
+                .rank23_img,.kyujosyo23_img{
                         width:90px;height:90px;object-fit:cover;margin:0 auto;
                 }
 
-                .rank23_name{
+                .rank23_name,.kyujosyo23_name{
                         width:100%;margin-bottom:2px;font-size:0.8em;
                 }
                 
-                .rank23_tag{
+                .rank23_tag,.kyujosyo23_tag{
                         margin:0px;font-size:0.7em;color:#898989;
                 }
-                .rank4_15_img{
+                .rank4_15_img,.kyujosyo4_15_img{
                         width:50px;height:50px;object-fit:cover;margin:0 auto;
                 }
 
-                .rank4_15_name{
+                .rank4_15_name,.kyujosyo4_15_name{
                         width:100%;margin-bottom:2px;font-size:0.6em;
                 }
 
-                .rank4_15_tag{
+                .rank4_15_tag,.kyujosyo4_15_tag{
                         margin:0px;font-size:0.5em;color:#898989;
                 }
 
-                .rank23,.rank4_15{
+                .rank23,.rank4_15,.kyujosyo23,.kyujosyo4_15{
                         vertical-align: top;
                 }
 
-                .ranking_number{
+                .ranking_number,.kyujosyoing_number{
                         position: absolute;bottom:0;right:10px;width:40px;height:40px;border-radius: 50%;color:white;text-align: center;
                 }
                 .crown_header {
@@ -59,140 +61,266 @@
                 }
         </style>
         <div class="crown_header">
-                <div id="userSearchTab" class="contents" style="width:100%;background-color:white;margin:0px;padding:10px 0px;border-bottom:1px solid #898989;" onclick="document.getElementById('navi').bringPageTop('userSearch.html');">
-                        <p style="text-align: center;width:100%;margin:0px;">  <i class="fas fa-search-plus"></i> ユーザー検索へ <span style="float: right;transform: translateY(2px);transform: translateX(-10px);">></span> </p>
+                <div id="crown_swiper_menu" class="swiper-container crown-swiper-navigation" style="width:100%;height:35px;background-color: white;z-index:100;border-bottom:1px solid #898989;">
+                        <div class="swiper-wrapper sp-navi">
+                                <div class="crown-swiper-slide selected sp-slide">
+                                        <span class="navi-menu"><i class="fas fa-crown" style="padding-right:5px;"></i>総合</span>
+                                </div>
+                                <div id="kyujosyo-menu" class="crown-swiper-slide sp-slide">
+                                        <span class="navi-menu"><i class="fab fa-hotjar" style="padding-right:5px;"></i>急上昇</span>
+                                </div>
+                        </div>
                 </div>
         </div>
-        <div class="content crown_content" style="background-color: white;padding-bottom:50px;">
-                
-                <div id="rankingZone" class="contents" style="background-color:white;padding-top: 20px;">
-                        <div id="rank_1" style="width:100%;display: inline-block;margin-bottom:10px;" onclick="clickCrown(1);">
-                                <div style="width:45%;margin:0 auto;text-align: center;">
-                                        <div style="position: relative;">
-                                                <img id="rank_1_img" class="list-item__thumbnail list-item--material__thumbnail rank1_img" src="img/human.png">
-                                                <div class="card__content ranking_number" style="background: -moz-linear-gradient(top left,#C9A746,#F5ED7D 50%,#C9A746); 
-                                                background: -webkit-linear-gradient(top left,#C9A746,#F5ED7D 50%,#C9A746); 
-                                                background: linear-gradient(to bottom right,#C9A746,#F5ED7D 50%,#C9A746);">
-                                                        <i class="fas fa-crown" style="margin-top:10px;"></i>
+        <div class="content crown_content" style="background-color: white;">
+                <div id="crown-sp-content" class="swiper-container crown-swiper-contents">
+                        <div id=""class="swiper-wrapper crown-sp-content">
+                                <div id="" class="swiper-slide crown-swiper-slide">
+                                <div id="" style="height:auto;">
+                                        <div id="rankingZone" class="contents" style="background-color:white;padding-top: 20px;">
+                                                <div id="rank_1" style="width:100%;display: inline-block;margin-bottom:10px;" onclick="clickCrown(1);">
+                                                        <div style="width:45%;margin:0 auto;text-align: center;">
+                                                                <div style="position: relative;">
+                                                                        <img id="rank_1_img" class="list-item__thumbnail list-item--material__thumbnail rank1_img" src="img/human.png">
+                                                                        <div class="card__content ranking_number" style="background: -moz-linear-gradient(top left,#C9A746,#F5ED7D 50%,#C9A746); 
+                                                                        background: -webkit-linear-gradient(top left,#C9A746,#F5ED7D 50%,#C9A746); 
+                                                                        background: linear-gradient(to bottom right,#C9A746,#F5ED7D 50%,#C9A746);">
+                                                                                <i class="fas fa-crown" style="margin-top:10px;"></i>
+                                                                        </div>
+                                                                </div>
+                                                                <p id="rank_1_name" class="rank1_name"></p>
+                                                                <p id="rank_1_tag" class="rank1_tag"></p>
+                                                        </div>
+                                                </div>
+                                                <div id="rank_2" class="rank23"style="width:49%;display:inline-block;margin-top:10px;margin-bottom:10px;"onclick="clickCrown(2);">
+                                                        <div style="width:80%;margin:0 auto;text-align: center;">
+                                                                <div style="position: relative;">
+                                                                        <img id="rank_2_img" class="list-item__thumbnail list-item--material__thumbnail rank23_img" src="img/human.png">
+                                                                        <div class="card__content ranking_number" style="background: -moz-linear-gradient(top left,#BBC2CA,#F2F3F5 50%,#BBC2CA); 
+                                                                        background: -webkit-linear-gradient(top left,#BBC2CA,#F2F3F5 50%,#BBC2CA); 
+                                                                        background: linear-gradient(to bottom right,#BBC2CA,#F2F3F5 50%,#BBC2CA);">
+                                                                                <i class="fas fa-crown" style="margin-top:10px;"></i>
+                                                                        </div>
+                                                                </div>
+                                                                <p id="rank_2_name" class="rank23_name"></p>
+                                                                <p id="rank_2_tag" class="rank23_tag"></p>
+                                                        </div>
+                                                </div>
+                                                <div id="rank_3" class="rank23"style="width:49%;display:inline-block;margin-top:10px;margin-bottom:10px;"onclick="clickCrown(3);">
+                                                        <div style="width:80%;margin:0 auto;text-align: center;">
+                                                                <div style="position: relative;">
+                                                                        <img id="rank_3_img" class="list-item__thumbnail list-item--material__thumbnail rank23_img" src="img/human.png">
+                                                                        <div class="card__content ranking_number" style="background: -moz-linear-gradient(top left,#976A47,#F0AF78 50%,#976A47); 
+                                                                        background: -webkit-linear-gradient(top left,#976A47,#F0AF78 50%,#976A47); 
+                                                                        background: linear-gradient(to bottom right,#976A47,#F0AF78 50%,#976A47);">
+                                                                                <i class="fas fa-crown" style="margin-top:10px;"></i>
+                                                                        </div>
+                                                                </div>
+                                                                <p id="rank_3_name" class="rank23_name"></p>
+                                                                <p id="rank_3_tag" class="rank23_tag"></p>
+                                                        </div>
+                                                </div>
+                                                <div id="rank_4" class="rank4_15"style="width:32.5%;display:inline-block;margin-top:10px;margin-bottom:10px;"onclick="clickCrown(4);">
+                                                        <div style="width:80%;margin:0 auto;text-align: center;">
+                                                                <img id="rank_4_img" class="list-item__thumbnail list-item--material__thumbnail rank4_15_img" src="img/human.png">
+                                                                <p id="rank_4_name" class="rank4_15_name"></p>
+                                                                <p id="rank_4_tag" class="rank4_15_tag"></p>
+                                                        </div>
+                                                </div>
+                                                <div id="rank_5" class="rank4_15" style="width:32.5%;display:inline-block;margin-top:10px;margin-bottom:10px;"onclick="clickCrown(5);">
+                                                        <div style="width:80%;margin:0 auto;text-align: center;">
+                                                                <img id="rank_5_img" class="list-item__thumbnail list-item--material__thumbnail rank4_15_img" src="img/human.png">
+                                                                <p id="rank_5_name" class="rank4_15_name"></p>
+                                                                <p id="rank_5_tag" class="rank4_15_tag"></p>
+                                                        </div>
+                                                </div>
+                                                <div id="rank_6" class="rank4_15" style="width:32.5%;display:inline-block;margin-top:10px;margin-bottom:10px;"onclick="clickCrown(6);">
+                                                        <div style="width:80%;margin:0 auto;text-align: center;">
+                                                                <img id="rank_6_img" class="list-item__thumbnail list-item--material__thumbnail rank4_15_img" src="img/human.png">
+                                                                <p id="rank_6_name" class="rank4_15_name"></p>
+                                                                <p id="rank_6_tag" class="rank4_15_tag"></p>
+                                                        </div>
+                                                </div>
+                                                <div id="rank_7" class="rank4_15" style="width:32.5%;display:inline-block;margin-top:10px;margin-bottom:10px;"onclick="clickCrown(7);">
+                                                        <div style="width:80%;margin:0 auto;text-align: center;">
+                                                                <img id="rank_7_img" class="list-item__thumbnail list-item--material__thumbnail rank4_15_img" src="img/human.png">
+                                                                <p id="rank_7_name" class="rank4_15_name"></p>
+                                                                <p id="rank_7_tag" class="rank4_15_tag"></p>
+                                                        </div>
+                                                </div>
+                                                <div id="rank_8" class="rank4_15" style="width:32.5%;display:inline-block;margin-top:10px;margin-bottom:10px;"onclick="clickCrown(8);">
+                                                        <div style="width:80%;margin:0 auto;text-align: center;">
+                                                                <img id="rank_8_img" class="list-item__thumbnail list-item--material__thumbnail rank4_15_img" src="img/human.png">
+                                                                <p id="rank_8_name" class="rank4_15_name"></p>
+                                                                <p id="rank_8_tag" class="rank4_15_tag"></p>
+                                                        </div>
+                                                </div>
+                                                <div id="rank_9" class="rank4_15" style="width:32.5%;display:inline-block;margin-top:10px;margin-bottom:10px;"onclick="clickCrown(9);">
+                                                        <div style="width:80%;margin:0 auto;text-align: center;">
+                                                                <img id="rank_9_img" class="list-item__thumbnail list-item--material__thumbnail rank4_15_img" src="img/human.png" >
+                                                                <p id="rank_9_name" class="rank4_15_name"></p>
+                                                                <p id="rank_9_tag" class="rank4_15_tag"></p>
+                                                        </div>
+                                                </div>
+                                                <div id="rank_10" class="rank4_15" style="width:32.5%;display:inline-block;margin-top:10px;margin-bottom:10px;"onclick="clickCrown(10);">
+                                                        <div style="width:80%;margin:0 auto;text-align: center;">
+                                                                <img id="rank_10_img" class="list-item__thumbnail list-item--material__thumbnail rank4_15_img" src="img/human.png">
+                                                                <p id="rank_10_name" class="rank4_15_name"></p>
+                                                                <p id="rank_10_tag" class="rank4_15_tag"></p>
+                                                        </div>
+                                                </div>
+                                                <div id="rank_11" class="rank4_15" style="width:32.5%;display:inline-block;margin-top:10px;margin-bottom:10px;"onclick="clickCrown(11);">
+                                                        <div style="width:80%;margin:0 auto;text-align: center;">
+                                                                <img id="rank_11_img" class="list-item__thumbnail list-item--material__thumbnail rank4_15_img" src="img/human.png">
+                                                                <p id="rank_11_name" class="rank4_15_name"></p>
+                                                                <p id="rank_11_tag" class="rank4_15_tag"></p>
+                                                        </div>
+                                                </div>
+                                                <div id="rank_12" class="rank4_15" style="width:32.5%;display:inline-block;margin-top:10px;margin-bottom:10px;"onclick="clickCrown(12);">
+                                                        <div style="width:80%;margin:0 auto;text-align: center;">
+                                                                <img id="rank_12_img" class="list-item__thumbnail list-item--material__thumbnail rank4_15_img" src="img/human.png" >
+                                                                <p id="rank_12_name" class="rank4_15_name"></p>
+                                                                <p id="rank_12_tag" class="rank4_15_tag"></p>
+                                                        </div>
+                                                </div>
+                                                <div id="rank_13" class="rank4_15" style="width:32.5%;display:inline-block;margin-top:10px;margin-bottom:10px;"onclick="clickCrown(13);">
+                                                        <div style="width:80%;margin:0 auto;text-align: center;">
+                                                                <img id="rank_13_img" class="list-item__thumbnail list-item--material__thumbnail rank4_15_img" src="img/human.png">
+                                                                <p id="rank_13_name" class="rank4_15_name"></p>
+                                                                <p id="rank_13_tag" class="rank4_15_tag"></p>
+                                                        </div>
+                                                </div>
+                                                <div id="rank_14" class="rank4_15" style="width:32.5%;display:inline-block;margin-top:10px;margin-bottom:10px;"onclick="clickCrown(14);">
+                                                        <div style="width:80%;margin:0 auto;text-align: center;">
+                                                                <img id="rank_14_img" class="list-item__thumbnail list-item--material__thumbnail rank4_15_img" src="img/human.png">
+                                                                <p id="rank_14_name" class="rank4_15_name"></p>
+                                                                <p id="rank_14_tag" class="rank4_15_tag"></p>
+                                                        </div>
+                                                </div>
+                                                <div id="rank_15" class="rank4_15" style="width:32.5%;display:inline-block;margin-top:10px;margin-bottom:10px;"onclick="clickCrown(15);">
+                                                        <div style="width:80%;margin:0 auto;text-align: center;">
+                                                                <img id="rank_15_img" class="list-item__thumbnail list-item--material__thumbnail rank4_15_img" src="img/human.png" >
+                                                                <p id="rank_15_name" class="rank4_15_name"></p>
+                                                                <p id="rank_15_tag" class="rank4_15_tag"></p>
+                                                        </div>
                                                 </div>
                                         </div>
-                                        <p id="rank_1_name" class="rank1_name"></p>
-                                        <p id="rank_1_tag" class="rank1_tag"></p>
                                 </div>
-                        </div>
-                        <div id="rank_2" class="rank23"style="width:49%;display:inline-block;margin-top:10px;margin-bottom:10px;"onclick="clickCrown(2);">
-                                <div style="width:80%;margin:0 auto;text-align: center;">
-                                        <div style="position: relative;">
-                                                <img id="rank_2_img" class="list-item__thumbnail list-item--material__thumbnail rank23_img" src="img/human.png">
-                                                <div class="card__content ranking_number" style="background: -moz-linear-gradient(top left,#BBC2CA,#F2F3F5 50%,#BBC2CA); 
-                                                background: -webkit-linear-gradient(top left,#BBC2CA,#F2F3F5 50%,#BBC2CA); 
-                                                background: linear-gradient(to bottom right,#BBC2CA,#F2F3F5 50%,#BBC2CA);">
-                                                        <i class="fas fa-crown" style="margin-top:10px;"></i>
+                                </div>
+                                <div id="kyujosyo-Area" class="swiper-slide crown-swiper-slide">
+                                <div id="" style="height:auto;">
+                                        <div id="kyujosyoZone" class="contents" style="background-color:white;padding-top: 20px;">
+                                                <div id="kyujosyo_1" style="width:100%;display: inline-block;margin-bottom:10px;" onclick="clickKyujosyo(1);">
+                                                        <div style="width:45%;margin:0 auto;text-align: center;">
+                                                                <div style="position: relative;">
+                                                                        <img id="kyujosyo_1_img" class="list-item__thumbnail list-item--material__thumbnail kyujosyo1_img" src="img/human.png">
+                                                                        <div class="card__content kyujosyoing_number" style="background: -moz-linear-gradient(top left,#C9A746,#F5ED7D 50%,#C9A746); 
+                                                                        background: -webkit-linear-gradient(top left,#C9A746,#F5ED7D 50%,#C9A746); 
+                                                                        background: linear-gradient(to bottom right,#C9A746,#F5ED7D 50%,#C9A746);">
+                                                                                <i class="fas fa-crown" style="margin-top:10px;"></i>
+                                                                        </div>
+                                                                </div>
+                                                                <p id="kyujosyo_1_name" class="kyujosyo1_name"></p>
+                                                                <p id="kyujosyo_1_tag" class="kyujosyo1_tag"></p>
+                                                        </div>
+                                                </div>
+                                                <div id="kyujosyo_2" class="kyujosyo23"style="width:49%;display:inline-block;margin-top:10px;margin-bottom:10px;"onclick="clickKyujosyo(2);">
+                                                        <div style="width:80%;margin:0 auto;text-align: center;">
+                                                                <div style="position: relative;">
+                                                                        <img id="kyujosyo_2_img" class="list-item__thumbnail list-item--material__thumbnail kyujosyo23_img" src="img/human.png">
+                                                                        <div class="card__content kyujosyoing_number" style="background: -moz-linear-gradient(top left,#BBC2CA,#F2F3F5 50%,#BBC2CA); 
+                                                                        background: -webkit-linear-gradient(top left,#BBC2CA,#F2F3F5 50%,#BBC2CA); 
+                                                                        background: linear-gradient(to bottom right,#BBC2CA,#F2F3F5 50%,#BBC2CA);">
+                                                                                <i class="fas fa-crown" style="margin-top:10px;"></i>
+                                                                        </div>
+                                                                </div>
+                                                                <p id="kyujosyo_2_name" class="kyujosyo23_name"></p>
+                                                                <p id="kyujosyo_2_tag" class="kyujosyo23_tag"></p>
+                                                        </div>
+                                                </div>
+                                                <div id="kyujosyo_3" class="kyujosyo23"style="width:49%;display:inline-block;margin-top:10px;margin-bottom:10px;"onclick="clickKyujosyo(3);">
+                                                        <div style="width:80%;margin:0 auto;text-align: center;">
+                                                                <div style="position: relative;">
+                                                                        <img id="kyujosyo_3_img" class="list-item__thumbnail list-item--material__thumbnail kyujosyo23_img" src="img/human.png">
+                                                                        <div class="card__content kyujosyoing_number" style="background: -moz-linear-gradient(top left,#976A47,#F0AF78 50%,#976A47); 
+                                                                        background: -webkit-linear-gradient(top left,#976A47,#F0AF78 50%,#976A47); 
+                                                                        background: linear-gradient(to bottom right,#976A47,#F0AF78 50%,#976A47);">
+                                                                                <i class="fas fa-crown" style="margin-top:10px;"></i>
+                                                                        </div>
+                                                                </div>
+                                                                <p id="kyujosyo_3_name" class="kyujosyo23_name"></p>
+                                                                <p id="kyujosyo_3_tag" class="kyujosyo23_tag"></p>
+                                                        </div>
+                                                </div>
+                                                <div id="kyujosyo_4" class="kyujosyo4_15"style="width:32.5%;display:inline-block;margin-top:10px;margin-bottom:10px;"onclick="clickKyujosyo(4);">
+                                                        <div style="width:80%;margin:0 auto;text-align: center;">
+                                                                <img id="kyujosyo_4_img" class="list-item__thumbnail list-item--material__thumbnail kyujosyo4_15_img" src="img/human.png">
+                                                                <p id="kyujosyo_4_name" class="kyujosyo4_15_name"></p>
+                                                                <p id="kyujosyo_4_tag" class="kyujosyo4_15_tag"></p>
+                                                        </div>
+                                                </div>
+                                                <div id="kyujosyo_5" class="kyujosyo4_15" style="width:32.5%;display:inline-block;margin-top:10px;margin-bottom:10px;"onclick="clickKyujosyo(5);">
+                                                        <div style="width:80%;margin:0 auto;text-align: center;">
+                                                                <img id="kyujosyo_5_img" class="list-item__thumbnail list-item--material__thumbnail kyujosyo4_15_img" src="img/human.png">
+                                                                <p id="kyujosyo_5_name" class="kyujosyo4_15_name"></p>
+                                                                <p id="kyujosyo_5_tag" class="kyujosyo4_15_tag"></p>
+                                                        </div>
+                                                </div>
+                                                <div id="kyujosyo_6" class="kyujosyo4_15" style="width:32.5%;display:inline-block;margin-top:10px;margin-bottom:10px;"onclick="clickKyujosyo(6);">
+                                                        <div style="width:80%;margin:0 auto;text-align: center;">
+                                                                <img id="kyujosyo_6_img" class="list-item__thumbnail list-item--material__thumbnail kyujosyo4_15_img" src="img/human.png">
+                                                                <p id="kyujosyo_6_name" class="kyujosyo4_15_name"></p>
+                                                                <p id="kyujosyo_6_tag" class="kyujosyo4_15_tag"></p>
+                                                        </div>
+                                                </div>
+                                                <div id="kyujosyo_7" class="kyujosyo4_15" style="width:32.5%;display:inline-block;margin-top:10px;margin-bottom:10px;"onclick="clickKyujosyo(7);">
+                                                        <div style="width:80%;margin:0 auto;text-align: center;">
+                                                                <img id="kyujosyo_7_img" class="list-item__thumbnail list-item--material__thumbnail kyujosyo4_15_img" src="img/human.png">
+                                                                <p id="kyujosyo_7_name" class="kyujosyo4_15_name"></p>
+                                                                <p id="kyujosyo_7_tag" class="kyujosyo4_15_tag"></p>
+                                                        </div>
+                                                </div>
+                                                <div id="kyujosyo_8" class="kyujosyo4_15" style="width:32.5%;display:inline-block;margin-top:10px;margin-bottom:10px;"onclick="clickKyujosyo(8);">
+                                                        <div style="width:80%;margin:0 auto;text-align: center;">
+                                                                <img id="kyujosyo_8_img" class="list-item__thumbnail list-item--material__thumbnail kyujosyo4_15_img" src="img/human.png">
+                                                                <p id="kyujosyo_8_name" class="kyujosyo4_15_name"></p>
+                                                                <p id="kyujosyo_8_tag" class="kyujosyo4_15_tag"></p>
+                                                        </div>
+                                                </div>
+                                                <div id="kyujosyo_9" class="kyujosyo4_15" style="width:32.5%;display:inline-block;margin-top:10px;margin-bottom:10px;"onclick="clickKyujosyo(9);">
+                                                        <div style="width:80%;margin:0 auto;text-align: center;">
+                                                                <img id="kyujosyo_9_img" class="list-item__thumbnail list-item--material__thumbnail kyujosyo4_15_img" src="img/human.png" >
+                                                                <p id="kyujosyo_9_name" class="kyujosyo4_15_name"></p>
+                                                                <p id="kyujosyo_9_tag" class="kyujosyo4_15_tag"></p>
+                                                        </div>
+                                                </div>
+                                                <div id="kyujosyo_10" class="kyujosyo4_15" style="width:32.5%;display:inline-block;margin-top:10px;margin-bottom:10px;"onclick="clickKyujosyo(10);">
+                                                        <div style="width:80%;margin:0 auto;text-align: center;">
+                                                                <img id="kyujosyo_10_img" class="list-item__thumbnail list-item--material__thumbnail kyujosyo4_15_img" src="img/human.png">
+                                                                <p id="kyujosyo_10_name" class="kyujosyo4_15_name"></p>
+                                                                <p id="kyujosyo_10_tag" class="kyujosyo4_15_tag"></p>
+                                                        </div>
+                                                </div>
+                                                <div id="kyujosyo_11" class="kyujosyo4_15" style="width:32.5%;display:inline-block;margin-top:10px;margin-bottom:10px;"onclick="clickKyujosyo(11);">
+                                                        <div style="width:80%;margin:0 auto;text-align: center;">
+                                                                <img id="kyujosyo_11_img" class="list-item__thumbnail list-item--material__thumbnail kyujosyo4_15_img" src="img/human.png">
+                                                                <p id="kyujosyo_11_name" class="kyujosyo4_15_name"></p>
+                                                                <p id="kyujosyo_11_tag" class="kyujosyo4_15_tag"></p>
+                                                        </div>
+                                                </div>
+                                                <div id="kyujosyo_12" class="kyujosyo4_15" style="width:32.5%;display:inline-block;margin-top:10px;margin-bottom:10px;"onclick="clickKyujosyo(12);">
+                                                        <div style="width:80%;margin:0 auto;text-align: center;">
+                                                                <img id="kyujosyo_12_img" class="list-item__thumbnail list-item--material__thumbnail kyujosyo4_15_img" src="img/human.png" >
+                                                                <p id="kyujosyo_12_name" class="kyujosyo4_15_name"></p>
+                                                                <p id="kyujosyo_12_tag" class="kyujosyo4_15_tag"></p>
+                                                        </div>
                                                 </div>
                                         </div>
-                                        <p id="rank_2_name" class="rank23_name"></p>
-                                        <p id="rank_2_tag" class="rank23_tag"></p>
                                 </div>
-                        </div>
-                        <div id="rank_3" class="rank23"style="width:49%;display:inline-block;margin-top:10px;margin-bottom:10px;"onclick="clickCrown(3);">
-                                <div style="width:80%;margin:0 auto;text-align: center;">
-                                        <div style="position: relative;">
-                                                <img id="rank_3_img" class="list-item__thumbnail list-item--material__thumbnail rank23_img" src="img/human.png">
-                                                <div class="card__content ranking_number" style="background: -moz-linear-gradient(top left,#976A47,#F0AF78 50%,#976A47); 
-                                                background: -webkit-linear-gradient(top left,#976A47,#F0AF78 50%,#976A47); 
-                                                background: linear-gradient(to bottom right,#976A47,#F0AF78 50%,#976A47);">
-                                                        <i class="fas fa-crown" style="margin-top:10px;"></i>
-                                                </div>
-                                        </div>
-                                        <p id="rank_3_name" class="rank23_name"></p>
-                                        <p id="rank_3_tag" class="rank23_tag"></p>
-                                </div>
-                        </div>
-                        <div id="rank_4" class="rank4_15"style="width:32.5%;display:inline-block;margin-top:10px;margin-bottom:10px;"onclick="clickCrown(4);">
-                                <div style="width:80%;margin:0 auto;text-align: center;">
-                                        <img id="rank_4_img" class="list-item__thumbnail list-item--material__thumbnail rank4_15_img" src="img/human.png">
-                                        <p id="rank_4_name" class="rank4_15_name"></p>
-                                        <p id="rank_4_tag" class="rank4_15_tag"></p>
-                                </div>
-                        </div>
-                        <div id="rank_5" class="rank4_15" style="width:32.5%;display:inline-block;margin-top:10px;margin-bottom:10px;"onclick="clickCrown(5);">
-                                <div style="width:80%;margin:0 auto;text-align: center;">
-                                        <img id="rank_5_img" class="list-item__thumbnail list-item--material__thumbnail rank4_15_img" src="img/human.png">
-                                        <p id="rank_5_name" class="rank4_15_name"></p>
-                                        <p id="rank_5_tag" class="rank4_15_tag"></p>
-                                </div>
-                        </div>
-                        <div id="rank_6" class="rank4_15" style="width:32.5%;display:inline-block;margin-top:10px;margin-bottom:10px;"onclick="clickCrown(6);">
-                                <div style="width:80%;margin:0 auto;text-align: center;">
-                                        <img id="rank_6_img" class="list-item__thumbnail list-item--material__thumbnail rank4_15_img" src="img/human.png">
-                                        <p id="rank_6_name" class="rank4_15_name"></p>
-                                        <p id="rank_6_tag" class="rank4_15_tag"></p>
-                                </div>
-                        </div>
-                        <div id="rank_7" class="rank4_15" style="width:32.5%;display:inline-block;margin-top:10px;margin-bottom:10px;"onclick="clickCrown(7);">
-                                <div style="width:80%;margin:0 auto;text-align: center;">
-                                        <img id="rank_7_img" class="list-item__thumbnail list-item--material__thumbnail rank4_15_img" src="img/human.png">
-                                        <p id="rank_7_name" class="rank4_15_name"></p>
-                                        <p id="rank_7_tag" class="rank4_15_tag"></p>
-                                </div>
-                        </div>
-                        <div id="rank_8" class="rank4_15" style="width:32.5%;display:inline-block;margin-top:10px;margin-bottom:10px;"onclick="clickCrown(8);">
-                                <div style="width:80%;margin:0 auto;text-align: center;">
-                                        <img id="rank_8_img" class="list-item__thumbnail list-item--material__thumbnail rank4_15_img" src="img/human.png">
-                                        <p id="rank_8_name" class="rank4_15_name"></p>
-                                        <p id="rank_8_tag" class="rank4_15_tag"></p>
-                                </div>
-                        </div>
-                        <div id="rank_9" class="rank4_15" style="width:32.5%;display:inline-block;margin-top:10px;margin-bottom:10px;"onclick="clickCrown(9);">
-                                <div style="width:80%;margin:0 auto;text-align: center;">
-                                        <img id="rank_9_img" class="list-item__thumbnail list-item--material__thumbnail rank4_15_img" src="img/human.png" >
-                                        <p id="rank_9_name" class="rank4_15_name"></p>
-                                        <p id="rank_9_tag" class="rank4_15_tag"></p>
-                                </div>
-                        </div>
-                        <div id="rank_10" class="rank4_15" style="width:32.5%;display:inline-block;margin-top:10px;margin-bottom:10px;"onclick="clickCrown(10);">
-                                <div style="width:80%;margin:0 auto;text-align: center;">
-                                        <img id="rank_10_img" class="list-item__thumbnail list-item--material__thumbnail rank4_15_img" src="img/human.png">
-                                        <p id="rank_10_name" class="rank4_15_name"></p>
-                                        <p id="rank_10_tag" class="rank4_15_tag"></p>
-                                </div>
-                        </div>
-                        <div id="rank_11" class="rank4_15" style="width:32.5%;display:inline-block;margin-top:10px;margin-bottom:10px;"onclick="clickCrown(11);">
-                                <div style="width:80%;margin:0 auto;text-align: center;">
-                                        <img id="rank_11_img" class="list-item__thumbnail list-item--material__thumbnail rank4_15_img" src="img/human.png">
-                                        <p id="rank_11_name" class="rank4_15_name"></p>
-                                        <p id="rank_11_tag" class="rank4_15_tag"></p>
-                                </div>
-                        </div>
-                        <div id="rank_12" class="rank4_15" style="width:32.5%;display:inline-block;margin-top:10px;margin-bottom:10px;"onclick="clickCrown(12);">
-                                <div style="width:80%;margin:0 auto;text-align: center;">
-                                        <img id="rank_12_img" class="list-item__thumbnail list-item--material__thumbnail rank4_15_img" src="img/human.png" >
-                                        <p id="rank_12_name" class="rank4_15_name"></p>
-                                        <p id="rank_12_tag" class="rank4_15_tag"></p>
-                                </div>
-                        </div>
-                        <div id="rank_13" class="rank4_15" style="width:32.5%;display:inline-block;margin-top:10px;margin-bottom:10px;"onclick="clickCrown(13);">
-                                <div style="width:80%;margin:0 auto;text-align: center;">
-                                        <img id="rank_13_img" class="list-item__thumbnail list-item--material__thumbnail rank4_15_img" src="img/human.png">
-                                        <p id="rank_13_name" class="rank4_15_name"></p>
-                                        <p id="rank_13_tag" class="rank4_15_tag"></p>
-                                </div>
-                        </div>
-                        <div id="rank_14" class="rank4_15" style="width:32.5%;display:inline-block;margin-top:10px;margin-bottom:10px;"onclick="clickCrown(14);">
-                                <div style="width:80%;margin:0 auto;text-align: center;">
-                                        <img id="rank_14_img" class="list-item__thumbnail list-item--material__thumbnail rank4_15_img" src="img/human.png">
-                                        <p id="rank_14_name" class="rank4_15_name"></p>
-                                        <p id="rank_14_tag" class="rank4_15_tag"></p>
-                                </div>
-                        </div>
-                        <div id="rank_15" class="rank4_15" style="width:32.5%;display:inline-block;margin-top:10px;margin-bottom:10px;"onclick="clickCrown(15);">
-                                <div style="width:80%;margin:0 auto;text-align: center;">
-                                        <img id="rank_15_img" class="list-item__thumbnail list-item--material__thumbnail rank4_15_img" src="img/human.png" >
-                                        <p id="rank_15_name" class="rank4_15_name"></p>
-                                        <p id="rank_15_tag" class="rank4_15_tag"></p>
                                 </div>
                         </div>
                 </div>
+                
         </div>
         
         <!-- 以下、javascript -->
@@ -204,6 +332,56 @@
                 var content = page.querySelector(".crown_content");
                 header.style.top = toolbar.clientHeight + "px";
                 content.style.marginTop = header.clientHeight + "px";
+
+                $('#crown-sp-content').height($('#rankingZone').height());
+                setTimeout(function(){
+                        $('#crown-sp-content').height($('#rankingZone').height());
+                },1000);
         });
+
+        // document.addEventListener("init", function(event) {
+        function setCrownCurrentSlide(ele, index) {
+        $(".crown-swiper-navigation .crown-swiper-slide").removeClass('selected');
+        ele.addClass('selected');
+        }
+        swiperCrownNavigation = new Swiper('.crown-swiper-navigation', {
+        slidesPerView: 'auto',
+        allowTouchMove: false,
+        freeMode: false,
+        loop: false,
+        autoplay: false
+        });
+
+
+        swiperCrownContents = new Swiper('.crown-swiper-contents', {
+        direction: 'horizontal',
+        loop: false,
+        autoHeight: true
+        });
+        
+        swiperCrownContents.on('slideChange', function() {
+                setTimeout(function(){
+                var index = $('div.crown-sp-content > div.swiper-slide-active').index();
+                console.log(index);
+                setCrownCurrentSlide($('.crown-swiper-navigation .crown-swiper-slide').eq(index), index);
+                swiperCrownNavigation.slideTo(index, 500, false);
+                // $('.crown-sp-content').height($(".swiper-slide-active").height());
+                // setTimeout(function(){
+                //         $('#sp-content').height($('.sp-content').height());
+                // },500);              
+                },250);
+        });
+
+        // $('#userSearchTab').click(function(){
+        //         crownSlideReset();
+        // });
+
+        // function crownSlideReset(){
+        //         setCrownCurrentSlide($('.crown-swiper-navigation .crown-swiper-slide').eq(0), 0);
+        //         swiperCrownNavigation.slideTo(0, 500, false);
+        // }
+        // });
+
+        
         </script>
 </ons-page>

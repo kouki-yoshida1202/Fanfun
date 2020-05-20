@@ -452,8 +452,15 @@
           var index = $('.selected').index('div.sp-navi div');
           if(index == 0){
             shintyaku(0);
+            setTimeout(function(){
+              bottomRefresh();
+            },2000);
           }else if(index==1){
-            followUserGift();
+            console.log("き");
+            followUserGift(0);
+            setTimeout(function(){
+              followRefresh();
+            },2000);
           }
         },500);
       }
@@ -464,10 +471,16 @@
         console.log(slideCounter);
         if(slideCounter == 1){
           if(index == 0){
-            //新着にメニューがうつると、新着ギフトをロード
             shintyaku(0);
+            setTimeout(function(){
+              bottomRefresh();
+            },2000);
           }else if(index==1){
-            followUserGift();
+            console.log("き");
+            followUserGift(0);
+            setTimeout(function(){
+              followRefresh();
+            },2000);
           }
         }
         // setTimeout(function(){
@@ -481,6 +494,14 @@
       if(homeCounter==1){
         homeJudge();
         loginImage();
+      }
+
+      var crownCounter = 0;
+      function crownCounterCheck(){
+        if(crownCounter==0){
+          crown();
+          crownCounter++;
+        }
       }
 
   </script>
@@ -573,7 +594,10 @@
       width:50%;
       text-align: center;
     }
-
+    .crown-swiper-slide{
+      width:50%;
+      text-align: center;
+    }
     .back-button,.back-button__icon{
       color:#898989;;
       fill:#898989;
@@ -610,7 +634,7 @@
       margin-top:8px;
     }
 
-    .fa-crown{
+    .tabbar__icon > .fa-crown{
       font-size:18px !important;
       transform: translateY(-1px);
     }
@@ -622,7 +646,7 @@
     <ons-page>
       <ons-tabbar position="bottom">
           <ons-tab id="topPageTab"page="top.html" label="ホーム"icon="home" onclick="" active></ons-tab>
-          <ons-tab id="crownPageTab" page="crown.html" label="ランキング" icon="crown" onclick="crown();"></ons-tab>
+          <ons-tab id="crownPageTab" page="crown.html" label="ランキング" icon="crown" onclick="crownCounterCheck();"></ons-tab>
           <ons-tab id="instagramPageTab" page="instagram.html" label="ニュース"icon="instagram" onclick="InstagramNews();"></ons-tab>
           <!-- <ons-tab page="pointList.html" label="ショップ"icon="ticket" onclick=""></ons-tab> -->
           <ons-tab label="コンタクト"page="request.html" icon="fa-rocketchat" onclick=""></ons-tab>

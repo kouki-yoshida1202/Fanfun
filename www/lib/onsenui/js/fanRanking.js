@@ -1,8 +1,5 @@
 function fanRanking(pageKind){
         showLoad();
-        setTimeout(function(){
-                hideLoad();
-        },2000);
         if(pageKind=="mypage"){
                 var userId = $('.current_user_id').val();
         }else if(pageKind=="otherpage"){
@@ -42,6 +39,9 @@ function fanRanking(pageKind){
         .fetchAll()         
         .then(function(results){
                 var buyUserArray = [];
+                if(results.length==0){
+                        hideLoad();
+                }
                 for (var i = 0; i < results.length; i++) {
                         var buyUser = results[i].get("buyUser");
                         var buyKakaku = results[i].get("buyKakaku");
@@ -72,7 +72,11 @@ function fanRanking(pageKind){
                         var point = arr[i]['value'];
                         console.log(point);
                         console.log(userId);
-                        userAndPoint(userId,point,i+1);
+                        if(i+1==arr.length){
+                                userAndPoint(userId,point,i+1,"last");
+                        }else{
+                                userAndPoint(userId,point,i+1,"");
+                        }
                         fanRankImg(i+1,userId);
                 }
         }).catch(function(err){
@@ -80,7 +84,7 @@ function fanRanking(pageKind){
         });
 }
 
-function userAndPoint(userId,point,i){
+function userAndPoint(userId,point,i,lastcheck){
         ncmb.User
         .equalTo("objectId",userId)
         .fetch()
@@ -90,6 +94,10 @@ function userAndPoint(userId,point,i){
                 $('#fanRank_'+i+'_name').text(i+"."+userName);
                 $('#fanRank_'+i+'_tag').text(point+"pt");
                 $('#fanRankUserId_'+i).val(userId);
+                if(lastcheck=="last"){
+                        hideLoad();
+                        console.log("ラスト");
+                }
         }).catch(function(err){
                 console.log(err);
         });
@@ -102,6 +110,7 @@ function fanRankImg(j,userId){
                 reader.onloadend = function() {
                 var img = document.getElementById("fanRank_"+j+"_img");
                 img.src = reader.result;
+                console.log(j);
                 }
                 // DataURLとして読み込む
                 reader.readAsDataURL(fileData);

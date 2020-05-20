@@ -1,6 +1,9 @@
-function followUserGift(){
-        $("#followGiftList").empty();
-        showLoad();
+function followUserGift(followCounter){
+        console.log(followCounter);
+        if(followCounter==0){
+                $("#followGiftList").empty();
+                showLoad();
+        }
         // カレントユーザー情報の取得
         var currentUser = ncmb.User.getCurrentUser();
         var objectId = currentUser.get("objectId");
@@ -21,17 +24,26 @@ function followUserGift(){
                 for(var k=0;k<follow_user.length;k++){
                         follow_user_id.push(follow_user[k].get("followerId"));
                 }
+                
                 return follow_user_id;
         })
         .then(function(follow_user_id){
                 GiftData
-                .order('createDate', true)
+                .order('releaseDate', true)
                 .notEqualTo('ReleaseStatus',1)
                 .in('userId',follow_user_id)
+                .limit(10)
+                .skip(followCounter*10)
                 .fetchAll()                
                 .then(function(results){
+                        console.log(followCounter);
                         var object = results;
+                        if(object.length==0){
+                                hideLoad();
+                                $('#followBottom').remove();
+                        }
                         for(var i=0;i<object.length;i++){
+                                var card_number = i+followCounter*10;
                                 var gift_title = object[i].get("giftTitle");
                                 var gift_text =object[i].get("giftText");
                                 var create_date = object[i].get("releaseDate");
@@ -53,89 +65,107 @@ function followUserGift(){
                                 //         if(block_check > 0){
                                                 
                                 //         }else{
-                                                //カードに出力していく
-                                                var card = `
-                                                <div class="gift-card" style="width:49%;height: 298px;padding: 1px 0 0 0;display: inline-block;margin-top:5px;"onclick="
-                                                `;
-                                                card += "prevPage('follow');giftIdJudge('"+gift_uid+"','"+userName+"','"+gift_title+"','"+gift_text+"','"+objectId+"','"+create_date+"','"+gift_price+"','"+gift_user_id+"','"+gift_stock+"','"+ReleaseStatus+"','"+ohitotu+"');";
-                                                card +=`
-                                                ">
-                                                        <input class="gift_uid" type="" value="`;
-                                                        card += gift_uid;
-                                                        card += `
-                                                        " hidden>
-                                                        <div class="card" style="height:99%;margin:3px;border-radius:20px;">
-                                                                <div class="card__content" style="height:auto;position:relative;">
-                                                                        <img id="`;
-                                                                        card += "follow_gift_image_top_"+i;
-                                                                        card +=`"class="gift_image" src="img/loading.png" alt="" style="width:100%;height:154px;object-fit:cover;border-radius: 20px;">
-                                                                </div>
-                                                                <div id="follow_card_content_`;
-                                                                card +=i;
-                                                                card +=`" class="card__content" style="height:45px;">
-                                                                        <ul class="list" style="background-image:none;background:transparent;margin-top:-13px;">
-                                                                        <li class="list-item" style="padding:0px;">
-                                                                                <div class="list-item__left" style="padding:0px;">
-                                                                                <img class="list-item__thumbnail" id="follow_gift_user_image_top_`;
-                                                                                card += i;
-                                                                                card +=`" src="img/human.png" alt="" style="border-radius: 50%;object-fit:cover;">
-                                                                                </div>
-                                                                        
-                                                                                <div class="list-item__center" style="padding:0px; padding-left:5px;">
-                                                                                <div id="follow_gift_user_name_top_`;
-                                                                                card +=i;
-                                                                                card +=`" class="current_user_name" style="text-align: left;">
-                                                                                </div>
-                                                                                </div>
-                                                                        </li>
-                                                                        </ul>
-                                                                </div>
-                                                                <div class="gift_text" style="height:60px;font-size:12px;padding:5px;">
-                                                                `;
-                                                                card += gift_title;
-                                                                card += `
-                                                                </div>
-                                                                <div style="height:20px;">
-                                                                        <button class="toolbar-button" style="font-size:12px;padding:0px;">
-                                                                                <i id="`;
-                                                                                card += "follow_gift_favorite_"+i;
-                                                                                card +=`"class="fas fa-heart favorite_off" style="font-size:12px;"></i> <span id="`;
-                                                                                card += "follow_gift_favorite_span_"+i;
-                                                                                card +=`"class="favorite_off">0</span>
-                                                                        </button>
-                                                                        <button class="toolbar-button" style="font-size:12px;padding:0px;">
-                                                                                <span style="font-size:12px;color:gray">残:`;
-                                                                                card += gift_stock;
-                                                                                card +=`</span>
-                                                                        </button>
-                                                                        <button class="toolbar-button" style="font-size:12px;padding:0px;float: right;">
-                                                                                <span style="color:#898989">
-                                                                                `;
-                                                                                card += time;
-                                                                                card +=`
-                                                                                </span>
-                                                                        </button>
-                                                                </div>
-                                                        </div>
+                                //カードに出力していく
+                                var card = `
+                                <div class="gift-card" style="width:49%;height: 298px;padding: 1px 0 0 0;display: inline-block;margin-top:5px;"onclick="
+                                `;
+                                card += "prevPage('follow');giftIdJudge('"+gift_uid+"','"+userName+"','"+gift_title+"','"+gift_text+"','"+objectId+"','"+create_date+"','"+gift_price+"','"+gift_user_id+"','"+gift_stock+"','"+ReleaseStatus+"','"+ohitotu+"');";
+                                card +=`
+                                ">
+                                        <input class="gift_uid" type="" value="`;
+                                        card += gift_uid;
+                                        card += `
+                                        " hidden>
+                                        <div class="card" style="height:99%;margin:3px;border-radius:20px;">
+                                                <div class="card__content" style="height:auto;position:relative;">
+                                                        <img id="`;
+                                                        card += "follow_gift_image_top_"+card_number;
+                                                        card +=`"class="gift_image" src="img/loading.png" alt="" style="width:100%;height:154px;object-fit:cover;border-radius: 20px;">
                                                 </div>
+                                                <div id="follow_card_content_`;
+                                                card +=card_number;
+                                                card +=`" class="card__content" style="height:45px;">
+                                                        <ul class="list" style="background-image:none;background:transparent;margin-top:-13px;">
+                                                        <li class="list-item" style="padding:0px;">
+                                                                <div class="list-item__left" style="padding:0px;">
+                                                                <img class="list-item__thumbnail" id="follow_gift_user_image_top_`;
+                                                                card += card_number;
+                                                                card +=`" src="img/human.png" alt="" style="border-radius: 50%;object-fit:cover;">
+                                                                </div>
+                                                        
+                                                                <div class="list-item__center" style="padding:0px; padding-left:5px;">
+                                                                <div id="follow_gift_user_name_top_`;
+                                                                card +=card_number;
+                                                                card +=`" class="current_user_name" style="text-align: left;">
+                                                                </div>
+                                                                </div>
+                                                        </li>
+                                                        </ul>
+                                                </div>
+                                                <div class="gift_text" style="height:60px;font-size:12px;padding:5px;">
                                                 `;
-                                                // console.log(card);
-                                                $('#followGiftList').append(card);
-                                                followgiftUserGet(gift_user_id,i);
-                                                followgiftImageGetTop(gift_uid,i,gift_stock);
-                                                followgiftUserImageTop(gift_user_id,i);
-                                                followgift_favorite_check(gift_uid,i);
+                                                card += gift_title;
+                                                card += `
+                                                </div>
+                                                <div style="height:20px;">
+                                                        <button class="toolbar-button" style="font-size:12px;padding:0px;">
+                                                                <i id="`;
+                                                                card += "follow_gift_favorite_"+card_number;
+                                                                card +=`"class="fas fa-heart favorite_off" style="font-size:12px;"></i> <span id="`;
+                                                                card += "follow_gift_favorite_span_"+card_number;
+                                                                card +=`"class="favorite_off">0</span>
+                                                        </button>
+                                                        <button class="toolbar-button" style="font-size:12px;padding:0px;">
+                                                                <span style="font-size:12px;color:gray">残:`;
+                                                                card += gift_stock;
+                                                                card +=`</span>
+                                                        </button>
+                                                        <button class="toolbar-button" style="font-size:12px;padding:0px;float: right;">
+                                                                <span style="color:#898989">
+                                                                `;
+                                                                card += time;
+                                                                card +=`
+                                                                </span>
+                                                        </button>
+                                                </div>
+                                        </div>
+                                </div>
+                                `;
+                                // console.log(card);
+                                $('#followGiftList').append(card);
+                                followgiftUserGet(gift_user_id,card_number);
+                                followgiftImageGetTop(gift_uid,card_number,gift_stock);
+                                followgiftUserImageTop(gift_user_id,card_number);
+                                followgift_favorite_check(gift_uid,card_number);
                                 //         }
                                 // })
                                 // .catch(function(err){
                                 //         console.log(err);
-                                // }); 
-                                if(i+1==object.length){
-                                        hideLoad();
-                                        $('.sp-content').height($(".swiper-slide-active").height());
-                                        setTimeout(function(){
-                                                $('#sp-content').height($('.sp-content').height());
-                                        },500);
+                                // });
+
+                                if(followCounter==0){
+                                        if(i+1==object.length){
+                                                hideLoad();
+                                                loadingIcon = `
+                                                <div id="followBottom" class="" style="width:98%;height: auto; padding: 1px 0 0 0;display: inline-block;margin-top:5px;">
+                                                <br><br><br><i class="fas fa-spinner fa-3x fa-spin"></i><br><br><br>
+                                                </div>`;
+                                                $('#followGiftList').append(loadingIcon);
+                                                console.log("きてる");
+                                                $('.sp-content').height($(".swiper-slide-active").height());
+                                                setTimeout(function(){
+                                                        $('#sp-content').height($('.sp-content').height());
+                                                },500);
+                                        }
+                                }else{
+                                        if(i+1==object.length){
+                                                hideLoad();
+                                                $("#followBottom").appendTo('#followGiftList');
+                                                $('.sp-content').height($(".swiper-slide-active").height());
+                                                setTimeout(function(){
+                                                        $('#sp-content').height($('.sp-content').height());
+                                                },500);
+                                        }
                                 }
                         }
                         
