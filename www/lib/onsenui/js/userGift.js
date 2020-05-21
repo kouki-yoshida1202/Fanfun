@@ -1,4 +1,4 @@
-function MyGift(){
+function MyGift(myPageGiftCounter){
         $("#myGiftList").empty();
         showUserLoad();
         // カレントユーザー情報の取得
@@ -34,112 +34,17 @@ function MyGift(){
                 $('#influencerTouroku').html(influencer_button);
         }
         $('.user_name_title').html(userNameTitle);
-        var userName = currentUser.get("userName");
-        //データストアから取得して、1件表示する
-        var GiftData = ncmb.DataStore("giftData");
+        myPageGiftList(myPageGiftCounter);
 
+        var GiftData = ncmb.DataStore("giftData");
         GiftData
-        .order('createDate', true)
         .equalTo("userId", objectId)
         .notEqualTo('ReleaseStatus',1)
         .fetchAll()                
         .then(function(results){
-                var object = results;
-                var syuppinnsu = "&emsp;"+object.length+" 出品&emsp;"
+                var syuppinnsu = "&emsp;"+results.length+" 出品&emsp;"
                 $('#myGiftLength').html(syuppinnsu);
-                if(object.length==0){
-                        hideUserLoad();
-                }
-                for(var i=0;i<object.length;i++){
-                        var gift_title = object[i].get("giftTitle");
-                        var gift_text =object[i].get("giftText");
-                        var create_date = object[i].get("releaseDate");
-                        var time = jikanCulc(create_date);
-                        var gift_uid = object[i].get("giftUid");
-                        var gift_stock = object[i].get("stock");
-                        var gift_price = object[i].get("price");
-                        var gift_user_id = object[i].get("userId");
-                        var ReleaseStatus = object[i].get("ReleaseStatus");
-                        var ohitotu = object[i].get("ohitotu");
-                        //カードに出力していく
-                        var card = `
-                        <div class="gift-card" style="width:49%;height: 298px;padding: 1px 0 0 0;display: inline-block;margin-top:5px;"onclick="
-                        `;
-                        card += "giftIdJudge('"+gift_uid+"','"+userName+"','"+gift_title+"','"+gift_text+"','"+objectId+"','"+create_date+"','"+gift_price+"','"+gift_user_id+"','"+gift_stock+"','"+ReleaseStatus+"','"+ohitotu+"');";
-                        card +=`
-                        ">
-                                <input class="gift_uid" type="" value="`;
-                                card += gift_uid;
-                                card += `
-                                " hidden>
-                                <div class="card" style="height:99%;margin:3px;border-radius:20px;">
-                                        <div class="card__content" style="height:auto;position:relative;">
-                                                <img id="`;
-                                                card += "gift_image_"+i;
-                                                card +=`"class="gift_image" src="" alt="" style="width:100%;height:157px;object-fit:cover;border-radius: 20px;">
-                                        </div>
-                                        <div id="mypage_card_content_`;
-                                        card +=i;
-                                        card +=`" class="card__content" style="height:45px;">
-                                                <ul class="list" style="background-image:none;background:transparent;margin-top:-13px;">
-                                                <li class="list-item" style="padding:0px;">
-                                                        <div class="list-item__left" style="padding:0px;">
-                                                        <img class="list-item__thumbnail" id="gift_user_image_`;
-                                                        card += i;
-                                                        card +=`" src="" alt="" style="border-radius: 50%;">
-                                                        </div>
-                                                
-                                                        <div class="list-item__center" style="padding:0px; padding-left:5px;">
-                                                        <div class="current_user_name my_page_user_name" style="text-align: left;"></div>
-                                                        </div>
-                                                </li>
-                                                </ul>
-                                        </div>
-                                        <div class="gift_text" style="height:60px;font-size:12px;padding:5px;">
-                                        `;
-                                        card += gift_title;
-                                        card += `
-                                        </div>
-                                        <div style="height:20px;">
-                                                <button class="toolbar-button" style="font-size:12px;padding:0px;">
-                                                        <i id="`;
-                                                        card += "my_gift_favorite_"+i;
-                                                        card +=`"class="fas fa-heart favorite_off" style="font-size:12px;"></i> <span id="`;
-                                                        card += "my_gift_favorite_span_"+i;
-                                                        card +=`"class="favorite_off">0</span>
-                                                </button>
-                                                <button class="toolbar-button" style="font-size:12px;padding:0px;">
-                                                        <span style="font-size:12px;color:gray">残:`;
-                                                        card += gift_stock;
-                                                        card +=`</span>
-                                                </button>
-                                                <button class="toolbar-button" style="font-size:12px;padding:0px;float: right;">
-                                                        <span style="color:#898989">
-                                                        `;
-                                                        card += time;
-                                                        card +=`
-                                                        </span>
-                                                </button>
-                                        </div>
-                                </div>
-                        </div>
-                        `;
-                        $('#myGiftList').append(card);
-                        $('.my_page_user_name').html(userName);
-                        giftImageGet(gift_uid,i,gift_stock);
-                        giftUserImage(objectId,i);
-                        my_gift_favorite_check(gift_uid,i);
-                        if(i+1==object.length){
-                                hideUserLoad();
-                        }
-                }
-                
-                syoryaku();
-        })
-        .catch(function(err){
-                console.log(err);
-                hideUserLoad();
-        });       
+        });
 }
 function giftUserImage(objectId,i){
         ncmb.File.download(objectId, "blob")
@@ -454,4 +359,133 @@ function honninCheck(){
                 $('#honninMailaddress').val(mailAddress);
                 $('#honninUserName').val(userName);
         },500);
+}
+
+function myPageGiftList(myPageGiftCounter){
+        var currentUser = ncmb.User.getCurrentUser();
+        var objectId = currentUser.get("objectId");
+        var userName = currentUser.get("userName");
+        //データストアから取得して、1件表示する
+        var GiftData = ncmb.DataStore("giftData");
+        GiftData
+        .order('createDate', true)
+        .equalTo("userId", objectId)
+        .notEqualTo('ReleaseStatus',1)
+        .limit(6)
+        .skip(myPageGiftCounter*6)
+        .fetchAll()                
+        .then(function(results){
+                var object = results;
+                if(object.length==0){
+                        hideUserLoad();
+                        $('#myPageBottom').remove();
+                }
+                for(var i=0;i<object.length;i++){
+                        var card_number = i+myPageGiftCounter*6;
+                        var gift_title = object[i].get("giftTitle");
+                        var gift_text =object[i].get("giftText");
+                        var create_date = object[i].get("releaseDate");
+                        var time = jikanCulc(create_date);
+                        var gift_uid = object[i].get("giftUid");
+                        var gift_stock = object[i].get("stock");
+                        var gift_price = object[i].get("price");
+                        var gift_user_id = object[i].get("userId");
+                        var ReleaseStatus = object[i].get("ReleaseStatus");
+                        var ohitotu = object[i].get("ohitotu");
+                        //カードに出力していく
+                        var card = `
+                        <div class="gift-card" style="width:49%;height: 298px;padding: 1px 0 0 0;display: inline-block;margin-top:5px;"onclick="
+                        `;
+                        card += "giftIdJudge('"+gift_uid+"','"+userName+"','"+gift_title+"','"+gift_text+"','"+objectId+"','"+create_date+"','"+gift_price+"','"+gift_user_id+"','"+gift_stock+"','"+ReleaseStatus+"','"+ohitotu+"');";
+                        card +=`
+                        ">
+                                <input class="gift_uid" type="" value="`;
+                                card += gift_uid;
+                                card += `
+                                " hidden>
+                                <div class="card" style="height:99%;margin:3px;border-radius:20px;">
+                                        <div class="card__content" style="height:auto;position:relative;">
+                                                <img id="`;
+                                                card += "gift_image_"+card_number;
+                                                card +=`"class="gift_image" src="" alt="" style="width:100%;height:157px;object-fit:cover;border-radius: 20px;">
+                                        </div>
+                                        <div id="mypage_card_content_`;
+                                        card +=card_number;
+                                        card +=`" class="card__content" style="height:45px;">
+                                                <ul class="list" style="background-image:none;background:transparent;margin-top:-13px;">
+                                                <li class="list-item" style="padding:0px;">
+                                                        <div class="list-item__left" style="padding:0px;">
+                                                        <img class="list-item__thumbnail" id="gift_user_image_`;
+                                                        card += card_number;
+                                                        card +=`" src="" alt="" style="border-radius: 50%;">
+                                                        </div>
+                                                
+                                                        <div class="list-item__center" style="padding:0px; padding-left:5px;">
+                                                        <div class="current_user_name my_page_user_name" style="text-align: left;"></div>
+                                                        </div>
+                                                </li>
+                                                </ul>
+                                        </div>
+                                        <div class="gift_text" style="height:60px;font-size:12px;padding:5px;">
+                                        `;
+                                        card += gift_title;
+                                        card += `
+                                        </div>
+                                        <div style="height:20px;">
+                                                <button class="toolbar-button" style="font-size:12px;padding:0px;">
+                                                        <i id="`;
+                                                        card += "my_gift_favorite_"+card_number;
+                                                        card +=`"class="fas fa-heart favorite_off" style="font-size:12px;"></i> <span id="`;
+                                                        card += "my_gift_favorite_span_"+card_number;
+                                                        card +=`"class="favorite_off">0</span>
+                                                </button>
+                                                <button class="toolbar-button" style="font-size:12px;padding:0px;">
+                                                        <span style="font-size:12px;color:gray">残:`;
+                                                        card += gift_stock;
+                                                        card +=`</span>
+                                                </button>
+                                                <button class="toolbar-button" style="font-size:12px;padding:0px;float: right;">
+                                                        <span style="color:#898989">
+                                                        `;
+                                                        card += time;
+                                                        card +=`
+                                                        </span>
+                                                </button>
+                                        </div>
+                                </div>
+                        </div>
+                        `;
+                        $('#myGiftList').append(card);
+                        $('.my_page_user_name').html(userName);
+                        giftImageGet(gift_uid,card_number,gift_stock);
+                        giftUserImage(objectId,card_number);
+                        my_gift_favorite_check(gift_uid,card_number);
+
+                        if(myPageGiftCounter==0){
+                                if(i+1==object.length){
+                                        hideUserLoad();
+                                        loadingIcon = `
+                                        <div id="myPageBottom" class="" style="width:98%;height: auto; padding: 1px 0 0 0;display: inline-block;margin-top:5px;text-align:center;">
+                                        <br><br><br><i class="fas fa-spinner fa-3x fa-spin"></i><br><br><br>
+                                        </div>`;
+                                        $('#myGiftList').append(loadingIcon);
+                                }
+                        }else{
+                                if(i+1==object.length){
+                                        hideUserLoad();
+                                        $("#myPageBottom").appendTo('#myGiftList');
+                                }
+                        }
+                }
+                
+                syoryaku();
+        })
+        .catch(function(err){
+                console.log(err);
+                hideUserLoad();
+        });  
+
+        setTimeout(function(){
+                myPageRefresh();
+        },2000);
 }

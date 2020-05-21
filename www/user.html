@@ -112,6 +112,19 @@
     <!-- 以下、javascript -->
     <script type="text/javascript">
         $('.action-sheet-mask,.action-sheet').hide();
+
+        var myPageGiftCounter=0;
+        function myPageRefresh(){
+            $('#myPageBottom').on('inview',  function(event, isInView){
+                if (isInView) {
+                    console.log("other見えてる");
+                    myPageGiftCounter++;
+                    myPageGiftList(myPageGiftCounter);
+                }else{
+                    console.log("other見えてない");
+                }
+            });
+        }
         // 保存後の処理
         $('#myTwitter').click(function(){
             var myTwitterURL = $('#myTwitterURL').val();

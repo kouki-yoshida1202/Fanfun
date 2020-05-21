@@ -39,23 +39,44 @@
                 $('.searchUserNo_dialog_mask,.searchUserNo_dialog,.searchGiftNo_dialog_mask,.searchGiftNo_dialog').hide();
                 
                 function searchUserNoOpen(){
-                $('.searchUserNo_dialog_mask,.searchUserNo_dialog').slideDown();
+                        $('.searchUserNo_dialog_mask,.searchUserNo_dialog').slideDown();
                 }
+
                 function searchUserNoClose(){
-                $('.searchUserNo_dialog').slideUp();
-                setTimeout(function(){
-                        $('.searchUserNo_dialog_mask').slideUp();
-                },500);
+                        $('.searchUserNo_dialog').slideUp();
+                        setTimeout(function(){
+                                $('.searchUserNo_dialog_mask').slideUp();
+                        },500);
                 }
                 
                 function searchGiftNoOpen(){
-                $('.searchGiftNo_dialog_mask,.searchGiftNo_dialog').slideDown();
+                        $('.searchGiftNo_dialog_mask,.searchGiftNo_dialog').slideDown();
                 }
                 function searchGiftNoClose(){
-                $('.searchGiftNo_dialog').slideUp();
-                setTimeout(function(){
-                        $('.searchGiftNo_dialog_mask').slideUp();
-                },500);
+                        $('.searchGiftNo_dialog').slideUp();
+                        setTimeout(function(){
+                                $('.searchGiftNo_dialog_mask').slideUp();
+                        },500);
+                }
+
+                var searchCounter=0;
+                function searchPageRefresh(searchWay){
+                        $('#searchUserPageBottom').on('inview',  function(event, isInView){
+                                if (isInView) {
+                                        searchCounter++;
+                                        if(searchWay=="Keyword"){
+                                                var user_name = $('#searchUserKeyword').val();
+                                                searchUserKeyWord(user_name,searchCounter);
+                                        }else if(searchWay=="Genre"){
+                                                var genre = $('.search_user:checked').map(function() {
+                                                        return $(this).val();
+                                                }).get();
+                                                searchUserGenre(genre,searchCounter);
+                                        }
+                                }else{
+                                        console.log("other見えてない");
+                                }
+                        });
                 }
         </script>
 </ons-page>
