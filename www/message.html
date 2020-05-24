@@ -1,0 +1,267 @@
+<ons-page id="message-page">
+        <!-- <ons-toolbar class="toolbar message_toolbar" style="background-color: white;height:0px;">
+                <div class="center" style="width:120%;color:#898989;">
+                        <div id="userSearchTab" class="contents" style="width:100%;background-color:white;margin:0px;padding:10px 0px;border-bottom:1px solid #898989;" onclick="document.getElementById('navi').bringPageTop('userSearch.html');">
+                                <p style="text-align: center;width:100%;margin:0px;">  <i class="fas fa-search-plus"></i> メッセージ <span style="float: right;transform: translateY(2px);transform: translateX(-10px);">></span> </p>
+                        </div>
+                </div>
+        </ons-toolbar> -->
+        <style>
+                .message_header {
+                        position: absolute;
+                        margin: 0;
+                        padding: 0;
+                        border: 0;
+                        top: -30px;
+                        left: 0;
+                        width: 100%;
+                        height: auto;
+                        z-index: 2000000000;
+                        background: -moz-linear-gradient(bottom , #FF8784, #FFAA95); 
+                        background: -webkit-linear-gradient(bottom , #FF8784, #FFAA95); 
+                        background: linear-gradient(to top , #FF8784, #FFAA95);
+                        padding-top:80px;
+                }
+                .context {
+                        width: 100%;
+                        position: absolute;
+                        top:10px;
+                        z-index: 100;
+                }
+
+                .selected-message{
+                        transition: 0.5s;
+                        -webkit-transition: 0.5s;
+                }
+
+                .selected-message{
+                        transform: scale(1.3);
+                }
+
+                .area{
+                        background: -moz-linear-gradient(bottom, #FF1048, #FF8784); 
+                        background: -webkit-linear-gradient(bottom, #FF1048, #FF8784); 
+                        background: linear-gradient(to top, #FF1048, #FF8784);
+                        width: 100%;
+                        min-height:100vh !important;
+                        position: absolute;
+                        top:0px;
+                }
+
+                .circles{
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        overflow: hidden;
+                        z-index: 1;
+                }
+
+                .circles li{
+                position: absolute;
+                display: block;
+                list-style: none;
+                width: 20px;
+                height: 20px;
+                background: rgba(255, 255, 255, 0.4);
+                animation: animate 25s linear infinite;
+                bottom: -150px;
+                }
+
+                .circles li:nth-child(1){
+                left: 25%;
+                width: 80px;
+                height: 80px;
+                animation-delay: 0s;
+                }
+
+
+                .circles li:nth-child(2){
+                left: 10%;
+                width: 20px;
+                height: 20px;
+                animation-delay: 2s;
+                animation-duration: 12s;
+                }
+
+                .circles li:nth-child(3){
+                left: 70%;
+                width: 20px;
+                height: 20px;
+                animation-delay: 4s;
+                }
+
+                .circles li:nth-child(4){
+                left: 40%;
+                width: 60px;
+                height: 60px;
+                animation-delay: 0s;
+                animation-duration: 18s;
+                }
+
+                .circles li:nth-child(5){
+                left: 65%;
+                width: 20px;
+                height: 20px;
+                animation-delay: 0s;
+                }
+
+                .circles li:nth-child(6){
+                left: 75%;
+                width: 110px;
+                height: 110px;
+                animation-delay: 3s;
+                }
+
+                .circles li:nth-child(7){
+                left: 35%;
+                width: 150px;
+                height: 150px;
+                animation-delay: 7s;
+                }
+
+                .circles li:nth-child(8){
+                left: 50%;
+                width: 25px;
+                height: 25px;
+                animation-delay: 15s;
+                animation-duration: 45s;
+                }
+
+                .circles li:nth-child(9){
+                left: 20%;
+                width: 15px;
+                height: 15px;
+                animation-delay: 2s;
+                animation-duration: 35s;
+                }
+
+                .circles li:nth-child(10){
+                left: 85%;
+                width: 150px;
+                height: 150px;
+                animation-delay: 0s;
+                animation-duration: 11s;
+                }
+
+
+
+                @keyframes animate {
+
+                0%{
+                        transform: translateY(0) rotate(0deg);
+                        opacity: 1;
+                        border-radius: 0;
+                }
+
+                100%{
+                        transform: translateY(-1000px) rotate(720deg);
+                        opacity: 0;
+                        border-radius: 50%;
+                }
+
+                }
+        </style>
+        
+        <div class="message_header" style=" border-bottom:1px solid white;padding-bottom:10px;">
+                <div class="card_parent card_jusinbako" style="height: auto;width:27%;display:inline-block;margin-left:5%;" onclick="Message('receive');">
+                        <div class="card jusinbako" style="text-align: center;">
+                                <i class="fas fa-envelope-open-text fa-lg" style="color:#FF6070;margin-top:10px;margin-bottom:10px;"></i>
+                                <p class="card__title"style="text-align:center;margin-top:0px;font-size:0.6em;">受信箱</p>
+                        </div>
+                </div>
+                <div class="card_parent card_oreichat" style="height: auto;width:27%;display:inline-block;margin-left:3%;margin-right:3%;" onclick="Message('oreichat');">
+                        <div class="card oreichat" style="text-align: center;">
+                                <i class="fas fa-hand-holding-heart fa-lg" style="color:#FF6070;margin-top:10px;margin-bottom:10px;"></i>
+                                <p class="card__title"style="text-align:center;margin-top:0px;font-size:0.6em;">お礼チャット</p>
+                        </div>
+                </div>
+                <div class="card_parent card_soushin" style="height: auto;width:27%;display:inline-block;margin-right:5%;" onclick="Message('send');">
+                        <div class="card soushin" style="text-align: center;">
+                                <i class="far fa-paper-plane fa-lg" style="color:#FF6070;margin-top:10px;margin-bottom:10px;"></i>
+                                <p class="card__title"style="text-align:center;margin-top:0px;font-size:0.6em;">送信済</p>
+                        </div>
+                </div>
+        </div>
+        <div class="context">
+                <div class="content message_content"style="width:100%;">
+                        <div id="jushinBox" class="" style="height: auto;width:95%;margin:0 auto;">
+                        </div>
+                </div>
+        </div>
+        <div class="area">
+                <ul class="circles" style="padding:0px;margin:0px;">
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                </ul>
+        </div >
+        
+        <!-- 以下、javascript -->
+        <script type="text/javascript">
+
+        $('.card_parent').click(function(){
+                console.log("click");
+                if($(this).hasClass("selected-message")){
+                        
+                }else{
+                        $('.card_parent').removeClass("selected-message");
+                        $(this).addClass("selected-message");
+                        
+                }
+
+                
+        });
+        
+        function showMessageLoad(){
+                $(".message_content").LoadingOverlay("show", {
+                        image       : "",
+                        fontawesome : "fa fa-refresh fa-spin",
+                });
+        }
+
+        function hideMessageLoad() {
+                $(".message_content").LoadingOverlay("hide");
+        };
+
+        function heightChagne(){
+                $('.area').height($('.context').height());
+        }
+        
+        heightChagne();
+        ons.ready(function() {
+                var page = document.getElementById("message-page");
+                // var toolbar = page.querySelector(".message_toolbar");
+                var header = page.querySelector(".message_header");
+                var content = page.querySelector(".message_content");
+                var area = page.querySelector(".area");
+                // header.style.top = toolbar.clientHeight + "px";
+                content.style.marginTop = header.clientHeight - 30 + "px";
+                area.style.marginTop = header.clientHeight -30 + "px";
+        });
+
+        var messageCounter=0;
+        function messagePageRefresh(kind){
+                $('#messagePageBottom').on('inview',  function(event, isInView){
+                        if (isInView) {
+                                messageCounter++;
+                                if(kind=="receiveUserId"){
+                                        messageKind(kind,messageCounter);
+                                }else if(kind=="sendUserId"){
+                                        messageKind(kind,messageCounter);
+                                }
+                        }else{
+                                console.log("見えてない");
+                        }
+                });
+        }
+        </script>
+</ons-page>

@@ -1,0 +1,153 @@
+<ons-page>
+        <style>
+                .cp_iptxt {
+                        position: relative;
+                        margin: 15px 3%;
+                }
+                .cp_iptxt textarea{
+                        font: 15px/24px sans-serif;
+                        box-sizing: border-box;
+                        width: 100%;
+                        margin: 8px 0;
+                        padding: 0.3em;
+                        transition: 0.3s;
+                        border: 1px solid #898989;
+                        border-radius: 4px;
+                        outline: none;
+                }
+                .cp_iptxt textarea:focus {
+                        border-color: #FF6070;
+                }
+                .cp_iptxt textarea{
+                        padding-left: 40px;
+                }
+                .cp_iptxt i {
+                        position: absolute;
+                        top: 11px;
+                        left: 0;
+                        padding: 9px 8px;
+                        transition: 0.3s;
+                        color: #aaaaaa;
+                }
+                .cp_iptxt textarea:focus + i {
+                        color: #FF6070;
+                }
+        </style>
+        <ons-toolbar class="toolbar" style="background-color: white;">
+                <div class="left" style="padding-left: 3%;">
+                        <ons-back-button id="contactFormBackButton"></ons-back-button>
+                </div>
+                <div class="center" style="color:#898989;">
+                        お礼メッセージ送信
+                </div>
+        </ons-toolbar>
+        <div id="" class="container contents" style="position:relative;">
+                <input type="hidden" id="logId">
+                <input type="hidden" id="sendUser">
+                <input type="hidden" id="receiveUser">
+                <input type="hidden" id="giftUid">
+                <!-- カードリスト部分 -->
+                <div style="height: auto;width:100%;margin:0 auto;margin-bottom:200px;">
+                        <div class="card" style="text-align: center;">
+                                <div class="card__content"style="text-align:left;font-size:12px;">
+                                        <!-- <div class="cp_iptxt">
+                                                <input type="text" placeholder="振込元(お客様)の銀行名" id="ginkoumei" required>
+                                                <i class="fas fa-portrait fa-lg fa-fw" aria-hidden="true"></i>
+                                        </div>
+                                        <div class="cp_iptxt">
+                                                <input type="text" placeholder="振込元の支店名" id="shitenmei" required>
+                                                <i class="fa fa-envelope fa-lg fa-fw" aria-hidden="true"></i>
+                                        </div>
+                                        <div class="cp_iptxt">
+                                                <input type="tel" placeholder="振込元の口座番号" id="kouzabangou" required>
+                                                <i class="fas fa-piggy-bank fa-lg fa-fw" aria-hidden="true"></i>
+                                        </div> -->
+                                        <div class="cp_iptxt">
+                                                <textarea rows="15" placeholder="お礼メッセージ内容を記載してください！(160文字以内/改行は反映されません)" id="messageText" onkeyup="ShowLength(value);" maxlength="160"></textarea>
+                                                <i class="fas fa-hand-holding-heart fa-lg fa-fw" aria-hidden="true"></i>
+                                        </div>
+                                        <p id="oreichacCount" style="width:95%;text-align: right;margin-top:5px;margin:0 auto;">0文字</p>
+                                        <div style="width:100%;text-align:center;margin:0 auto;margin-top:20px;margin-bottom:20px;">
+                                                <p style="text-align: left;width:95%;margin:0 auto;color:gray;">
+                                                        1. 送信後、相手様に通知が飛びます(通知ONの場合)。<br>
+                                                        2. 送信後、内容の変更は出来ません。<br>
+                                                        3. 内容によっては無断でメッセージを削除する場合がございます。<br>
+                                                </p>
+                                                <br>
+                                                <button class="button "style="width:100%;padding-top:0px;padding-bottom:0px;line-height:40px;border-radius:30px;font-size:16px;margin:0 auto;" onclick="oreiChatSend();">送信する</button>
+                                        </div>
+                                </div>
+                        </div>
+                </div>  
+        </div>
+        
+        <script>
+                function ShowLength( str ) {
+                        document.getElementById("oreichacCount").innerHTML = str.length + "文字";
+                }
+
+                function oreiChatSend(){
+                        var sendUser = $('#sendUser').val();
+                        var receiveUser = $('#receiveUser').val();
+                        var giftUid = $('#giftUid').val();
+                        var logId = $('#logId').val();
+                        var messageText = $('#messageText').val();
+
+                        if(messageText==''){
+                                alert("メッセージが未入力です。");
+                        }else{
+                                var messageData = ncmb.DataStore("messageData");
+                                var messageData = new messageData();
+                                messageData.set("giftUid",giftUid)
+                                        .set("receiveUserId",receiveUser)
+                                        .set("sendUserId",sendUser)
+                                        .set("logId",logId)
+                                        .set("messageText",messageText)
+                                        .save()
+                                        .then(function(){
+                                                var giftLog = ncmb.DataStore("giftLog");
+                                                giftLog
+                                                .equalTo('logId',logId)
+                                                .fetch()         
+                                                .then(function(results){
+                                                        results.set("sendOreiChat", "end")
+                                                                .update();
+
+                                                        hideLoad();
+                                                        setTimeout(function(){
+                                                                var push = new ncmb.Push();
+                                                                push.set("immediateDeliveryFlag", true)
+                                                                .set("message", "注文番号:"+logId+"のThank youメッセージが届きました！")
+                                                                .set("target", ["ios", "android"])
+                                                                .set('searchCondition', {
+                                                                        userObjectId: receiveUser,
+                                                                });
+
+                                                                push.send()
+                                                                .then(function(push){
+                                                                // 送信後処理
+                                                                        alert("送信成功しました。");
+                                                                        hideLoad();
+                                                                        document.getElementById('navi').popPage();
+                                                                        setTimeout(() => {
+                                                                                MessageJudge(); 
+                                                                        }, 500);
+                                                                })
+                                                                .catch(function(err){
+                                                                // エラー処理
+                                                                        alert("エラーが発生しました。もう一度お試し頂くかお問い合わせくださいませ。。");
+                                                                        hideLoad();
+                                                                });
+                                                        },500);
+                                                }).catch(function(){
+                                                        alert("エラーが発生しました。もう一度お試し頂くかお問い合わせくださいませ。。");
+                                                        hideLoad();
+                                                });
+                                        }).catch(function(){
+                                                alert("エラーが発生しました。もう一度お試し頂くかお問い合わせくださいませ。。");
+                                                hideLoad();
+                                        });
+                        }
+                }
+        </script>
+</ons-page>

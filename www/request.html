@@ -1,15 +1,18 @@
 <ons-page>
         <style>
+                .back-button,.back-button__icon{
+                        color:white;
+                        fill:white;
+                }
         </style>
         <div class="container contents" style="position:relative;">
                 <!-- カードリスト部分 -->
-
-                
         </div>
         <div class="container">
                 <div class="box" style="background: -moz-linear-gradient(bottom left, #FF1048, #FFAA95); 
                 background: -webkit-linear-gradient(bottom left, #FF1048, #FFAA95); 
                 background: linear-gradient(to top right, #FF1048, #FFAA95);height:300px;z-index:10;text-align: center;">
+                
                         <img src="img/whitelogo.png" alt="" style="width:55%;height:auto;margin:0 auto;margin-top:10%;">
                         <!-- <p style="color:white;margin-top:-5%;">Contact & Request Form</p> -->
                 </div>
@@ -35,7 +38,11 @@
                         </div>
                 </div>
         </div>
-        
+        <div>
+                <div style="width:98%;height: auto; padding: 1px 0 0 0;display: inline-block;text-align: center;margin-top:20px;">
+                        <button class="button" style="border-radius:20px;background: #898989;font-size:12px;padding:0px 10px;" onclick="document.getElementById('navi').popPage();">前に戻る</button>
+                </div>
+        </div>
         <script>
         $('#wave').wavify({
                 height: 120,
