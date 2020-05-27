@@ -66,7 +66,7 @@
                 <span id="gift_detail_price_other" style="font-size: 24px;line-height:45px;"></span>
             </div>
             <div class="right" style="width:40%;padding-right:7%;">
-                <button id="ReleaseStatusButton" class="button" style="background-color: #FF6070;width:100%;" onclick="buypage();">
+                <button id="ReleaseStatusButton" class="button" style="background-color: #FF6070;width:100%;" onclick="buyPageOpen();">
                     購入手続き
                 </button>
             </div>
@@ -76,9 +76,29 @@
             <button class="action-sheet-button" onclick="tweetOtherGift();">Tweet</button>
             <button class="action-sheet-button" onclick="detailShareClose();">Cancel</button>
         </div>
+        <div class="alert-dialog-mask buyPage_dialog_mask"></div>
+        <div class="alert-dialog buyPage_dialog" style="top:60%;">
+            <div class="alert-dialog-container">
+                <div class="alert-dialog-title">5分経ちましたら、購入権は破棄されますのでご注意ください。</div>
+                <div class="alert-dialog-footer">
+                    <button class="alert-dialog-button alert-dialog-button--primal" onclick="buypage();buyPageClose();">購入手続きへ</button>
+                    <button class="alert-dialog-button" onclick="buyPageClose();">キャンセル</button>
+                </div>
+            </div>
+        </div>
         <script>
             $('.detail_mask,.detail_modal').hide();
-
+            $('.buyPage_dialog_mask,.buyPage_dialog').hide();
+            function buyPageOpen(){
+                    $('.buyPage_dialog_mask,.buyPage_dialog').slideDown();
+            }
+            
+            function buyPageClose(){
+                    $('.buyPage_dialog').slideUp();
+                    setTimeout(function(){
+                        $('.buyPage_dialog_mask').slideUp();
+                    },500);
+            }
             function tweetOtherGift(){
                 // どっちか使う
                 var userName = $('#gift_detail_username_other').html();

@@ -58,8 +58,8 @@
         }
     </style>
     <ons-toolbar class="toolbar" style="background-color: white;position: fixed;">
-        <div class="left" style="padding-left: 3%;">
-            <ons-back-button></ons-back-button>
+        <div class="left"style="padding-left:3%;">
+            <button class="button" style="border-radius:30px;background: transparent;height:80%;line-height: initial;vertical-align: middle;font-size:12px;" onclick="buyPageCancelOpen();"><i class="fas fa-times-circle fa-lg fa-fw" style="color:#FF6070;"></i></button>
         </div>
         <div class="center" style="color:#898989;">
             ギフト詳細
@@ -177,9 +177,29 @@
             </div>
         </div>
     </div>
+    <div class="alert-dialog-mask buyPageCancel_dialog_mask"></div>
+    <div class="alert-dialog buyPageCancel_dialog">
+        <div class="alert-dialog-container">
+            <div class="alert-dialog-title">購入手続きをキャンセルしますか？</div>
+            <div class="alert-dialog-footer">
+                <button class="alert-dialog-button alert-dialog-button--primal" onclick="buyPageCancel();">キャンセルする</button>
+                <button class="alert-dialog-button" onclick="buyPageCancelClose();">閉じる</button>
+            </div>
+        </div>
+    </div>
     <script>
         $('.sendHumanNoMiss_dialog_mask,.sendHumanNoMiss_dialog,.nicknameNoMiss_dialog_mask,.nicknameNoMiss_dialog,.requestMessageNoMiss_dialog_mask,.requestMessageNoMiss_dialog').hide();
+        $('.buyPageCancel_dialog_mask,.buyPageCancel_dialog').hide();
+        function buyPageCancelOpen(){
+                $('.buyPageCancel_dialog_mask,.buyPageCancel_dialog').slideDown();
+        }
         
+        function buyPageCancelClose(){
+                $('.buyPageCancel_dialog').slideUp();
+                setTimeout(function(){
+                    $('.buyPageCancel_dialog_mask').slideUp();
+                },500);
+        }
         function sendHumanNoMissOpen(){
             $('.sendHumanNoMiss_dialog_mask,.sendHumanNoMiss_dialog').slideDown();
         }

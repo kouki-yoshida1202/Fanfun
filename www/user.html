@@ -61,6 +61,8 @@
         <div class="other_profile_text current_text" style="max-height:100px;height:auto;font-size:14px;padding:5px 16px;">
         </div>
         <div class="" style="padding:3px 16px;text-align: right;">
+            <a id="myFanfun" style="font-size:14px;margin-right:5px;color:#007aff;border-bottom:1px solid #007aff;">特設サイト</a>
+            <input type="hidden" id="myFanfunURL">
             <i id="myTwitter" class="fab fa-twitter fa-lg" style="color:#1DA1F2;padding-right:5px;"></i>
             <input type="hidden" id="myTwitterURL">
             <i id="myInstagram" class="fab fa-instagram fa-lg" style="color:#CF2E92;padding-right:5px;"></i>
@@ -126,6 +128,12 @@
             });
         }
         // 保存後の処理
+        // 保存後の処理
+        $('#myFanfun').click(function(){
+            var myFanfunURL = $('#myFanfunURL').val();
+            instagramOpen(myFanfunURL);
+        });
+
         $('#myTwitter').click(function(){
             var myTwitterURL = $('#myTwitterURL').val();
             instagramOpen(myTwitterURL);

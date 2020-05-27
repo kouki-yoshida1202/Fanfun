@@ -68,6 +68,35 @@
   <!-- <script src="lib/onsenui/js/fileUpload.js"></script> -->
 
   <script>
+
+    betweenOrderCheck();
+    function betweenOrderCheck(){
+      var today = new Date();
+      today.setMinutes(today.getMinutes() - 5);
+      console.log(today);
+      var betweenOrder = ncmb.DataStore("betweenOrder");
+      betweenOrder
+      .lessThan("createDate",today)
+      .fetchAll()         
+      .then(function(results){
+        console.log(results);
+        for(var i=0;i<results.length;i++){
+          var giftUid = results[i].get("giftUid");
+          var GiftData = ncmb.DataStore("giftData");
+          GiftData
+          .equalTo("giftUid", giftUid)
+          .fetch()               
+          .then(function(result){
+                  var object = result;
+                  var stock = String(Number(object.get("stock")) + 1);
+                  result
+                  .set("stock",stock)
+                  .update();
+          });
+          results[i].delete();
+        }
+      });
+    }
     // ログインしたらまずTopページにくるようにTopのアイコンを押す
     ons.ready(function() {
       $('#topPageTab').click();
@@ -220,46 +249,48 @@
                             .save()
                             .then(function(){
                               // 保存後の処理
-                              var GiftData = ncmb.DataStore("giftData");
-                              GiftData.equalTo("giftUid", giftUid)
-                                      .fetch()                
-                                      .then(function(results){
-                                              var object = results;
-                                              var num = object.get("stock");
-                                              num = String(Number(num)-1);
-                                              results.set("stock", num).update();
-                                              return results;
-                                      })
-                                      .then(function(){
-                                        hideLoad();
-                                        setTimeout(function(){
-                                          alert("手続きが完了しました");
-                                          var push = new ncmb.Push();
-                                          push.set("immediateDeliveryFlag", true)
-                                              .set("message", "商品が購入されました！アプリ内でご確認ください！")
-                                              .set("target", ["ios", "android"])
-                                              .set('searchCondition', {
-                                                  userObjectId: influencerId,
-                                              });
+                              // 保存後の処理
+                              var betweenOrder = ncmb.DataStore("betweenOrder");
+                              // データストアへの登録
+                              betweenOrder
+                              .equalTo("giftUid", giftUid)
+                              .equalTo("buyUser", objectId)
+                              .fetchAll()          
+                              .then(function(results){
+                                for(var i=0;i<results.length;i++){
+                                  results[i].delete();
+                                }
+                              })
+                              .then(function(){
+                                hideLoad();
+                                setTimeout(function(){
+                                  alert("手続きが完了しました");
+                                  var push = new ncmb.Push();
+                                  push.set("immediateDeliveryFlag", true)
+                                      .set("message", "商品が購入されました！アプリ内でご確認ください！")
+                                      .set("target", ["ios", "android"])
+                                      .set('searchCondition', {
+                                          userObjectId: influencerId,
+                                      });
 
-                                          push.send()
-                                              .then(function(push){
-                                              // 送信後処理
-                                                console.log(push);
-                                                window.location.href = 'home.html';
-                                              })
-                                              .catch(function(err){
-                                              // エラー処理
-                                                console.log(err);
-                                                window.location.href = 'home.html';
-                                              });
-                                          
-                                        },500);
+                                  push.send()
+                                      .then(function(push){
+                                      // 送信後処理
+                                        console.log(push);
+                                        window.location.href = 'home.html';
                                       })
                                       .catch(function(err){
-                                        alert("大変お手数ですが運営にエラーコードと共にお問い合わせくださいませ。エラーコード：238");
-                                        hideLoad();
+                                      // エラー処理
+                                        console.log(err);
+                                        window.location.href = 'home.html';
                                       });
+                                  
+                                },500);
+                              })
+                              .catch(function(err){
+                                alert("大変お手数ですが運営にエラーコードと共にお問い合わせくださいませ。エラーコード：238");
+                                hideLoad();
+                              });
                             })
                             .catch(function(err){
                               // エラー処理

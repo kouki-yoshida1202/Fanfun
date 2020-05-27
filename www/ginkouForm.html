@@ -116,113 +116,119 @@
                                 .fetch()               
                                 .then(function(results){
                                         var object = results;
-                                        var stock = object.get("stock");
-                                        if(stock <= 0 || stock == '' || stock==undefined){
-                                                alert("申し訳ございません。在庫が0になりました。");
-                                                window.location.href = 'home.html';
-                                        }else{
-                                                $.ajax({
-                                                        type: 'post',
-                                                        url: 'https://fanfun2020.xsrv.jp/ginkouHurikomiMailNewest.html',
-                                                        data: {
-                                                                "objectId":objectId,
-                                                                "giftUid":gift_uid,
-                                                                "price":price,
-                                                                "userName":userName,
-                                                                "giftTitle":gift_title,
-                                                                "mailaddress":mailaddress,
-                                                                "sendHuman":send_human,
-                                                                "nickName":nickname,
-                                                                "request":request,
-                                                                "influencerId":influencerId,
-                                                                "defaultPrice":defaultPrice,
-                                                                "influencerMail":influencerMail,
-                                                                "ginkoumei":ginkoumei,
-                                                                "shitenmei":shitenmei,
-                                                                "kouzabangou":kouzabangou,
-                                                                "meigi":meigi,
-                                                        },
-                                                        success: function(data){
-                                                                var data = JSON.parse(data);
-                                                                showLoad();
-                                                                var date = getNowYMD();
-                                                                var defaultPrice = data[0];
-                                                                var request = data[1];
-                                                                var sendHuman = data[2];
-                                                                var nickName = data[3];
-                                                                var giftUid = data[4];
-                                                                var tyumonId = String(data[5]);
-                                                                var objectId = data[6];
-                                                                var influencerId = data[7];
-                                                                var giftTitle = data[8];
-                                                                var giftLog = ncmb.DataStore("giftLog");
-                                                                var giftLog = new giftLog();
-                                                                giftLog.set("buyDate",date)
-                                                                        .set("buyKakaku",defaultPrice)
-                                                                        .set("buyRequest",request)
-                                                                        .set("buyUser",objectId)
-                                                                        .set("buyUserAtena",sendHuman)
-                                                                        .set("buyUserNickName",nickName)
-                                                                        .set("giftCreateInfluencer",influencerId)
-                                                                        .set("giftTitle",giftTitle)
-                                                                        .set("giftUid",giftUid)
-                                                                        .set("logId",tyumonId)
-                                                                        .set("torihikiStatus","入金待ち")
-                                                                        .save()
-                                                                        .then(function(){
-                                                                        // 保存後の処理
-                                                                        var GiftData = ncmb.DataStore("giftData");
-                                                                        GiftData.equalTo("giftUid", giftUid)
-                                                                                .fetch()                
-                                                                                .then(function(results){
-                                                                                        var object = results;
-                                                                                        var num = object.get("stock");
-                                                                                        num = String(Number(num)-1);
-                                                                                        results.set("stock", num).update();
-                                                                                        return results;
-                                                                                })
+                                        var betweenOrder = ncmb.DataStore("betweenOrder");
+                                        // データストアへの登録
+                                        betweenOrder
+                                        .equalTo("giftUid", gift_uid)
+                                        .equalTo("buyUser", objectId)
+                                        .fetchAll()
+                                        .then(function(results){
+                                                if(results.length==0){
+                                                        alert("申し訳ございません。5分を超えてしまったため、再度手続きをお願いします。");
+                                                        window.location.href = 'home.html';
+                                                }else{
+                                                        $.ajax({
+                                                                type: 'post',
+                                                                url: 'https://fanfun2020.xsrv.jp/ginkouHurikomiMailNewest.html',
+                                                                data: {
+                                                                        "objectId":objectId,
+                                                                        "giftUid":gift_uid,
+                                                                        "price":price,
+                                                                        "userName":userName,
+                                                                        "giftTitle":gift_title,
+                                                                        "mailaddress":mailaddress,
+                                                                        "sendHuman":send_human,
+                                                                        "nickName":nickname,
+                                                                        "request":request,
+                                                                        "influencerId":influencerId,
+                                                                        "defaultPrice":defaultPrice,
+                                                                        "influencerMail":influencerMail,
+                                                                        "ginkoumei":ginkoumei,
+                                                                        "shitenmei":shitenmei,
+                                                                        "kouzabangou":kouzabangou,
+                                                                        "meigi":meigi,
+                                                                },
+                                                                success: function(data){
+                                                                        var data = JSON.parse(data);
+                                                                        showLoad();
+                                                                        var date = getNowYMD();
+                                                                        var defaultPrice = data[0];
+                                                                        var request = data[1];
+                                                                        var sendHuman = data[2];
+                                                                        var nickName = data[3];
+                                                                        var giftUid = data[4];
+                                                                        var tyumonId = String(data[5]);
+                                                                        var objectId = data[6];
+                                                                        var influencerId = data[7];
+                                                                        var giftTitle = data[8];
+                                                                        var giftLog = ncmb.DataStore("giftLog");
+                                                                        var giftLog = new giftLog();
+                                                                        giftLog.set("buyDate",date)
+                                                                                .set("buyKakaku",defaultPrice)
+                                                                                .set("buyRequest",request)
+                                                                                .set("buyUser",objectId)
+                                                                                .set("buyUserAtena",sendHuman)
+                                                                                .set("buyUserNickName",nickName)
+                                                                                .set("giftCreateInfluencer",influencerId)
+                                                                                .set("giftTitle",giftTitle)
+                                                                                .set("giftUid",giftUid)
+                                                                                .set("logId",tyumonId)
+                                                                                .set("torihikiStatus","入金待ち")
+                                                                                .save()
                                                                                 .then(function(){
-                                                                                        hideLoad();
-                                                                                        setTimeout(function(){
-                                                                                                alert("手続きが完了しました");
-                                                                                                var push = new ncmb.Push();
-                                                                                                push.set("immediateDeliveryFlag", true)
-                                                                                                .set("message", "[入金待ち]状態の商品が購入されました！")
-                                                                                                .set("target", ["ios", "android"])
-                                                                                                .set('searchCondition', {
-                                                                                                        userObjectId: influencerId,
-                                                                                                });
+                                                                                        // 保存後の処理
+                                                                                        var betweenOrder = ncmb.DataStore("betweenOrder");
+                                                                                        // データストアへの登録
+                                                                                        betweenOrder
+                                                                                        .equalTo("giftUid", giftUid)
+                                                                                        .equalTo("buyUser", objectId)
+                                                                                        .fetch()               
+                                                                                        .then(function(results){
+                                                                                                results.delete();
+                                                                                        })
+                                                                                        .then(function(){
+                                                                                                hideLoad();
+                                                                                                setTimeout(function(){
+                                                                                                        alert("手続きが完了しました");
+                                                                                                        var push = new ncmb.Push();
+                                                                                                        push.set("immediateDeliveryFlag", true)
+                                                                                                        .set("message", "[入金待ち]状態の商品が購入されました！")
+                                                                                                        .set("target", ["ios", "android"])
+                                                                                                        .set('searchCondition', {
+                                                                                                                userObjectId: influencerId,
+                                                                                                        });
 
-                                                                                                push.send()
-                                                                                                .then(function(push){
-                                                                                                // 送信後処理
-                                                                                                        console.log(push);
-                                                                                                        window.location.href = 'home.html';
-                                                                                                })
-                                                                                                .catch(function(err){
-                                                                                                // エラー処理
-                                                                                                        console.log(err);
-                                                                                                        window.location.href = 'home.html';
-                                                                                                });
-                                                                                        },500);
+                                                                                                        push.send()
+                                                                                                        .then(function(push){
+                                                                                                        // 送信後処理
+                                                                                                                console.log(push);
+                                                                                                                window.location.href = 'home.html';
+                                                                                                        })
+                                                                                                        .catch(function(err){
+                                                                                                        // エラー処理
+                                                                                                                console.log(err);
+                                                                                                                window.location.href = 'home.html';
+                                                                                                        });
+                                                                                                },500);
+                                                                                        })
+                                                                                        .catch(function(err){
+                                                                                                hideLoad();
+                                                                                        });
                                                                                 })
                                                                                 .catch(function(err){
-                                                                                        hideLoad();
+                                                                                // エラー処理
+                                                                                hideLoad();
                                                                                 });
-                                                                        })
-                                                                        .catch(function(err){
-                                                                        // エラー処理
-                                                                        hideLoad();
-                                                                        });
-                                                                // alert("メールを送信しました！ご確認ください！");
-                                                                // window.location.href = 'home.html';
-                                                        },
-                                                        error: function (response) {
-                                                                console.log(response);
-                                                                alert("失敗しました。アプリが最新状態でない可能性がございます。");
-                                                        }
-                                                });
-                                        }
+                                                                        // alert("メールを送信しました！ご確認ください！");
+                                                                        // window.location.href = 'home.html';
+                                                                },
+                                                                error: function (response) {
+                                                                        console.log(response);
+                                                                        alert("失敗しました。アプリが最新状態でない可能性がございます。");
+                                                                }
+                                                        });
+                                                }
+                                        });
                                 });
                         }
                 }

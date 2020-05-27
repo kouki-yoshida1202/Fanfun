@@ -66,6 +66,8 @@
             
         </div>
         <div class="" style="padding:3px 16px;text-align: right;">
+            <a id="otherFanfun" style="font-size:14px;margin-right:5px;color:#007aff;border-bottom:1px solid #007aff;">特設サイト</a>
+            <input type="hidden" id="otherFanfunURL">
             <i id="otherTwitter" class="fab fa-twitter fa-lg" style="color:#1DA1F2;padding-right:5px;"></i>
             <input type="hidden" id="otherTwitterURL">
             <i id="otherInstagram" class="fab fa-instagram fa-lg" style="color:#CF2E92;padding-right:5px;"></i>
@@ -130,6 +132,10 @@
     <script>
         $('.action-sheet-mask,.action-sheet,.followOn_dialog_mask,.followOn_dialog,.followOff_dialog_miss_mask,.followOff_miss_dialog,.blockOn_dialog_mask,.blockOn_dialog,.blockOff_dialog_miss_mask,.blockOff_miss_dialog').hide();
         
+        $('#otherFanfun').click(function(){
+            var otherFanfunURL = $('#otherFanfunURL').val();
+            instagramOpen(otherFanfunURL);
+        });
         $('#otherTwitter').click(function(){
             var otherTwitterURL = $('#otherTwitterURL').val();
             instagramOpen(otherTwitterURL);

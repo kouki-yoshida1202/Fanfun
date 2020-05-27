@@ -112,15 +112,19 @@
             .equalTo("giftUid", gift_uid)
             .fetch()               
             .then(function(results){
-                    var object = results;
-                    var influencerId = object.get("userId");
-                    var defaultPrice = object.get("price");
-                    var stock = object.get("stock");
-                    if(stock <= 0 || stock == '' || stock==undefined){
-                        alert("申し訳ございません。在庫が0になりました。");
-                        window.location.href = 'home.html';
-                    }
-                    ncmb.User
+                var object = results;
+                var influencerId = object.get("userId");
+                var defaultPrice = object.get("price");
+
+                var betweenOrder = ncmb.DataStore("betweenOrder");
+                // データストアへの登録
+                betweenOrder
+                .equalTo("giftUid", gift_uid)
+                .equalTo("buyUser", objectId)
+                .fetchAll()
+                .then(function(results){
+                    if(results.length>0){
+                        ncmb.User
                         .equalTo('objectId',influencerId)
                         .fetch()
                         .then(function(results){
@@ -137,7 +141,15 @@
                         .catch(function(err){
                             alert("エラーが発生しました。もう一度やり直してください。");
                         });
-                    
+                    }else{
+                        alert("申し訳ございません。5分を超えてしまったため、再度手続きをお願いします。");
+                        window.location.href = 'home.html';
+                    }
+                })
+                .catch(function(err){
+                    console.log(err);
+                    alert("エラーが発生しました。もう一度やり直してください。");
+                });
             })
             .catch(function(err){
                     console.log(err);
@@ -147,7 +159,6 @@
         }
     
         function ginkouForm(){
-            document.getElementById('navi').pushPage('ginkouForm.html');
             var currentUser = ncmb.User.getCurrentUser();
             var userName = currentUser.get("userName");
             var mailaddress = currentUser.get("mailAddress");
@@ -163,19 +174,23 @@
             .equalTo("giftUid", gift_uid)
             .fetch()               
             .then(function(results){
-                    var object = results;
-                    var influencerId = object.get("userId");
-                    var defaultPrice = object.get("price");
-                    var stock = object.get("stock");
-                    if(stock <= 0 || stock == '' || stock==undefined){
-                        alert("申し訳ございません。在庫が0になりました。");
-                        window.location.href = 'home.html';
-                    }
-                    ncmb.User
+                var object = results;
+                var influencerId = object.get("userId");
+                var defaultPrice = object.get("price");
+                var betweenOrder = ncmb.DataStore("betweenOrder");
+                // データストアへの登録
+                betweenOrder
+                .equalTo("giftUid", gift_uid)
+                .equalTo("buyUser", objectId)
+                .fetchAll()
+                .then(function(results){
+                    if(results.length>0){
+                        ncmb.User
                         .equalTo('objectId',influencerId)
                         .fetch()
                         .then(function(results){
                             var object = results;
+                            document.getElementById('navi').pushPage('ginkouForm.html');
                             var influencerMail = object.get("mailAddress");
                             setTimeout(function(){
                                 $('#userNameGinkou').val(userName);
@@ -195,7 +210,15 @@
                         .catch(function(err){
                             alert("エラーが発生しました。もう一度やり直してください。");
                         });
-                    
+                    }else{
+                        alert("申し訳ございません。5分を超えてしまったため、再度手続きをお願いします。");
+                        window.location.href = 'home.html';
+                    }
+                })
+                .catch(function(err){
+                    console.log(err);
+                    alert("エラーが発生しました。もう一度やり直してください。");
+                });
             })
             .catch(function(err){
                     console.log(err);

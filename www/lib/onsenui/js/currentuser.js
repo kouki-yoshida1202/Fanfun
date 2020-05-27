@@ -10,6 +10,7 @@ function loginInfo(){
         var URLtwitter = currentUser.get("URLtwitter");
         var URLinstagram = currentUser.get("URLinstagram");
         var URLyoutube = currentUser.get("URLyoutube");
+        var URLfanfun = currentUser.get("URLfanfun");
         $('#myGenre').empty();
         
         if(objectId == "V5wsDER2rALwDReh"){
@@ -26,6 +27,7 @@ function loginInfo(){
         $('#myTwitterURL').val(URLtwitter);
         $('#myInstagramURL').val(URLinstagram);
         $('#myYouTubeURL').val(URLyoutube);
+        $('#myFanfunURL').val(URLfanfun);
         if(URLtwitter == ''||URLtwitter==null){
                 $('#myTwitter').hide();
         }
@@ -34,6 +36,9 @@ function loginInfo(){
         }
         if(URLyoutube == ''||URLyoutube==null){
                 $('#myYouTube').hide();
+        }
+        if(URLfanfun == ''||URLfanfun==null){
+                $('#myFanfun').hide();
         }
 
         if(userKind=="test"){
