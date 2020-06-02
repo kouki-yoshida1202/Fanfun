@@ -19,6 +19,7 @@ function giftInsert(ReleaseStatus) {
         var gift_price = $("#gift_price").val(); 
         var gift_stock = $("#gift_stock").val(); 
         var yoyaku = $('.segment-yoyaku:checked').val();
+        var giftKind = $('.segment-giftKind:checked').val();
         if(yoyaku=="今すぐ"){
                 var time = new Date();
         }else{
@@ -26,10 +27,24 @@ function giftInsert(ReleaseStatus) {
                 var time = $('#yoyakuTime').val();
                 var time = date+"T"+time;
         }
+        
         var iso = moment(time).format();
         var ohitotu = $('.segment-ohitotu:checked').val();
         var timeLimit = $('.segment-limit:checked').val();
         var profileGiftInputStatus = $('#profileGiftInputStatus').val();
+        
+        if(giftKind=="オークション"){
+                alert("オークション");
+                var gift_stock = "0";
+                var timeLimit = "OFF";
+                var ohitotu = "OFF";
+                var auction_date = $('#yoyakuDate').val();
+                var auction_time = $('#yoyakuTime').val();
+                var auction_datetime = auction_date+"T"+auction_time;
+                var auctionEndtime = moment(auction_datetime).format();
+        }else{
+                var auctionEndtime = "";
+        }
         if(gift_title ==''){
                 hideGiftInsertLoad();
                 alert("ギフト名が未入力です");
@@ -38,7 +53,6 @@ function giftInsert(ReleaseStatus) {
                 alert("ギフト説明文が未入力です");
         }
         else if(profileGiftInputStatus == 0){
-                console.log(gift_text);
                 hideGiftInsertLoad();
                 alert("ギフト画像が未登録です");
         }
@@ -54,6 +68,9 @@ function giftInsert(ReleaseStatus) {
         }else if(yoyaku=="予約"&&(date==""||time=="")){
                 hideGiftInsertLoad();
                 alert("日時が未入力です");
+        }else if(giftKind=="オークション"&&(auction_date==""||auction_time=="")){
+                hideGiftInsertLoad();
+                alert("オークション終了日時が未入力です");
         }else if(!Number.isInteger(Number(gift_stock)) || !Number.isInteger(Number(gift_price)) || gift_price < 1 || gift_stock < 0){
                 hideGiftInsertLoad();
                 alert("数値を1以上の整数で入力してください");
@@ -79,6 +96,8 @@ function giftInsert(ReleaseStatus) {
                                 .set("ohitotu",ohitotu)
                                 .set("timeLimit",String(timeLimit))
                                 .set("ReleaseStatus",ReleaseStatus)
+                                .set("auction",giftKind)
+                                .set("auctionEndTime",auctionEndtime)
                                 .save()
                                 .then(function(gameScore){
                                         // 保存後の処理
@@ -285,27 +304,27 @@ function giftNowInfo(){
                                 console.log(object);
                                 var releaseDate = object.get("releaseDate");
                                 var ohitotu = object.get("ohitotu");
+                                var giftKind = object.get("auction");
                                 if(ohitotu=="ON"){
                                         var ohitotu = "ohitotuON";
                                 }else{
                                         var ohitotu = "ohitotuOFF";
                                 }
                                 $('#'+ohitotu).prop("checked",true);
-                                var dt = new Date(releaseDate);
-                                var y = dt.getFullYear();
-                                var m = ("00" + (dt.getMonth()+1)).slice(-2);
-                                var d = ("00" + dt.getDate()).slice(-2);
-                                var date = y + "-" + m + "-" + d;
-                                var hh = dt.getHours();
-                                if (hh < 10) {
-                                        hh = "0" + hh;
+                                var yoyakuDateTimeEdit = isoToNormalChange(releaseDate);
+                                $('#yoyakuDateTimeEdit').val(yoyakuDateTimeEdit);
+                                if(giftKind == "オークション"){
+                                        var auctionEndTime = object.get("auctionEndTime");
+                                        $('#gift_price_edit').prop("disabled",true);
+                                        $('#kakaku_text_edit').html("スタート価格");
+                                        $('#normal_text_edit').css("display","none");
+                                        $('#auction_text_edit').css("display","block");
+                                        $('#6_area_edit').css("display","none");
+                                        $('#6_area_auction_edit').css("display","block");
+                                        var auctionEndTimeEdit = isoToNormalChange(auctionEndTime);
+                                        $('#auctionDateTimeEdit').val(auctionEndTimeEdit);
+                                        $('#rieki_area_edit').css("display","none");
                                 }
-                                var mm = dt.getMinutes();
-                                if (mm < 10) {
-                                        mm = "0" + mm;
-                                }
-                                var time = hh + ":" + mm;
-                                $('#yoyakuDateTimeEdit').val(date + " "+ time);
                         });
 
                 ncmb.File.download(gift_uid, "blob")
@@ -348,3 +367,21 @@ function hideGiftEditLoad() {
         $("#giftEditButtonZone").LoadingOverlay("hide");
 };
 
+function isoToNormalChange(datetime){
+        var dt = new Date(datetime);
+        var y = dt.getFullYear();
+        var m = ("00" + (dt.getMonth()+1)).slice(-2);
+        var d = ("00" + dt.getDate()).slice(-2);
+        var date = y + "-" + m + "-" + d;
+        var hh = dt.getHours();
+        if (hh < 10) {
+                hh = "0" + hh;
+        }
+        var mm = dt.getMinutes();
+        if (mm < 10) {
+                mm = "0" + mm;
+        }
+        var time = hh + ":" + mm;
+        var datetimeEdit = date + " "+ time;
+        return datetimeEdit;
+}

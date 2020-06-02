@@ -30,7 +30,7 @@ function otherGiftUserImage(objectId,i){
                 console.log('error = ' + err);
         });
 }
-function otherGiftImageGet(giftUid,i,gift_stock){
+function otherGiftImageGet(giftUid,i,gift_stock,auction){
         ncmb.File.download(giftUid, "blob")
         .then(function(fileData) {
                 var reader = new FileReader();
@@ -42,7 +42,7 @@ function otherGiftImageGet(giftUid,i,gift_stock){
                 }
                 // DataURLとして読み込む
                 reader.readAsDataURL(fileData);
-                if(gift_stock==0){
+                if(gift_stock==0&& auction!="オークション"){
                         var sold_out = `<img class="sold_out" src="img/custom – 8.png" style="border-radius:20px;"></div>`;
                         $("#other_gift_image_"+i).after(sold_out);
                         $("#other_gift_image_"+i).addClass("sold_img");
@@ -294,11 +294,12 @@ function otherPageGiftList(other_user_id,other_user_name,otherPageCounter){
                         var gift_user_id = object[i].get("userId");
                         var ReleaseStatus = object[i].get("ReleaseStatus");
                         var ohitotu = object[i].get("ohitotu");
+                        var auction = object[i].get("auction");
                         //カードに出力していく
                         var card = `
                         <div class="gift-card" style="width:49%;height: 298px;padding: 1px 0 0 0;display: inline-block;margin-top:5px;"onclick="
                         `;
-                        card += "giftIdJudge('"+gift_uid+"','"+other_user_name+"','"+gift_title+"','"+gift_text+"','"+objectId+"','"+create_date+"','"+gift_price+"','"+gift_user_id+"','"+gift_stock+"','"+ReleaseStatus+"','"+ohitotu+"');";
+                        card += "giftIdJudge('"+gift_uid+"','"+other_user_name+"','"+gift_title+"','"+gift_text+"','"+objectId+"','"+create_date+"','"+gift_price+"','"+gift_user_id+"','"+gift_stock+"','"+ReleaseStatus+"','"+ohitotu+"','"+auction+"');";
                         card +=`
                         ">
                                 <input class="gift_uid" type="" value="`;
@@ -340,12 +341,19 @@ function otherPageGiftList(other_user_id,other_user_name,otherPageCounter){
                                                 card +=`"class="fas fa-heart favorite_off" style="font-size:12px;"></i> <span id="`;
                                                 card += "otherPage_favorite_span_"+card_number;
                                                 card +=`"class="favorite_off">0</span>
-                                                </button>
-                                                <button class="toolbar-button" style="font-size:12px;padding:0px;">
+                                                </button>`;
+                                                if(auction=="オークション"){
+                                                        card += `<button class="toolbar-button" style="font-size:12px;padding:0px;background:#FF6070;margin-left:3px;border-radius:20px;padding:3px;">
+                                                        <span style="font-size:10px;color:white;">オークション</span>
+                                                        </button>`;
+                                                }else{
+                                                        card += `<button class="toolbar-button" style="font-size:12px;padding:0px;">
                                                         <span style="font-size:12px;color:gray">残:`;
                                                         card += gift_stock;
                                                         card +=`</span>
-                                                </button>
+                                                        </button>`;
+                                                }
+                                                card += `
                                                 <button class="toolbar-button" style="font-size:12px;padding:0px;float: right;">
                                                         <span style="color:#898989">
                                                         `;
@@ -359,7 +367,7 @@ function otherPageGiftList(other_user_id,other_user_name,otherPageCounter){
                         `;
                         $('#otherGiftList').append(card);
                         $('.other_page_user_name').html(other_user_name);
-                        otherGiftImageGet(gift_uid,card_number,gift_stock);
+                        otherGiftImageGet(gift_uid,card_number,gift_stock,auction);
                         otherGiftUserImage(other_user_id,card_number);
                         otherPageGiftFavorite(gift_uid,card_number);
 

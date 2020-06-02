@@ -41,6 +41,7 @@ function shintyaku(shintyakuCounter){
                                 var BlockList = ncmb.DataStore("BlockList");
                                 var ReleaseStatus = object[i].get("ReleaseStatus");
                                 var ohitotu = object[i].get("ohitotu");
+                                var auction = object[i].get("auction");
                                 // BlockList
                                 // .equalTo("blockerId", objectId)
                                 // .equalTo("blockedId", gift_user_id)
@@ -55,7 +56,7 @@ function shintyaku(shintyakuCounter){
                                                 var card = `
                                                 <div class="gift-card" style="width:49%;height: 298px; padding: 1px 0 0 0;display: inline-block;margin-top:5px;"onclick="
                                                 `;
-                                                card += "prevPage('shintyaku');giftIdJudge('"+gift_uid+"','"+userName+"','"+gift_title+"','"+gift_text+"','"+objectId+"','"+create_date+"','"+gift_price+"','"+gift_user_id+"','"+gift_stock+"','"+ReleaseStatus+"','"+ohitotu+"');";
+                                                card += "prevPage('shintyaku');giftIdJudge('"+gift_uid+"','"+userName+"','"+gift_title+"','"+gift_text+"','"+objectId+"','"+create_date+"','"+gift_price+"','"+gift_user_id+"','"+gift_stock+"','"+ReleaseStatus+"','"+ohitotu+"','"+auction+"');";
                                                 card +=`
                                                 ">
                                                         <input class="gift_uid" type="" value="`;
@@ -100,12 +101,19 @@ function shintyaku(shintyakuCounter){
                                                                                 card +=`"class="fas fa-heart favorite_off" style="font-size:12px;"></i> <span id="`;
                                                                                 card += "gift_favorite_span_"+card_number;
                                                                                 card +=`"class="favorite_off">0</span>
-                                                                        </button>
-                                                                        <button class="toolbar-button" style="font-size:12px;padding:0px;">
+                                                                        </button>`;
+                                                                        if(auction=="オークション"){
+                                                                                card += `<button class="toolbar-button" style="font-size:12px;padding:0px;background:#FF6070;margin-left:3px;border-radius:20px;padding:3px;">
+                                                                                <span style="font-size:10px;color:white;">オークション</span>
+                                                                                </button>`;
+                                                                        }else{
+                                                                                card += `<button class="toolbar-button" style="font-size:12px;padding:0px;">
                                                                                 <span style="font-size:12px;color:gray">残:`;
                                                                                 card += gift_stock;
                                                                                 card +=`</span>
-                                                                        </button>
+                                                                                </button>`;
+                                                                        }
+                                                                        card +=`
                                                                         <button class="toolbar-button" style="font-size:12px;padding:0px;float: right;">
                                                                                 <span style="color:#898989">
                                                                                 `;
@@ -119,7 +127,7 @@ function shintyaku(shintyakuCounter){
                                                 `;
                                                 $('#shintyakuList').append(card);
                                                 giftUserGet(gift_user_id,card_number);
-                                                giftImageGetTop(gift_uid,card_number,gift_stock);
+                                                giftImageGetTop(gift_uid,card_number,gift_stock,auction);
                                                 giftUserImageTop(gift_user_id,card_number);
                                                 gift_favorite_check(gift_uid,card_number);
                                 //         }
@@ -184,6 +192,7 @@ function shintyaku(shintyakuCounter){
                                 var BlockList = ncmb.DataStore("BlockList");
                                 var ReleaseStatus = object[i].get("ReleaseStatus");
                                 var ohitotu = object[i].get("ohitotu");
+                                var auction = object[i].get("auction");
                                 // BlockList
                                 // .equalTo("blockerId", objectId)
                                 // .equalTo("blockedId", gift_user_id)
@@ -198,7 +207,7 @@ function shintyaku(shintyakuCounter){
                                                 var card = `
                                                 <div class="gift-card" style="width:49%;height: 298px;padding: 1px 0 0 0;display: inline-block;margin-top:5px;"onclick="
                                                 `;
-                                                card += "prevPage('shintyaku');giftIdJudge('"+gift_uid+"','"+userName+"','"+gift_title+"','"+gift_text+"','"+objectId+"','"+create_date+"','"+gift_price+"','"+gift_user_id+"','"+gift_stock+"','"+ReleaseStatus+"','"+ohitotu+"');";
+                                                card += "prevPage('shintyaku');giftIdJudge('"+gift_uid+"','"+userName+"','"+gift_title+"','"+gift_text+"','"+objectId+"','"+create_date+"','"+gift_price+"','"+gift_user_id+"','"+gift_stock+"','"+ReleaseStatus+"','"+ohitotu+"','"+auction+"');";
                                                 card +=`
                                                 ">
                                                         <input class="gift_uid" type="" value="`;
@@ -260,7 +269,7 @@ function shintyaku(shintyakuCounter){
                                                 `;
                                                 $('#shintyakuList').append(card);
                                                 giftUserGet(gift_user_id,i);
-                                                giftImageGetTop(gift_uid,i,gift_stock);
+                                                giftImageGetTop(gift_uid,i,gift_stock,"");
                                                 giftUserImageTop(gift_user_id,i);
                                                 gift_favorite_check(gift_uid,i);
                                 //         }
@@ -309,7 +318,7 @@ function giftUserGet(gift_user_id,i){
         });
 }
 
-function giftImageGetTop(giftUid,i,gift_stock){
+function giftImageGetTop(giftUid,i,gift_stock,auction){
         ncmb.File.download(giftUid, "blob")
         .then(function(fileData) {
                 var reader = new FileReader();
@@ -321,7 +330,7 @@ function giftImageGetTop(giftUid,i,gift_stock){
                 // DataURLとして読み込む
                 reader.readAsDataURL(fileData);
 
-                if(gift_stock==0){
+                if(gift_stock==0 && auction!="オークション"){
                         var sold_out = `<img class="sold_out" src="img/custom – 8.png" style="border-radius:20px;">`;
                         $("#gift_image_top_"+i).before(sold_out);
                         $("#gift_image_top_"+i).addClass("sold_img");

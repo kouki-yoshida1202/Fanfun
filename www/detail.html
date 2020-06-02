@@ -10,12 +10,13 @@
         <input type="hidden" id="other_user_id">
         <input type="hidden" id="gift_id">
         <input type="hidden" id="prev_page">
+        <input type="hidden" id="detail_kakaku">
         <div class="container contents" style="background-color:#efeff4;padding-bottom:50px;">
             <!-- カードリスト部分 -->
             <div class="" style="width:100%;height: auto; padding: 1px 0 0 0;display: inline-block;">
                 <div class="card" style="height:99%;margin:3px;border-radius:20px;padding:10px 20px 10px 20px;">
                     <div class="card__content" style="position: absolute;top:10;left:10;width:auto;min-width:50px;height:40px;border-radius: 20px 0px 20px 0px;color:white;text-align: center;background: -moz-linear-gradient(bottom left, #FF1048, #FFAA95);background: -webkit-linear-gradient(bottom left, #FF1048, #FFAA95);background: linear-gradient(to top right, #FF1048, #FFAA95);padding-right:10px;padding-left:10px;">
-                        <span style="line-height: 40px;">
+                        <span id="zaikoOtherDetail"style="line-height: 40px;">
                             残り：<span id="stock"></span>
                         </span>
                     </div>
@@ -56,6 +57,9 @@
                     <div id="gift_detail_ohitotu" style="display: none;">
                         <span style="background-color: #FF6070;color:white;font-weight:bold;border-radius: 20px;padding:5px 10px;font-size:0.7em;">お一人様おひとつ限定</span>
                     </div>
+                    <div id="gift_detail_auction" style="display: none;">
+                        <span style="background-color: #FF6070;color:white;font-weight:bold;border-radius: 20px;padding:5px 10px;font-size:0.7em;">オークション商品(1品限定)</span>
+                    </div>
                     <div id="gift_detail_text_other"class="gift_text" style="height:auto;font-size:14px;padding:10px 5px 10px 5px;"></div>
                     <div id="gift_detail_time_other"class="gift_time" style="text-align:right;height:auto;font-size:10px;padding:10px 5px 10px 5px;"></div>
                 </div>
@@ -68,6 +72,12 @@
             <div class="right" style="width:40%;padding-right:7%;">
                 <button id="ReleaseStatusButton" class="button" style="background-color: #FF6070;width:100%;" onclick="buyPageOpen();">
                     購入手続き
+                </button>
+                <button id="nyusatuButton" class="button" style="background-color: #FF6070;width:100%;display:none;" onclick="nyusatuPageOpen();">
+                    入札手続き
+                </button>
+                <button id="nyusatuEndButton" class="button" style="background: gray;width:100%;display:none;color:white;" onclick="alert('終了しているオークションです。落札者の方のみ購入手続きに進めます。');">
+                        終了しました
                 </button>
             </div>
         </div>
@@ -86,6 +96,16 @@
                 </div>
             </div>
         </div>
+        <div class="alert-dialog-mask nyusatuPage_dialog_mask"></div>
+        <div class="alert-dialog nyusatuPage_dialog" style="top:60%;">
+            <div class="alert-dialog-container">
+                <div class="alert-dialog-title">5分経ちましたら、入札権利は破棄されますのでご注意ください。</div>
+                <div class="alert-dialog-footer">
+                    <button class="alert-dialog-button alert-dialog-button--primal" onclick="nyusatupage();nyusatuPageClose();">入札手続きへ</button>
+                    <button class="alert-dialog-button" onclick="nyusatuPageClose();">キャンセル</button>
+                </div>
+            </div>
+        </div>
         <script>
             $('.detail_mask,.detail_modal').hide();
             $('.buyPage_dialog_mask,.buyPage_dialog').hide();
@@ -97,6 +117,17 @@
                     $('.buyPage_dialog').slideUp();
                     setTimeout(function(){
                         $('.buyPage_dialog_mask').slideUp();
+                    },500);
+            }
+            $('.nyusatuPage_dialog_mask,.nyusatuPage_dialog').hide();
+            function nyusatuPageOpen(){
+                    $('.nyusatuPage_dialog_mask,.nyusatuPage_dialog').slideDown();
+            }
+            
+            function nyusatuPageClose(){
+                    $('.nyusatuPage_dialog').slideUp();
+                    setTimeout(function(){
+                        $('.nyusatuPage_dialog_mask').slideUp();
                     },500);
             }
             function tweetOtherGift(){

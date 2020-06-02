@@ -17,7 +17,6 @@
         .cp_iptxt input:focus {
                 border-color: #FF6070;
         }
-
         #gift_price:focus{
             background-image: linear-gradient(#FF6070,#FF6070),linear-gradient(to top,transparent 1px,#afafaf 1px);
         }
@@ -105,10 +104,20 @@
                 <div>
                     <span>3.販売価格(100~9,999,999)</span>
                 </div>
+                <div class="segment" style="width: 100%; margin: 0 auto;margin-top:7px;margin-bottom:7px;">
+                    <div class="segment__item" style="width:49%;">
+                        <input type="radio" class="segment__input segment-giftKind" name="segment-giftKind" value="通常出品"checked>
+                        <div class="segment__button" style="height:35px;line-height: 35px;">通常出品</div>
+                    </div>
+                    <div class="segment__item" style="width:49%;">
+                        <input type="radio" class="segment__input segment-giftKind" name="segment-giftKind" value="オークション">
+                        <div class="segment__button" style="height:35px;line-height: 35px;">オークション</div>
+                    </div>
+                </div>
                 <div class="card" style="width: 100%; margin: 0 auto;margin-top:3px;background-color: white;border:1px solid #898989;border-radius: 5px;">
                     <ul class="list">
                         <li class="list-item">
-                            <div class="list-item__center" style="font-size: 80%;width:35%;">
+                            <div id="kakaku_text" class="list-item__center" style="font-size: 80%;width:35%;">
                             販売価格
                             </div>
                             <div class="list-item__right" style="text-align: right;">
@@ -145,10 +154,14 @@
                 <div>
                     <span>4.在庫数</span>
                 </div>
-                <div class="cp_iptxt">
+                
+                <div id="normal_text" class="cp_iptxt">
                     <input type="tel" placeholder="0~999の整数で入力してください" id="gift_stock"required>
                     <i class="fas fa-box fa-lg fa-fw" aria-hidden="true"></i>
                     <span style="padding-left:10px;font-size:12px;color:#FF6070;">※5個前後が希少感が出るためオススメです！</span>
+                </div>
+                <div id="auction_text"class="cp_iptxt" style="display:none;">
+                    <span style="font-size:12px;color:#FF6070;">※オークション制では最高値で落札された方のみの1品限定商品となります!</span>
                 </div>
             </div>
             <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:20px;">
@@ -168,9 +181,10 @@
                 <div class="cp_iptxt">
                     <input type="date" id="yoyakuDate" style="display:inline-block;" disabled>
                     <input type="time" id="yoyakuTime" style="display:inline-block;"disabled>
+                    <span style="padding-left:10px;font-size:12px;color:#FF6070;">※平日の19時以降や休日がオススメです！</span>
                 </div>
             </div>
-            <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:20px;">
+            <div id="6_area"style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:20px;">
                 <div>
                     <span>6.お一人様お一つまで</span>
                 </div>
@@ -185,7 +199,7 @@
                     </div>
                 </div>
             </div>
-            <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:20px;">
+            <div id="7_area" style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:20px;">
                 <div>
                     <span>7.時間限定販売(後から変更不可です)</span>
                 </div>
@@ -207,6 +221,15 @@
                         <div class="segment__button" style="height:35px;line-height: 35px;">5日</div>
                     </div>
                     <span style="padding-left:10px;font-size:12px;color:#FF6070;">※期間経過後に在庫が0になります</span>
+                </div>
+            </div>
+            <div id="6_area_auction" style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:20px;display:none;">
+                <div>
+                    <span>6.オークション終了時間(後から変更不可です)</span>
+                </div>
+                <div class="cp_iptxt">
+                    <input type="date" id="auctionDate" style="display:inline-block;" >
+                    <input type="time" id="auctionTime" style="display:inline-block;">
                 </div>
             </div>
             <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:30px;">
@@ -303,6 +326,8 @@
     var time = hh + ":" + mm;
     $('#yoyakuDate').val(date);
     $('#yoyakuTime').val(time);
+    $('#auctionDate').val(date);
+    $('#auctionTime').val(time);
     $(".segment-yoyaku").change(function(){
         if($(this).val()=="今すぐ"){
             $('#yoyakuDate').prop("disabled",true);
@@ -312,6 +337,24 @@
             $('#yoyakuDate').prop("disabled",false);
             $('#yoyakuTime').prop("disabled",false);
             $('#giftInsertButton2').text("予約投稿する")
+        }
+    });
+
+    $(".segment-giftKind").change(function(){
+        if($(this).val()=="通常出品"){
+            $('#normal_text').css("display","block");
+            $('#auction_text').css("display","none");
+            $('#6_area_auction').css("display","none");
+            $('#6_area').css("display","block");
+            $('#7_area').css("display","block");
+            $('#kakaku_text').html("販売価格");
+        }else{
+            $('#normal_text').css("display","none");
+            $('#auction_text').css("display","block");
+            $('#kakaku_text').html("スタート価格");
+            $('#6_area_auction').css("display","block");
+            $('#6_area').css("display","none");
+            $('#7_area').css("display","none");
         }
     });
     
@@ -332,7 +375,7 @@
         });
     }
     $('.giftInput_dialog_mask,.giftInput_dialog,.giftInputMiss_dialog_mask,.giftInputImageMiss_dialog_mask,.giftInputImageMiss_dialog,.giftInputMiss_dialog,.kakaku_dialog_mask,.kakaku_dialog,.giftTitle_dialog_mask,.giftTitle_dialog').hide();
-        
+
     function giftInputOpen(){
         $('.giftInput_dialog_mask,.giftInput_dialog').slideDown();
     }

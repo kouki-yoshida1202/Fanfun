@@ -48,7 +48,7 @@ function insertUser() {
             // console.log("androidじゃない");
             $.ajax({
                 type: 'post',
-                url: 'https://fanfun2020.xsrv.jp/vsApple271.html',
+                url: 'https://fanfun2020.xsrv.jp/vsApple273.html',
                 data: {
                 },
                 success: function(test){
@@ -150,7 +150,7 @@ function insertInfluencer() {
         }else{
             $.ajax({
                 type: 'post',
-                url: 'https://fanfun2020.xsrv.jp/vsApple271.html',
+                url: 'https://fanfun2020.xsrv.jp/vsApple273.html',
                 data: {
                 },
                 success: function(test){
@@ -268,7 +268,7 @@ function passwordReminder(){
             })
             .catch(function(err){
                 // エラー処理
-                alert("受付エラーです。お問い合わせください。");
+                alert("このメールアドレスは登録されておりません。全角文字が混ざっていないか確認の上、再度お願いします。");
             });
     }else{
         reminderMailMissOpen();

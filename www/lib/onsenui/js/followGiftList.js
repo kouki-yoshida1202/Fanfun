@@ -1,5 +1,4 @@
 function followUserGift(followCounter){
-        console.log(followCounter);
         if(followCounter==0){
                 $("#followGiftList").empty();
                 showLoad();
@@ -36,7 +35,6 @@ function followUserGift(followCounter){
                 .skip(followCounter*10)
                 .fetchAll()                
                 .then(function(results){
-                        console.log(followCounter);
                         var object = results;
                         if(object.length==0){
                                 hideLoad();
@@ -55,6 +53,7 @@ function followUserGift(followCounter){
                                 var BlockList = ncmb.DataStore("BlockList");
                                 var ReleaseStatus = object[i].get("ReleaseStatus");
                                 var ohitotu = object[i].get("ohitotu");
+                                var auction = object[i].get("auction");
                                 // BlockList
                                 // .equalTo("blockerId", objectId)
                                 // .equalTo("blockedId", gift_user_id)
@@ -69,7 +68,7 @@ function followUserGift(followCounter){
                                 var card = `
                                 <div class="gift-card" style="width:49%;height: 298px;padding: 1px 0 0 0;display: inline-block;margin-top:5px;"onclick="
                                 `;
-                                card += "prevPage('follow');giftIdJudge('"+gift_uid+"','"+userName+"','"+gift_title+"','"+gift_text+"','"+objectId+"','"+create_date+"','"+gift_price+"','"+gift_user_id+"','"+gift_stock+"','"+ReleaseStatus+"','"+ohitotu+"');";
+                                card += "prevPage('follow');giftIdJudge('"+gift_uid+"','"+userName+"','"+gift_title+"','"+gift_text+"','"+objectId+"','"+create_date+"','"+gift_price+"','"+gift_user_id+"','"+gift_stock+"','"+ReleaseStatus+"','"+ohitotu+"','"+auction+"');";
                                 card +=`
                                 ">
                                         <input class="gift_uid" type="" value="`;
@@ -114,12 +113,19 @@ function followUserGift(followCounter){
                                                                 card +=`"class="fas fa-heart favorite_off" style="font-size:12px;"></i> <span id="`;
                                                                 card += "follow_gift_favorite_span_"+card_number;
                                                                 card +=`"class="favorite_off">0</span>
-                                                        </button>
-                                                        <button class="toolbar-button" style="font-size:12px;padding:0px;">
+                                                        </button>`;
+                                                        if(auction=="オークション"){
+                                                                card += `<button class="toolbar-button" style="font-size:12px;padding:0px;background:#FF6070;margin-left:3px;border-radius:20px;padding:3px;">
+                                                                <span style="font-size:10px;color:white;">オークション</span>
+                                                                </button>`;
+                                                        }else{
+                                                                card += `<button class="toolbar-button" style="font-size:12px;padding:0px;">
                                                                 <span style="font-size:12px;color:gray">残:`;
                                                                 card += gift_stock;
                                                                 card +=`</span>
-                                                        </button>
+                                                                </button>`;
+                                                        }
+                                                        card += `
                                                         <button class="toolbar-button" style="font-size:12px;padding:0px;float: right;">
                                                                 <span style="color:#898989">
                                                                 `;
@@ -131,10 +137,9 @@ function followUserGift(followCounter){
                                         </div>
                                 </div>
                                 `;
-                                // console.log(card);
                                 $('#followGiftList').append(card);
                                 followgiftUserGet(gift_user_id,card_number);
-                                followgiftImageGetTop(gift_uid,card_number,gift_stock);
+                                followgiftImageGetTop(gift_uid,card_number,gift_stock,auction);
                                 followgiftUserImageTop(gift_user_id,card_number);
                                 followgift_favorite_check(gift_uid,card_number);
                                 //         }
@@ -151,7 +156,6 @@ function followUserGift(followCounter){
                                                 <br><br><br><i class="fas fa-spinner fa-3x fa-spin"></i><br><br><br>
                                                 </div>`;
                                                 $('#followGiftList').append(loadingIcon);
-                                                console.log("きてる");
                                                 $('.sp-content').height($(".swiper-slide-active").height());
                                                 setTimeout(function(){
                                                         $('#sp-content').height($('.sp-content').height());
@@ -193,7 +197,7 @@ function followgiftUserGet(gift_user_id,i){
         });
 }
 
-function followgiftImageGetTop(giftUid,i,gift_stock){
+function followgiftImageGetTop(giftUid,i,gift_stock,auction){
         ncmb.File.download(giftUid, "blob")
         .then(function(fileData) {
                 var reader = new FileReader();
@@ -204,7 +208,7 @@ function followgiftImageGetTop(giftUid,i,gift_stock){
                 }
                 // DataURLとして読み込む
                 reader.readAsDataURL(fileData);
-                if(gift_stock==0){
+                if(gift_stock==0 && auction!="オークション"){
                         var sold_out = `<img class="sold_out" src="img/custom – 8.png" style="border-radius:20px;"></div>`;
                         $("#follow_gift_image_top_"+i).after(sold_out);
                         $("#follow_gift_image_top_"+i).addClass("sold_img");

@@ -40,11 +40,12 @@ function myFavoriteGift(){
                                 var gift_user_id = object[i].get("userId");
                                 var ReleaseStatus = object[i].get("ReleaseStatus");
                                 var ohitotu = object[i].get("ohitotu");
+                                var auction = object[i].get("auction");
                                 //カードに出力していく
                                 var card = `
                                 <div class="gift-card" style="width:48%;height: auto; padding: 1px 0 0 0;display: inline-block;margin-top:5px;"onclick="
                                 `;
-                                card += "giftIdJudge('"+gift_uid+"','"+userName+"','"+gift_title+"','"+gift_text+"','"+objectId+"','"+create_date+"','"+gift_price+"','"+gift_user_id+"','"+gift_stock+"','"+ReleaseStatus+"','"+ohitotu+"');";
+                                card += "giftIdJudge('"+gift_uid+"','"+userName+"','"+gift_title+"','"+gift_text+"','"+objectId+"','"+create_date+"','"+gift_price+"','"+gift_user_id+"','"+gift_stock+"','"+ReleaseStatus+"','"+ohitotu+"','"+auction+"');";
                                 card +=`
                                 ">
                                         <input class="gift_uid" type="" value="`;
@@ -87,12 +88,19 @@ function myFavoriteGift(){
                                                                 card +=`"class="fas fa-heart favorite_off" style="font-size:12px;"></i> <span id="`;
                                                                 card += "search_gift_favorite_span_"+i;
                                                                 card +=`"class="favorite_off">0</span>
-                                                        </button>
-                                                        <button class="toolbar-button" style="font-size:12px;padding:0px;">
+                                                        </button>`;
+                                                        if(auction=="オークション"){
+                                                                card += `<button class="toolbar-button" style="font-size:12px;padding:0px;background:#FF6070;margin-left:3px;border-radius:20px;padding:3px;">
+                                                                <span style="font-size:10px;color:white;">オークション</span>
+                                                                </button>`;
+                                                        }else{
+                                                                card += `<button class="toolbar-button" style="font-size:12px;padding:0px;">
                                                                 <span style="font-size:12px;color:gray">残:`;
                                                                 card += gift_stock;
                                                                 card +=`</span>
-                                                        </button>
+                                                                </button>`;
+                                                        }
+                                                        card += `
                                                         <button class="toolbar-button" style="font-size:12px;padding:0px;float: right;">
                                                                 <span style="color:#898989">
                                                                 `;

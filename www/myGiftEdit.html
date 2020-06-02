@@ -109,7 +109,7 @@
                 <div class="card" style="width: 100%; margin: 0 auto;margin-top:3px;background-color: white;border:1px solid #898989;border-radius: 20px">
                     <ul class="list">
                         <li class="list-item">
-                            <div class="list-item__center" style="font-size: 80%;width:35%;">
+                            <div id="kakaku_text_edit"class="list-item__center" style="font-size: 80%;width:35%;">
                             販売価格
                             </div>
                             <div class="list-item__right"style="text-align: right;">
@@ -131,7 +131,7 @@
                                 </label>
                             </div>
                         </li>
-                        <li class="list-item">
+                        <li id="rieki_area_edit"class="list-item">
                             <div class="list-item__center" style="color:#898989;font-size: 80%;">
                             販売利益
                             </div>
@@ -147,9 +147,12 @@
                 <div>
                     <span>4.在庫数</span>
                 </div>
-                <div class="cp_iptxt">
+                <div id="normal_text_edit"class="cp_iptxt">
                     <input type="tel" placeholder="0~999の整数で入力してください" id="gift_stock_edit"required>
                     <i class="fas fa-box fa-lg fa-fw" aria-hidden="true"></i>
+                </div>
+                <div id="auction_text_edit"class="cp_iptxt" style="display:none;">
+                    <span style="font-size:12px;color:#FF6070;">※オークション制では最高値で落札された方のみの1品限定商品となります!</span>
                 </div>
             </div>
             <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:20px;">
@@ -161,7 +164,7 @@
                     <i class="far fa-calendar-check fa-lg fa-fw" aria-hidden="true"></i>
                 </div>
             </div>
-            <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:20px;">
+            <div id="6_area_edit"style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:20px;">
                 <div>
                     <span>6.お一人様お一つまで</span>
                 </div>
@@ -174,6 +177,15 @@
                         <input id="ohitotuON" type="radio" class="segment__input segment-ohitotu" name="segment-ohitotu" value="ON">
                         <div class="segment__button" style="height:35px;line-height: 35px;">ON</div>
                     </div>
+                </div>
+            </div>
+            <div id="6_area_auction_edit" style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:20px;display:none;">
+                <div>
+                    <span>6.オークション終了時間(後から変更不可です)</span>
+                </div>
+                <div class="cp_iptxt">
+                    <input type="text" id="auctionDateTimeEdit" disabled>
+                    <i class="far fa-calendar-check fa-lg fa-fw" aria-hidden="true"></i>
                 </div>
             </div>
             <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:30px;">
