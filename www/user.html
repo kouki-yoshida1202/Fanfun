@@ -93,6 +93,10 @@
         <div id="kanrisyabox"style="display: none;background-color: #efeff4;width:100%;">
             <input type="tel" id="giftLogSearchInput" class="text-input" style="background-color: white;border:1px solid black;">
             <button class="btn button" onclick="giftLogSearchInput($('#giftLogSearchInput').val());">ギフトログ管理画面へ</button>
+            <input type="tel" id="giftLogStatusChange" class="text-input" style="background-color: white;border:1px solid black;width:100%;">
+            <button class="btn button" onclick="giftLogStatusChange($('#giftLogStatusChange').val());">プレゼント完了</button>
+            <input type="tel" id="giftLogStatusKakunin" class="text-input" style="background-color: white;border:1px solid black;width:100%;">
+            <button class="btn button" onclick="giftLogStatusKakunin($('#giftLogStatusKakunin').val());">ギフト内容確認中</button>
         </div>
     </div>
     <div class="action-sheet-mask"></div>
@@ -146,6 +150,114 @@
             instagramOpen(myYouTubeURL);
         });
 
+        function giftLogStatusChange(logId){
+            var arr = logId.split(',');
+            console.log(arr);
+            var giftLog = ncmb.DataStore("giftLog");
+            alert(arr.length+"件見つけました");
+            for(var i=0;i<arr.length;i++){
+                giftLog
+                .order('createDate', true)
+                .equalTo('logId',arr[i])
+                .fetch()         
+                .then(function(result){
+                    var logId = result.get("logId");
+                    var buyUserId = result.get("buyUser");
+                    var giftCreateInfluencer = result.get("giftCreateInfluencer");
+                    console.log(result);
+                    result.set("torihikiStatus", "プレゼント完了")
+                            .update();
+                    var push = new ncmb.Push();
+                    push.set("immediateDeliveryFlag", true)
+                    .set("message", "注文ID:"+logId+" がプレゼント完了しました！ご協力頂きありがとうございました！")
+                    .set("target", ["ios", "android"])
+                    .set('searchCondition', {
+                            userObjectId: giftCreateInfluencer,
+                    });
+                    push.send()
+                    .then(function(push){
+                            //////////////////////////////
+                            ///////// 購入者に通知
+                            var push = new ncmb.Push();
+                            push.set("immediateDeliveryFlag", true)
+                            .set("message", "注文ID:"+logId+" がプレゼント完了しました！メールをご確認くださいませ！")
+                            .set("target", ["ios", "android"])
+                            .set('searchCondition', {
+                                    userObjectId: buyUserId,
+                            });
+                            push.send()
+                            .then(function(push){
+                                    // 送信後処理
+                                    alert("注文ID:"+logId+"成功");
+                            })
+                            .catch(function(err){
+                                    // エラー処理
+                                    alert("送信NG");
+                            });
+                    })
+                    .catch(function(err){
+                            // エラー処理
+                            alert("送信NG");
+                    });
+                });
+            }
+        }
+
+        function giftLogStatusKakunin(logId){
+            var arr = logId.split(',');
+            console.log(arr);
+            var giftLog = ncmb.DataStore("giftLog");
+            alert(arr.length+"件見つけました");
+            for(var i=0;i<arr.length;i++){
+                giftLog
+                .order('createDate', true)
+                .equalTo('logId',arr[i])
+                .fetch()         
+                .then(function(result){
+                    var logId = result.get("logId");
+                    var buyUserId = result.get("buyUser");
+                    var giftCreateInfluencer = result.get("giftCreateInfluencer");
+                    console.log(result);
+                    result.set("torihikiStatus", "ギフト内容確認中")
+                            .update();
+                    var push = new ncmb.Push();
+                    push.set("immediateDeliveryFlag", true)
+                    .set("message", "注文ID:"+logId+" が「ギフト内容確認中」状態に変わりました！")
+                    .set("target", ["ios", "android"])
+                    .set('searchCondition', {
+                            userObjectId: giftCreateInfluencer,
+                    });
+                    push.send()
+                    .then(function(push){
+                            //////////////////////////////
+                            ///////// 購入者に通知
+                            var push = new ncmb.Push();
+                            push.set("immediateDeliveryFlag", true)
+                            .set("message", "注文ID:"+logId+" が「ギフト内容確認中」状態に変わりました！")
+                            .set("target", ["ios", "android"])
+                            .set('searchCondition', {
+                                    userObjectId: buyUserId,
+                            });
+                            push.send()
+                            .then(function(push){
+                                    // 送信後処理
+                                    alert("注文ID:"+logId+"成功");
+                            })
+                            .catch(function(err){
+                                    // エラー処理
+                                    alert("注文ID:"+logId+"送信NG");
+                            });
+                    })
+                    .catch(function(err){
+                            // エラー処理
+                            alert("注文ID:"+logId+"送信NG");
+                    });
+                }).catch(function(){
+                    alert("注文ID:"+arr[i]+"は見つかりません");
+                });
+            }
+        }
+        
         function giftLogSearchInput(logId){
             var logId = String(logId);
             var giftLog = ncmb.DataStore("giftLog");
