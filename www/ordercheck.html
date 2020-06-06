@@ -73,14 +73,13 @@
                     </span>
                 </div>
                 <div style="width:100%;text-align:center;margin-top:20px;margin-bottom:10px;">
-                    <!-- <button class="button "style="width:100%;padding-top:0px;padding-bottom:0px;line-height:auto;border-radius:30px;font-size:16px;margin:0 auto;" onclick="orderEnd();document.getElementById('navi').pushPage('orderend.html')">注文を確定する</button> -->
                     <button class="button "style="width:100%;padding-top:0px;padding-bottom:0px;line-height:35px;height:35px;border-radius:30px;font-size:16px;margin:0 auto;" onclick="stripe();">カード払い画面へ</button>
-                    <!-- <a class="button money_button" onclick="">¥550</a> -->
                 </div>
                 <div style="width:100%;text-align:center;margin-top:20px;margin-bottom:10px;">
-                    <!-- <button class="button "style="width:100%;padding-top:0px;padding-bottom:0px;line-height:auto;border-radius:30px;font-size:16px;margin:0 auto;" onclick="orderEnd();document.getElementById('navi').pushPage('orderend.html')">注文を確定する</button> -->
                     <button class="button "style="width:100%;padding-top:0px;padding-bottom:0px;line-height:35px;height:35px;border-radius:30px;font-size:16px;margin:0 auto;background: -moz-linear-gradient(bottom left, #00C6FB, #005BEA);background: -webkit-linear-gradient(bottom left, #00C6FB, #005BEA);background: linear-gradient(to top right, #00C6FB, #005BEA);" onclick="ginkouForm();">銀行振込画面へ</button>
-                    <!-- <a class="button money_button" onclick="">¥550</a> -->
+                </div>
+                <div style="width:100%;text-align:center;margin-top:20px;margin-bottom:10px;">
+                    <button class="button "style="width:100%;padding-top:0px;padding-bottom:0px;line-height:35px;height:35px;border-radius:30px;font-size:16px;margin:0 auto;background:#FFC33A;" onclick="paypalForm();">PayPal決済へ</button>
                 </div>
             </div>
         </div>
@@ -226,5 +225,72 @@
             });
         }
 
+        function paypalForm(){
+            var currentUser = ncmb.User.getCurrentUser();
+            var userName = currentUser.get("userName");
+            var mailaddress = currentUser.get("mailAddress");
+            var objectId = currentUser.get("objectId");
+            var gift_title = $('#check_gift_title').val();
+            var price = $('#check_price').val()*1.04;
+            var gift_uid = $('#check_gift_uid').val();
+            var send_human = $('#send_human').html();
+            var nickname = $('#nickname').html();
+            var request = $('#request_message').html();
+            var GiftData = ncmb.DataStore("giftData");
+            GiftData
+            .equalTo("giftUid", gift_uid)
+            .fetch()               
+            .then(function(results){
+                var object = results;
+                var influencerId = object.get("userId");
+                var defaultPrice = object.get("price");
+                var betweenOrder = ncmb.DataStore("betweenOrder");
+                // データストアへの登録
+                betweenOrder
+                .equalTo("giftUid", gift_uid)
+                .equalTo("buyUser", objectId)
+                .fetchAll()
+                .then(function(results){
+                    if(results.length>0){
+                        ncmb.User
+                        .equalTo('objectId',influencerId)
+                        .fetch()
+                        .then(function(results){
+                            var object = results;
+                            document.getElementById('navi').pushPage('paypalForm.html');
+                            var influencerMail = object.get("mailAddress");
+                            setTimeout(function(){
+                                $('#userNamePayPal').val(userName);
+                                $('#mailaddressPayPal').val(mailaddress);
+                                $('#objectIdPayPal').val(objectId);
+                                $('#gift_titlePayPal').val(gift_title);
+                                $('#pricePayPal').val(price);
+                                $('#gift_uidPayPal').val(gift_uid);
+                                $('#send_humanPayPal').val(send_human);
+                                $('#nicknamePayPal').val(nickname);
+                                $('#requestPayPal').val(request);
+                                $('#influencerIdPayPal').val(influencerId);
+                                $('#defaultPricePayPal').val(defaultPrice);
+                                $('#influencerMailPayPal').val(influencerMail);
+                            },500);
+                        })
+                        .catch(function(err){
+                            alert("エラーが発生しました。もう一度やり直してください。");
+                        });
+                    }else{
+                        alert("申し訳ございません。5分を超えてしまったため、再度手続きをお願いします。");
+                        window.location.href = 'home.html';
+                    }
+                })
+                .catch(function(err){
+                    console.log(err);
+                    alert("エラーが発生しました。もう一度やり直してください。");
+                });
+            })
+            .catch(function(err){
+                    console.log(err);
+                    alert("エラーが発生しました。もう一度やり直してください。");
+            });
+        }
     </script>
 </ons-page>

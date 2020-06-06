@@ -1,0 +1,209 @@
+<ons-page>
+        <style>
+                .cp_iptxt {
+                        position: relative;
+                        margin: 15px 3%;
+                }
+                .cp_iptxt input{
+                        font: 15px/24px sans-serif;
+                        box-sizing: border-box;
+                        width: 100%;
+                        margin: 8px 0;
+                        padding: 0.3em;
+                        transition: 0.3s;
+                        border: 1px solid #898989;
+                        border-radius: 4px;
+                        outline: none;
+                }
+                .cp_iptxt input:focus {
+                        border-color: #FF6070;
+                }
+                .cp_iptxt input{
+                        padding-left: 40px;
+                }
+                .cp_iptxt i {
+                        position: absolute;
+                        top: 11px;
+                        left: 0;
+                        padding: 9px 8px;
+                        transition: 0.3s;
+                        color: #aaaaaa;
+                }
+                .cp_iptxt input:focus + i {
+                        color: #FF6070;
+                }
+        </style>
+        <ons-toolbar class="toolbar" style="background-color: white;">
+                <div class="left" style="padding-left: 3%;">
+                        <ons-back-button id="contactFormBackButton"></ons-back-button>
+                </div>
+                <div class="center" style="color:#898989;">
+                        PayPal支払い申請
+                </div>
+        </ons-toolbar>
+        <div id="" class="container contents" style="position:relative;">
+                <input type="hidden" id="userNamePayPal">
+                <input type="hidden" id="mailaddressPayPal">
+                <input type="hidden" id="objectIdPayPal">
+                <input type="hidden" id="gift_titlePayPal">
+                <input type="hidden" id="pricePayPal">
+                <input type="hidden" id="gift_uidPayPal">
+                <input type="hidden" id="send_humanPayPal">
+                <input type="hidden" id="nicknamePayPal">
+                <input type="hidden" id="requestPayPal">
+                <input type="hidden" id="influencerIdPayPal">
+                <input type="hidden" id="defaultPricePayPal">
+                <input type="hidden" id="influencerMailPayPal">
+                <!-- カードリスト部分 -->
+                <div style="height: auto;width:100%;margin:0 auto;margin-bottom:200px;">
+                        <div class="card" style="text-align: center;">
+                                <div class="card__content"style="text-align:left;font-size:12px;">
+                                        <div style="width:100%;text-align:center;margin:0 auto;margin-top:20px;margin-bottom:20px;">
+                                                <p style="text-align: left;width:95%;margin:0 auto;">
+                                                        【注意事項】<br>
+                                                        1. 支払い手数料4%は、お客様ご負担となります。<br>
+                                                        2. 送信ボタン押下後、請求情報をメールで送付します。<br>
+                                                        3. 受信制限をされている方は「fanfun@fanfun2020.xsrv.jp」を受信できるようにお願いします。<br>
+                                                        4. 入金確認後、ギフトの準備をします。
+                                                </p>
+                                                <br>
+                                                <button class="button "style="width:100%;padding-top:0px;padding-bottom:0px;line-height:40px;border-radius:30px;font-size:16px;margin:0 auto;" onclick="paypalFurikomi();">送信する</button>
+                                        </div>
+                                </div>
+                        </div>
+                </div>  
+        </div>
+        
+        <script>
+                function paypalFurikomi(){
+                        var userName = $('#userNamePayPal').val();
+                        var mailaddress = $('#mailaddressPayPal').val();
+                        var objectId = $('#objectIdPayPal').val();
+                        var gift_title = $('#gift_titlePayPal').val();
+                        var price =  $('#pricePayPal').val();
+                        var gift_uid = $('#gift_uidPayPal').val();
+                        var send_human = $('#send_humanPayPal').val();
+                        var nickname = $('#nicknamePayPal').val();
+                        var request = $('#requestPayPal').val();
+                        var influencerId = $('#influencerIdPayPal').val();
+                        var defaultPrice = $('#defaultPricePayPal').val();
+                        var influencerMail = $('#influencerMailPayPal').val();
+                        var GiftData = ncmb.DataStore("giftData");
+                        GiftData
+                        .equalTo("giftUid", gift_uid)
+                        .fetch()               
+                        .then(function(results){
+                                var object = results;
+                                var betweenOrder = ncmb.DataStore("betweenOrder");
+                                // データストアへの登録
+                                betweenOrder
+                                .equalTo("giftUid", gift_uid)
+                                .equalTo("buyUser", objectId)
+                                .fetchAll()
+                                .then(function(results){
+                                        if(results.length==0){
+                                                alert("申し訳ございません。5分を超えてしまったため、再度手続きをお願いします。");
+                                                window.location.href = 'home.html';
+                                        }else{
+                                                $.ajax({
+                                                        type: 'post',
+                                                        url: 'https://fanfun2020.xsrv.jp/paypal0603.html',
+                                                        data: {
+                                                                "objectId":objectId,
+                                                                "giftUid":gift_uid,
+                                                                "price":price,
+                                                                "userName":userName,
+                                                                "giftTitle":gift_title,
+                                                                "mailaddress":mailaddress,
+                                                                "sendHuman":send_human,
+                                                                "nickName":nickname,
+                                                                "request":request,
+                                                                "influencerId":influencerId,
+                                                                "defaultPrice":defaultPrice,
+                                                                "influencerMail":influencerMail,
+                                                        },
+                                                        success: function(data){
+                                                                var data = JSON.parse(data);
+                                                                showLoad();
+                                                                var date = getNowYMD();
+                                                                var defaultPrice = data[0];
+                                                                var request = data[1];
+                                                                var sendHuman = data[2];
+                                                                var nickName = data[3];
+                                                                var giftUid = data[4];
+                                                                var tyumonId = String(data[5]);
+                                                                var objectId = data[6];
+                                                                var influencerId = data[7];
+                                                                var giftTitle = data[8];
+                                                                var giftLog = ncmb.DataStore("giftLog");
+                                                                var giftLog = new giftLog();
+                                                                giftLog.set("buyDate",date)
+                                                                        .set("buyKakaku",defaultPrice)
+                                                                        .set("buyRequest",request)
+                                                                        .set("buyUser",objectId)
+                                                                        .set("buyUserAtena",sendHuman)
+                                                                        .set("buyUserNickName",nickName)
+                                                                        .set("giftCreateInfluencer",influencerId)
+                                                                        .set("giftTitle",giftTitle)
+                                                                        .set("giftUid",giftUid)
+                                                                        .set("logId",tyumonId)
+                                                                        .set("torihikiStatus","入金待ち")
+                                                                        .save()
+                                                                        .then(function(){
+                                                                                // 保存後の処理
+                                                                                var betweenOrder = ncmb.DataStore("betweenOrder");
+                                                                                // データストアへの登録
+                                                                                betweenOrder
+                                                                                .equalTo("giftUid", giftUid)
+                                                                                .equalTo("buyUser", objectId)
+                                                                                .fetch()               
+                                                                                .then(function(results){
+                                                                                        results.delete();
+                                                                                })
+                                                                                .then(function(){
+                                                                                        hideLoad();
+                                                                                        setTimeout(function(){
+                                                                                                alert("手続きが完了しました");
+                                                                                                var push = new ncmb.Push();
+                                                                                                push.set("immediateDeliveryFlag", true)
+                                                                                                .set("message", "[入金待ち]状態の商品が購入されました！")
+                                                                                                .set("target", ["ios", "android"])
+                                                                                                .set('searchCondition', {
+                                                                                                        userObjectId: influencerId,
+                                                                                                });
+
+                                                                                                push.send()
+                                                                                                .then(function(push){
+                                                                                                // 送信後処理
+                                                                                                        console.log(push);
+                                                                                                        window.location.href = 'home.html';
+                                                                                                })
+                                                                                                .catch(function(err){
+                                                                                                // エラー処理
+                                                                                                        console.log(err);
+                                                                                                        window.location.href = 'home.html';
+                                                                                                });
+                                                                                        },500);
+                                                                                })
+                                                                                .catch(function(err){
+                                                                                        hideLoad();
+                                                                                });
+                                                                        })
+                                                                        .catch(function(err){
+                                                                        // エラー処理
+                                                                        hideLoad();
+                                                                        });
+                                                                // alert("メールを送信しました！ご確認ください！");
+                                                                // window.location.href = 'home.html';
+                                                        },
+                                                        error: function (response) {
+                                                                console.log(response);
+                                                                alert("失敗しました。アプリが最新状態でない可能性がございます。");
+                                                        }
+                                                });
+                                        }
+                                });
+                        });
+                }
+        </script>
+</ons-page>
