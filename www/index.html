@@ -38,12 +38,35 @@
     if(status=="logout"){
       
     }else{
-      const user = ncmb.User.getCurrentUser();
-      if (!user) {
-      // 未ログイン
-      }else{
-        window.location.href = 'home.html';
-      }
+      $.ajax({
+        type: 'post',
+        url: 'https://fanfun2020.xsrv.jp/update275.html',
+        success: function(data){
+          var message = data;
+          if(message!=""){
+            alert(message);
+            setTimeout(function(){
+              $('#login_mail').prop("disabled",true);
+              $('#login_pass').prop("disabled",true);
+              $('#updateMessage').html(message);
+              $('#updateMessage').css("display","block");
+            },500)
+            
+          }else{
+            const user = ncmb.User.getCurrentUser();
+            if (!user) {
+            // 未ログイン
+            }else{
+              window.location.href = 'home.html';
+            }
+          }
+        },
+        error: function (response) {
+                console.log(response);
+                // alert("失敗しました。アプリが最新状態でない可能性がございます。");
+        }
+      });
+      
     }
   </script>
   <style>

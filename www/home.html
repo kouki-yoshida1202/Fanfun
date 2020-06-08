@@ -82,21 +82,53 @@
         console.log(results);
         for(var i=0;i<results.length;i++){
           var giftUid = results[i].get("giftUid");
-          var GiftData = ncmb.DataStore("giftData");
-          GiftData
-          .equalTo("giftUid", giftUid)
-          .fetch()               
-          .then(function(result){
-                  var object = result;
-                  var stock = String(Number(object.get("stock")) + 1);
-                  result
-                  .set("stock",stock)
-                  .update();
-          });
           results[i].delete();
+          betweenOrderDelete(giftUid,i);
         }
       });
     }
+
+    function betweenOrderDelete(giftUid,i){
+      setTimeout(function(){
+        var GiftData = ncmb.DataStore("giftData");
+        GiftData
+        .equalTo("giftUid", giftUid)
+        .fetch()               
+        .then(function(result){
+          var now_stock = result.get("stock");
+          $.ajax({
+            type: 'post',
+            url: 'https://fanfun2020.xsrv.jp/buypageCancelPHP.html',
+            data: {
+                    "gift_uid":giftUid,
+                    "stock":now_stock,
+            },
+            success: function(data){
+              console.log(data);
+              if(data == "success"){
+                var GiftData = ncmb.DataStore("giftData");
+                GiftData
+                .equalTo("giftUid", giftUid)
+                .fetch()               
+                .then(function(result){
+                        var object = result;
+                        var stock = String(Number(object.get("stock")) + 1);
+                        result
+                        .set("stock",stock)
+                        .update();
+                        console.log(stock);
+                });
+              }
+            },
+            error: function (response) {
+                    console.log(response);
+                    // alert("失敗しました。アプリが最新状態でない可能性がございます。");
+            }
+          });
+        });
+      },i*5000);
+    }
+
     auctionCheck();
     function auctionCheck(){
       var today = new Date();

@@ -227,6 +227,15 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
                         .equalTo('giftUid',gift_uid)
                         .fetch()         
                         .then(function(result){
+                                var gift_stock = result.get("stock");
+                                setTimeout(function(){
+                                        $('#stock').html(gift_stock);
+                                        if((gift_stock <= 0 || gift_stock == '' || gift_stock==undefined) && auction!="オークション"){
+                                                $('#ReleaseStatusButton').prop("disabled",true);
+                                                $('#ReleaseStatusButton').html("在庫切れ");
+                                        }
+                                },500)
+                                
                                 var ReleaseStatus = result.get("ReleaseStatus");
                                 if(ReleaseStatus==1){
                                         $('#ReleaseStatusButton').prop("disabled",true);
@@ -321,16 +330,12 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
                                         $('#gift_detail_auction').css("display","block");
                                         
                                 }else{
-                                        $('#stock').html(gift_stock);
+                                        
                                         $('#gift_detail_price_other').html(gift_price);
                                 }
                                 gift_favorite_check_detail(gift_uid);
                                 if(Authentication!="OK"){
                                         $('#ReleaseStatusButton').prop("disabled",true);
-                                }
-                                if((gift_stock <= 0 || gift_stock == '' || gift_stock==undefined) && auction!="オークション"){
-                                        $('#ReleaseStatusButton').prop("disabled",true);
-                                        $('#ReleaseStatusButton').html("在庫切れ");
                                 }
                                 if(ohitotu=="ON" && auction!="オークション"){
                                         $('#gift_detail_ohitotu').css("display","block");
