@@ -34,8 +34,7 @@ function giftInsert(ReleaseStatus) {
         var profileGiftInputStatus = $('#profileGiftInputStatus').val();
         
         if(giftKind=="オークション"){
-                alert("オークション");
-                var gift_stock = "0";
+                var gift_stock = "1";
                 var timeLimit = "OFF";
                 var ohitotu = "OFF";
                 var auction_date = $('#yoyakuDate').val();

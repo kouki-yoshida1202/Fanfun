@@ -242,10 +242,11 @@
 			};
 			buildConfigurationList = 7E9F517519DA09CE00DA31AC /* Build configuration list for PBXProject "CDVCameraTest" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = Japanese;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				en,
+				ja,
+				Base,
 			);
 			mainGroup = 7E9F517119DA09CE00DA31AC;
 			productRefGroup = 7E9F517D19DA0A0A00DA31AC /* Products */;

@@ -85,6 +85,7 @@ function otherPageUserId(other_user_id){
                 }
                 var other_user_name = results.get("userName");
                 var other_profile_text = results.get("Text");
+                var userKind = results.get("userKind");
                 var Genre = results.get("Genre");
                 var URLtwitter = results.get("URLtwitter");
                 var URLfanfun = results.get("URLfanfun");
@@ -109,6 +110,9 @@ function otherPageUserId(other_user_id){
                 }
                 if(URLfanfun == ''||URLfanfun==null){
                         $('#otherFanfun').hide();
+                }
+                if(userKind=="test"){
+                        $('#otherPageMigiue').hide();
                 }
                 $('#otherGenre').empty();
                 if(Genre){

@@ -3,7 +3,7 @@
         <div class="center" style="width:120%;">
             <span id="mypage_user_name" class="current_user_name" style="color:#898989;"></span> 
         </div>
-        <div class="right" style="padding-right: 5%;"onclick="userActionOpen();">
+        <div id=""class="right" style="padding-right: 5%;"onclick="userActionOpen();">
             <i class="fas fa-ellipsis-h"></i>
         </div>
     </ons-toolbar>
@@ -101,10 +101,10 @@
     </div>
     <div class="action-sheet-mask"></div>
     <div class="action-sheet modal1">
-        <button class="action-sheet-button" onclick="userActionClose();setTimeout(function(){share($('.current_user_id').val(),'userPage');},1500);">SNS共有</button>
+        <button id="myPageShare"class="action-sheet-button" onclick="userActionClose();setTimeout(function(){share($('.current_user_id').val(),'userPage');},1500);">SNS共有</button>
         <button class="action-sheet-button" onclick="myShitagakiGift();">下書き状態のギフト</button>
         <button class="action-sheet-button" onclick="myFavoriteGift();">Myいいねギフト一覧</button>
-        <button class="action-sheet-button" onclick="document.getElementById('navi').bringPageTop('guideList.html');">ガイド</button>
+        <button id="myPageGuide"class="action-sheet-button" onclick="document.getElementById('navi').bringPageTop('guideList.html');">ガイド</button>
         <button class="action-sheet-button" onclick="logout();">ログアウト</button>
         <button class="action-sheet-button" onclick="userActionClose();">Cancel</button>
     </div>

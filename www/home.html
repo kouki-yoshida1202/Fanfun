@@ -232,7 +232,7 @@
           var userName = result.get("userName");
           var mailAddress = result.get("mailAddress");
           var giftUrl = 'https://fanfun2020.xsrv.jp/customUrlScheme.html?GIFTorUSERID='+giftUid+'&page=giftPage';
-        
+          console.log(userName,mailAddress,giftUrl,nyusatuKakaku,giftTitle);
           $.ajax({
                   type: 'post',
                   url: 'https://fanfun2020.xsrv.jp/rakusatuMail.html',

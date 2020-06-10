@@ -28,6 +28,7 @@ function loginInfo(){
         $('#myInstagramURL').val(URLinstagram);
         $('#myYouTubeURL').val(URLyoutube);
         $('#myFanfunURL').val(URLfanfun);
+        
         if(URLtwitter == ''||URLtwitter==null){
                 $('#myTwitter').hide();
         }
@@ -43,6 +44,8 @@ function loginInfo(){
 
         if(userKind=="test"){
                 $('#mypageFanRankDiv').hide();
+                $('#myPageShare').hide();
+                $('#myPageGuide').hide();
         }
         //フォローフォロワー数
         var FollowData = ncmb.DataStore("follow");

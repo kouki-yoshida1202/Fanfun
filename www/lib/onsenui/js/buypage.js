@@ -31,12 +31,10 @@ function buypage(){
                                                 .set("buyUser", myUserId)
                                                 .save()
                                                 .then(function(){
-                                                        if(object.get("auction")!="オークション"){
-                                                                var afterStock = String(stock -1);
-                                                                results
-                                                                .set("stock",afterStock)
-                                                                .update();
-                                                        }
+                                                        var afterStock = String(stock -1);
+                                                        results
+                                                        .set("stock",afterStock)
+                                                        .update();
                                                         document.getElementById('navi').bringPageTop('buypage.html');
                                                         var giftTitle = object.get("giftTitle");
                                                         console.log(giftTitle);

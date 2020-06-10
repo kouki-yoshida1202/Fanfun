@@ -97,6 +97,7 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
         .then(function(results){
                 var gift_user_name = results.get("userName");
                 var Authentication = results.get("Authentication");
+                var userKind = results.get("userKind");
                 if(gift_user_id == objectId){
                         //自分のギフト
                         document.getElementById('navi').bringPageTop('myGiftDetail.html');
@@ -241,25 +242,7 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
                                         $('#ReleaseStatusButton').prop("disabled",true);
                                         $('#ReleaseStatusButton').html("購入不可");
                                 }
-                                var releaseDate = result.get("releaseDate");
-                                var time = new Date();
-                                var iso = moment(time).format();
-                                if(releaseDate > iso){
-                                        var dt = new Date(releaseDate);
-                                        var m = ("00" + (dt.getMonth()+1)).slice(-2);
-                                        var d = ("00" + dt.getDate()).slice(-2);
-                                        var hh = dt.getHours();
-                                        if (hh < 10) {
-                                                hh = "0" + hh;
-                                        }
-                                        var mm = dt.getMinutes();
-                                        if (mm < 10) {
-                                                mm = "0" + mm;
-                                        }
-                                        var time = m + "/" + d + " " +hh + ":" + mm;
-                                        $('#ReleaseStatusButton').prop("disabled",true);
-                                        $('#ReleaseStatusButton').html(time+"公開");
-                                }
+                                
                                 if(auction=="オークション"){
                                         if(result.get('auctionEndTime') == ''||result.get('auctionEndTime') == null){
                                                 $('#zaikoOtherDetail').html("終了:");
@@ -290,6 +273,7 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
                                                                 $('#nyusatuButton').css('display','none');
                                                                 $('#nyusatuEndButton').css('display','block');
                                                         }
+                                                        
                                                 });
                                                 
                                         }else{
@@ -297,7 +281,50 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
                                                 $('#nyusatuButton').css("display","block");
                                                 $('#nyusatuEndButton').css('display','none');
                                         }
+                                        setTimeout(function(){
+                                                var releaseDate = result.get("releaseDate");
+                                                var time = new Date();
+                                                var iso = moment(time).format();
+                                                if(releaseDate > iso){
+                                                        console.log("aiueo");
+                                                        var dt = new Date(releaseDate);
+                                                        var m = ("00" + (dt.getMonth()+1)).slice(-2);
+                                                        var d = ("00" + dt.getDate()).slice(-2);
+                                                        var hh = dt.getHours();
+                                                        if (hh < 10) {
+                                                                hh = "0" + hh;
+                                                        }
+                                                        var mm = dt.getMinutes();
+                                                        if (mm < 10) {
+                                                                mm = "0" + mm;
+                                                        }
+                                                        var time = m + "/" + d + " " +hh + ":" + mm;
+                                                        $('#nyusatuButton').prop("disabled",true);
+                                                        $('#nyusatuButton').html(time+"開始");
+                                                }
+                                        },500);
                                 }
+                                setTimeout(function(){
+                                        var releaseDate = result.get("releaseDate");
+                                        var time = new Date();
+                                        var iso = moment(time).format();
+                                        if(releaseDate > iso){
+                                                var dt = new Date(releaseDate);
+                                                var m = ("00" + (dt.getMonth()+1)).slice(-2);
+                                                var d = ("00" + dt.getDate()).slice(-2);
+                                                var hh = dt.getHours();
+                                                if (hh < 10) {
+                                                        hh = "0" + hh;
+                                                }
+                                                var mm = dt.getMinutes();
+                                                if (mm < 10) {
+                                                        mm = "0" + mm;
+                                                }
+                                                var time = m + "/" + d + " " +hh + ":" + mm;
+                                                $('#ReleaseStatusButton').prop("disabled",true);
+                                                $('#ReleaseStatusButton').html(time+"公開");
+                                        }
+                                },500);
                         });
                         // 各テキストを入れる
                         setTimeout(function() {
@@ -308,6 +335,13 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
                                 $('#gift_detail_time_other').html(formatDate(date));
                                 $('#other_user_id').val(gift_user_id);
                                 $('#gift_id').val(gift_uid);
+                                if(userKind=="test"){
+                                        $('#ReleaseStatusButton').prop("disabled",true);
+                                        $('#ReleaseStatusButton').html("在庫切れ");
+                                        $('#stock').html("0");
+                                        $('#share_button').css("display","none");
+                                }
+                                
                                 if(auction=="オークション"){
                                         var auctionDataLog = ncmb.DataStore("auctionDataLog");
                                         auctionDataLog
