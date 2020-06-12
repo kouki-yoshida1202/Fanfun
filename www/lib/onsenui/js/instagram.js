@@ -5,7 +5,7 @@ function instaPush() {
         var insta_uid = new Date().getTime().toString(16)  + Math.floor(strong*Math.random()).toString(16)
         //入力規則およびデータをフィールドにセットする
         if(insta_url == ""){
-                alert("入力されていません");
+                alertNew("入力されていません","","");
         }else{
                 // クラスのTestClassを作成
                 var InstagramNews = ncmb.DataStore("InstagramNews");
@@ -23,16 +23,16 @@ function instaPush() {
                         .upload(insta_uid,fileData)
                         .then(function(res){
                                 // アップロード後処理
-                                alert("送信OK");
+                                alertNew("送信OK","","");
                         })
                         .catch(function(err){
                                 // エラー処理
-                                alert("写真失敗");
+                                alertNew("写真失敗","","");
                         });
                 })
                 .catch(function(err){
                         // エラー処理
-                        alert("失敗");
+                        alertNew("失敗","","");
                 });
         }
 }

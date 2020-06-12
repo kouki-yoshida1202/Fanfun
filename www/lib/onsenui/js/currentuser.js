@@ -77,7 +77,7 @@ function loginInfo(){
         //ログイン情報取得ミスでログイン画面に戻す
         if (currentUser) {
         } else {
-                alert("不明なエラーが発生しました");
+                alertNew("不明なエラーが発生しました","","");
                 window.location.href = 'logout.html';
         }
 }

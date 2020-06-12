@@ -297,7 +297,6 @@ function followerUserImage(objectId){
         })
         .catch(function(err){
                 // エラー処理
-                // alert('error = ' + err);
         });
 }
 

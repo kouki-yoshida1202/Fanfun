@@ -24,7 +24,7 @@ function searchUser(search_way,searchCounter){
                         searchUserGenre(genre,searchCounter);
                 }
         }else{
-                alert("こちらの画面には遷移できません。");
+                alertNew("こちらの画面には遷移できません。","","");
         }
 }
 // 一覧にユーザネームを追加
@@ -87,7 +87,6 @@ function searchUserImage(objectId){
         })
         .catch(function(err){
                 // エラー処理
-                // alert('error = ' + err);
         });
 }
 

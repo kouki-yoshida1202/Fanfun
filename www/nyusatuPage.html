@@ -165,13 +165,13 @@
                         var kakaku = Number($('#nyusatu_input').val());
                         var nowPrice = Number($('#nyusatupage_price_number').val());
                         if(kakaku%100!=0 || kakaku==0){
-                                alert("100円単位で設定してください。");
+                                alertNew("100円単位で設定してください。","","");
                                 // $('#nyusatu_input').val("");
                         }else if(kakaku >= 1000000){
-                                alert("100万円以下で設定してください。");
+                                alertNew("100万円以下で設定してください。","","");
                                 // $('#nyusatu_input').val("");
                         }else if(kakaku <= nowPrice){
-                                alert("現在の入札価格より大きい価格を設定してください。");
+                                alertNew("現在の入札価格より大きい価格を設定してください。","","");
                                 // $('#nyusatu_input').val("");
                         }else {
                                 nyusatuPageOpen();

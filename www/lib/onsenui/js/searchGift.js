@@ -1,10 +1,6 @@
 function searchGift(search_way){
         var currentUser = ncmb.User.getCurrentUser();
         var userKind = currentUser.get("userKind");
-        // if(userKind=="test"){
-        //         alert("該当ユーザー０件");
-        //         exit;
-        // }
         showLoad();
         if(search_way=="キーワード検索"){
                 var user_name = $('#user_name_search').val();

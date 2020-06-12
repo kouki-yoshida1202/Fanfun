@@ -122,7 +122,6 @@
             },
             error: function (response) {
                     console.log(response);
-                    // alert("失敗しました。アプリが最新状態でない可能性がございます。");
             }
           });
         });
@@ -398,7 +397,7 @@
           })
           .catch(function(err){
                   // エラー処理
-                  alert("情報取得に失敗しました。");
+                  alertNew("情報取得に失敗しました。","","");
                   window.location.href = 'home.html';
           });
         }else if(page=="userPage"){
@@ -431,7 +430,7 @@
                   if(result.length>0){
                     hideLoad();
                     setTimeout(function(){
-                      alert("手続きは既に終えております。");
+                      alertNew("手続きは既に終えております。","",);
                       window.location.href = 'home.html';
                     },500);
                   }else{
@@ -466,7 +465,7 @@
                               .then(function(){
                                 hideLoad();
                                 setTimeout(function(){
-                                  alert("手続きが完了しました");
+                                  alertNew("手続きが完了しました","","");
                                   var push = new ncmb.Push();
                                   push.set("immediateDeliveryFlag", true)
                                       .set("message", "商品が購入されました！アプリ内でご確認ください！")
@@ -490,21 +489,20 @@
                                 },500);
                               })
                               .catch(function(err){
-                                alert("大変お手数ですが運営にエラーコードと共にお問い合わせくださいませ。エラーコード：238");
+                                alertNew("大変お手数ですが運営にエラーコードと共にお問い合わせくださいませ。エラーコード：238","","");
                                 hideLoad();
                               });
                             })
                             .catch(function(err){
                               // エラー処理
-                              alert("大変お手数ですが運営にエラーコードと共にお問い合わせくださいませ。エラーコード：244");
+                              alertNew("大変お手数ですが運営にエラーコードと共にお問い合わせくださいませ。エラーコード：244","","");
                               hideLoad();
                             });
                   }
           })
           .catch(function(err){
             // エラー処理
-            alert(err);
-            alert("大変お手数ですが運営にエラーコードと共にお問い合わせくださいませ。エラーコード：251");
+            alertNew("大変お手数ですが運営にエラーコードと共にお問い合わせくださいませ。エラーコード：251","","");
             hideLoad();
           });
         }
@@ -614,7 +612,7 @@
                 })
                 .catch(function(err){
                     // エラー処理
-                    alert("受付エラーです。お問い合わせください。");
+                    alertNew("受付エラーです。お問い合わせください。","","");
                 });
         }else{
             reminderMailMissOpen();
@@ -735,7 +733,21 @@
           crownCounter++;
         }
       }
-
+      
+      function alertNew(Title,Text,Button) {
+          console.log(Title,Text,Button);
+          if(Button==""){
+            Button="OK";
+          }
+          navigator.notification.alert(
+              Text,
+              function(){
+                  // ダイアログのボタンが押下された後に実行する処理
+              },
+              Title,
+              Button
+          );
+      }
   </script>
   <style>
     *{
@@ -874,7 +886,7 @@
   </style>
 </head>
 <body>
-  <ons-navigator id="navi" swipeable="force">
+  <ons-navigator id="navi" swipeable="force" swipeable swipe-target-width="100px" swipe-threshold="0.5">
     <ons-page>
       <ons-tabbar position="bottom">
           <ons-tab id="topPageTab"page="top.html" label="ホーム"icon="home" onclick="" active></ons-tab>

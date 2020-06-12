@@ -10,7 +10,6 @@ function buypage(){
         .then(function(results){
                 var object = results;
                 var stock = Number(object.get("stock"));
-                // alert(stock);
                 if(stock > 0){
                         $.ajax({
                                 type: 'post',
@@ -20,7 +19,6 @@ function buypage(){
                                         "gift_uid":gift_uid,
                                 },
                                 success: function(data){
-                                        // alert(data);
                                         if(data == "success"){
                                                 var betweenOrder = ncmb.DataStore("betweenOrder");
                                                 // データストアへの登録
@@ -67,20 +65,20 @@ function buypage(){
                                                                 });
                                                         },500);
                                                 }).catch(function(){
-                                                        alert("エラーが発生しました。再度お願いします。");
+                                                        alertNew("エラーが発生しました。再度お願いします。","","");
                                                 });
                                         }else{
-                                                alert("同時アクセスが検知されました。再度お試しください。");
+                                                alertNew("同時アクセスが検知されました。再度お試しください。","","");
                                         }
                                 },
                                 error: function (response) {
                                         console.log(response);
-                                        alert("失敗しました。アプリが最新状態でない可能性がございます。");
+                                        alertNew("失敗しました。アプリが最新状態でない可能性がございます。","","");
                                 }
                         });
                         
                 }else{
-                        alert("在庫が0になりました。");
+                        alertNew("在庫が0になりました。","","");
                         window.location.href = 'home.html';
                 }
                 
@@ -131,12 +129,11 @@ function buyPageCancel(){
                                                 
                                         });
                                 }else{
-                                        alert("エラーが発生しました。再度お試しください。");
+                                        alertNew("エラーが発生しました。再度お試しください。","","");
                                 }
                         },
                         error: function (response) {
                                 console.log(response);
-                                // alert("失敗しました。アプリが最新状態でない可能性がございます。");
                         }
                 });
         });
@@ -154,7 +151,7 @@ function nyusatupage(){
         .fetchAll()             
         .then(function(results){
                 if(results.length>0){
-                        alert("他の方が入札手続き中です。少々お待ち頂いた後、再度お試しくださいませ。");
+                        alertNew("他の方が入札手続き中です。少々お待ち頂いた後、再度お試しくださいませ。","","");
                 }else{
                         GiftData
                         .equalTo("giftUid", gift_uid)
@@ -236,19 +233,19 @@ function nyusatupage(){
                                                         });
                                                 },500);
                                         }).catch(function(err){
-                                                alert("エラーが発生しました。");
+                                                alertNew("エラーが発生しました。","","");
                                         });
                                 }).catch(function(err){
-                                        alert("エラーが発生しました。");
+                                        alertNew("エラーが発生しました。","","");
                                 });
                                 
                         }).catch(function(err){
-                                alert("エラーが発生しました。");
+                                alertNew("エラーが発生しました。","","");
                         });
                 }
         }).catch(function(err){
                 console.log("aiu");
-                alert("エラーが発生しました。");
+                alertNew("エラーが発生しました。","","");
         });
         
 }
@@ -291,7 +288,7 @@ function nyusatu(){
                                 .fetchAll()
                                 .then(function(results){
                                         if(results.length==0){
-                                                alert("入札成功");
+                                                alertNew("入札成功","","");
                                                 window.location.href = 'home.html';
                                         }else{
                                                 var sendEndUser = [];
@@ -315,26 +312,26 @@ function nyusatu(){
                                                 }
                                                 showLoad();                                                
                                                 setTimeout(function(){
-                                                        alert("入札成功");
+                                                        alertNew("入札成功","","");
                                                         window.location.href = 'home.html';     
                                                 },3000);
                                         }
                                 }).catch(function(err){
-                                        alert("入札成功");
+                                        alertNew("入札成功","","");
                                         window.location.href = 'home.html';
                                 });
                         })
                         .catch(function(err){
                         // エラー処理
-                                alert("入札成功");
+                                alertNew("入札成功","","");
                                 window.location.href = 'home.html';
                         });
                 }).catch(function(err){
-                        alert("エラーが発生しました。");
+                        alertNew("エラーが発生しました。","","");
                         window.location.href = 'home.html';
                 });
         }).catch(function(err){
-                alert("5分を超えたため、入札権利が破棄されております。");
+                alertNew("5分を超えたため、入札権利が破棄されております。","","");
                 window.location.href = 'home.html';
         });
 }

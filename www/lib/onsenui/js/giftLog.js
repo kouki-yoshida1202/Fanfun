@@ -384,9 +384,9 @@ function hurikomiFormSend(){
         var hurikomiKingaku = $('#hurikomiKingaku').val();
         var mailcheck = MailCheck(hurikomiMailaddress);
         if(hurikomiMailaddress=="" || hurikomiGinkou=="" || hurikomiShiten=="" || hurikomiShubetu=="" || hurikomiBangou=="" || hurikomiMeigi=="" || hurikomiKingaku ==""){
-                alert("未入力項目があります");
+                alertNew("未入力項目があります","","");
         }else if(Number(hurikomiKingaku)<1000){
-                alert("振込申請は1000円以上からとなります。");
+                alertNew("振込申請は1000円以上からとなります。","","");
         }else{
                 if(mailcheck){
                         var minouUriage = ncmb.DataStore("minouUriage");
@@ -396,7 +396,7 @@ function hurikomiFormSend(){
                         .then(function(results){
                                 var minouUriage = results.get("minouUriage");
                                 if(Number(minouUriage)<Number(hurikomiKingaku)){
-                                        alert("売上金よりも上回る金額は設定できません。");
+                                        alertNew("売上金よりも上回る金額は設定できません。","","");
                                 }else{
                                         var hurikomiForm = ncmb.DataStore("hurikomiForm");
                                         // データストアへの登録
@@ -429,21 +429,21 @@ function hurikomiFormSend(){
                                                                         console.log(data);
                                                                 }
                                                         });
-                                                        alert("申請が完了しました。担当から改めてご連絡致します。");
+                                                        alertNew("申請が完了しました。担当から改めてご連絡致します。","","");
                                                         document.getElementById('navi').popPage();
                                                 })
                                                 .catch(function(err){
                                                 // エラー処理
-                                                        alert("申請が失敗しました。お手数ですがお問い合わせお願い致します。");
+                                                        alertNew("申請が失敗しました。お手数ですがお問い合わせお願い致します。","","");
                                                 });
                                 }
                         }).catch(function(err){
                         // エラー処理
-                                alert("申請が失敗しました。お手数ですがお問い合わせお願い致します。");
+                                alertNew("申請が失敗しました。お手数ですがお問い合わせお願い致します。","","");
                         });
                         
                 }else{
-                        alert("メールアドレスが正しくありません");
+                        alertNew("メールアドレスが正しくありません","","");
                 }
         }
 }

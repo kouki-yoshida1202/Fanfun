@@ -46,33 +46,33 @@ function giftInsert(ReleaseStatus) {
         }
         if(gift_title ==''){
                 hideGiftInsertLoad();
-                alert("ギフト名が未入力です");
+                alertNew("ギフト名が未入力です","","");
         }else if(gift_text == ""){
                 hideGiftInsertLoad();
-                alert("ギフト説明文が未入力です");
+                alertNew("ギフト説明文が未入力です","","");
         }
         else if(profileGiftInputStatus == 0){
                 hideGiftInsertLoad();
-                alert("ギフト画像が未登録です");
+                alertNew("ギフト画像が未登録です","","");
         }
         else if(gift_price == ""){
                 hideGiftInsertLoad();
-                alert("ギフト価格が未入力です");
+                alertNew("ギフト価格が未入力です","","");
         }else if(gift_stock == ""){
                 hideGiftInsertLoad();
-                alert("ギフト在庫数が未入力です");
+                alertNew("ギフト在庫数が未入力です","","");
         }else if(gift_stock > 999){
                 hideGiftInsertLoad();
-                alert("ギフト在庫数は0~999です");
+                alertNew("ギフト在庫数は0~999です","","");
         }else if(yoyaku=="予約"&&(date==""||time=="")){
                 hideGiftInsertLoad();
-                alert("日時が未入力です");
+                alertNew("日時が未入力です","","");
         }else if(giftKind=="オークション"&&(auction_date==""||auction_time=="")){
                 hideGiftInsertLoad();
-                alert("オークション終了日時が未入力です");
+                alertNew("オークション終了日時が未入力です","","");
         }else if(!Number.isInteger(Number(gift_stock)) || !Number.isInteger(Number(gift_price)) || gift_price < 1 || gift_stock < 0){
                 hideGiftInsertLoad();
-                alert("数値を1以上の整数で入力してください");
+                alertNew("数値を1以上の整数で入力してください","","");
         }else{
                 var currentUser = ncmb.User.getCurrentUser();
                 var objectId = currentUser.get("objectId");
@@ -112,10 +112,10 @@ function giftInsert(ReleaseStatus) {
                                                 // giftInputOpen();
                                                 
                                                 if(ReleaseStatus==1){
-                                                        alert("下書き保存しました。");
+                                                        alertNew("下書き保存しました。","","");
                                                         window.location.href = 'home.html';
                                                 }else{
-                                                        alert("出品成功しました。");
+                                                        alertNew("出品成功しました。","","");
                                                         window.location.href = 'home.html';
                                                 }
                                         })
@@ -130,9 +130,9 @@ function giftInsert(ReleaseStatus) {
                                         hideGiftInsertLoad();
                                         
                                         if(ReleaseStatus==1){
-                                                alert("下書き保存が失敗しました。");
+                                                alertNew("下書き保存が失敗しました。","","");
                                         }else{
-                                                alert("出品が失敗しました。");
+                                                alertNew("出品が失敗しました。","","");
                                         }
                                 });
                 }else{
@@ -163,10 +163,10 @@ function giftInsert(ReleaseStatus) {
                                                 // giftInputOpen();
                                                 
                                                 if(ReleaseStatus==1){
-                                                        alert("下書き保存しました。");
+                                                        alertNew("下書き保存しました。","","");
                                                         window.location.href = 'home.html';
                                                 }else{
-                                                        alert("出品成功しました。");
+                                                        alertNew("出品成功しました。","","");
                                                         window.location.href = 'home.html';
                                                 }
                                         })
@@ -181,9 +181,9 @@ function giftInsert(ReleaseStatus) {
                                         hideGiftInsertLoad();
                                         
                                         if(ReleaseStatus==1){
-                                                alert("下書き保存が失敗しました。");
+                                                alertNew("下書き保存が失敗しました。","","");
                                         }else{
-                                                alert("出品が失敗しました。");
+                                                alertNew("出品が失敗しました。","","");
                                         }
                                 });
                 }
@@ -206,25 +206,25 @@ function giftEdit() {
         var ohitotu = $('.segment-ohitotu:checked').val();
         if(gift_title ==''){
                 hideGiftEditLoad();
-                alert("ギフトタイトルが未入力です");
+                alertNew("ギフトタイトルが未入力です","","");
         }else if(gift_text == ""){
                 hideGiftEditLoad();
-                alert("ギフト説明文が未入力です");
+                alertNew("ギフト説明文が未入力です","","");
         }else if(gift_price == ""){
                 hideGiftEditLoad();
-                alert("ギフト価格が未入力です");
+                alertNew("ギフト価格が未入力です","","");
         }else if(gift_price % 100 != 0){
                 hideGiftEditLoad();
-                alert("価格を100円単位で設定してください")
+                alertNew("価格を100円単位で設定してください","","")
         }else if(gift_stock == ""){
                 hideGiftEditLoad();
-                alert("ギフト在庫数が未入力です");
+                alertNew("ギフト在庫数が未入力です","","");
         }else if(gift_stock > 999){
                 hideGiftEditLoad();
-                alert("ギフト在庫数は0~999です");
+                alertNew("ギフト在庫数は0~999です","","");
         }else if(!Number.isInteger(Number(gift_stock)) || !Number.isInteger(Number(gift_price)) || gift_price < 1 || gift_stock < 0){
                 hideGiftEditLoad();
-                alert("数値を1以上の整数で入力してください");
+                alertNew("数値を1以上の整数で入力してください","","");
         }else{
                 var currentUser = ncmb.User.getCurrentUser();
                 var objectId = currentUser.get("objectId");
@@ -257,7 +257,7 @@ function giftEdit() {
                                         .then(function(res){
                                                 // アップロード後処理
                                                 hideGiftEditLoad();
-                                                alert("変更しました。");
+                                                alertNew("変更しました。","","");
                                                 window.location.href = 'home.html';
                                         })
                                         .catch(function(err){
@@ -314,6 +314,8 @@ function giftNowInfo(){
                                 $('#yoyakuDateTimeEdit').val(yoyakuDateTimeEdit);
                                 if(giftKind == "オークション"){
                                         var auctionEndTime = object.get("auctionEndTime");
+                                        var gift_price = object.get("price");
+                                        $('#gift_stock_edit').val("1");
                                         $('#gift_price_edit').prop("disabled",true);
                                         $('#kakaku_text_edit').html("スタート価格");
                                         $('#normal_text_edit').css("display","none");
@@ -323,6 +325,8 @@ function giftNowInfo(){
                                         var auctionEndTimeEdit = isoToNormalChange(auctionEndTime);
                                         $('#auctionDateTimeEdit').val(auctionEndTimeEdit);
                                         $('#rieki_area_edit').css("display","none");
+
+                                        $('#gift_price_edit').val(gift_price);
                                 }
                         });
 

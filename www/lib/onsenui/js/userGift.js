@@ -179,7 +179,7 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
                                         $('#mygift_detail_ohitotu').css("display","block");
                                 }
                                 if(Authentication!="OK"){
-                                        alert("本人確認が未完了のため、購入されません。");
+                                        alertNew("本人確認が未完了のため、購入されません。","","");
                                 }
                         },500);
                 }else{
@@ -388,7 +388,7 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
                                         });
                                 }
                                 if(Authentication!="OK"){
-                                        alert("このギフトは本人確認が済んでいない出品者のため購入不可です。")
+                                        alertNew("このギフトは本人確認が済んでいない出品者のため購入不可です。","","")
                                 }
                         },500);
                 }

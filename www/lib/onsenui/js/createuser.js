@@ -12,11 +12,11 @@ function insertUser() {
     var password = $("#form_password").val();      //パスワード
     //入力規則およびデータをフィールドにセットする
     if(username == ""){
-        userNameNoOpen();
+        alertNew('表示名が入力されていません','','');
     }else if(mailaddress == ""){
-        mailaddressNoOpen();
+        alertNew('メールアドレスが入力されていません','','');
     }else if(password == ""){
-        passwordNoOpen();
+        alertNew('パスワードが入力されていません','','');
     }else{
         var android = "Android";
         if(navigator.userAgent.indexOf(android)>0){
@@ -34,15 +34,16 @@ function insertUser() {
                     .then(function(){
                         //   登録後処理
                         //  保存に成功した場合の処理
-                        userCreateCheckOpen();
+                        alertNew('まだ登録は完了しておりません','認証メールを送信しました。メールに記載のURL押下後、登録が完了します。','OK');
+                        window.location.href = 'logout.html';
                     })
                     .catch(function(err){
                         //   エラー処理
                         //  保存に失敗した場合の処理
-                        userCreateMissOpen();
+                        alertNew('登録失敗','ユーザ名かメールアドレスが既に使用されています。','OK');
                     });
             }else{
-                userCreateMailMissOpen();
+                alertNew('送信失敗','メールアドレスの形式が正しくありません。','OK');
             }
         }else{
             // console.log("androidじゃない");
@@ -68,15 +69,16 @@ function insertUser() {
                             .then(function(){
                                 //   登録後処理
                                 //  保存に成功した場合の処理
-                                userCreateCheckOpen();
+                                alertNew('まだ登録は完了しておりません','認証メールを送信しました。メールに記載のURL押下後、登録が完了します。','OK');
+                                window.location.href = 'logout.html';
                             })
                             .catch(function(err){
                                 //   エラー処理
                                 //  保存に失敗した場合の処理
-                                userCreateMissOpen();
+                                alertNew('登録失敗','ユーザ名かメールアドレスが既に使用されています。','OK');
                             });
                     }else{
-                        userCreateMailMissOpen();
+                        alertNew('送信失敗','メールアドレスの形式が正しくありません。','OK');
                     }
                 }
             
@@ -96,11 +98,11 @@ function insertInfluencer() {
     }).get();
     //入力規則およびデータをフィールドにセットする
     if(username == ""){
-        userNameNoOpen();
+        alertNew('表示名が入力されていません','','');
     }else if(mailaddress == ""){
-        mailaddressNoOpen();
+        alertNew('メールアドレスが入力されていません','','');
     }else if(password == ""){
-        passwordNoOpen();
+        alertNew('パスワードが入力されていません','','');
     }else{
         var android = "Android";
         if(navigator.userAgent.indexOf(android)>0){
@@ -137,15 +139,16 @@ function insertInfluencer() {
                                     console.log("----success.----");
                             }
                         });
-                        userCreateCheckOpen();
+                        alertNew('まだ登録は完了しておりません','認証メールを送信しました。メールに記載のURL押下後、登録が完了します。','OK');
+                        window.location.href = 'logout.html';
                     })
                     .catch(function(err){
                         //   エラー処理
                         //  保存に失敗した場合の処理
-                        userCreateMissOpen();
+                        alertNew('登録失敗','ユーザ名かメールアドレスが既に使用されています。','OK');
                     });
             }else{
-                userCreateMailMissOpen();
+                alertNew('送信失敗','メールアドレスの形式が正しくありません。','OK');
             }
         }else{
             $.ajax({
@@ -188,15 +191,16 @@ function insertInfluencer() {
                                             console.log("----success.----");
                                     }
                                 });
-                                userCreateCheckOpen();
+                                alertNew('まだ登録は完了しておりません','認証メールを送信しました。メールに記載のURL押下後、登録が完了します。','OK');
+                                window.location.href = 'logout.html';
                             })
                             .catch(function(err){
                                 //   エラー処理
                                 //  保存に失敗した場合の処理
-                                userCreateMissOpen();
+                                alertNew('登録失敗','ユーザ名かメールアドレスが既に使用されています。','OK');
                             });
                     }else{
-                        userCreateMailMissOpen();
+                        alertNew('送信失敗','メールアドレスの形式が正しくありません。','OK');
                     }
                 }
             });
@@ -268,9 +272,9 @@ function passwordReminder(){
             })
             .catch(function(err){
                 // エラー処理
-                alert("このメールアドレスは登録されておりません。全角文字が混ざっていないか確認の上、再度お願いします。");
+                alertNew("このメールアドレスは登録されておりません。全角文字が混ざっていないか確認の上、再度お願いします。","","");
             });
     }else{
-        reminderMailMissOpen();
+        alertNew('送信失敗','メールアドレスの形式が正しくありません。','OK');
     }
 }

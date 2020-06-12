@@ -44,7 +44,7 @@
         success: function(data){
           var message = data;
           if(message!=""){
-            alert(message);
+            alertNew(message,"","");
             setTimeout(function(){
               $('#login_mail').prop("disabled",true);
               $('#login_pass').prop("disabled",true);
@@ -63,10 +63,24 @@
         },
         error: function (response) {
                 console.log(response);
-                // alert("失敗しました。アプリが最新状態でない可能性がございます。");
         }
       });
       
+    }
+
+    function alertNew(Title,Text,Button) {
+      console.log(Title,Text,Button);
+      if(Button==""){
+        Button="OK";
+      }
+      navigator.notification.alert(
+          Text,
+          function(){
+              // ダイアログのボタンが押下された後に実行する処理
+          },
+          Title,
+          Button
+      );
     }
   </script>
   <style>
@@ -105,7 +119,7 @@
   </style>
 </head>
 <body>
-    <ons-navigator id="login" page="login.html" swipeable="force">
+    <ons-navigator id="login" page="login.html" swipeable="force" swipeable swipe-target-width="100px" swipe-threshold="0.5">
     </ons-navigator> 
 </body>
 </html>

@@ -11,7 +11,8 @@
         "cordova-plugin-x-socialsharing": "file:res/custom_plugins/cordova-plugin-x-socialsharing",
         "cordova-plugin-camera": "file:res/custom_plugins/cordova-plugin-camera",
         "cordova-plugin-customurlscheme": "file:res/custom_plugins/cordova-plugin-customurlscheme",
-        "ncmb-push-monaca-plugin": "3.0.8"
+        "ncmb-push-monaca-plugin": "3.0.8",
+        "cordova-plugin-dialogs": "file:res/custom_plugins/cordova-plugin-dialogs"
     },
     "cordova": {
         "plugins": {
@@ -26,7 +27,8 @@
             "cordova-plugin-customurlscheme": {
                 "URL_SCHEME": "fanfun"
             },
-            "ncmb-push-monaca-plugin": {}
+            "ncmb-push-monaca-plugin": {},
+            "cordova-plugin-dialogs": {}
         }
     },
     "scripts": {

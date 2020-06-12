@@ -103,7 +103,7 @@
                         var honninUserName = $('#honninUserName').val();
                         var honninFormTextarea = $('#honninFormTextarea').val();
                         if(honninMailaddress == '' || honninUserName==''||honninFormTextarea==''){
-                                alert("未入力の項目があります。");
+                                alertNew("未入力の項目があります。","","");
                         }else{
                                 $.ajax({
                                         type: 'post',
@@ -115,12 +115,12 @@
                                                 'honninFormTextarea':honninFormTextarea,
                                         },
                                         success: function(data){
-                                                alert("申請しました。");
+                                                alertNew("申請しました。","","");
                                                 document.getElementById('navi').popPage();
                                         },
                                         error: function (response) {
                                                 console.log(response);
-                                                alert("失敗しました。再度お試し頂くかお問い合わせください。");
+                                                alertNew("失敗しました。再度お試し頂くかお問い合わせください。","","");
                                         }
                                 });
                         }

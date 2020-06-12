@@ -5,7 +5,7 @@ function fanRanking(pageKind){
         }else if(pageKind=="otherpage"){
                 var userId = $('#other_page_user_id').val();
         }else{
-                alert("情報取得に失敗しました。");
+                alertNew("情報取得に失敗しました。","","");
                 exit;
         }
 

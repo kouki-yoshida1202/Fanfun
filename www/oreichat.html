@@ -94,7 +94,7 @@
                         var messageText = $('#messageText').val();
 
                         if(messageText==''){
-                                alert("メッセージが未入力です。");
+                                alertNew("メッセージが未入力です。","","");
                         }else{
                                 var messageData = ncmb.DataStore("messageData");
                                 var messageData = new messageData();
@@ -126,7 +126,7 @@
                                                                 push.send()
                                                                 .then(function(push){
                                                                 // 送信後処理
-                                                                        alert("送信成功しました。");
+                                                                        alertNew("送信成功しました。","","");
                                                                         hideLoad();
                                                                         document.getElementById('navi').popPage();
                                                                         setTimeout(() => {
@@ -135,16 +135,16 @@
                                                                 })
                                                                 .catch(function(err){
                                                                 // エラー処理
-                                                                        alert("エラーが発生しました。もう一度お試し頂くかお問い合わせくださいませ。。");
+                                                                        alertNew("エラーが発生しました。もう一度お試し頂くかお問い合わせくださいませ。。","","");
                                                                         hideLoad();
                                                                 });
                                                         },500);
                                                 }).catch(function(){
-                                                        alert("エラーが発生しました。もう一度お試し頂くかお問い合わせくださいませ。。");
+                                                        alertNew("エラーが発生しました。もう一度お試し頂くかお問い合わせくださいませ。。","","");
                                                         hideLoad();
                                                 });
                                         }).catch(function(){
-                                                alert("エラーが発生しました。もう一度お試し頂くかお問い合わせくださいませ。。");
+                                                alertNew("エラーが発生しました。もう一度お試し頂くかお問い合わせくださいませ。。","","");
                                                 hideLoad();
                                         });
                         }

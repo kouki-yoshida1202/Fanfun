@@ -365,7 +365,7 @@
             $('#profileGiftInputStatus').val("1");
             }, (error) => {
             // 失敗時
-                alert("写真取得に失敗しました");
+                alertNew("写真取得に失敗しました","","");
             }, {
             // 各種設定
             sourceType: window.navigator.camera.PictureSourceType.SAVEDPHOTOALBUM,

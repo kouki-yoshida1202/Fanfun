@@ -102,7 +102,7 @@
                                 .fetchAll()
                                 .then(function(results){
                                         if(results.length==0){
-                                                alert("申し訳ございません。5分を超えてしまったため、再度手続きをお願いします。");
+                                                alertNew("申し訳ございません。5分を超えてしまったため、再度手続きをお願いします。","","");
                                                 window.location.href = 'home.html';
                                         }else{
                                                 $.ajax({
@@ -163,7 +163,7 @@
                                                                                 .then(function(){
                                                                                         hideLoad();
                                                                                         setTimeout(function(){
-                                                                                                alert("手続きが完了しました");
+                                                                                                alertNew("手続きが完了しました","","");
                                                                                                 var push = new ncmb.Push();
                                                                                                 push.set("immediateDeliveryFlag", true)
                                                                                                 .set("message", "[入金待ち]状態の商品が購入されました！")
@@ -193,12 +193,11 @@
                                                                         // エラー処理
                                                                         hideLoad();
                                                                         });
-                                                                // alert("メールを送信しました！ご確認ください！");
                                                                 // window.location.href = 'home.html';
                                                         },
                                                         error: function (response) {
                                                                 console.log(response);
-                                                                alert("失敗しました。アプリが最新状態でない可能性がございます。");
+                                                                alertNew("失敗しました。アプリが最新状態でない可能性がございます。","","");
                                                         }
                                                 });
                                         }
