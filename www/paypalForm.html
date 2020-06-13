@@ -103,7 +103,9 @@
                                 .then(function(results){
                                         if(results.length==0){
                                                 alertNew("申し訳ございません。5分を超えてしまったため、再度手続きをお願いします。","","");
-                                                window.location.href = 'home.html';
+                                                setTimeout(function(){
+                                                        window.location.href = 'home.html';
+                                                },1500);
                                         }else{
                                                 $.ajax({
                                                         type: 'post',
@@ -176,12 +178,16 @@
                                                                                                 .then(function(push){
                                                                                                 // 送信後処理
                                                                                                         console.log(push);
-                                                                                                        window.location.href = 'home.html';
+                                                                                                        setTimeout(function(){
+                                                                                                                window.location.href = 'home.html';
+                                                                                                        },1500);
                                                                                                 })
                                                                                                 .catch(function(err){
                                                                                                 // エラー処理
                                                                                                         console.log(err);
-                                                                                                        window.location.href = 'home.html';
+                                                                                                        setTimeout(function(){
+                                                                                                                window.location.href = 'home.html';
+                                                                                                        },1500);
                                                                                                 });
                                                                                         },500);
                                                                                 })
@@ -193,7 +199,6 @@
                                                                         // エラー処理
                                                                         hideLoad();
                                                                         });
-                                                                // window.location.href = 'home.html';
                                                         },
                                                         error: function (response) {
                                                                 console.log(response);

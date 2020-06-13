@@ -46,28 +46,57 @@ function profileEdit(){
                                                 .upload(objectId,blob)
                                                 .then(function(res){
                                                         // アップロード後処理
-                                                        hideLoad();
-                                                        profileMailEditOpen();
+                                                        alertNew("更新しました。","登録したメールアドレスに確認メールをお送りしました。記載URLから認証後、ログインが可能になります。","");
+                                                        setTimeout(function(){
+                                                                hideLoad();
+                                                                window.location.href = 'logout.html';
+                                                        },1500);
                                                 })
                                                 .catch(function(err){
                                                         // エラー処理
                                                         hideLoad();
-                                                        profileImageEditMissOpen();
+                                                        alertNew("画像の更新に失敗しました。","再度送信頂くか、お問い合わせください。","");
+                                                        showLoad();
+                                                        var mailaddress_radio = $('input[name="mailaddress-radio"]:checked').val();
+                                                        if(mailaddress_radio == "onChange"){
+                                                                setTimeout(function(){
+                                                                        hideLoad();
+                                                                        window.location.href = 'index.html';
+                                                                }, 1000);
+                                                        }else{
+                                                                var mailaddress = $('#current_mailaddress_profile').val();
+                                                                var currentUser = ncmb.User.getCurrentUser();
+                                                                var password = currentUser.get("password");
+                                                                ncmb.User.logout();
+                                                                setTimeout(function(){
+                                                                        // メールアドレスとパスワードでログイン
+                                                                        ncmb.User.loginWithMailAddress(mailaddress,password)
+                                                                        .then(function(data){
+                                                                                // ログイン後処理
+                                                                                hideLoad();
+                                                                                window.location.href = 'home.html';
+                                                                        });
+                                                                }, 1000);
+                                                        }
                                                 });
                                         }else{
                                                 // // アップロード後処理
                                                 hideLoad();
-                                                profileMailEditOpen();
+                                                alertNew("更新しました。","登録したメールアドレスに確認メールをお送りしました。記載URLから認証後、ログインが可能になります。","");
+                                                setTimeout(function(){
+                                                        hideLoad();
+                                                        window.location.href = 'logout.html';
+                                                },1500);
                                         }
                                 })
                                 .catch(function(err) {
                                 // エラー
                                         hideLoad();
-                                        profileEditMissOpen();
+                                        alertNew("更新に失敗しました。","再度送信頂くか、お問い合わせください。","");
                                 });               
                 }else{
                         hideLoad();
-                        profileMailaddressEditMissOpen();
+                        alertNew("メールアドレスの形式が正しくありません。");
                 }
         }else{
                 user
@@ -91,23 +120,72 @@ function profileEdit(){
                                 .then(function(res){
                                         // アップロード後処理
                                         hideLoad();
-                                        profileEditOpen();
+                                        alertNew("更新しました。");
+                                        showLoad();
+                                        var mailaddress = $('#current_mailaddress_profile').val();
+                                        var currentUser = ncmb.User.getCurrentUser();
+                                        var password = currentUser.get("password");
+                                        ncmb.User.logout();
+                                        setTimeout(function(){
+                                                // メールアドレスとパスワードでログイン
+                                                ncmb.User.loginWithMailAddress(mailaddress,password)
+                                                .then(function(data){
+                                                // ログイン後処理
+                                                        hideLoad();
+                                                        window.location.href = 'home.html';
+                                                });
+                                        }, 1000);
                                 })
                                 .catch(function(err){
                                         // エラー処理
                                         hideLoad();
-                                        profileImageEditMissOpen();
+                                        alertNew("画像の更新に失敗しました。","再度送信頂くか、お問い合わせください。","");
+                                        showLoad();
+                                        var mailaddress_radio = $('input[name="mailaddress-radio"]:checked').val();
+                                        if(mailaddress_radio == "onChange"){
+                                                setTimeout(function(){
+                                                        hideLoad();
+                                                        window.location.href = 'index.html';
+                                                }, 1000);
+                                        }else{
+                                                var mailaddress = $('#current_mailaddress_profile').val();
+                                                var currentUser = ncmb.User.getCurrentUser();
+                                                var password = currentUser.get("password");
+                                                ncmb.User.logout();
+                                                setTimeout(function(){
+                                                        // メールアドレスとパスワードでログイン
+                                                        ncmb.User.loginWithMailAddress(mailaddress,password)
+                                                        .then(function(data){
+                                                                // ログイン後処理
+                                                                hideLoad();
+                                                                window.location.href = 'home.html';
+                                                        });
+                                                }, 1000);
+                                        }
                                 });
                         }else{
                                 // アップロード後処理
                                 hideLoad();
-                                profileEditOpen();
+                                alertNew("更新しました。");
+                                var mailaddress = $('#current_mailaddress_profile').val();
+                                var currentUser = ncmb.User.getCurrentUser();
+                                var password = currentUser.get("password");
+                                ncmb.User.logout();
+                                setTimeout(function(){
+                                        // メールアドレスとパスワードでログイン
+                                        ncmb.User.loginWithMailAddress(mailaddress,password)
+                                        .then(function(data){
+                                        // ログイン後処理
+                                                hideLoad();
+                                                window.location.href = 'home.html';
+                                        });
+                                }, 1000);
                         }
                 })
                 .catch(function(err) {
                 // エラー
                         hideLoad();
-                        profileEditMissOpen();
+                        alertNew("更新に失敗しました。","再度送信頂くか、お問い合わせください。","");
                 });               
         }
 }

@@ -142,7 +142,9 @@
                         });
                     }else{
                         alertNew("申し訳ございません。5分を超えてしまったため、再度手続きをお願いします。","","");
-                        window.location.href = 'home.html';
+                        setTimeout(function(){
+                                window.location.href = 'home.html';
+                        },1500);
                     }
                 })
                 .catch(function(err){
@@ -211,7 +213,9 @@
                         });
                     }else{
                         alertNew("申し訳ございません。5分を超えてしまったため、再度手続きをお願いします。","","");
-                        window.location.href = 'home.html';
+                        setTimeout(function(){
+                                window.location.href = 'home.html';
+                        },1500);
                     }
                 })
                 .catch(function(err){
@@ -279,7 +283,9 @@
                         });
                     }else{
                         alertNew("申し訳ございません。5分を超えてしまったため、再度手続きをお願いします。","","");
-                        window.location.href = 'home.html';
+                        setTimeout(function(){
+                                window.location.href = 'home.html';
+                        },1500);
                     }
                 })
                 .catch(function(err){

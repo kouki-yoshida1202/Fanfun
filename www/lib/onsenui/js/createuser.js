@@ -245,7 +245,9 @@ function loginCheck(){
         user.set("acl", acl);
         user.update()
             .then(function(obj){
-                window.location.href = 'home.html';
+                setTimeout(function(){
+                    window.location.href = 'home.html';
+                },1000);
             })
             .catch(function(error){
                 console.log("error:" + error.message);
@@ -254,7 +256,16 @@ function loginCheck(){
     })
     .catch(function(err){
         // エラー処理
-        loginMissOpen();
+        navigator.notification.confirm(
+            '',
+            function(buttonIndex){
+                if(buttonIndex==2){
+                    document.getElementById('login').bringPageTop('loginHelp.html');
+                }
+            },
+            'メールアドレスかパスワードが間違っています',
+            ['閉じる','ヒント']
+        );
     });
 }
 
@@ -268,7 +279,7 @@ function passwordReminder(){
         user.requestPasswordReset()
             .then(function(data){
                 // 送信後処理
-                reminderMailOpen();
+                alertNew("送信しました。","上記メールアドレスにメールを送信しました。ご確認ください。","OK");
             })
             .catch(function(err){
                 // エラー処理

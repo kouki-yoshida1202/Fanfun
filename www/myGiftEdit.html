@@ -197,57 +197,6 @@
             </div>
         </div>
     </div>
-    <div class="alert-dialog-mask giftEdit_dialog_mask"></div>
-    <div class="alert-dialog giftEdit_dialog">
-        <div class="alert-dialog-container">
-            <div class="alert-dialog-title">
-                変更しました。
-            </div>
-            <div class="alert-dialog-footer">
-                <button class="alert-dialog-button alert-dialog-button--primal" onclick="giftEditClose();">OK</button>
-            </div>
-        </div>
-    </div>
-    <div class="alert-dialog-mask giftEditMiss_dialog_mask"></div>
-    <div class="alert-dialog giftEditMiss_dialog">
-        <div class="alert-dialog-container">
-            <div class="alert-dialog-title">
-                変更が失敗しました。
-            </div>
-            <div class="alert-dialog-content">
-                再度送信頂くか、お問い合わせください。
-            </div>
-            <div class="alert-dialog-footer">
-                <button class="alert-dialog-button alert-dialog-button--primal" onclick="giftEditMissClose();">OK</button>
-            </div>
-        </div>
-    </div>
-    <div class="alert-dialog-mask giftEditImageMiss_dialog_mask"></div>
-    <div class="alert-dialog giftEditImageMiss_dialog">
-        <div class="alert-dialog-container">
-            <div class="alert-dialog-title">
-                画像の保存が失敗しました。
-            </div>
-            <div class="alert-dialog-content">
-                再度送信頂くか、お問い合わせください。
-            </div>
-            <div class="alert-dialog-footer">
-                <button class="alert-dialog-button alert-dialog-button--primal" onclick="giftEditImageMissClose();">OK</button>
-            </div>
-        </div>
-    </div>
-    <div class="alert-dialog-mask kakaku_edit_dialog_mask"></div>
-    <div class="alert-dialog kakaku_edit_dialog">
-        <div class="alert-dialog-container">
-            <div class="alert-dialog-title">価格が正しくありません。</div>
-            <div class="alert-dialog-content">
-                100~9999999円の範囲で、100円単位(下2桁が00)になるよう設定してください。
-            </div>
-            <div class="alert-dialog-footer">
-                <button class="alert-dialog-button alert-dialog-button--primal" onclick="kakakuEditCheckClose();">OK</button>
-            </div>
-        </div>
-    </div>
     
     <script>
         function giftEditCamera(){
@@ -266,67 +215,19 @@
                 targetHeight: 800
             });
         }
-        $('.giftEdit_dialog_mask,.giftEdit_dialog,.giftEditMiss_dialog_mask,.giftEditImageMiss_dialog_mask,.giftEditImageMiss_dialog,.giftEditMiss_dialog,.kakaku_edit_dialog_mask,.kakaku_edit_dialog').hide();
-        function giftEditOpen(){
-            $('.giftEdit_dialog_mask,.giftEdit_dialog').slideDown();
-        }
-
-        function giftEditClose(){
-            $('.giftEdit_dialog').slideUp();
-            setTimeout(function(){
-                $('.giftEdit_dialog_mask').slideUp();
-                window.location.href = 'home.html';
-            }, 500);
-        }
-
-        function giftEditMissOpen(){
-            $('.giftEditMiss_dialog_mask,.giftEditMiss_dialog').slideDown();
-        }
-
-        function giftEditMissClose(){
-            $('.giftEditMiss_dialog').slideUp();
-            setTimeout(function(){
-                $('.giftEditMiss_dialog_mask').slideUp();
-            },500);
-        }
-
-        function giftEditImageMissOpen(){
-            $('.giftEditImageMiss_dialog_mask,.giftEditImageMiss_dialog').slideDown();
-        }
-
-        function giftEditImageMissClose(){
-            $('.giftEditImageMiss_dialog').slideUp();
-            setTimeout(function(){
-                $('.giftEditImageMiss_dialog_mask').slideUp();
-                window.location.href = 'home.html';
-            }, 500);
-        }
-
-        function kakakuEditCheckOpen(){
-            $('.kakaku_edit_dialog_mask,.kakaku_edit_dialog').slideDown();
-            $('.kakaku_edit_dialog').css('top',"80%");
-        }
-        function kakakuEditCheckClose(){
-            $('.kakaku_edit_dialog').slideUp();
-            setTimeout(function(){
-                $('.kakaku_edit_dialog_mask').slideUp();
-            },500);
-        }
         // ギフト出品時の価格設定時に価格に応じて、手数料と利益が表示されるようにしている
         $('.kakaku').change(function(){
-          var kakaku = $('.kakaku').val();
-          if(kakaku%100==0 && kakaku!=0 && kakaku<9999999 && kakaku > 0){
-            var tesuryou = Math.floor(kakaku*0.2);
-            var rieki = kakaku - tesuryou;
-            $('.tesuryou').text(tesuryou);
-            $('.rieki').text(rieki);
-            // $("#giftEditButton").css("background-color","#FF6070");
-            $("#giftEditButton2").prop("disabled",false);
-          }else{
-            kakakuEditCheckOpen();
-            // $("#giftEditButton").css("background-color","gray");
-            $("#giftEditButton2").prop("disabled",true);
-          }
+            var kakaku = $('.kakaku').val();
+            if(kakaku%100==0 && kakaku!=0 && kakaku<9999999 && kakaku > 0){
+                var tesuryou = Math.floor(kakaku*0.2);
+                var rieki = kakaku - tesuryou;
+                $('.tesuryou').text(tesuryou);
+                $('.rieki').text(rieki);
+                $("#giftEditButton2").prop("disabled",false);
+            }else{
+                alertNew("価格が正しくありません。","100~9999999円の範囲で、100円単位(下2桁が00)になるよう設定してください。","");
+                $("#giftEditButton2").prop("disabled",true);
+            }
         });
 
         $('#file-data-gift-edit').on('change', function (e) {

@@ -157,72 +157,7 @@
             </div>
         </div>
     </div>
-    <div class="alert-dialog-mask profileEdit_dialog_mask"></div>
-    <div class="alert-dialog profileEdit_dialog">
-        <div class="alert-dialog-container">
-            <div class="alert-dialog-title">
-                更新しました。
-            </div>
-            <div class="alert-dialog-footer">
-                <button class="alert-dialog-button alert-dialog-button--primal" onclick="profileEditClose();">OK</button>
-            </div>
-        </div>
-    </div>
-    <div class="alert-dialog-mask profileMailEdit_dialog_mask"></div>
-    <div class="alert-dialog profileMailEdit_dialog">
-        <div class="alert-dialog-container">
-            <div class="alert-dialog-title">
-                更新しました。
-            </div>
-            <div class="alert-dialog-content">
-                登録したメールアドレスに確認メールをお送りしました。記載URLから認証後、ログインが可能になります。
-            </div>
-            <div class="alert-dialog-footer">
-                <button class="alert-dialog-button alert-dialog-button--primal" onclick="profileMailEditClose();">OK</button>
-            </div>
-        </div>
-    </div>
-    <div class="alert-dialog-mask profileImageEditMiss_dialog_mask"></div>
-    <div class="alert-dialog profileImageEditMiss_dialog">
-        <div class="alert-dialog-container">
-            <div class="alert-dialog-title">
-                画像の更新に失敗しました。
-            </div>
-            <div class="alert-dialog-content">
-                再度送信頂くか、お問い合わせください。
-            </div>
-            <div class="alert-dialog-footer">
-                <button class="alert-dialog-button alert-dialog-button--primal" onclick="profileImageEditMissClose();">OK</button>
-            </div>
-        </div>
-    </div>
-    <div class="alert-dialog-mask profileEditMiss_dialog_mask"></div>
-    <div class="alert-dialog profileEditMiss_dialog">
-        <div class="alert-dialog-container">
-            <div class="alert-dialog-title">
-                更新に失敗しました。
-            </div>
-            <div class="alert-dialog-content">
-                再度送信頂くか、お問い合わせください。
-            </div>
-            <div class="alert-dialog-footer">
-                <button class="alert-dialog-button alert-dialog-button--primal" onclick="profileEditMissClose();">OK</button>
-            </div>
-        </div>
-    </div>
-    <div class="alert-dialog-mask profileMailaddressEditMiss_dialog_mask"></div>
-    <div class="alert-dialog profileMailaddressEditMiss_dialog">
-        <div class="alert-dialog-container">
-            <div class="alert-dialog-title">
-                メールアドレスが<br>正しくありません。
-            </div>
-            <div class="alert-dialog-footer">
-                <button class="alert-dialog-button alert-dialog-button--primal" onclick="profileMailaddressEditMissClose();">OK</button>
-            </div>
-        </div>
-    </div>
     <script>
-
         function profileCamera(){
             window.navigator.camera.getPicture((imageData) => {
                 //成功時
@@ -239,7 +174,6 @@
                 targetHeight: 800
             });
         }
-        $('.profileEdit_dialog_mask,.profileEdit_dialog,.profileMailEdit_dialog_mask,.profileMailEdit_dialog,.profileImageEditMiss_dialog_mask,.profileImageEditMiss_dialog,.profileEditMiss_dialog_mask,.profileEditMiss_dialog,.profileMailaddressEditMiss_dialog_mask,.profileMailaddressEditMiss_dialog').hide();
         $('input[name="mailaddress-radio"]').change(function () {
             // value値取得
             var val = $(this).val();
@@ -250,43 +184,7 @@
                 $('#current_mailaddress_profile').prop("disabled",true);
             }
         });
-        function profileEditOpen(){
-            $('.profileEdit_dialog_mask,.profileEdit_dialog').slideDown();
-        }
 
-        function profileEditClose(){
-            $('.profileEdit_dialog').slideUp();
-            showLoad();
-            var mailaddress = $('#current_mailaddress_profile').val();
-            var currentUser = ncmb.User.getCurrentUser();
-            var password = currentUser.get("password");
-            ncmb.User.logout();
-            setTimeout(function(){
-                $('.profileEdit_dialog_mask').slideUp();
-                // メールアドレスとパスワードでログイン
-                ncmb.User.loginWithMailAddress(mailaddress,password)
-                .then(function(data){
-                    // ログイン後処理
-                    hideLoad();
-                    window.location.href = 'home.html';
-                });
-            }, 1000);
-        }
-
-        function profileMailEditOpen(){
-            $('.profileMailEdit_dialog_mask,.profileMailEdit_dialog').slideDown();
-        }
-
-        function profileMailEditClose(){
-            $('.profileMailEdit_dialog').slideUp();
-            showLoad();
-            setTimeout(function(){
-                $('.profileMailEdit_dialog_mask').slideUp();
-                hideLoad();
-                window.location.href = 'logout.html';
-            }, 1000);
-            
-        }
         function profileImageEditMissOpen(){
             $('.profileImageEditMiss_dialog_mask,.profileImageEditMiss_dialog').slideDown();
         }

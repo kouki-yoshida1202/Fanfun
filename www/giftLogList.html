@@ -74,17 +74,17 @@
                                                 push.send()
                                                 .then(function(push){
                                                         // 送信後処理
-                                                        alertNew("送信OK","","");
+                                                        alert("送信OK");
                                                         document.getElementById('navi').popPage();
                                                 })
                                                 .catch(function(err){
                                                         // エラー処理
-                                                        alertNew("送信NG","","");
+                                                        alert("送信NG");
                                                 });
                                         })
                                         .catch(function(err){
                                                 // エラー処理
-                                                alertNew("送信NG","","");
+                                                alert("送信NG");
                                         });
                                 }else if(torihikiStatusAfter=="プレゼント完了"){
                                         ////////////////////////////
@@ -110,17 +110,17 @@
                                                 push.send()
                                                 .then(function(push){
                                                         // 送信後処理
-                                                        alertNew("送信OK","","");
+                                                        alert("送信OK");
                                                         document.getElementById('navi').popPage();
                                                 })
                                                 .catch(function(err){
                                                         // エラー処理
-                                                        alertNew("送信NG","","");
+                                                        alert("送信NG");
                                                 });
                                         })
                                         .catch(function(err){
                                                 // エラー処理
-                                                alertNew("送信NG","","");
+                                                alert("送信NG");
                                         });
                                 }else{
                                         ////////////////////////////
@@ -146,22 +146,22 @@
                                                 push.send()
                                                 .then(function(push){
                                                 // 送信後処理
-                                                        alertNew("送信OK","","");
+                                                        alert("送信OK");
                                                         document.getElementById('navi').popPage();
                                                 })
                                                 .catch(function(err){
                                                         // エラー処理
-                                                        alertNew("送信NG","","");
+                                                        alert("送信NG");
                                                 });
                                         })
                                         .catch(function(err){
                                                 // エラー処理
-                                                alertNew("送信NG","","");
+                                                alert("送信NG");
                                         });
                                 }
                                 
                         }).catch(function(){
-                                alertNew("更新失敗","","");
+                                alert("更新失敗");
                         });
                 }
         </script>

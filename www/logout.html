@@ -48,6 +48,20 @@
     //   } else {
     //   }
     // };
+    function alertNew(Title,Text,Button) {
+        console.log(Title,Text,Button);
+        if(Button==""){
+          Button="OK";
+        }
+        navigator.notification.alert(
+            Text,
+            function(){
+                // ダイアログのボタンが押下された後に実行する処理
+            },
+            Title,
+            Button
+        );
+    }
   </script>
   <style>
   .text-input{
@@ -85,7 +99,7 @@
   </style>
 </head>
 <body>
-    <ons-navigator id="login" page="login.html" swipeable="force">
+    <ons-navigator id="login" page="login.html" swipeable="force" swipeable swipe-target-width="100px" swipe-threshold="0.5">
     </ons-navigator> 
 </body>
 </html>

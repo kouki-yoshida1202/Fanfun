@@ -398,7 +398,10 @@
           .catch(function(err){
                   // エラー処理
                   alertNew("情報取得に失敗しました。","","");
-                  window.location.href = 'home.html';
+                  setTimeout(function(){
+                          window.location.href = 'home.html';
+                  },1500);
+                  
           });
         }else if(page=="userPage"){
           var currentUser = ncmb.User.getCurrentUser();
@@ -431,7 +434,9 @@
                     hideLoad();
                     setTimeout(function(){
                       alertNew("手続きは既に終えております。","",);
-                      window.location.href = 'home.html';
+                      setTimeout(function(){
+                              window.location.href = 'home.html';
+                      },1500);
                     },500);
                   }else{
                     var giftLog = ncmb.DataStore("giftLog");
@@ -478,12 +483,16 @@
                                       .then(function(push){
                                       // 送信後処理
                                         console.log(push);
-                                        window.location.href = 'home.html';
+                                        setTimeout(function(){
+                                                window.location.href = 'home.html';
+                                        },1500);
                                       })
                                       .catch(function(err){
                                       // エラー処理
                                         console.log(err);
-                                        window.location.href = 'home.html';
+                                        setTimeout(function(){
+                                                window.location.href = 'home.html';
+                                        },1500);
                                       });
                                   
                                 },500);
@@ -536,7 +545,7 @@
         .hide();
     };
     function homeback(){
-      window.location.href = 'home.html'
+      window.location.href = 'home.html';
     }
 
     function showLoad(){

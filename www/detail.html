@@ -81,55 +81,33 @@
                 </button>
             </div>
         </div>
-        <div class="action-sheet-mask detail_mask"></div>
-        <div class="action-sheet detail_modal">
-            <button class="action-sheet-button" onclick="tweetOtherGift();">Tweet</button>
-            <button class="action-sheet-button" onclick="detailShareClose();">Cancel</button>
-        </div>
-        <div class="alert-dialog-mask buyPage_dialog_mask"></div>
-        <div class="alert-dialog buyPage_dialog" style="top:60%;">
-            <div class="alert-dialog-container">
-                <div class="alert-dialog-title">5分経ちましたら、購入権は破棄されますのでご注意ください。</div>
-                <div class="alert-dialog-footer">
-                    <button class="alert-dialog-button alert-dialog-button--primal" onclick="buypage();buyPageClose();">購入手続きへ</button>
-                    <button class="alert-dialog-button" onclick="buyPageClose();">キャンセル</button>
-                </div>
-            </div>
-        </div>
-        <div class="alert-dialog-mask nyusatuPage_dialog_mask"></div>
-        <div class="alert-dialog nyusatuPage_dialog" style="top:60%;">
-            <div class="alert-dialog-container">
-                <div class="alert-dialog-title">5分経ちましたら、入札権利は破棄されますのでご注意ください。</div>
-                <div class="alert-dialog-footer">
-                    <button class="alert-dialog-button alert-dialog-button--primal" onclick="nyusatupage();nyusatuPageClose();">入札手続きへ</button>
-                    <button class="alert-dialog-button" onclick="nyusatuPageClose();">キャンセル</button>
-                </div>
-            </div>
-        </div>
         <script>
-            $('.detail_mask,.detail_modal').hide();
-            $('.buyPage_dialog_mask,.buyPage_dialog').hide();
             function buyPageOpen(){
-                    $('.buyPage_dialog_mask,.buyPage_dialog').slideDown();
+                navigator.notification.confirm(
+                    '',
+                    function(buttonIndex){
+                        if(buttonIndex==1){
+                            buypage();buyPageClose();
+                        }
+                    },
+                    '5分経ちましたら、購入権は破棄されますのでご注意ください。',
+                    ['進む','キャンセル']
+                );
             }
             
-            function buyPageClose(){
-                    $('.buyPage_dialog').slideUp();
-                    setTimeout(function(){
-                        $('.buyPage_dialog_mask').slideUp();
-                    },500);
-            }
-            $('.nyusatuPage_dialog_mask,.nyusatuPage_dialog').hide();
             function nyusatuPageOpen(){
-                    $('.nyusatuPage_dialog_mask,.nyusatuPage_dialog').slideDown();
+                navigator.notification.confirm(
+                    '',
+                    function(buttonIndex){
+                        if(buttonIndex==1){
+                            nyusatupage();nyusatuPageClose();
+                        }
+                    },
+                    '5分経ちましたら、入札権利は破棄されますのでご注意ください。',
+                    ['進む','キャンセル']
+                );
             }
-            
-            function nyusatuPageClose(){
-                    $('.nyusatuPage_dialog').slideUp();
-                    setTimeout(function(){
-                        $('.nyusatuPage_dialog_mask').slideUp();
-                    },500);
-            }
+
             function tweetOtherGift(){
                 // どっちか使う
                 var userName = $('#gift_detail_username_other').html();
@@ -144,17 +122,6 @@
                     $('#houkokuform_gift_name').val($('#gift_detail_title_other').html());
                     $('#houkokuform_gift_username').val($('#gift_detail_username_other').html());
                 }, 500);
-            }
-
-            function detailShare(){
-                $('.detail_mask,.detail_modal').slideDown();
-            }
-            
-            function detailShareClose(){
-                $('.detail_modal').slideUp();
-                setTimeout(function(){
-                    $('.detail_mask').slideUp();
-                },500);
             }
 
             var gift_image_detail = $('.gift_image_detail').width();
