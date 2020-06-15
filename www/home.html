@@ -397,10 +397,7 @@
           })
           .catch(function(err){
                   // エラー処理
-                  alertNew("情報取得に失敗しました。","","");
-                  setTimeout(function(){
-                          window.location.href = 'home.html';
-                  },1500);
+                  alertNew("情報取得に失敗しました。","","homeBack");
                   
           });
         }else if(page=="userPage"){
@@ -433,10 +430,7 @@
                   if(result.length>0){
                     hideLoad();
                     setTimeout(function(){
-                      alertNew("手続きは既に終えております。","",);
-                      setTimeout(function(){
-                              window.location.href = 'home.html';
-                      },1500);
+                      alertNew("手続きは既に終えております。","","homeBack");
                     },500);
                   }else{
                     var giftLog = ncmb.DataStore("giftLog");
@@ -463,14 +457,14 @@
                               .equalTo("buyUser", objectId)
                               .fetchAll()          
                               .then(function(results){
-                                for(var i=0;i<results.length;i++){
-                                  results[i].delete();
+                                if(results.length!=0){
+                                  results[0].delete();
                                 }
                               })
                               .then(function(){
                                 hideLoad();
                                 setTimeout(function(){
-                                  alertNew("手続きが完了しました","","");
+                                  alertNew("手続きが完了しました","","homeBack");
                                   var push = new ncmb.Push();
                                   push.set("immediateDeliveryFlag", true)
                                       .set("message", "商品が購入されました！アプリ内でご確認ください！")
@@ -483,16 +477,10 @@
                                       .then(function(push){
                                       // 送信後処理
                                         console.log(push);
-                                        setTimeout(function(){
-                                                window.location.href = 'home.html';
-                                        },1500);
                                       })
                                       .catch(function(err){
                                       // エラー処理
                                         console.log(err);
-                                        setTimeout(function(){
-                                                window.location.href = 'home.html';
-                                        },1500);
                                       });
                                   
                                 },500);
@@ -742,20 +730,74 @@
           crownCounter++;
         }
       }
-      
-      function alertNew(Title,Text,Button) {
-          console.log(Title,Text,Button);
-          if(Button==""){
-            Button="OK";
+      function reviewTest(){
+          if (!ons.platform.isIOS()) {
+              // reviewTestNormal();
+              instagramOpen('https://bit.ly/2Ye7B3P');
+              return false;
           }
-          navigator.notification.alert(
-              Text,
-              function(){
-                  // ダイアログのボタンが押下された後に実行する処理
-              },
-              Title,
-              Button
-          );
+          LaunchReview.rating(() => {
+          // ons.notification.alert('アプリ内レビューが成功しました');
+          }, (err) => {
+          // ons.notification.alert(`アプリ内レビューが失敗しました。${JSON.stringify(err)}`);
+          });
+      }
+      function alertNew(Title,Text,Button) {
+        console.log(Title,Text,Button);
+        if(Text=="" || Text==null || Text==undefined){
+          if(Button=="homeBack"){
+            ons.notification.alert({
+              message: Title,
+              callback:function(){
+                setTimeout(function(){
+                  window.location.href = 'home.html';
+                },500);
+              }
+            });
+          }else if(Button=="logout"){
+            console.log("ログアウト");
+            ons.notification.alert({
+              message: Title,
+              callback:function(){
+                setTimeout(function(){
+                  logout();
+                },500);
+              }
+            });
+          }else{
+            ons.notification.alert({
+              message: Title
+            });
+          }
+        }else{
+          if(Button=="homeBack"){
+            ons.notification.alert({
+              message: Text,
+              title: Title,
+              callback:function(){
+                setTimeout(function(){
+                  window.location.href = 'home.html';
+                },500);
+              }
+            });
+          }else if(Button=="logout"){
+            console.log("ログアウト");
+            ons.notification.alert({
+              message: Text,
+              title: Title,
+              callback:function(){
+                setTimeout(function(){
+                  logout();
+                },500);
+              }
+            });
+          }else{
+            ons.notification.alert({
+              message: Text,
+              title: Title
+            });
+          }
+        }
       }
   </script>
   <style>

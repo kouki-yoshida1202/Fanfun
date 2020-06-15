@@ -117,49 +117,19 @@
                 
                 </ul>
         </div>
-        <div class="alert-dialog-mask nyusatuPage_dialog_mask"></div>
-        <div class="alert-dialog nyusatuPage_dialog" style="top:75%;">
-                <div class="alert-dialog-container">
-                        <div class="alert-dialog-title">入札しますか？</div>
-                        <div class="alert-dialog-footer">
-                                <button class="alert-dialog-button alert-dialog-button--primal" onclick="nyusatu();nyusatuPageClose();">入札する</button>
-                                <button class="alert-dialog-button" onclick="nyusatuPageClose();">キャンセル</button>
-                        </div>
-                </div>
-        </div>
-        <div class="alert-dialog-mask nyusatuPageCancel_dialog_mask"></div>
-        <div class="alert-dialog nyusatuPageCancel_dialog">
-                <div class="alert-dialog-container">
-                <div class="alert-dialog-title">入札手続きをキャンセルしますか？</div>
-                <div class="alert-dialog-footer">
-                        <button class="alert-dialog-button alert-dialog-button--primal" onclick="nyusatuPageCancel();">キャンセルする</button>
-                        <button class="alert-dialog-button" onclick="nyusatuPageCancelClose();">閉じる</button>
-                </div>
-                </div>
-        </div>
         <script>
-                $('.nyusatuPageCancel_dialog_mask,.nyusatuPageCancel_dialog').hide();
                 function nyusatuPageCancelOpen(){
-                        $('.nyusatuPageCancel_dialog_mask,.nyusatuPageCancel_dialog').slideDown();
+                        ons.notification.confirm({
+                                message: '入札手続きをキャンセルしますか？',
+                                buttonLabels:["閉じる","キャンセルする"],
+                                callback: function(buttonIndex) {
+                                        if(buttonIndex==1){
+                                                nyusatuPageCancel();
+                                        }
+                                }
+                        });
                 }
-                
-                function nyusatuPageCancelClose(){
-                        $('.nyusatuPageCancel_dialog').slideUp();
-                        setTimeout(function(){
-                        $('.nyusatuPageCancel_dialog_mask').slideUp();
-                        },500);
-                }
-                $('.nyusatuPage_dialog_mask,.nyusatuPage_dialog').hide();
-                function nyusatuPageOpen(){
-                        $('.nyusatuPage_dialog_mask,.nyusatuPage_dialog').slideDown();
-                }
-                
-                function nyusatuPageClose(){
-                        $('.nyusatuPage_dialog').slideUp();
-                        setTimeout(function(){
-                                $('.nyusatuPage_dialog_mask').slideUp();
-                        },500);
-                }
+
                 function nyusatuCheck(){
                         // var scrollHeight = $('.page__content').scrollTop();
                         var kakaku = Number($('#nyusatu_input').val());
@@ -174,7 +144,15 @@
                                 alertNew("現在の入札価格より大きい価格を設定してください。","","");
                                 // $('#nyusatu_input').val("");
                         }else {
-                                nyusatuPageOpen();
+                                ons.notification.confirm({
+                                        message: '入札しますか？',
+                                        buttonLabels:["閉じる","入札する"],
+                                        callback: function(buttonIndex) {
+                                                if(buttonIndex==1){
+                                                        nyusatu();
+                                                }
+                                        }
+                                });
                         }
                 };
         </script>

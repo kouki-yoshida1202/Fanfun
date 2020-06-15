@@ -102,10 +102,7 @@
                                 .fetchAll()
                                 .then(function(results){
                                         if(results.length==0){
-                                                alertNew("申し訳ございません。5分を超えてしまったため、再度手続きをお願いします。","","");
-                                                setTimeout(function(){
-                                                        window.location.href = 'home.html';
-                                                },1500);
+                                                alertNew("申し訳ございません。5分を超えてしまったため、再度手続きをお願いします。","","homeBack");
                                         }else{
                                                 $.ajax({
                                                         type: 'post',
@@ -158,9 +155,11 @@
                                                                                 betweenOrder
                                                                                 .equalTo("giftUid", giftUid)
                                                                                 .equalTo("buyUser", objectId)
-                                                                                .fetch()               
+                                                                                .fetchAll()               
                                                                                 .then(function(results){
-                                                                                        results.delete();
+                                                                                        if(results.length!=0){
+                                                                                                results[0].delete();
+                                                                                        }
                                                                                 })
                                                                                 .then(function(){
                                                                                         hideLoad();

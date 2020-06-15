@@ -112,27 +112,19 @@ function giftInsert(ReleaseStatus) {
                                                 // giftInputOpen();
                                                 
                                                 if(ReleaseStatus==1){
-                                                        alertNew("下書き保存しました。","","");
-                                                        setTimeout(function(){
-                                                                hideGiftInsertLoad();
-                                                                setTimeout(function(){
-                                                                        window.location.href = 'home.html';
-                                                                },1500);
-                                                        },1500);
+                                                        alertNew("下書き保存しました。","","homeBack");
+                                                        hideGiftInsertLoad();
+                                                        
                                                 }else{
-                                                        alertNew("出品成功しました。","","");
-                                                        setTimeout(function(){
-                                                                hideGiftInsertLoad();
-                                                                setTimeout(function(){
-                                                                        window.location.href = 'home.html';
-                                                                },1500);
-                                                        },1500);
+                                                        alertNew("出品成功しました。","","homeBack");
+                                                        hideGiftInsertLoad();
+                                                        
                                                 }
                                         })
                                         .catch(function(err){
                                                 // エラー処理
                                                 hideGiftInsertLoad();
-                                                alertNew("画像の保存が失敗しました。","再度送信頂くか、お問い合わせください。","");
+                                                alertNew("画像の保存が失敗しました。","再度送信頂くか、お問い合わせください。","homeBack");
                                         });
                                 })
                                 .catch(function(err){
@@ -140,9 +132,9 @@ function giftInsert(ReleaseStatus) {
                                         hideGiftInsertLoad();
                                         
                                         if(ReleaseStatus==1){
-                                                alertNew("下書き保存が失敗しました。","","");
+                                                alertNew("下書き保存が失敗しました。","","homeBack");
                                         }else{
-                                                alertNew("出品が失敗しました。","","");
+                                                alertNew("出品が失敗しました。","","homeBack");
                                         }
                                 });
                 }else{
@@ -173,27 +165,17 @@ function giftInsert(ReleaseStatus) {
                                                 // giftInputOpen();
                                                 
                                                 if(ReleaseStatus==1){
-                                                        alertNew("下書き保存しました。","","");
-                                                        setTimeout(function(){
-                                                                hideGiftInsertLoad();
-                                                                setTimeout(function(){
-                                                                        window.location.href = 'home.html';
-                                                                },1500);
-                                                        },1500);
+                                                        alertNew("下書き保存しました。","","homeBack");
+                                                        hideGiftInsertLoad();
                                                 }else{
-                                                        alertNew("出品成功しました。","","");
-                                                        setTimeout(function(){
-                                                                hideGiftInsertLoad();
-                                                                setTimeout(function(){
-                                                                        window.location.href = 'home.html';
-                                                                },1500);
-                                                        },1500);
+                                                        alertNew("出品成功しました。","","homeBack");
+                                                        hideGiftInsertLoad();
                                                 }
                                         })
                                         .catch(function(err){
                                                 // エラー処理
                                                 hideGiftInsertLoad();
-                                                alertNew("画像の保存が失敗しました。","再度送信頂くか、お問い合わせください。","");
+                                                alertNew("画像の保存が失敗しました。","再度送信頂くか、お問い合わせください。","homeBack");
                                         });
                                 })
                                 .catch(function(err){
@@ -201,9 +183,9 @@ function giftInsert(ReleaseStatus) {
                                         hideGiftInsertLoad();
                                         
                                         if(ReleaseStatus==1){
-                                                alertNew("下書き保存が失敗しました。","","");
+                                                alertNew("下書き保存が失敗しました。","","homeBack");
                                         }else{
-                                                alertNew("出品が失敗しました。","","");
+                                                alertNew("出品が失敗しました。","","homeBack");
                                         }
                                 });
                 }
@@ -276,32 +258,23 @@ function giftEdit() {
                                         .upload(uid,blob)
                                         .then(function(res){
                                                 // アップロード後処理
-                                                alertNew("変更しました。","","");
-                                                setTimeout(function(){
-                                                        hideGiftEditLoad();
-                                                        setTimeout(function(){
-                                                                window.location.href = 'home.html';
-                                                        },1500);
-                                                },1500);
+                                                alertNew("変更しました。","","homeBack");
+                                                hideGiftEditLoad();
+                                                
                                         })
                                         .catch(function(err){
                                                 // エラー処理
                                                 hideGiftEditLoad();
-                                                alertNew("画像の保存が失敗しました。","再度送信頂くか、お問い合わせください。","");
+                                                alertNew("画像の保存が失敗しました。","再度送信頂くか、お問い合わせください。","homeBack");
                                         });
                                 }else{
-                                        alertNew("変更しました。");
-                                        setTimeout(function(){
-                                                hideGiftEditLoad();
-                                                setTimeout(function(){
-                                                        window.location.href = 'home.html';
-                                                },1500);
-                                        },1500);
+                                        alertNew("変更しました。","","homeBack");
+                                        hideGiftEditLoad();
                                 }
                         })
                         .catch(function(err){
                                 hideGiftEditLoad();
-                                alertNew("変更が失敗しました。","再度送信頂くか、お問い合わせください。","");
+                                alertNew("変更が失敗しました。","再度送信頂くか、お問い合わせください。","homeBack");
                         });
         }
 }

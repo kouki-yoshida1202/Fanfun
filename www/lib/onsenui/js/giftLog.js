@@ -431,6 +431,35 @@ function hurikomiFormSend(){
                                                         });
                                                         alertNew("申請が完了しました。担当から改めてご連絡致します。","","");
                                                         document.getElementById('navi').popPage();
+                                                        var today = new Date();
+                                                        today.setMinutes(today.getMonth() - 1);
+                                                        console.log(today);
+                                                        var reviewLog = ncmb.DataStore("reviewLog");
+                                                        reviewLog
+                                                        .equalTo('userObjectId',hurikomiUserId)
+                                                        .greaterThan("createDate",today)
+                                                        .fetchAll()         
+                                                        .then(function(results){
+                                                                if(results.length==0){
+                                                                        var reviewLog = ncmb.DataStore("reviewLog");
+                                                                        var reviewLog = new reviewLog();
+                                                                        reviewLog
+                                                                        .set("userObjectId",hurikomiUserId)
+                                                                        .save()
+                                                                        .then(function(){
+                                                                                ons.notification.confirm({
+                                                                                        message: 'ご利用ありがとうございます！よければ開発の励みになりますので是非お願いします！',
+                                                                                        title: "レビューのお願い",
+                                                                                        buttonLabels:["閉じる","レビュー"],
+                                                                                        callback: function(buttonIndex) {
+                                                                                                if(buttonIndex==1){
+                                                                                                        reviewTest();
+                                                                                                }
+                                                                                        }
+                                                                                });
+                                                                        });
+                                                                }
+                                                        });
                                                 })
                                                 .catch(function(err){
                                                 // エラー処理

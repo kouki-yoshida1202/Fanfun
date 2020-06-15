@@ -130,7 +130,36 @@
                                                                         hideLoad();
                                                                         document.getElementById('navi').popPage();
                                                                         setTimeout(() => {
-                                                                                MessageJudge(); 
+                                                                                MessageJudge();
+                                                                                var today = new Date();
+                                                                                today.setMinutes(today.getMonth() - 1);
+                                                                                console.log(today);
+                                                                                var reviewLog = ncmb.DataStore("reviewLog");
+                                                                                reviewLog
+                                                                                .equalTo('userObjectId',sendUser)
+                                                                                .greaterThan("createDate",today)
+                                                                                .fetchAll()         
+                                                                                .then(function(results){
+                                                                                        if(results.length==0){
+                                                                                                var reviewLog = ncmb.DataStore("reviewLog");
+                                                                                                var reviewLog = new reviewLog();
+                                                                                                reviewLog
+                                                                                                .set("userObjectId",sendUser)
+                                                                                                .save()
+                                                                                                .then(function(){
+                                                                                                        ons.notification.confirm({
+                                                                                                                message: 'ご利用ありがとうございます！よければ開発の励みになりますので是非お願いします！',
+                                                                                                                title: "レビューのお願い",
+                                                                                                                buttonLabels:["閉じる","レビュー"],
+                                                                                                                callback: function(buttonIndex) {
+                                                                                                                        if(buttonIndex==1){
+                                                                                                                                reviewTest();
+                                                                                                                        }
+                                                                                                                }
+                                                                                                        });
+                                                                                                });
+                                                                                        }
+                                                                                });
                                                                         }, 500);
                                                                 })
                                                                 .catch(function(err){

@@ -166,8 +166,7 @@ function shintyaku(shintyakuCounter){
                 .catch(function(err){
                         console.log(err);
                         hideLoad();
-                        alertNew("エラーが発生しました。一度ログアウトして再度ログインし直してください。","","");
-                        logout();
+                        alertNew("エラーが発生しました。一度ログアウトして再度ログインし直してください。","","logout");
                 });   
         }else{
                 // テストアカウント用
@@ -301,7 +300,7 @@ function shintyaku(shintyakuCounter){
                 .catch(function(err){
                         console.log(err);
                         hideLoad();
-                        alertNew("エラーが発生しました。一度ログアウトして再度ログインし直してください。","","");
+                        alertNew("エラーが発生しました。一度ログアウトして再度ログインし直してください。","","homeBack");
                         logout();
                 });   
         }    

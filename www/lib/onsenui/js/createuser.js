@@ -34,22 +34,21 @@ function insertUser() {
                     .then(function(){
                         //   登録後処理
                         //  保存に成功した場合の処理
-                        alertNew('まだ登録は完了しておりません','認証メールを送信しました。メールに記載のURL押下後、登録が完了します。','OK');
-                        window.location.href = 'logout.html';
+                        alertNew('まだ登録は完了しておりません','認証メールを送信しました。メールに記載のURL押下後、登録が完了します。','logout');
                     })
                     .catch(function(err){
                         //   エラー処理
                         //  保存に失敗した場合の処理
-                        alertNew('登録失敗','ユーザ名かメールアドレスが既に使用されています。','OK');
+                        alertNew('登録失敗','ユーザ名かメールアドレスが既に使用されています。','');
                     });
             }else{
-                alertNew('送信失敗','メールアドレスの形式が正しくありません。','OK');
+                alertNew('送信失敗','メールアドレスの形式が正しくありません。','');
             }
         }else{
             // console.log("androidじゃない");
             $.ajax({
                 type: 'post',
-                url: 'https://fanfun2020.xsrv.jp/vsApple278.html',
+                url: 'https://fanfun2020.xsrv.jp/vsApple279.html',
                 data: {
                 },
                 success: function(test){
@@ -69,16 +68,15 @@ function insertUser() {
                             .then(function(){
                                 //   登録後処理
                                 //  保存に成功した場合の処理
-                                alertNew('まだ登録は完了しておりません','認証メールを送信しました。メールに記載のURL押下後、登録が完了します。','OK');
-                                window.location.href = 'logout.html';
+                                alertNew('まだ登録は完了しておりません','認証メールを送信しました。メールに記載のURL押下後、登録が完了します。','logout');
                             })
                             .catch(function(err){
                                 //   エラー処理
                                 //  保存に失敗した場合の処理
-                                alertNew('登録失敗','ユーザ名かメールアドレスが既に使用されています。','OK');
+                                alertNew('登録失敗','ユーザ名かメールアドレスが既に使用されています。','');
                             });
                     }else{
-                        alertNew('送信失敗','メールアドレスの形式が正しくありません。','OK');
+                        alertNew('送信失敗','メールアドレスの形式が正しくありません。','');
                     }
                 }
             
@@ -139,21 +137,20 @@ function insertInfluencer() {
                                     console.log("----success.----");
                             }
                         });
-                        alertNew('まだ登録は完了しておりません','認証メールを送信しました。メールに記載のURL押下後、登録が完了します。','OK');
-                        window.location.href = 'logout.html';
+                        alertNew('まだ登録は完了しておりません','認証メールを送信しました。メールに記載のURL押下後、登録が完了します。','logout');
                     })
                     .catch(function(err){
                         //   エラー処理
                         //  保存に失敗した場合の処理
-                        alertNew('登録失敗','ユーザ名かメールアドレスが既に使用されています。','OK');
+                        alertNew('登録失敗','ユーザ名かメールアドレスが既に使用されています。','');
                     });
             }else{
-                alertNew('送信失敗','メールアドレスの形式が正しくありません。','OK');
+                alertNew('送信失敗','メールアドレスの形式が正しくありません。','');
             }
         }else{
             $.ajax({
                 type: 'post',
-                url: 'https://fanfun2020.xsrv.jp/vsApple278.html',
+                url: 'https://fanfun2020.xsrv.jp/vsApple279.html',
                 data: {
                 },
                 success: function(test){
@@ -191,16 +188,15 @@ function insertInfluencer() {
                                             console.log("----success.----");
                                     }
                                 });
-                                alertNew('まだ登録は完了しておりません','認証メールを送信しました。メールに記載のURL押下後、登録が完了します。','OK');
-                                window.location.href = 'logout.html';
+                                alertNew('まだ登録は完了しておりません','認証メールを送信しました。メールに記載のURL押下後、登録が完了します。','logout');
                             })
                             .catch(function(err){
                                 //   エラー処理
                                 //  保存に失敗した場合の処理
-                                alertNew('登録失敗','ユーザ名かメールアドレスが既に使用されています。','OK');
+                                alertNew('登録失敗','ユーザ名かメールアドレスが既に使用されています。','');
                             });
                     }else{
-                        alertNew('送信失敗','メールアドレスの形式が正しくありません。','OK');
+                        alertNew('送信失敗','メールアドレスの形式が正しくありません。','');
                     }
                 }
             });
@@ -256,16 +252,16 @@ function loginCheck(){
     })
     .catch(function(err){
         // エラー処理
-        navigator.notification.confirm(
-            '',
-            function(buttonIndex){
-                if(buttonIndex==2){
+        ons.notification.confirm({
+            message: 'メールアドレスかパスワードが間違っています',
+            title: "ログイン失敗",
+            buttonLabels:["閉じる","ヒント"],
+            callback: function(buttonIndex) {
+                if(buttonIndex==1){
                     document.getElementById('login').bringPageTop('loginHelp.html');
                 }
-            },
-            'メールアドレスかパスワードが間違っています',
-            ['閉じる','ヒント']
-        );
+            }
+        });
     });
 }
 
@@ -279,13 +275,13 @@ function passwordReminder(){
         user.requestPasswordReset()
             .then(function(data){
                 // 送信後処理
-                alertNew("送信しました。","上記メールアドレスにメールを送信しました。ご確認ください。","OK");
+                alertNew("送信しました。","上記メールアドレスにメールを送信しました。ご確認ください。","");
             })
             .catch(function(err){
                 // エラー処理
                 alertNew("このメールアドレスは登録されておりません。全角文字が混ざっていないか確認の上、再度お願いします。","","");
             });
     }else{
-        alertNew('送信失敗','メールアドレスの形式が正しくありません。','OK');
+        alertNew('送信失敗','メールアドレスの形式が正しくありません。','');
     }
 }

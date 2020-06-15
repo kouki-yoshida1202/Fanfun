@@ -83,29 +83,29 @@
         </div>
         <script>
             function buyPageOpen(){
-                navigator.notification.confirm(
-                    '',
-                    function(buttonIndex){
+                ons.notification.confirm({
+                    message: '5分経ちましたら、購入権は破棄されますのでご注意ください。',
+                    title: "入札手続き",
+                    buttonLabels:["キャンセル","進む"],
+                    callback: function(buttonIndex) {
                         if(buttonIndex==1){
-                            buypage();buyPageClose();
+                            buypage();
                         }
-                    },
-                    '5分経ちましたら、購入権は破棄されますのでご注意ください。',
-                    ['進む','キャンセル']
-                );
+                    }
+                });
             }
             
             function nyusatuPageOpen(){
-                navigator.notification.confirm(
-                    '',
-                    function(buttonIndex){
+                ons.notification.confirm({
+                    message: '5分経ちましたら、入札権利は破棄されますのでご注意ください。',
+                    title: "入札手続き",
+                    buttonLabels:["キャンセル","進む"],
+                    callback: function(buttonIndex) {
                         if(buttonIndex==1){
-                            nyusatupage();nyusatuPageClose();
+                            nyusatupage();
                         }
-                    },
-                    '5分経ちましたら、入札権利は破棄されますのでご注意ください。',
-                    ['進む','キャンセル']
-                );
+                    }
+                });
             }
 
             function tweetOtherGift(){

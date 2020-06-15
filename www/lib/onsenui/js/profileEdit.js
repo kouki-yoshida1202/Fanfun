@@ -55,12 +55,12 @@ function profileEdit(){
                                                 .catch(function(err){
                                                         // エラー処理
                                                         hideLoad();
-                                                        alertNew("画像の更新に失敗しました。","再度送信頂くか、お問い合わせください。","");
                                                         showLoad();
                                                         var mailaddress_radio = $('input[name="mailaddress-radio"]:checked').val();
                                                         if(mailaddress_radio == "onChange"){
+                                                                hideLoad();
+                                                                alertNew("画像の更新に失敗しました。","再度送信頂くか、お問い合わせください。","");
                                                                 setTimeout(function(){
-                                                                        hideLoad();
                                                                         window.location.href = 'index.html';
                                                                 }, 1000);
                                                         }else{
@@ -74,7 +74,7 @@ function profileEdit(){
                                                                         .then(function(data){
                                                                                 // ログイン後処理
                                                                                 hideLoad();
-                                                                                window.location.href = 'home.html';
+                                                                                alertNew("画像の更新に失敗しました。","再度送信頂くか、お問い合わせください。","homeBack");
                                                                         });
                                                                 }, 1000);
                                                         }
@@ -82,11 +82,7 @@ function profileEdit(){
                                         }else{
                                                 // // アップロード後処理
                                                 hideLoad();
-                                                alertNew("更新しました。","登録したメールアドレスに確認メールをお送りしました。記載URLから認証後、ログインが可能になります。","");
-                                                setTimeout(function(){
-                                                        hideLoad();
-                                                        window.location.href = 'logout.html';
-                                                },1500);
+                                                alertNew("更新しました。","登録したメールアドレスに確認メールをお送りしました。記載URLから認証後、ログインが可能になります。","logout");
                                         }
                                 })
                                 .catch(function(err) {
@@ -120,7 +116,6 @@ function profileEdit(){
                                 .then(function(res){
                                         // アップロード後処理
                                         hideLoad();
-                                        alertNew("更新しました。");
                                         showLoad();
                                         var mailaddress = $('#current_mailaddress_profile').val();
                                         var currentUser = ncmb.User.getCurrentUser();
@@ -132,19 +127,19 @@ function profileEdit(){
                                                 .then(function(data){
                                                 // ログイン後処理
                                                         hideLoad();
-                                                        window.location.href = 'home.html';
+                                                        alertNew("更新しました。","","homeBack");
                                                 });
                                         }, 1000);
                                 })
                                 .catch(function(err){
                                         // エラー処理
                                         hideLoad();
-                                        alertNew("画像の更新に失敗しました。","再度送信頂くか、お問い合わせください。","");
                                         showLoad();
                                         var mailaddress_radio = $('input[name="mailaddress-radio"]:checked').val();
                                         if(mailaddress_radio == "onChange"){
+                                                hideLoad();
+                                                alertNew("画像の更新に失敗しました。","再度送信頂くか、お問い合わせください。","");
                                                 setTimeout(function(){
-                                                        hideLoad();
                                                         window.location.href = 'index.html';
                                                 }, 1000);
                                         }else{
@@ -158,7 +153,7 @@ function profileEdit(){
                                                         .then(function(data){
                                                                 // ログイン後処理
                                                                 hideLoad();
-                                                                window.location.href = 'home.html';
+                                                                alertNew("画像の更新に失敗しました。","再度送信頂くか、お問い合わせください。","homeBack");
                                                         });
                                                 }, 1000);
                                         }
@@ -166,7 +161,6 @@ function profileEdit(){
                         }else{
                                 // アップロード後処理
                                 hideLoad();
-                                alertNew("更新しました。");
                                 var mailaddress = $('#current_mailaddress_profile').val();
                                 var currentUser = ncmb.User.getCurrentUser();
                                 var password = currentUser.get("password");
@@ -176,8 +170,7 @@ function profileEdit(){
                                         ncmb.User.loginWithMailAddress(mailaddress,password)
                                         .then(function(data){
                                         // ログイン後処理
-                                                hideLoad();
-                                                window.location.href = 'home.html';
+                                        alertNew("更新しました。","","homeBack");
                                         });
                                 }, 1000);
                         }

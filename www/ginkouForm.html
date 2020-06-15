@@ -124,10 +124,7 @@
                                         .fetchAll()
                                         .then(function(results){
                                                 if(results.length==0){
-                                                        alertNew("申し訳ございません。5分を超えてしまったため、再度手続きをお願いします。","","");
-                                                        setTimeout(function(){
-                                                                window.location.href = 'home.html';
-                                                        },1500);
+                                                        alertNew("申し訳ございません。5分を超えてしまったため、再度手続きをお願いします。","","homeBack");
                                                 }else{
                                                         $.ajax({
                                                                 type: 'post',
@@ -184,14 +181,16 @@
                                                                                         betweenOrder
                                                                                         .equalTo("giftUid", giftUid)
                                                                                         .equalTo("buyUser", objectId)
-                                                                                        .fetch()               
+                                                                                        .fetchAll()               
                                                                                         .then(function(results){
-                                                                                                results.delete();
+                                                                                                if(results.length!=0){
+                                                                                                        results[0].delete();
+                                                                                                }
                                                                                         })
                                                                                         .then(function(){
                                                                                                 hideLoad();
                                                                                                 setTimeout(function(){
-                                                                                                        alertNew("手続きが完了しました","","");
+                                                                                                        alertNew("手続きが完了しました","","homeBack");
                                                                                                         var push = new ncmb.Push();
                                                                                                         push.set("immediateDeliveryFlag", true)
                                                                                                         .set("message", "[入金待ち]状態の商品が購入されました！")
@@ -204,16 +203,10 @@
                                                                                                         .then(function(push){
                                                                                                         // 送信後処理
                                                                                                                 console.log(push);
-                                                                                                                setTimeout(function(){
-                                                                                                                        window.location.href = 'home.html';
-                                                                                                                },1500);
                                                                                                         })
                                                                                                         .catch(function(err){
                                                                                                         // エラー処理
                                                                                                                 console.log(err);
-                                                                                                                setTimeout(function(){
-                                                                                                                        window.location.href = 'home.html';
-                                                                                                                },1500);
                                                                                                         });
                                                                                                 },500);
                                                                                         })

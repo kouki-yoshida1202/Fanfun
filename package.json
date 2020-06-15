@@ -12,7 +12,8 @@
         "cordova-plugin-camera": "file:res/custom_plugins/cordova-plugin-camera",
         "cordova-plugin-customurlscheme": "file:res/custom_plugins/cordova-plugin-customurlscheme",
         "ncmb-push-monaca-plugin": "3.0.8",
-        "cordova-plugin-dialogs": "file:res/custom_plugins/cordova-plugin-dialogs"
+        "cordova-plugin-dialogs": "file:res/custom_plugins/cordova-plugin-dialogs",
+        "cordova-launch-review": "file:res/custom_plugins/cordova-launch-review"
     },
     "cordova": {
         "plugins": {
@@ -28,7 +29,8 @@
                 "URL_SCHEME": "fanfun"
             },
             "ncmb-push-monaca-plugin": {},
-            "cordova-plugin-dialogs": {}
+            "cordova-plugin-dialogs": {},
+            "cordova-launch-review": {}
         }
     },
     "scripts": {

@@ -78,10 +78,7 @@ function buypage(){
                         });
                         
                 }else{
-                        alertNew("在庫が0になりました。","","");
-                        setTimeout(function(){
-                                window.location.href = 'home.html';
-                        },1500);
+                        alertNew("在庫が0になりました。","","homeBack");
                 }
                 
         })
@@ -253,6 +250,7 @@ function nyusatupage(){
 }
 
 function nyusatu(){
+        showLoad();
         var nyusatuKakaku = Number($('#nyusatu_input').val());
         var giftUid = $('#nyusatupage_gift_uid').val();
         var influencerId = $('#nyusatupage_createUser_uid').val();
@@ -290,10 +288,7 @@ function nyusatu(){
                                 .fetchAll()
                                 .then(function(results){
                                         if(results.length==0){
-                                                alertNew("入札成功","","");
-                                                setTimeout(function(){
-                                                        window.location.href = 'home.html';
-                                                },1500);
+                                                alertNew("入札成功","","homeBack");
                                         }else{
                                                 var sendEndUser = [];
                                                 for(var i=0;i<results.length;i++){
@@ -313,40 +308,29 @@ function nyusatu(){
                                                                         
                                                                 });
                                                         }     
-                                                }
-                                                showLoad();                                                
+                                                }                                             
                                                 setTimeout(function(){
-                                                        alertNew("入札成功","","");
-                                                        setTimeout(function(){
-                                                                window.location.href = 'home.html';
-                                                        },1500); 
+                                                        hideLoad();
+                                                        alertNew("入札成功","","homeBack");
                                                 },3000);
                                         }
                                 }).catch(function(err){
-                                        alertNew("入札成功","","");
-                                        setTimeout(function(){
-                                                window.location.href = 'home.html';
-                                        },1500);
+                                        hideLoad();
+                                        alertNew("入札成功","","homeBack");
                                 });
                         })
                         .catch(function(err){
                         // エラー処理
-                                alertNew("入札成功","","");
-                                setTimeout(function(){
-                                        window.location.href = 'home.html';
-                                },1500);
+                                hideLoad();
+                                alertNew("入札成功","","homeBack");
                         });
                 }).catch(function(err){
-                        alertNew("エラーが発生しました。","","");
-                        setTimeout(function(){
-                                window.location.href = 'home.html';
-                        },1500);
+                        hideLoad();
+                        alertNew("エラーが発生しました。","","homeBack");
                 });
         }).catch(function(err){
-                alertNew("5分を超えたため、入札権利が破棄されております。","","");
-                setTimeout(function(){
-                        window.location.href = 'home.html';
-                },1500);
+                hideLoad();
+                alertNew("5分を超えたため、入札権利が破棄されております。","","homeBack");
         });
 }
 
