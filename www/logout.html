@@ -66,7 +66,8 @@
               message: Title,
               callback:function(){
                 setTimeout(function(){
-                  logout();
+                  ncmb.User.logout();
+                  window.location.href = 'logout.html';
                 },500);
               }
             });
@@ -93,7 +94,8 @@
               title: Title,
               callback:function(){
                 setTimeout(function(){
-                  logout();
+                  ncmb.User.logout();
+                  window.location.href = 'logout.html';
                 },500);
               }
             });

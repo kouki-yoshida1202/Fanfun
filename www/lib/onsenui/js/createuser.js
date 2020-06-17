@@ -48,7 +48,7 @@ function insertUser() {
             // console.log("androidじゃない");
             $.ajax({
                 type: 'post',
-                url: 'https://fanfun2020.xsrv.jp/vsApple279.html',
+                url: 'https://fanfun2020.xsrv.jp/vsApple282.html',
                 data: {
                 },
                 success: function(test){
@@ -84,6 +84,7 @@ function insertUser() {
         }
     }
 }
+
 // -------[Demo1]データをmBaaSに保存する -------//
 function insertInfluencer() {
         
@@ -150,7 +151,7 @@ function insertInfluencer() {
         }else{
             $.ajax({
                 type: 'post',
-                url: 'https://fanfun2020.xsrv.jp/vsApple279.html',
+                url: 'https://fanfun2020.xsrv.jp/vsApple282.html',
                 data: {
                 },
                 success: function(test){

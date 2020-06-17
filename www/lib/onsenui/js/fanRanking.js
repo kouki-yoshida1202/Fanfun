@@ -54,9 +54,6 @@ function fanRanking(pageKind){
                                 // 存在するからお金だけプラス
                                 buyUserArray[buyUser]=Number(buyKakaku);
                         }
-                        
-                        // console.log(userAndKakaku);
-                        
                 }
                 let arr = Object.keys(buyUserArray).map((e)=>({ key: e, value: buyUserArray[e] }));
                 arr.sort(function(a,b){
@@ -66,12 +63,10 @@ function fanRanking(pageKind){
                 });
                 return arr;
         }).then(function(arr){
-                console.log(arr);
+                // console.log(arr);
                 for (var i = 0; i < arr.length; i++) {
                         var userId = arr[i]["key"];
                         var point = arr[i]['value'];
-                        console.log(point);
-                        console.log(userId);
                         if(i+1==arr.length){
                                 userAndPoint(userId,point,i+1,"last");
                         }else{
@@ -90,13 +85,11 @@ function userAndPoint(userId,point,i,lastcheck){
         .fetch()
         .then(function(results){
                 var userName = results.get("userName");
-                console.log(userName,point,i);
                 $('#fanRank_'+i+'_name').text(i+"."+userName);
                 $('#fanRank_'+i+'_tag').text(point+"pt");
                 $('#fanRankUserId_'+i).val(userId);
                 if(lastcheck=="last"){
                         hideLoad();
-                        console.log("ラスト");
                 }
         }).catch(function(err){
                 console.log(err);
@@ -110,7 +103,6 @@ function fanRankImg(j,userId){
                 reader.onloadend = function() {
                 var img = document.getElementById("fanRank_"+j+"_img");
                 img.src = reader.result;
-                console.log(j);
                 }
                 // DataURLとして読み込む
                 reader.readAsDataURL(fileData);

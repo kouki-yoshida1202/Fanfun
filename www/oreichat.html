@@ -14,6 +14,7 @@
                         border: 1px solid #898989;
                         border-radius: 4px;
                         outline: none;
+                        margin-bottom:0px;
                 }
                 .cp_iptxt textarea:focus {
                         border-color: #FF6070;
@@ -66,15 +67,24 @@
                                                 <textarea rows="15" placeholder="お礼メッセージ内容を記載してください！(160文字以内/改行は反映されません)" id="messageText" onkeyup="ShowLength(value);" maxlength="160"></textarea>
                                                 <i class="fas fa-hand-holding-heart fa-lg fa-fw" aria-hidden="true"></i>
                                         </div>
-                                        <p id="oreichacCount" style="width:95%;text-align: right;margin-top:5px;margin:0 auto;">0文字</p>
-                                        <div style="width:100%;text-align:center;margin:0 auto;margin-top:20px;margin-bottom:20px;">
+                                        <p id="oreichacCount" style="width:95%;text-align: right;margin-top:0px;margin:0 auto;">0文字</p>
+                                        <div style="width:100%;text-align:center;margin:0 auto;margin-top:5px;margin-bottom:20px;">
                                                 <p style="text-align: left;width:95%;margin:0 auto;color:gray;">
                                                         1. 送信後、相手様に通知が飛びます(通知ONの場合)。<br>
                                                         2. 送信後、内容の変更は出来ません。<br>
                                                         3. 内容によっては無断でメッセージを削除する場合がございます。<br>
+                                                        4. 相手様からのお返事は原則ございません。<br>
                                                 </p>
                                                 <br>
-                                                <button class="button "style="width:100%;padding-top:0px;padding-bottom:0px;line-height:40px;border-radius:30px;font-size:16px;margin:0 auto;" onclick="oreiChatSend();">送信する</button>
+                                                <button class="button "style="width:100%;padding-top:0px;padding-bottom:0px;line-height:40px;border-radius:30px;font-size:16px;margin:0 auto;" onclick="nagesenSend();">投げ銭付きメッセージ</button>
+                                                <br>
+                                                <p style="text-align: left;width:95%;margin:0 auto;color:#FF6070;padding-top:5px;">
+                                                        投げ銭によるファンpointは1.5倍！
+                                                </p>
+                                                <br><br>
+                                                <button class="button "style="width:100%;padding-top:0px;padding-bottom:0px;line-height:40px;border-radius:30px;font-size:16px;margin:0 auto;background: -moz-linear-gradient(bottom left, #00C6FB, #005BEA);background: -webkit-linear-gradient(bottom left, #00C6FB, #005BEA);background: linear-gradient(to top right, #00C6FB, #005BEA);" onclick="oreiChatSendCheck();">メッセージのみ送信</button>
+                                                <br>
+                                                <br>
                                         </div>
                                 </div>
                         </div>
@@ -84,6 +94,39 @@
         <script>
                 function ShowLength( str ) {
                         document.getElementById("oreichacCount").innerHTML = str.length + "文字";
+                }
+
+                function nagesenSend(){
+                        var sendUser = $('#sendUser').val();
+                        var receiveUser = $('#receiveUser').val();
+                        var giftUid = $('#giftUid').val();
+                        var logId = $('#logId').val();
+                        var messageText = $('#messageText').val();
+                        if(messageText==''){
+                                alertNew("メッセージが未入力です。","","");
+                        }else{
+                                document.getElementById('navi').bringPageTop('nagesenSend.html');
+                                setTimeout(function(){
+                                        $('#logIdNagesen').val(logId);
+                                        $('#sendUserNagesen').val(sendUser);
+                                        $('#receiveUserNagesen').val(receiveUser);
+                                        $('#giftUidNagesen').val(giftUid);
+                                        $('#oreichatKakunin').html(messageText);
+                                },500);
+                        }
+                }
+
+                function oreiChatSendCheck(){
+                        ons.notification.confirm({
+                                message: '投げ銭なしのメッセージのみで送信しますか？',
+                                title: "確認",
+                                buttonLabels:["NO","YES"],
+                                callback: function(buttonIndex) {
+                                        if(buttonIndex==1){
+                                                oreiChatSend();
+                                        }
+                                }
+                        });
                 }
 
                 function oreiChatSend(){

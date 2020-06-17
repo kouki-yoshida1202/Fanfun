@@ -502,6 +502,80 @@
             alertNew("大変お手数ですが運営にエラーコードと共にお問い合わせくださいませ。エラーコード：251","","");
             hideLoad();
           });
+        }else if(page=="cardBuyNagesen"){
+          showLoad();
+          var nagesengaku = urlPrm.nagesengaku;
+          var sendUser = urlPrm.sendUser;
+          var receiveUser = urlPrm.receiveUser;
+          var messageText = urlPrm.messageText;
+          var giftUid = urlPrm.giftUid;
+          var logId = urlPrm.logId;
+          var messageData = ncmb.DataStore("messageData");
+          messageData
+          .equalTo("logId",logId)
+          .fetchAll()
+          .then(function(result){
+            if(result.length>0){
+              hideLoad();
+              setTimeout(function(){
+                alertNew("手続きは既に終えております。","","homeBack");
+              },500);
+            }else{
+              var messageData = ncmb.DataStore("messageData");
+              var messageData = new messageData();
+              messageData
+              .set("logId",logId)
+              .set("giftUid",giftUid)
+              .set("messageText",messageText)
+              .set("receiveUserId",receiveUser)
+              .set("sendUserId",sendUser)
+              .set("nagesengaku",Number(nagesengaku))
+              .save()
+              .then(function(){
+                var giftLog = ncmb.DataStore("giftLog");
+                giftLog
+                .equalTo('logId',logId)
+                .fetch()         
+                .then(function(results){
+                  results
+                  .set("sendOreiChat", "end")
+                  .update();
+
+                  hideLoad();
+                  setTimeout(function(){
+                    alertNew("投げ銭が完了しました","","homeBack");
+                    var push = new ncmb.Push();
+                    push.set("immediateDeliveryFlag", true)
+                        .set("message", "投げ銭が入りました！アプリ内でご確認ください！")
+                        .set("target", ["ios", "android"])
+                        .set('searchCondition', {
+                            userObjectId: receiveUser,
+                        });
+
+                    push.send()
+                        .then(function(push){
+                        // 送信後処理
+                          console.log(push);
+                        })
+                        .catch(function(err){
+                        // エラー処理
+                          console.log(err);
+                        });
+                    
+                  },500);
+                });
+              })
+              .catch(function(err){
+                hideLoad();
+                alertNew("大変お手数ですが運営にエラーコードと共にお問い合わせくださいませ。エラーコード：338","","");
+              });
+            }
+          })
+          .catch(function(err){
+            // エラー処理
+            hideLoad();
+            alertNew("大変お手数ですが運営にエラーコードと共にお問い合わせくださいませ。エラーコード：351","","");
+          });
         }
       }, 0);
     }

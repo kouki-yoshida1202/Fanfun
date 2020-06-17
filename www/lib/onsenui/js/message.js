@@ -29,7 +29,7 @@ function Message(kind){
         var messageCounter = 0;
 
         if(kind=="oreichat"){
-                var soushinkanou = `<p style="width:95%;color:white;margin:0 auto;">送信可能リスト(購入後ギフトが表示されます)</p>`;
+                var soushinkanou = `<p style="width:95%;color:white;margin:0 auto;font-size:0.8em;">送信可能リスト(購入後ギフトが表示されます)</p>`;
                 $('#jushinBox').append(soushinkanou);
 
                 var currentUser = ncmb.User.getCurrentUser();
@@ -92,10 +92,10 @@ function Message(kind){
                 
         }else{
                 if(kind == 'receiveUserId'){
-                        var soushinkanou = `<p style="width:95%;color:white;margin:0 auto;">届いたお礼メッセージ</p>`;
+                        var soushinkanou = `<p style="width:95%;color:white;margin:0 auto;font-size:0.8em;">届いたお礼メッセージ</p>`;
                         $('#jushinBox').append(soushinkanou);
                 }else if(kind == 'sendUserId'){
-                        var soushinkanou = `<p style="width:95%;color:white;margin:0 auto;">送信済みのお礼メッセージ</p>`;
+                        var soushinkanou = `<p style="width:95%;color:white;margin:0 auto;font-size:0.8em;">送信済みのお礼メッセージ</p>`;
                         $('#jushinBox').append(soushinkanou);
                 }
                 
@@ -132,11 +132,13 @@ function messageKind(kind,messageCounter){
                         var card_number = i+messageCounter*5;
                         var sendUserId = results[i].get("sendUserId");
                         var receiveUserId = results[i].get("receiveUserId");
-                        var createDate = results[i].get("createDate");
-                        var createDate = new Date(createDate).toLocaleString();
                         var giftUid = results[i].get("giftUid");
                         var logId = results[i].get("logId");
                         var messageText = results[i].get("messageText");
+                        var nagesengaku = results[i].get("nagesengaku");
+                        if(nagesengaku==null || nagesengaku==""||nagesengaku=="undefined"){
+                                nagesengaku=0;
+                        }
                         
                         var jushin = `
                                 <div class="card" style="text-align: center;padding-top:15px;padding-bottom:15px;margin-bottom:20px;">
@@ -160,7 +162,7 @@ function messageKind(kind,messageCounter){
                                         <div id="giftTitle_`+card_number+`" class="card__content" style="margin-top:10px;font-weight:bold;text-align: left;"></div>
                                         <div class="card__content" style="margin-top:10px;text-align: left;font-size:0.7em;">`+messageText+`
                                         </div>
-                                        <div style="padding-top:10px;width:100%;text-align: right;color:#898989;font-size:0.7em;">注文ID:`+logId+` 送信日:`+createDate+`</div>
+                                        <div style="padding-top:10px;width:100%;text-align: right;color:#898989;font-size:0.7em;">注文ID:`+logId+` 投げ銭¥:`+nagesengaku+`</div>
                                 </div>
                         `;
                         $('#jushinBox').append(jushin);
@@ -340,3 +342,4 @@ function showMessageLoad(){
 function hideMessageLoad(){
         $("#message-page").LoadingOverlay("hide");
 }
+
