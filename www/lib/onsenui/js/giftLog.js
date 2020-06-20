@@ -26,7 +26,7 @@ function shopPushPage(){
         giftLog
         .order('createDate', true)
         .equalTo('giftCreateInfluencer',objectId)
-        .notEqualTo('torihikiStatus',"プレゼント完了")
+        .notIn('torihikiStatus',["プレゼント完了","お礼メッセージ"])
         .fetchAll()         
         .then(function(results){
                 var object = results;
@@ -38,7 +38,7 @@ function shopPushPage(){
         giftLog
         .order('createDate', true)
         .equalTo('buyUser',objectId)
-        .notEqualTo('torihikiStatus',"プレゼント完了")
+        .notIn('torihikiStatus',["プレゼント完了","お礼メッセージ"])
         .fetchAll()         
         .then(function(results){
                 var object = results;
@@ -61,6 +61,7 @@ function uriageRireki(){
         giftLog
         .order('createDate', true)
         .equalTo('giftCreateInfluencer',objectId)
+        .notEqualTo('torihikiStatus',"お礼メッセージ")
         .fetchAll()                
         .then(function(results){
                 var object = results;
@@ -128,7 +129,7 @@ function mikanryoSyuppinTorihikiList(){
         giftLog
         .order('createDate', true)
         .equalTo('giftCreateInfluencer',objectId)
-        .notEqualTo('torihikiStatus',"プレゼント完了")
+        .notIn('torihikiStatus',["プレゼント完了","お礼メッセージ"])
         .fetchAll()                
         .then(function(results){
                 var object = results;
@@ -195,6 +196,7 @@ function kounyuRireki(){
         giftLog
         .order('createDate', true)
         .equalTo('buyUser',objectId)
+        .notIn('torihikiStatus',["お礼メッセージ"])
         .fetchAll()                
         .then(function(results){
                 var object = results;
@@ -262,7 +264,7 @@ function mikanryoKounyuTorihikiList(){
         giftLog
         .order('createDate', true)
         .equalTo('buyUser',objectId)
-        .notEqualTo('torihikiStatus',"プレゼント完了")
+        .notIn('torihikiStatus',["プレゼント完了","お礼メッセージ"])
         .fetchAll()                
         .then(function(results){
                 var object = results;

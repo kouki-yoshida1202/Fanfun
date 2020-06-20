@@ -504,12 +504,14 @@
           });
         }else if(page=="cardBuyNagesen"){
           showLoad();
+          var date = getNowYMD();
           var nagesengaku = urlPrm.nagesengaku;
           var sendUser = urlPrm.sendUser;
           var receiveUser = urlPrm.receiveUser;
           var messageText = urlPrm.messageText;
           var giftUid = urlPrm.giftUid;
           var logId = urlPrm.logId;
+          var tyumonId = urlPrm.tyumonId;
           var messageData = ncmb.DataStore("messageData");
           messageData
           .equalTo("logId",logId)
@@ -530,39 +532,86 @@
               .set("receiveUserId",receiveUser)
               .set("sendUserId",sendUser)
               .set("nagesengaku",Number(nagesengaku))
+              .set("giftLogLogId",tyumonId)
               .save()
               .then(function(){
                 var giftLog = ncmb.DataStore("giftLog");
+                var giftLog = new giftLog();
                 giftLog
-                .equalTo('logId',logId)
-                .fetch()         
-                .then(function(results){
-                  results
-                  .set("sendOreiChat", "end")
-                  .update();
+                .set("buyDate",date)
+                .set("buyKakaku",Number(nagesengaku)*1.5)
+                .set("buyRequest",messageText)
+                .set("buyUser",sendUser)
+                .set("buyUserAtena","")
+                .set("buyUserNickName","")
+                .set("giftCreateInfluencer",receiveUser)
+                .set("giftTitle","")
+                .set("giftUid",giftUid)
+                .set("logId",tyumonId)
+                .set("torihikiStatus","お礼メッセージ")
+                .save()
+                .then(function(){
+                  var giftLog = ncmb.DataStore("giftLog");
+                  giftLog
+                  .equalTo('logId',logId)
+                  .fetch()         
+                  .then(function(results){
+                    results
+                    .set("sendOreiChat", "end")
+                    .update();
 
-                  hideLoad();
-                  setTimeout(function(){
-                    alertNew("投げ銭が完了しました","","homeBack");
-                    var push = new ncmb.Push();
-                    push.set("immediateDeliveryFlag", true)
-                        .set("message", "投げ銭が入りました！アプリ内でご確認ください！")
-                        .set("target", ["ios", "android"])
-                        .set('searchCondition', {
-                            userObjectId: receiveUser,
-                        });
+                    hideLoad();
+                    setTimeout(function(){
+                      var today = new Date();
+                      today.setMinutes(today.getMonth() - 1);
+                      console.log(today);
+                      var reviewLog = ncmb.DataStore("reviewLog");
+                      reviewLog
+                      .equalTo('userObjectId',sendUser)
+                      .greaterThan("createDate",today)
+                      .fetchAll()         
+                      .then(function(results){
+                        if(results.length==0){
+                          var reviewLog = ncmb.DataStore("reviewLog");
+                          var reviewLog = new reviewLog();
+                          reviewLog
+                          .set("userObjectId",sendUser)
+                          .save()
+                          .then(function(){
+                            ons.notification.confirm({
+                              message: 'ご利用ありがとうございます！よければ開発の励みになりますので是非お願いします！',
+                              title: "レビューのお願い",
+                              buttonLabels:["閉じる","レビュー"],
+                              callback: function(buttonIndex) {
+                                if(buttonIndex==1){
+                                  reviewTest();
+                                }
+                              }
+                            });
+                          });
+                        }
+                      });
+                      alertNew("投げ銭が完了しました","","homeBack");
+                      var push = new ncmb.Push();
+                      push.set("immediateDeliveryFlag", true)
+                          .set("message", "投げ銭が入りました！アプリ内でご確認ください！")
+                          .set("target", ["ios", "android"])
+                          .set('searchCondition', {
+                              userObjectId: receiveUser,
+                          });
 
-                    push.send()
-                        .then(function(push){
-                        // 送信後処理
-                          console.log(push);
-                        })
-                        .catch(function(err){
-                        // エラー処理
-                          console.log(err);
-                        });
-                    
-                  },500);
+                      push.send()
+                          .then(function(push){
+                          // 送信後処理
+                            console.log(push);
+                          })
+                          .catch(function(err){
+                          // エラー処理
+                            console.log(err);
+                          });
+                      
+                    },500);
+                  });
                 });
               })
               .catch(function(err){
