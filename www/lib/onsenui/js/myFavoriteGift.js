@@ -93,6 +93,10 @@ function myFavoriteGift(){
                                                                 card += `<button class="toolbar-button" style="font-size:12px;padding:0px;background:#FF6070;margin-left:3px;border-radius:20px;padding:3px;">
                                                                 <span style="font-size:10px;color:white;">オークション</span>
                                                                 </button>`;
+                                                        }else if(auction=="プレゼント"){
+                                                                card += `<button class="toolbar-button" style="font-size:12px;padding:0px;background:#FF6070;margin-left:3px;border-radius:20px;padding:3px;">
+                                                                <span style="font-size:10px;color:white;">プレゼント</span>
+                                                                </button>`;
                                                         }else{
                                                                 card += `<button class="toolbar-button" style="font-size:12px;padding:0px;">
                                                                 <span style="font-size:12px;color:gray">残:`;

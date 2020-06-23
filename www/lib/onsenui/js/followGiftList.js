@@ -118,6 +118,10 @@ function followUserGift(followCounter){
                                                                 card += `<button class="toolbar-button" style="font-size:12px;padding:0px;background:#FF6070;margin-left:3px;border-radius:20px;padding:3px;">
                                                                 <span style="font-size:10px;color:white;">オークション</span>
                                                                 </button>`;
+                                                        }else if(auction=="プレゼント"){
+                                                                card += `<button class="toolbar-button" style="font-size:12px;padding:0px;background:#FF6070;margin-left:3px;border-radius:20px;padding:3px;">
+                                                                <span style="font-size:10px;color:white;">プレゼント</span>
+                                                                </button>`;
                                                         }else{
                                                                 card += `<button class="toolbar-button" style="font-size:12px;padding:0px;">
                                                                 <span style="font-size:12px;color:gray">残:`;
@@ -208,7 +212,7 @@ function followgiftImageGetTop(giftUid,i,gift_stock,auction){
                 }
                 // DataURLとして読み込む
                 reader.readAsDataURL(fileData);
-                if(gift_stock==0 && auction!="オークション"){
+                if(gift_stock==0 && auction=="通常出品"){
                         var sold_out = `<img class="sold_out" src="img/custom – 8.png" style="border-radius:20px;"></div>`;
                         $("#follow_gift_image_top_"+i).after(sold_out);
                         $("#follow_gift_image_top_"+i).addClass("sold_img");

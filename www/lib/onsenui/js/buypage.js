@@ -96,45 +96,50 @@ function buyPageCancel(){
         .equalTo("giftUid", giftUid)
         .fetch()               
         .then(function(result){
-                var stock = result.get("stock");
-                $.ajax({
-                        type: 'post',
-                        url: 'https://fanfun2020.xsrv.jp/buypageCancelPHP.html',
-                        data: {
-                                "stock":stock,
-                                "gift_uid":giftUid,
-                        },
-                        success: function(data){
-                                if(data == "success"){
-                                        document.getElementById('navi').popPage();
-                                        var betweenOrder = ncmb.DataStore("betweenOrder");
-                                        betweenOrder
-                                        .equalTo("giftUid", giftUid)
-                                        .equalTo("buyUser", myUserId)
-                                        .fetch()               
-                                        .then(function(results){
-                                                results.delete();
-                                                var GiftData = ncmb.DataStore("giftData");
-                                                GiftData
+                var auction = result.get("auction");
+                if(auction=="プレゼント"){
+                        document.getElementById('navi').popPage();
+                }else{
+                        var stock = result.get("stock");
+                        $.ajax({
+                                type: 'post',
+                                url: 'https://fanfun2020.xsrv.jp/buypageCancelPHP.html',
+                                data: {
+                                        "stock":stock,
+                                        "gift_uid":giftUid,
+                                },
+                                success: function(data){
+                                        if(data == "success"){
+                                                document.getElementById('navi').popPage();
+                                                var betweenOrder = ncmb.DataStore("betweenOrder");
+                                                betweenOrder
                                                 .equalTo("giftUid", giftUid)
+                                                .equalTo("buyUser", myUserId)
                                                 .fetch()               
-                                                .then(function(result){
-                                                        var object = result;
-                                                        var stock = String(Number(object.get("stock")) + 1);
-                                                        result
-                                                        .set("stock",stock)
-                                                        .update();
+                                                .then(function(results){
+                                                        results.delete();
+                                                        var GiftData = ncmb.DataStore("giftData");
+                                                        GiftData
+                                                        .equalTo("giftUid", giftUid)
+                                                        .fetch()               
+                                                        .then(function(result){
+                                                                var object = result;
+                                                                var stock = String(Number(object.get("stock")) + 1);
+                                                                result
+                                                                .set("stock",stock)
+                                                                .update();
+                                                        });
+                                                        
                                                 });
-                                                
-                                        });
-                                }else{
-                                        alertNew("エラーが発生しました。再度お試しください。","","");
+                                        }else{
+                                                alertNew("エラーが発生しました。再度お試しください。","","");
+                                        }
+                                },
+                                error: function (response) {
+                                        console.log(response);
                                 }
-                        },
-                        error: function (response) {
-                                console.log(response);
-                        }
-                });
+                        });
+                }
         });
 }
 
@@ -375,5 +380,55 @@ function nyusatuPageCancel(){
         .then(function(results){
                 results.delete();
                 document.getElementById('navi').popPage();
+        });
+}
+
+function fanPresentpage(){
+        var gift_uid = $('#gift_id').val();
+        var currentUser = ncmb.User.getCurrentUser();
+        var myUserId = currentUser.get('objectId');
+        var GiftData = ncmb.DataStore("giftData");
+        
+        GiftData
+        .equalTo("giftUid", gift_uid)
+        .fetch()               
+        .then(function(results){
+                var object = results;
+                var stock = Number(object.get("stock"));
+                document.getElementById('navi').bringPageTop('buypage.html');
+                var giftTitle = object.get("giftTitle");
+                console.log(giftTitle);
+                var giftText = object.get("giftText");
+                if(object.get("auction")!="オークション"){
+                        var price = object.get("price");
+                }else{
+                        var price = $('#detail_kakaku').val();
+                }
+                price_kakou = "¥"+price+"";
+                setTimeout(function(){
+                        $('#buypage_price_number').val(price);
+                        $('#buypage_title').html(giftTitle);
+                        $('#buypage_price').html(price_kakou);
+                        $('#buypage_gift_uid').val(gift_uid);
+                        $("#buypage_img").height($("#buypage_img").width());
+                        ncmb.File.download(gift_uid, "blob")
+                        .then(function(fileData) {
+                                var reader = new FileReader();
+                                reader.onloadend = function() {
+                                        var img = document.getElementById("buypage_img");
+                                        img.src = reader.result;
+                                }
+                                // DataURLとして読み込む
+                                reader.readAsDataURL(fileData);
+                        })
+                        .catch(function(err){
+                        // エラー処理
+                        console.log('error = ' + err);
+                        });
+                },500);
+                
+        })
+        .catch(function(err){
+                console.log(err);
         });
 }

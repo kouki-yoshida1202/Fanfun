@@ -64,7 +64,7 @@
                     </p>
                 </div>
                 <div class="cp_iptxt">
-                    <button class="button "style="width:100%;padding-top:5px;padding-bottom:5px;line-height:auto;border-radius:30px;font-size:100%;margin:0 auto;height:45px;" onclick="insertUser()">
+                    <button class="button "style="width:100%;padding-top:5px;padding-bottom:5px;line-height:auto;border-radius:30px;font-size:100%;margin:0 auto;height:45px;" onclick="insertUserOpen()">
                         アカウント登録
                     </button>
                 </div>
@@ -72,5 +72,17 @@
         </div>
     </div>
     <script>
+        function insertUserOpen(){
+            ons.notification.confirm({
+                    message: '@gonmura.infoのドメインを受信許可していない場合、メールが届きません。特にdocomo,softbank,auの携帯アドレスの場合は受信できない場合が多いので、受信設定にご注意ください。',
+                    title: "注意",
+                    buttonLabels:["キャンセル","OK"],
+                    callback: function(buttonIndex) {
+                            if(buttonIndex==1){
+                                insertUser();
+                            }
+                    }
+            });
+        }
     </script>
 </ons-page>

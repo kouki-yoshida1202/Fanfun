@@ -72,19 +72,35 @@
                         ※受信制限をされている方はお手数ですが「fanfun@fanfun2020.xsrv.jp」「fanfun-ordercheck@gonmura.info」からのメールが届くように設定してください。ご注文のやり取りで使用します。
                     </span>
                 </div>
-                <div style="width:100%;text-align:center;margin-top:20px;margin-bottom:10px;">
+                <div id="cardKessaiZone" style="width:100%;text-align:center;margin-top:20px;margin-bottom:10px;">
                     <button class="button "style="width:100%;padding-top:0px;padding-bottom:0px;line-height:35px;height:35px;border-radius:30px;font-size:16px;margin:0 auto;" onclick="stripe();">カード払い画面へ</button>
                 </div>
-                <div style="width:100%;text-align:center;margin-top:20px;margin-bottom:10px;">
+                <div id="ginkouKessaiZone" style="width:100%;text-align:center;margin-top:20px;margin-bottom:10px;">
                     <button class="button "style="width:100%;padding-top:0px;padding-bottom:0px;line-height:35px;height:35px;border-radius:30px;font-size:16px;margin:0 auto;background: -moz-linear-gradient(bottom left, #00C6FB, #005BEA);background: -webkit-linear-gradient(bottom left, #00C6FB, #005BEA);background: linear-gradient(to top right, #00C6FB, #005BEA);" onclick="ginkouForm();">銀行振込画面へ</button>
                 </div>
-                <div style="width:100%;text-align:center;margin-top:20px;margin-bottom:10px;">
+                <div id="paypalKessaiZone" style="width:100%;text-align:center;margin-top:20px;margin-bottom:10px;">
                     <button class="button "style="width:100%;padding-top:0px;padding-bottom:0px;line-height:35px;height:35px;border-radius:30px;font-size:16px;margin:0 auto;background:#FFC33A;" onclick="paypalForm();">PayPal決済へ</button>
+                </div>
+                <div id="fanPresentKessaiZone"style="width:100%;text-align:center;margin-top:20px;margin-bottom:10px;display:none;">
+                    <button class="button "style="width:100%;padding-top:0px;padding-bottom:0px;line-height:35px;height:35px;border-radius:30px;font-size:16px;margin:0 auto;" onclick="fanPresentReceiveOpen();">プレゼント依頼送信</button>
                 </div>
             </div>
         </div>
     </div>
     <script>
+        function fanPresentReceiveOpen(){
+            ons.notification.confirm({
+                message: 'プレゼントを依頼しますか？',
+                title: "確認",
+                buttonLabels:["キャンセル","送信"],
+                callback: function(buttonIndex) {
+                    if(buttonIndex==1){
+                        fanPresentReceive();
+                    }
+                }
+            });
+        }
+
         function stripe(){
             var currentUser = ncmb.User.getCurrentUser();
             var userName = currentUser.get("userName");
@@ -285,6 +301,126 @@
                 });
             })
             .catch(function(err){
+                    console.log(err);
+                    alertNew("エラーが発生しました。もう一度やり直してください。","","");
+            });
+        }
+
+        function fanPresentReceive(){
+            var currentUser = ncmb.User.getCurrentUser();
+            var userName = currentUser.get("userName");
+            var mailaddress = currentUser.get("mailAddress");
+            var objectId = currentUser.get("objectId");
+            var gift_title = $('#check_gift_title').val();
+            var price = $('#check_price').val()*1.04;
+            var gift_uid = $('#check_gift_uid').val();
+            var send_human = $('#send_human').html();
+            var nickname = $('#nickname').html();
+            var request = $('#request_message').html();
+            var GiftData = ncmb.DataStore("giftData");
+            GiftData
+            .equalTo("giftUid", gift_uid)
+            .fetch()               
+            .then(function(results){
+                var object = results;
+                var influencerId = object.get("userId");
+                var defaultPrice = object.get("price");
+                ncmb.User
+                .equalTo('objectId',influencerId)
+                .fetch()
+                .then(function(results){
+                    var object = results;
+                    var influencerMail = object.get("mailAddress");
+                    $.ajax({
+                        type: 'post',
+                        url: 'https://fanfun2020.xsrv.jp/fanPresentOrderMail.html',
+                        data: {
+                                "objectId":objectId,
+                                "giftUid":gift_uid,
+                                "price":price,
+                                "userName":userName,
+                                "giftTitle":gift_title,
+                                "mailaddress":mailaddress,
+                                "sendHuman":send_human,
+                                "nickName":nickname,
+                                "request":request,
+                                "influencerId":influencerId,
+                                "defaultPrice":defaultPrice,
+                                "influencerMail":influencerMail,
+                        },
+                        success: function(data){
+                                var data = JSON.parse(data);
+                                showLoad();
+                                var date = getNowYMD();
+                                var defaultPrice = data[0];
+                                var request = data[1];
+                                var sendHuman = data[2];
+                                var nickName = data[3];
+                                var giftUid = data[4];
+                                var tyumonId = String(data[5]);
+                                var objectId = data[6];
+                                var influencerId = data[7];
+                                var giftTitle = data[8];
+                                var giftLog = ncmb.DataStore("giftLog");
+                                var giftLog = new giftLog();
+                                giftLog.set("buyDate",date)
+                                        .set("buyKakaku",defaultPrice)
+                                        .set("buyRequest",request)
+                                        .set("buyUser",objectId)
+                                        .set("buyUserAtena",sendHuman)
+                                        .set("buyUserNickName",nickName)
+                                        .set("giftCreateInfluencer",influencerId)
+                                        .set("giftTitle",giftTitle)
+                                        .set("giftUid",giftUid)
+                                        .set("logId",tyumonId)
+                                        .set("torihikiStatus","ギフト準備中")
+                                        .save()
+                                        .then(function(){
+                                            // 保存後の処理
+                                            hideLoad();
+                                            setTimeout(function(){
+                                                    var push = new ncmb.Push();
+                                                    push.set("immediateDeliveryFlag", true)
+                                                    .set("message", "注文が入りました！")
+                                                    .set("target", ["ios", "android"])
+                                                    .set('searchCondition', {
+                                                            userObjectId: influencerId,
+                                                    });
+
+                                                    push.send()
+                                                    .then(function(push){
+                                                    // 送信後処理
+                                                            console.log(push);
+                                                            setTimeout(function(){
+                                                                alertNew("手続きが完了しました","","homeBack");
+                                                            },1500);
+                                                    })
+                                                    .catch(function(err){
+                                                    // エラー処理
+                                                            console.log(err);
+                                                            setTimeout(function(){
+                                                                alertNew("手続きが完了しました","","homeBack");
+                                                            },1500);
+                                                    });
+                                            },500);
+                                        })
+                                        .catch(function(err){
+                                        // エラー処理
+                                            hideLoad();
+                                            alertNew("エラーが発生しました。もう一度やり直してください。","","");
+                                        });
+                        },
+                        error: function (response) {
+                                console.log(response);
+                                alertNew("失敗しました。アプリが最新状態でない可能性がございます。","","");
+                        }
+                    });
+                }).catch(function(err){
+                    console.log(err);
+                    alertNew("エラーが発生しました。もう一度やり直してください。","","");
+                });
+                
+            }).catch(function(err){
                     console.log(err);
                     alertNew("エラーが発生しました。もう一度やり直してください。","","");
             });

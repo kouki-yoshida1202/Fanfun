@@ -54,12 +54,16 @@
                         </div>
                     </div>
                     <div id="gift_detail_title_other"class="gift_title" style="height:auto;font-size:16px;font-weight:bold;padding:10px 5px 10px 5px;"></div>
-                    <div id="gift_detail_ohitotu" style="display: none;">
+                    <div id="gift_detail_ohitotu" style="display: none;margin:5px 0px;">
                         <span style="background-color: #FF6070;color:white;font-weight:bold;border-radius: 20px;padding:5px 10px;font-size:0.7em;">お一人様おひとつ限定</span>
                     </div>
-                    <div id="gift_detail_auction" style="display: none;">
+                    <div id="gift_detail_auction" style="display: none;margin:5px 0px;">
                         <span style="background-color: #FF6070;color:white;font-weight:bold;border-radius: 20px;padding:5px 10px;font-size:0.7em;">オークション商品(1品限定)</span>
                     </div>
+                    <div id="gift_detail_fanpresent" style="display: none;margin:5px 0px;">
+                        <span style="background-color: #FF6070;color:white;font-weight:bold;border-radius: 20px;padding:5px 10px;font-size:0.7em;">Fanランキング上位者限定ギフト！</span>
+                    </div>
+                    <div id="gift_text_fanPresent_date_other"class="gift_text_fanPresent_date" style="height:auto;font-size:0.7em;padding:10px 5px 10px 5px;display:none;color:#898989;"></div>
                     <div id="gift_detail_text_other"class="gift_text" style="height:auto;font-size:14px;padding:10px 5px 10px 5px;"></div>
                     <div id="gift_detail_time_other"class="gift_time" style="text-align:right;height:auto;font-size:10px;padding:10px 5px 10px 5px;"></div>
                 </div>
@@ -78,6 +82,12 @@
                 </button>
                 <button id="nyusatuEndButton" class="button" style="background: gray;width:100%;display:none;color:white;" onclick="alertNew('終了しているオークションです。落札者の方のみ購入手続きに進めます。','','');">
                         終了しました
+                </button>
+                <button id="presentButton" class="button" style="background-color: #FF6070;width:100%;display:none;" onclick="fanPresentPageOpen();">
+                    受取手続き
+                </button>
+                <button id="presentEndButton" class="button" style="background: gray;width:100%;display:none;color:white;" onclick="alertNew('Fanランキング上位者限定商品です。恐れ入りますが受け取り資格がございません。','','');">
+                        受け取れません
                 </button>
             </div>
         </div>
@@ -103,6 +113,19 @@
                     callback: function(buttonIndex) {
                         if(buttonIndex==1){
                             nyusatupage();
+                        }
+                    }
+                });
+            }
+
+            function fanPresentPageOpen(){
+                ons.notification.confirm({
+                    message: '受け取り手続きへ',
+                    title: "確認",
+                    buttonLabels:["キャンセル","進む"],
+                    callback: function(buttonIndex) {
+                        if(buttonIndex==1){
+                            fanPresentpage();
                         }
                     }
                 });

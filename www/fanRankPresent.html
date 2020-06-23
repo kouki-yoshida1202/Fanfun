@@ -100,7 +100,7 @@
                 <div>
                     <span>3.販売価格(100~9,999,999)</span>
                 </div>
-                <div id="itemKindRadio" class="segment" style="width: 100%; margin: 0 auto;margin-top:7px;margin-bottom:7px;">
+                <div class="segment" style="width: 100%; margin: 0 auto;margin-top:7px;margin-bottom:7px;">
                     <div class="segment__item" style="width:49%;">
                         <input type="radio" class="segment__input segment-giftKind" name="segment-giftKind" value="通常出品"checked>
                         <div class="segment__button" style="height:35px;line-height: 35px;">通常出品</div>
@@ -110,7 +110,7 @@
                         <div class="segment__button" style="height:35px;line-height: 35px;">オークション</div>
                     </div>
                 </div>
-                <div id="itemKakaku" class="card" style="width: 100%; margin: 0 auto;margin-top:3px;background-color: white;border:1px solid #898989;border-radius: 5px;">
+                <div class="card" style="width: 100%; margin: 0 auto;margin-top:3px;background-color: white;border:1px solid #898989;border-radius: 5px;">
                     <ul class="list">
                         <li class="list-item">
                             <div id="kakaku_text" class="list-item__center" style="font-size: 80%;width:35%;">
@@ -145,11 +145,8 @@
                         </li>
                     </ul>
                 </div>
-                <div id="fanRankPresentText"class="cp_iptxt" style="display:none;">
-                    <span style="font-size:14px;color:#FF6070;">※Fanランキング上位還元プレゼントの価格は「０円」となります。</span>
-                </div>
             </div>
-            <div id="4_area" style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:20px;">
+            <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:20px;">
                 <div>
                     <span>4.在庫数(後から変更不可です)</span>
                 </div>
@@ -163,21 +160,7 @@
                     <span style="font-size:12px;color:#FF6070;">※オークション制では最高値で落札された方のみの1品限定商品となります!</span>
                 </div>
             </div>
-            <div id="4_area_fanRank" style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:20px;display:none;">
-                <div>
-                    <span>4.Fanランキング○位までプレゼント<br>(後から変更不可です)</span>
-                </div>
-                
-                <div id="normal_text">
-                    <select id="fanRankPresentValue"name="blood"class="select-input select-input--underbar" style="width:100%;border: 1px solid #898989;border-radius: 5px;padding: 0.3em 1em;height:40px;line-height: 20px;background:white;margin: 8px 0;">
-                            <option value="1">1位まで</option>
-                            <option value="3">3位まで</option>
-                            <option value="5">5位まで</option>
-                            <option value="9">9位まで</option>
-                    </select>
-                </div>
-            </div>
-            <div id="5_area" style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:20px;">
+            <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:20px;">
                 <div>
                     <span>5.投稿時間(後から変更不可です)</span>
                 </div>
@@ -256,13 +239,6 @@
                 <div id="giftShitagakiButtonZone"class="cp_iptxt">
                     <button id="giftShitagakiButton" class="button "style="width:100%;padding-top:5px;padding-bottom:5px;line-height:auto;border-radius:30px;font-size:100%;margin:0 auto;height:45px;background:gray;" onclick="giftInsert(1);" disabled>
                             下書き保存
-                    </button>
-                </div>
-            </div>
-            <div id="giftPresentButtonZone" style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:20px;display:none;">
-                <div id="" class="cp_iptxt">
-                    <button id="giftPresentButton" class="button "style="width:100%;padding-top:5px;padding-bottom:5px;line-height:auto;border-radius:30px;font-size:100%;margin:0 auto;height:45px;" onclick="giftInsertPresent();">
-                            プレゼント出品をする
                     </button>
                 </div>
             </div>

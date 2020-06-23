@@ -110,7 +110,7 @@
                                                 <i class="fab fa-quora fa-lg fa-fw" aria-hidden="true"></i>
                                         </div>
                                         <div style="width:90%;text-align:center;margin:0 auto;margin-top:0px;margin-bottom:20px;">
-                                                <button class="button "style="width:100%;padding-top:0px;padding-bottom:0px;line-height:40px;border-radius:30px;font-size:16px;margin:0 auto;" onclick="contactFormSend();">送信する</button>
+                                                <button class="button "style="width:100%;padding-top:0px;padding-bottom:0px;line-height:40px;border-radius:30px;font-size:16px;margin:0 auto;" onclick="contactFormOpen();">送信する</button>
                                         </div>
                                 </div>
                         </div>
@@ -156,6 +156,18 @@
             </div>
         </div>
         <script>
+                function contactFormOpen(){
+                        ons.notification.confirm({
+                                message: '@gonmura.infoのドメインを受信許可していない場合、返信が届きません。特にdocomo,softbank,auの携帯アドレスの場合は受信できない場合が多いので、受信設定にご注意ください。',
+                                title: "注意",
+                                buttonLabels:["キャンセル","送信"],
+                                callback: function(buttonIndex) {
+                                        if(buttonIndex==1){
+                                                contactFormSend();
+                                        }
+                                }
+                        });
+                }
                 $('.contact_dialog_mask,.contact_dialog,.contactMailMiss_dialog_mask,.contactMailMiss_dialog,.contact_dialog_miss_mask,.contact_miss_dialog,.contactNo_dialog_mask,.contactNo_dialog').hide();
                 function contactCheckOpen(){
                         $('.contact_dialog_mask,.contact_dialog').slideDown();

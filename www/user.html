@@ -78,6 +78,11 @@
                 <button class="button "style="width:90%;padding-top:0px;padding-bottom:0px;line-height:auto;border-radius:30px;font-size:16px;margin:0 auto;background: -moz-linear-gradient(bottom left, #00C6FB, #005BEA);background: -webkit-linear-gradient(bottom left, #00C6FB, #005BEA);background: linear-gradient(to top right, #00C6FB, #005BEA);"onclick="document.getElementById('navi').bringPageTop('profile_edit.html');profilePage();loginImageEdit();">プロフィール編集</button>
             </div>
         </div>
+        <div style="margin-bottom:25px;margin-top:25px;height:20px;">
+                <div style="width:100%;text-align:center;margin:0 auto;">
+                    <button id="fanRankPresentButton" class="button "style="width:95%;padding-top:0px;padding-bottom:0px;line-height:auto;border-radius:30px;font-size:16px;margin:0 auto;"onclick="document.getElementById('navi').bringPageTop('giftinput.html');fanRankPresentPageOpen();" disabled>Fanランキング上位還元プレゼント</button>
+                </div>
+            </div>
         <div style="width:100%;text-align:center;margin-top:20px;height:25px;">
             <p style="width:auto;line-height: 100%;margin:0px;font-size:14px;margin-top:10px;margin-bottom:10px;">
                 <span id="myGiftLength" style="border-bottom:1px solid #FF6070;padding-bottom:3px;"></span>
@@ -97,7 +102,7 @@
             <button class="btn button" onclick="giftLogStatusChange($('#giftLogStatusChange').val());" style="margin-bottom:50px;">プレゼント完了</button>
             <input type="tel" id="giftLogStatusKakunin" class="text-input" style="background-color: white;border:1px solid black;width:100%;">
             <button class="btn button" onclick="giftLogStatusKakunin($('#giftLogStatusKakunin').val());">ギフト内容確認中</button>
-            <button class="btn button" onclick="reviewTest();">アプリ内レビューテスト</button>
+            <button class="btn button" onclick="normalGift();">通常出品に帰る</button>
         </div>
     </div>
     
@@ -118,16 +123,21 @@
     </div>
     <!-- 以下、javascript -->
     <script type="text/javascript">
-        function reviewTest(){
-            if (!ons.platform.isIOS()) {
-                // reviewTestNormal();
-                instagramOpen('https://bit.ly/2Ye7B3P');
-                return false;
-            }
-            LaunchReview.rating(() => {
-            // ons.notification.alert('アプリ内レビューが成功しました');
-            }, (err) => {
-            // ons.notification.alert(`アプリ内レビューが失敗しました。${JSON.stringify(err)}`);
+        function normalGift(){
+            var giftData = ncmb.DataStore("giftData");
+            giftData
+            .equalTo("auction",null)
+            .fetchAll()         
+            .then(function(result){
+                for(var i=0;i<result.length;i++){
+                    var auction = result[i].get("auction");
+                    var createDate = result[i].get("createDate");
+                    // if(auction==null){
+                        console.log(auction,createDate);
+                    // }
+                    result[i].set("auction", "通常出品")
+                    .update();
+                }
             });
         }
 

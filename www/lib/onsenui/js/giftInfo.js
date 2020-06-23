@@ -44,6 +44,7 @@ function giftInsert(ReleaseStatus) {
         }else{
                 var auctionEndtime = "";
         }
+
         if(gift_title ==''){
                 hideGiftInsertLoad();
                 alertNew("ギフト名が未入力です","","");
@@ -54,8 +55,7 @@ function giftInsert(ReleaseStatus) {
         else if(profileGiftInputStatus == 0){
                 hideGiftInsertLoad();
                 alertNew("ギフト画像が未登録です","","");
-        }
-        else if(gift_price == ""){
+        }else if(gift_price == ""){
                 hideGiftInsertLoad();
                 alertNew("ギフト価格が未入力です","","");
         }else if(gift_stock == ""){
@@ -329,6 +329,15 @@ function giftNowInfo(){
                                         $('#rieki_area_edit').css("display","none");
 
                                         $('#gift_price_edit').val(gift_price);
+                                }else if(giftKind=="プレゼント"){
+                                        $('#3_area_edit').css("display","none");
+                                        $('#4_area_edit').css("display","none");
+                                        $('#5_area_edit').css("display","none");
+                                        $('#6_area_edit').css("display","none");
+                                        $('#giftEditButtonZone').css("display","none");
+                                        $('#giftEditButton2').css("display","none");
+                                        $('#presentEditButtonZone').css("display","block");
+                                        $('#presentEditButton').css("display","block");
                                 }
                         });
 
@@ -389,4 +398,294 @@ function isoToNormalChange(datetime){
         var time = hh + ":" + mm;
         var datetimeEdit = date + " "+ time;
         return datetimeEdit;
+}
+
+function giftInsertPresent() {
+        showLoad();
+        //ユーザーの入力したデータを変数にセットする
+        var gift_title = $("#gift_title").val();  
+        var gift_title = gift_title.replace(/'/g,"’");
+        var gift_title = gift_title.replace(/"/g,"’");          
+        var gift_text = $("#gift_text").val();
+        var gift_text = gift_text.replace(/'/g,"’");
+        var gift_text = gift_text.replace(/"/g,"’");
+        var gift_text = gift_text.replace(/\r?\n/g,'<br>');
+        var gift_text = gift_text.replace(/\r?\n/g,'<br>');
+        var gift_price = "0"; 
+        var gift_stock = "0";
+        var giftKind = "プレゼント";
+        var time = new Date();
+        var iso = moment(time).format();
+        var ohitotu = 'ON';
+        var timeLimit = $('.segment-limit:checked').val();
+        var profileGiftInputStatus = $('#profileGiftInputStatus').val();
+        var ReleaseStatus="";
+        var auctionEndtime = "";
+
+        if(gift_title ==''){
+                hideLoad();
+                alertNew("ギフト名が未入力です","","");
+        }else if(gift_text == ""){
+                hideLoad();
+                alertNew("ギフト説明文が未入力です","","");
+        }
+        else if(profileGiftInputStatus == 0){
+                hideLoad();
+                alertNew("ギフト画像が未登録です","","");
+        }else{
+                var currentUser = ncmb.User.getCurrentUser();
+                var objectId = currentUser.get("objectId");
+                var influencerName = currentUser.get("userName");
+                // クラスのTestClassを作成
+                var strong = 1000;
+                var uid = new Date().getTime().toString(16)  + Math.floor(strong*Math.random()).toString(16);
+                // データストアへの登録
+                var currentUser = ncmb.User.getCurrentUser();
+                var userKind = currentUser.get("userKind");
+                if(userKind!="test"){
+                        var GiftData = ncmb.DataStore("giftData");
+                        var giftData = new GiftData();
+                        giftData.set("userId", objectId)
+                                .set("giftTitle", gift_title)
+                                .set("giftText", gift_text)
+                                .set("price",gift_price)
+                                .set("giftUid",uid)
+                                .set("stock",gift_stock)
+                                .set("releaseDate",iso)
+                                .set("ohitotu",ohitotu)
+                                .set("timeLimit",String(timeLimit))
+                                .set("ReleaseStatus",ReleaseStatus)
+                                .set("auction",giftKind)
+                                .set("auctionEndTime",auctionEndtime)
+                                .save()
+                                .then(function(gameScore){
+                                        // 保存後の処理
+                                        var userId = objectId;
+                                        var rank = $('#fanRankPresentValue').val();
+                                        var giftLog = ncmb.DataStore("giftLog");
+                                        giftLog
+                                        .equalTo('giftCreateInfluencer',userId)
+                                        .fetchAll()         
+                                        .then(function(results){
+                                                var buyUserArray = [];
+                                                if(results.length==0){
+                                                        hideLoad();
+                                                }
+                                                for (var i = 0; i < results.length; i++) {
+                                                        var buyUser = results[i].get("buyUser");
+                                                        var buyKakaku = results[i].get("buyKakaku");
+                                                        
+                                                        if (buyUserArray[buyUser]){
+                                                                // 存在しない
+                                                                var beforeKakaku = buyUserArray[buyUser];
+                                                                buyUserArray[buyUser] = Number(beforeKakaku)+Number(buyKakaku);
+                                                        }else{
+                                                                // 存在するからお金だけプラス
+                                                                buyUserArray[buyUser]=Number(buyKakaku);
+                                                        }
+                                                }
+                                                let arr = Object.keys(buyUserArray).map((e)=>({ key: e, value: buyUserArray[e] }));
+                                                arr.sort(function(a,b){
+                                                        if(a.value < b.value) return 1;
+                                                        if(a.value > b.value) return -1;
+                                                        return 0;
+                                                });
+                                                return arr;
+                                        }).then(function(arr){
+                                                // console.log(arr);
+                                                var fanRankArray = [];
+                                                if(rank>arr.length){
+                                                        rank = arr.length;
+                                                }
+                                                for (var i = 0; i < Number(rank); i++) {
+                                                        var userId = arr[i]["key"];
+                                                        fanRankArray.push(userId);
+                                                }
+                                                return fanRankArray;
+                                        }).then(function(fanRankArray){
+                                                var fanRankNumber = fanRankArray.length;
+                                                console.log(fanRankArray);
+                                                var giftPresentData = ncmb.DataStore("giftPresentData");
+                                                var giftPresentData = new giftPresentData();
+                                                giftPresentData
+                                                .set("forUser", fanRankArray)
+                                                .set("giftUid",uid)
+                                                .set("rankLength",fanRankNumber)
+                                                .save()
+                                                .then(function(gameScore){
+                                                        for(var j=0;j<fanRankArray.length;j++){
+                                                                var forUserId = fanRankArray[j];
+                                                                fanPresentPushMail(forUserId,influencerName);
+                                                        }
+                                                        var img = document.getElementById('gift_image_insert');
+                                                        var dataURI = img.getAttribute('src');
+                                                        // dataURIをBlobに変換する
+                                                        var blob = toBlob(dataURI);
+                                                        ncmb.File
+                                                        .upload(uid,blob)
+                                                        .then(function(res){
+                                                                // アップロード後処理
+                                                                
+                                                                hideLoad();
+                                                                alertNew("出品成功しました。","","homeBack");
+                                                        })
+                                                        .catch(function(err){
+                                                                // エラー処理
+                                                                hideLoad();
+                                                                alertNew("画像の保存が失敗しました。","再度送信頂くか、お問い合わせください。","homeBack");
+                                                        });                                                
+                                                })
+                                                .catch(function(err){
+                                                        hideLoad();
+                                                        console.log(err);
+                                                });
+                                        }).catch(function(err){
+                                                hideLoad();
+                                                console.log(err);
+                                        });
+                                })
+                                .catch(function(err){
+                                // エラー処理
+                                        hideLoad();
+                                        alertNew("出品が失敗しました。","","homeBack");
+                                });
+                }else{
+                        var GiftDataTest = ncmb.DataStore("giftDataTest");
+                        var giftDataTest = new GiftDataTest();
+                        giftDataTest.set("userId", objectId)
+                                .set("giftTitle", gift_title)
+                                .set("giftText", gift_text)
+                                .set("price",gift_price)
+                                .set("giftUid",uid)
+                                .set("stock",gift_stock)
+                                .set("releaseDate",iso)
+                                .set("ohitotu",ohitotu)
+                                .set("timeLimit",String(timeLimit))
+                                .set("ReleaseStatus",ReleaseStatus)
+                                .save()
+                                .then(function(gameScore){
+                                        // 保存後の処理
+                                        var img = document.getElementById('gift_image_insert');
+                                        var dataURI = img.getAttribute('src');
+                                        // dataURIをBlobに変換する
+                                        var blob = toBlob(dataURI);
+                                        ncmb.File
+                                        .upload(uid,blob)
+                                        .then(function(res){
+                                                // アップロード後処理
+                                                hideLoad();
+                                                // giftInputOpen();
+                                                
+                                                if(ReleaseStatus==1){
+                                                        alertNew("下書き保存しました。","","homeBack");
+                                                        hideLoad();
+                                                }else{
+                                                        alertNew("出品成功しました。","","homeBack");
+                                                        hideLoad();
+                                                }
+                                        })
+                                        .catch(function(err){
+                                                // エラー処理
+                                                hideLoad();
+                                                alertNew("画像の保存が失敗しました。","再度送信頂くか、お問い合わせください。","homeBack");
+                                        });
+                                })
+                                .catch(function(err){
+                                // エラー処理
+                                        hideLoad();
+                                        
+                                        if(ReleaseStatus==1){
+                                                alertNew("下書き保存が失敗しました。","","homeBack");
+                                        }else{
+                                                alertNew("出品が失敗しました。","","homeBack");
+                                        }
+                                });
+                }
+        }
+}
+
+function fanPresentPushMail(forUserId,influencerName){
+        console.log(forUserId,influencerName);
+        ncmb.User
+        .equalTo("objectId", forUserId)
+        .fetch()
+        .then(function(result){
+                var mailAddress = result.get("mailAddress");
+                var userName = result.get("userName");
+                $.ajax({
+                        type: 'post',
+                        url: 'https://fanfun2020.xsrv.jp/fanRankingPresentMail.html',
+                        data: {
+                                'userName':userName,
+                                'mailAddress':mailAddress,
+                                'influencerName':influencerName,
+                        },
+                        success: function(data){
+                                console.log("----success.----");
+                        }
+                });
+        });
+}
+
+function presentEdit(){
+        showLoad();
+        //ユーザーの入力したデータを変数にセットする
+        var gift_title = $("#gift_title_edit").val();            //お名前
+        var gift_title = gift_title.replace(/'/g,"’");
+        var gift_title = gift_title.replace(/"/g,"’");                  
+        var gift_text = $("#gift_text_edit").val();     //メールアドレス
+        var gift_text = gift_text.replace(/'/g,"’");
+        var gift_text = gift_text.replace(/"/g,"’");
+        var gift_text = gift_text.replace(/\r?\n/g,'<br>');
+        var profileGiftEditStatus = $('#profileGiftEditStatus').val();
+        var ohitotu = 'ON';
+        if(gift_title ==''){
+                hideLoad();
+                alertNew("ギフトタイトルが未入力です","","");
+        }else if(gift_text == ""){
+                hideLoad();
+                alertNew("ギフト説明文が未入力です","","");
+        }else{
+                var currentUser = ncmb.User.getCurrentUser();
+                var objectId = currentUser.get("objectId");
+                // クラスのTestClassを作成
+                var uid = $('.gift_uid_edit').val();
+                // データストアへの登録
+                var GiftData = ncmb.DataStore("giftData");
+                GiftData.equalTo("giftUid", uid)
+                .fetch()                
+                .then(function(results){
+                        results.set("giftTitle", gift_title)
+                                .set("giftText", gift_text)
+                                .update();
+
+                        if(profileGiftEditStatus != 0){
+                                // 保存後の処理
+                                var img = document.getElementById('gift_image_edit');
+                                var dataURI = img.getAttribute('src');
+                                // dataURIをBlobに変換する
+                                var blob = toBlob(dataURI);
+                                ncmb.File
+                                .upload(uid,blob)
+                                .then(function(res){
+                                        // アップロード後処理
+                                        alertNew("変更しました。","","homeBack");
+                                        hideLoad();
+                                        
+                                })
+                                .catch(function(err){
+                                        // エラー処理
+                                        hideLoad();
+                                        alertNew("画像の保存が失敗しました。","再度送信頂くか、お問い合わせください。","homeBack");
+                                });
+                        }else{
+                                alertNew("変更しました。","","homeBack");
+                                hideLoad();
+                        }
+                })
+                .catch(function(err){
+                        hideLoad();
+                        alertNew("変更が失敗しました。","再度送信頂くか、お問い合わせください。","homeBack");
+                });
+        }
 }

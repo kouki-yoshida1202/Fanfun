@@ -4,15 +4,12 @@
                         <ons-back-button></ons-back-button>
                 </div>
                 <div class="center" style="width:120%;">
-                        <span style="color:#898989;">インフルエンサー利用規約</span> 
+                        <span style="color:#898989;">インフルエンサーガイド</span> 
                 </div>
         </ons-toolbar>
         <div style="background-color: #efeff4;height:100%;padding-top:30px;">
                 <input type="hidden" class="current_user_id">
                 <div style="width:80%;margin:0 auto;">
-                        <p style="color:#FF6070;font-weight: bold;">
-                                出品利用規約を確認・同意の上、お進み下さい。
-                        </p>
                         <div style="width:100%;">
                                 <div style="width:49%;display: inline-block;vertical-align: top;">
                                         <div style="margin:0 auto;width:50px;height:50px;border-radius:50%;background-color: lightgray;text-align: center;">
@@ -32,83 +29,13 @@
                                 </div>
                         </div>
                 </div>
-                <ul class="list list--material" onclick="showModalInflu()">
-                        <li class="list-item list-item--material">
-                        <div class="list-item__left list-item--material__left">
-                                <label class="checkbox checkbox--material">
-                                        <input type="checkbox" name="check5"id="checkbox5" class="checkbox__input checkbox--material__input">
-                                        <div class="checkbox__checkmark checkbox--material__checkmark"></div>
-                                </label>
-                        </div>
-                
-                        <label for="checkbox5" class="list-item__center list-item--material__center">
-                                <div class="list-item__title list-item--material__title" style="padding-top:10px;padding-bottom:10px;">
-                                        Fanfun 出品利用規約
-                                </div>
-                        </label>
-                        </li>
-                </ul>
                 <br><br>
                 <div style="width:100%;margin:0 auto;text-align: center;">
-                        <button id="influ_button" class="button" style="margin:0 auto;font-size:90%;text-align: center;" onclick="document.getElementById('navi').bringPageTop('influencerChange.html');">
-                                上記利用規約に同意する
+                        <button id="influ_button" class="button" style="border-radius:25px;width:80%;margin:0 auto;font-size:90%;text-align: center;" onclick="document.getElementById('navi').bringPageTop('influencerChange.html');">
+                                次に進む
                         </button>
                 </div>
-                
         </div>
-        <ons-modal class="modal_influ"direction="up">
-                <div style="text-align: center">
-                        <div class="card" style="height:500px;overflow-y: scroll;">
-                                <div class="card__content" style="font-size:80%;">
-                                                本規約は、「Gonmura合同会社」（以下「当社」という）が運営する、動画フリーマーケットサービスであるFanfunの利用について定めるものです。<br>
-                                                本サービスにて商品を販売する者（以下「出品者」という）は以下定める利用規約等に同意いたします。<br>
-                                                <br>
-                                                出品者は、自身の肖像権、プライバシー権、パブリシティ権を自身が所有することを表明かつ保証し、<br>
-                                                当社のサービスであるFanfunを利用するにあたり、当社及び当社の関連会社が下記に定める範囲において無償で自由に使用することを認めます。<br>
-                                                （1）出品者が提供するコメント等の内容<br>
-                                                （2）出品者が提供する写真や動画等及び、当社または当社の関連会社がFanfunのために出品者を撮影した写真や動画等<br>
-                                                <br>
-                                                1. 使用目的：当社及び当社の関連会社が提供する諸サービスの販売促進活動のため、下記2に規定する使用媒体において掲載、公表、配信する目的<br>
-                                                2. 使用媒体：当社及び当社の関連会社の販売促進活動に関わる当社及び当社の関連会社発行の各媒体（カタログ・メールマガジン・チラシ・Gonmura合同会社及びその関連会社のホームページ等を含みますが、これに限られません。）又は、ユーチューブその他のインターネット上における写真や動画の投稿サイト等<br>
-                                                3. 使用期間：本契約に同意した日から、５年間<br>
-                                                4. 使用者：当社及び当社の関連会社<br>
-                                                <br>
-                                                また、当社及び当社の関連会社が上記に定める範囲で⑴、⑵使用している限り、以下の事項につき出品者はそれぞれ同意します。<br>
-                                                1. 肖像権、プライバシー権、パブリシティ権等の一切の権利を行使しないこと。<br>
-                                                2. 全身及び身体の一部を撮影し、撮影した作品の公表・使用・出版等一切の利用行為に関する許可を、当社及び当社の関連会社に対して与えること。<br>
-                                                3. 公表・使用・出版等一切の利用行為にかかるコメント、写真、動画等の選択、創作・変形・合成等その作品の表現についての異議申し立てを一切行わず、著作権、著作者人格権等の権利の主張あるいは行使その他何らの請求も行わないこと。<br>
-                                                4. 当社及び当社の関連会社が上記2に規定する使用媒体に掲載、公表、配信している内容に関して、当社及び当社の関連会社として第三者による流用、編集、改変等を承諾するものではありませんが、当社及び当社の関連会社の意図に反し、第三者により、流用され、又は編集、改変等がなされ、当該編集、改変後の内容が公開されることがあったとしても、当社及び当社の関連会社は一切の責任を負わないこと。<br>
-                                                5. 当社及び当社の関連会社が上記2使用媒体に規定する媒体に掲載、公表、配信している内容又は第三者が当社及び当社の関連会社の許諾なく流用し、もしくは編集、改変等を行い公開した内容に関して、特定の被写体に対して、不特定多数の第三者からコメント等が直接的又は間接的に寄せられた場合、また損害賠償を求められた場合も当社及び当社の関連会社は一切の責任を負わないこと。<br>
-                                        <br><br>
-                                        <span style="float:right;">2020年3月3日 制定</span>
-                                        
-                                </div>
-                        </div>
-                        <button class="button" onclick="closeInflu()" style="width:80%;" >閉じる</button>
-                </div>
-        </ons-modal>
         <script>
-        function showModalInflu(){
-                var modal = document.querySelector('ons-modal.modal_influ');
-                modal.show();
-        }
-        
-        function closeInflu(){
-                var modal = document.querySelector('ons-modal.modal_influ');
-                modal.hide();
-                if ($("#checkbox5").prop("checked") == true) {
-                } else {
-                        $('#checkbox5').prop('checked', true);
-                }
-                doui_button_on();
-        }
-        $('#influ_button').prop("disabled", true);
-        
-        function doui_button_on(){
-                var check5 = $("#checkbox5").prop("checked");
-                if(check5 ==true){
-                        $('#influ_button').prop("disabled", false);
-                }
-        }
         </script>
         </ons-page>

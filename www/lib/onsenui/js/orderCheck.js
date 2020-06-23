@@ -27,6 +27,19 @@ function orderCheck(){
                         $('#send_human').html(send_human);
                         $('#nickname').html(nickname_input);
                         $('#request_message').html(request_message_input);
+                        var GiftData = ncmb.DataStore("giftData");
+                        GiftData
+                        .equalTo("giftUid", gift_uid)
+                        .fetch()               
+                        .then(function(result){
+                                var auction = result.get("auction");
+                                if(auction=="プレゼント"){
+                                        $('#cardKessaiZone').css("display","none");
+                                        $('#ginkouKessaiZone').css("display","none");
+                                        $('#paypalKessaiZone').css("display","none");
+                                        $('#fanPresentKessaiZone').css("display","block");
+                                }
+                        });
                 },500);
         }
 }

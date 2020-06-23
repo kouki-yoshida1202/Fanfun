@@ -190,7 +190,7 @@
               </p>
           </div>
           <div style="width:80%;margin:0 auto;">
-            <button id="influenceButton"class="button "style="width:100%;padding-top:5px;padding-bottom:5px;line-height:auto;border-radius:30px;font-size:100%;margin:0 auto;height:45px;" onclick="insertInfluencer()" disabled>
+            <button id="influenceButton"class="button "style="width:100%;padding-top:5px;padding-bottom:5px;line-height:auto;border-radius:30px;font-size:100%;margin:0 auto;height:45px;" onclick="insertInfluencerOpen()" disabled>
               アカウント登録
             </button>
           </div>
@@ -265,7 +265,18 @@
           function userNameNoOpen(){
                   $('.userNameNo_dialog_mask,.userNameNo_dialog').slideDown();
           }
-          
+          function insertInfluencerOpen(){
+              ons.notification.confirm({
+                      message: '@gonmura.infoのドメインを受信許可していない場合、メールが届きません。特にdocomo,softbank,auの携帯アドレスの場合は受信できない場合が多いので、受信設定にご注意ください。',
+                      title: "注意",
+                      buttonLabels:["キャンセル","OK"],
+                      callback: function(buttonIndex) {
+                              if(buttonIndex==1){
+                                insertInfluencer();
+                              }
+                      }
+              });
+          }
           function userNameNoClose(){
                   $('.userNameNo_dialog').slideUp();
                   setTimeout(function(){

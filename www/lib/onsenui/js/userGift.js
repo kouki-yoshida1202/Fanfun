@@ -13,12 +13,14 @@ function MyGift(myPageGiftCounter){
                 $('#myGiftList').hide();
         }else if(influencer==true && authentication=="OK"){
                 $('#exhibition_button').prop("disabled",false);
+                $('#fanRankPresentButton').prop("disabled",false);
                 var userNameTitle = currentUser.get("userName") + " <span style='color:#FF6070;border:1px solid #FF6070;border-radius:20px;font-size:0.5em;padding:3px;vertical-align:middle;'>本人確認済</span>";
                 $('#influencerTouroku').hide();
         }else if(influencer==true && authentication!="OK"){
                 var userNameTitle = currentUser.get("userName");
                 // $('#myGiftList').hide();
                 $('#exhibition_button').prop("disabled",false);
+                $('#fanRankPresentButton').prop("disabled",false);
                 var influencer_button = `
                 <button id="influencer_button" class="button "style="width:80%;padding-top:0px;padding-bottom:0px;line-height:auto;border-radius:30px;font-size:16px;margin:0 auto;" onclick="honninCheck();">本人確認マークの申請</button>
                 <p style="width:80%;margin:0 auto;font-size:0.8em;margin-top:15px;text-align:left;">本人確認がお済みでない限り、出品は出来ますがファンの方は購入できません。</p>
@@ -75,7 +77,7 @@ function giftImageGet(giftUid,i,gift_stock,auction){
                 }
                 // DataURLとして読み込む
                 reader.readAsDataURL(fileData);
-                if(gift_stock==0 && auction!="オークション"){
+                if(gift_stock==0 && auction=="通常出品"){
                         var sold_out = `<img class="sold_out" src="img/custom – 8.png" style="border-radius:20px;"></div>`;
                         $("#gift_image_"+i).after(sold_out);
                         $("#gift_image_"+i).addClass("sold_img");
@@ -164,6 +166,34 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
                                                 var auctionEndTime = isoToNormalChange(result.get("auctionEndTime"));
                                                 $('#zaikoMyDetail').html("終了:"+auctionEndTime);
                                         });
+                                }else if(auction=="プレゼント"){
+                                        $('#gift_detail_price').html(gift_price);
+                                        $('#mygift_detail_fanpresent').css("display","block");
+                                        $('#mygift_detail_ohitotu').css("display","block");
+                                        var giftPresentData = ncmb.DataStore("giftPresentData");
+                                        giftPresentData
+                                        .equalTo("giftUid", gift_uid)
+                                        .fetch()
+                                        .then(function(presentData){
+                                                var rankNumber = presentData.get("rankLength");
+                                                $('#zaikoMyDetail').html(rankNumber+"位以内限定！");
+                                                var giftPresentDataDate = presentData.get("createDate");
+                                                var dt = new Date(giftPresentDataDate);
+                                                var m = ("00" + (dt.getMonth()+1)).slice(-2);
+                                                var d = ("00" + dt.getDate()).slice(-2);
+                                                var hh = dt.getHours();
+                                                if (hh < 10) {
+                                                        hh = "0" + hh;
+                                                }
+                                                var mm = dt.getMinutes();
+                                                if (mm < 10) {
+                                                        mm = "0" + mm;
+                                                }
+                                                var time = m + "月" + d + "日" +hh + "時" + mm + "分";
+                                                $('#gift_text_fanPresent_date').html(time+"時点でのFanランキングが"+rankNumber+"位までの方限定のプレゼントギフトとなります。");
+                                                $('#gift_text_fanPresent_date').css("display","block");
+                                                
+                                        });
                                 }else{
                                         $('#my_stock').html(gift_stock);
                                         $('#gift_detail_price').html(gift_price);
@@ -231,7 +261,7 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
                                 var gift_stock = result.get("stock");
                                 setTimeout(function(){
                                         $('#stock').html(gift_stock);
-                                        if((gift_stock <= 0 || gift_stock == '' || gift_stock==undefined) && auction!="オークション"){
+                                        if((gift_stock <= 0 || gift_stock == '' || gift_stock==undefined) && auction=="通常出品"){
                                                 $('#ReleaseStatusButton').prop("disabled",true);
                                                 $('#ReleaseStatusButton').html("在庫切れ");
                                         }
@@ -303,6 +333,41 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
                                                         $('#nyusatuButton').html(time+"開始");
                                                 }
                                         },500);
+                                }else if(auction=="プレゼント"){
+                                        $('#gift_detail_fanpresent').css("display","block");
+                                        $('#gift_detail_ohitotu').css("display","block");
+                                        $('#ReleaseStatusButton').prop("disabled",true);
+                                        $('#ReleaseStatusButton').css("display","none");
+                                        var giftPresentData = ncmb.DataStore("giftPresentData");
+                                        giftPresentData
+                                        .equalTo("giftUid", gift_uid)
+                                        .fetch()
+                                        .then(function(presentData){
+                                                var rankNumber = presentData.get("rankLength");
+                                                $('#zaikoOtherDetail').html(rankNumber+"位以内限定！");
+                                                var giftPresentDataDate = presentData.get("createDate");
+                                                var forUser = presentData.get("forUser");
+                                                var dt = new Date(giftPresentDataDate);
+                                                var m = ("00" + (dt.getMonth()+1)).slice(-2);
+                                                var d = ("00" + dt.getDate()).slice(-2);
+                                                var hh = dt.getHours();
+                                                if (hh < 10) {
+                                                        hh = "0" + hh;
+                                                }
+                                                var mm = dt.getMinutes();
+                                                if (mm < 10) {
+                                                        mm = "0" + mm;
+                                                }
+                                                var time = m + "月" + d + "日" +hh + "時" + mm + "分";
+                                                $('#gift_text_fanPresent_date_other').html(time+"時点でのFanランキングが"+rankNumber+"位までの方限定のプレゼントギフトとなります。");
+                                                $('#gift_text_fanPresent_date_other').css("display","block");
+                                                if (forUser.indexOf(objectId) >= 0){
+                                                        // 存在する
+                                                        $('#presentButton').css("display","block");
+                                                }else{
+                                                        $('#presentEndButton').css("display","block");
+                                                }
+                                        });
                                 }
                                 setTimeout(function(){
                                         var releaseDate = result.get("releaseDate");
@@ -371,7 +436,7 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
                                 if(Authentication!="OK"){
                                         $('#ReleaseStatusButton').prop("disabled",true);
                                 }
-                                if(ohitotu=="ON" && auction!="オークション"){
+                                if(ohitotu=="ON" && auction=="通常出品"){
                                         $('#gift_detail_ohitotu').css("display","block");
                                         // 購入済みかどうか
                                         var giftLog = ncmb.DataStore("giftLog");
@@ -556,6 +621,10 @@ function myPageGiftList(myPageGiftCounter){
                                                 if(auction=="オークション"){
                                                         card += `<button class="toolbar-button" style="font-size:12px;padding:0px;background:#FF6070;margin-left:3px;border-radius:20px;padding:3px;">
                                                         <span style="font-size:10px;color:white;">オークション</span>
+                                                        </button>`;
+                                                }else if(auction=="プレゼント"){
+                                                        card += `<button class="toolbar-button" style="font-size:12px;padding:0px;background:#FF6070;margin-left:3px;border-radius:20px;padding:3px;">
+                                                        <span style="font-size:10px;color:white;">プレゼント</span>
                                                         </button>`;
                                                 }else{
                                                         card += `<button class="toolbar-button" style="font-size:12px;padding:0px;">

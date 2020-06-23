@@ -123,3 +123,19 @@ function clickFanRank(rank){
                 otherPageUserId(userId);
         }
 }
+
+function fanRankPresentPageOpen(){
+        setTimeout(() => {
+                $('#itemKindRadio').hide();
+                $('#itemKakaku').hide();
+                $('#fanRankPresentText').css("display","block");
+                $('#4_area').hide();
+                $('#5_area').hide();
+                $('#6_area').hide();
+                $('#7_area').hide();
+                $('#4_area_fanRank').css("display","block");
+                $('#giftPresentButtonZone').css("display","block");
+                $('#giftShitagakiButtonZone').css("display","none");
+                $('#giftInsertButtonZone').css("display","none");
+        }, (500));
+}
