@@ -31,7 +31,7 @@ function crown(){
                         var kyujosyoData = ncmb.DataStore("kyujosyoData");
                         kyujosyoData
                         .order('rank')
-                        .limit(12)
+                        .limit(15)
                         .fetchAll()
                         .then(function(results){
                                 crownCounter++;
