@@ -1,16 +1,16 @@
 function followerNumber(){
         var FollowData = ncmb.DataStore("follow");
-                        FollowData
-                        .equalTo("followerId", other_user_id)
-                        .fetchAll()               
-                        .then(function(results){
-                                var object = results;
-                                var followerNumber = object.length;
-                                return followerNumber;
-                        })
-                        .catch(function(err){
-                                console.log(err);
-                        });  
+        FollowData
+        .equalTo("followerId", other_user_id)
+        .fetchAll()               
+        .then(function(results){
+                var object = results;
+                var followerNumber = object.length;
+                return followerNumber;
+        })
+        .catch(function(err){
+                console.log(err);
+        });  
 }
 
 function otherGiftUserImage(objectId,i){
@@ -74,6 +74,8 @@ function otherPageUserId(other_user_id){
         .equalTo("objectId", other_user_id)
         .fetch()
         .then(function(results){
+                var currentUser = ncmb.User.getCurrentUser();
+                var objectId = currentUser.get("objectId");
                 var influencer = results.get("Influencer");
                 var authentication = results.get("Authentication");
                 if(influencer==true && authentication=="OK"){
@@ -83,6 +85,26 @@ function otherPageUserId(other_user_id){
                         var other_user_name_title = results.get("userName");
                         $('#fanRankDiv').hide();
                 }
+
+                var FollowData = ncmb.DataStore("follow");
+                FollowData
+                .equalTo("followerId", other_user_id)
+                .equalTo("followId", objectId)
+                .fetchAll()               
+                .then(function(results){
+                        console.log(results);
+                        if(results.length){
+                                console.log("a");
+                                if(results[0].get("bellmark")=="ON"){
+                                        console.log("on");
+                                        other_user_name_title += "<i class='far fa-bell' style='color:white;background:#ff6070;border:1px solid;border-radius:50%;padding:4px;font-size:0.7em;transform:translateY(-1px);margin-left:5px;' onclick='bellmarkChange(`OFF`,`"+other_user_id+"`,`"+objectId+"`)'></i>";
+                                }else{
+                                        console.log("off");
+                                        other_user_name_title += "<i class='far fa-bell-slash' style='color:#FF6070;margin-left:5px;' onclick='bellmarkChange(`ON`,`"+other_user_id+"`,`"+objectId+"`)'></i>";
+                                }
+                        }
+                        $('#other_user_name').html(other_user_name_title);
+                });  
                 var other_user_name = results.get("userName");
                 var other_profile_text = results.get("Text");
                 var userKind = results.get("userKind");
@@ -92,7 +114,7 @@ function otherPageUserId(other_user_id){
                 var URLinstagram = results.get("URLinstagram");
                 var URLyoutube = results.get("URLyoutube");
                 $('#other_page_user_id').val(other_user_id);
-                $('#other_user_name').html(other_user_name_title);
+                
                 $('#other_page_header').html(other_user_name);
                 $('#other_profile').html(other_profile_text);
                 $('#otherFanfunURL').val(URLfanfun);

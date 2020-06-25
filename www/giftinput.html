@@ -247,7 +247,7 @@
             </div>
             <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:30px;">
                 <div id="giftInsertButtonZone"class="cp_iptxt">
-                    <button id="giftInsertButton2" class="button "style="width:100%;padding-top:5px;padding-bottom:5px;line-height:auto;border-radius:30px;font-size:100%;margin:0 auto;height:45px;" onclick="giftInsert();" disabled>
+                    <button id="giftInsertButton2" class="button "style="width:100%;padding-top:5px;padding-bottom:5px;line-height:auto;border-radius:30px;font-size:100%;margin:0 auto;height:45px;" onclick="giftInsertOpen(0);" disabled>
                             今すぐ出品する
                     </button>
                 </div>
@@ -270,6 +270,19 @@
     </div>
     
     <script>
+    function giftInsertOpen(ReleaseStatus){
+        ons.notification.confirm({
+            message: '通知をONにしているファンの方に出品通知が飛びます。',
+            title: "確認",
+            buttonLabels:["キャンセル","OK"],
+            callback: function(buttonIndex) {
+                    if(buttonIndex==1){
+                        giftInsert(ReleaseStatus);
+                    }
+            }
+        });
+    }
+
     var dt = new Date();
     var y = dt.getFullYear();
     var m = ("00" + (dt.getMonth()+1)).slice(-2);

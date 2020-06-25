@@ -308,9 +308,62 @@
             .then(function(results){
                     // 保存後の処理
                     var object = results;
-                    results.set("ReleaseStatus",ReleaseStatus)
+                    var objectId = object.get("userId");
+                    var releaseDate = object.get("releaseDate");
+                    var dt = new Date(releaseDate);
+                    var m = ("00" + (dt.getMonth()+1)).slice(-2);
+                    var d = ("00" + dt.getDate()).slice(-2);
+                    var hh = dt.getHours();
+                    if (hh < 10) {
+                            hh = "0" + hh;
+                    }
+                    var mm = dt.getMinutes();
+                    if (mm < 10) {
+                            mm = "0" + mm;
+                    }
+                    var releaseDate = m + "月" + d + "日 " +hh + "時" + mm + "分";
+                    var giftTitle = object.get("giftTitle");
+                    var giftText = object.get("giftText");
+                    var giftText = giftText.replace(/<br>/g,'');
+                    var price = object.get("price");
+                    if(ReleaseStatus!=1){
+                        ons.notification.confirm({
+                            message: '通知をONにしているファンの方に出品通知が飛びます。',
+                            title: "確認",
+                            buttonLabels:["キャンセル","OK"],
+                            callback: function(buttonIndex) {
+                                    if(buttonIndex==1){
+                                        var giftUrl = 'https://fanfun2020.xsrv.jp/customUrlScheme.html?GIFTorUSERID='+giftUid+'&page=giftPage';
+                                        var follow = ncmb.DataStore("follow");
+                                        follow
+                                        .equalTo("followerId",objectId)
+                                        .fetchAll()
+                                        .then(function(results){
+                                                for(var j=0;j<results.length;j++){
+                                                        var forUserId = results[j].get("followId");
+                                                        if(results[j].get("bellmark")=="ON"){
+                                                                followUserSyuppinMail(forUserId,releaseDate,giftTitle,giftText,price,giftUrl,objectId);
+                                                                followUserSyuppinPushNotification(forUserId,objectId);
+                                                        }
+                                                }
+                                        }).then(function(){
+                                            results
+                                            .set("ReleaseStatus",ReleaseStatus)
+                                            .update();
+                                            shitagakiEndOpen();
+                                        }).catch(function(err){
+                                            // エラー処理
+                                            shitagakiEndMissOpen();
+                                        });
+                                    }
+                            }
+                        });
+                    }else{
+                        results.set("ReleaseStatus",ReleaseStatus)
                             .update();
-                    shitagakiEndOpen();
+                        shitagakiEndOpen();
+                    }
+                    
             })
             .catch(function(err){
                     // エラー処理

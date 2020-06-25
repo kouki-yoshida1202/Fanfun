@@ -5,8 +5,7 @@ var ncmb    　= new NCMB(appKey,clientKey);
 
 // -------[Demo1]データをmBaaSに保存する -------//
 function giftInsert(ReleaseStatus) {
-        showGiftInsertLoad();
-        console.log(ReleaseStatus);
+        showLoad();
         //ユーザーの入力したデータを変数にセットする
         var gift_title = $("#gift_title").val();  
         var gift_title = gift_title.replace(/'/g,"’");
@@ -46,32 +45,32 @@ function giftInsert(ReleaseStatus) {
         }
 
         if(gift_title ==''){
-                hideGiftInsertLoad();
+                hideLoad();
                 alertNew("ギフト名が未入力です","","");
         }else if(gift_text == ""){
-                hideGiftInsertLoad();
+                hideLoad();
                 alertNew("ギフト説明文が未入力です","","");
         }
         else if(profileGiftInputStatus == 0){
-                hideGiftInsertLoad();
+                hideLoad();
                 alertNew("ギフト画像が未登録です","","");
         }else if(gift_price == ""){
-                hideGiftInsertLoad();
+                hideLoad();
                 alertNew("ギフト価格が未入力です","","");
         }else if(gift_stock == ""){
-                hideGiftInsertLoad();
+                hideLoad();
                 alertNew("ギフト在庫数が未入力です","","");
         }else if(gift_stock > 999){
-                hideGiftInsertLoad();
+                hideLoad();
                 alertNew("ギフト在庫数は0~999です","","");
         }else if(yoyaku=="予約"&&(date==""||time=="")){
-                hideGiftInsertLoad();
+                hideLoad();
                 alertNew("日時が未入力です","","");
         }else if(giftKind=="オークション"&&(auction_date==""||auction_time=="")){
-                hideGiftInsertLoad();
+                hideLoad();
                 alertNew("オークション終了日時が未入力です","","");
         }else if(!Number.isInteger(Number(gift_stock)) || !Number.isInteger(Number(gift_price)) || gift_price < 1 || gift_stock < 0){
-                hideGiftInsertLoad();
+                hideLoad();
                 alertNew("数値を1以上の整数で入力してください","","");
         }else{
                 var currentUser = ncmb.User.getCurrentUser();
@@ -100,36 +99,103 @@ function giftInsert(ReleaseStatus) {
                                 .save()
                                 .then(function(gameScore){
                                         // 保存後の処理
-                                        var img = document.getElementById('gift_image_insert');
-                                        var dataURI = img.getAttribute('src');
-                                        // dataURIをBlobに変換する
-                                        var blob = toBlob(dataURI);
-                                        ncmb.File
-                                        .upload(uid,blob)
-                                        .then(function(res){
-                                                // アップロード後処理
-                                                hideGiftInsertLoad();
-                                                // giftInputOpen();
-                                                
-                                                if(ReleaseStatus==1){
-                                                        alertNew("下書き保存しました。","","homeBack");
-                                                        hideGiftInsertLoad();
-                                                        
-                                                }else{
-                                                        alertNew("出品成功しました。","","homeBack");
-                                                        hideGiftInsertLoad();
-                                                        
+                                        if(ReleaseStatus!=1){
+                                                var gift_text = gameScore.get("giftText");
+                                                var gift_text = gift_text.replace(/<br>/g,' ');
+                                                var giftUrl = 'https://fanfun2020.xsrv.jp/customUrlScheme.html?GIFTorUSERID='+uid+'&page=giftPage';
+                                                var dt = new Date(iso);
+                                                var m = ("00" + (dt.getMonth()+1)).slice(-2);
+                                                var d = ("00" + dt.getDate()).slice(-2);
+                                                var hh = dt.getHours();
+                                                if (hh < 10) {
+                                                        hh = "0" + hh;
                                                 }
-                                        })
-                                        .catch(function(err){
-                                                // エラー処理
-                                                hideGiftInsertLoad();
-                                                alertNew("画像の保存が失敗しました。","再度送信頂くか、お問い合わせください。","homeBack");
-                                        });
+                                                var mm = dt.getMinutes();
+                                                if (mm < 10) {
+                                                        mm = "0" + mm;
+                                                }
+                                                var releaseDate = m + "月" + d + "日 " +hh + "時" + mm + "分";
+                                                var follow = ncmb.DataStore("follow");
+                                                follow
+                                                .equalTo("followerId",objectId)
+                                                .fetchAll()
+                                                .then(function(results){
+                                                        for(var j=0;j<results.length;j++){
+                                                                var forUserId = results[j].get("followId");
+                                                                if(results[j].get("bellmark")=="ON"){
+                                                                        followUserSyuppinMail(forUserId,releaseDate,gift_title,gift_text,gift_price,giftUrl,objectId);
+                                                                        followUserSyuppinPushNotification(forUserId,objectId);
+                                                                }
+                                                        }
+                                                }).then(function(){
+                                                        var img = document.getElementById('gift_image_insert');
+                                                        var dataURI = img.getAttribute('src');
+                                                        // dataURIをBlobに変換する
+                                                        var blob = toBlob(dataURI);
+                                                        ncmb.File
+                                                        .upload(uid,blob)
+                                                        .then(function(res){
+                                                                // アップロード後処理
+                                                                hideLoad();
+                                                                // giftInputOpen();
+                                                                
+                                                                if(ReleaseStatus==1){
+                                                                        alertNew("下書き保存しました。","","homeBack");
+                                                                        hideLoad();
+                                                                        
+                                                                }else{
+                                                                        alertNew("出品成功しました。","","homeBack");
+                                                                        hideLoad();
+                                                                        
+                                                                }
+                                                        })
+                                                        .catch(function(err){
+                                                                // エラー処理
+                                                                hideLoad();
+                                                                alertNew("画像の保存が失敗しました。","再度送信頂くか、お問い合わせください。","homeBack");
+                                                        });
+                                                }).catch(function(err){
+                                                        // エラー処理
+                                                        hideLoad();
+                                                        
+                                                        if(ReleaseStatus==1){
+                                                                alertNew("下書き保存が失敗しました。","","homeBack");
+                                                        }else{
+                                                                alertNew("出品が失敗しました。","","homeBack");
+                                                        }
+                                                });
+                                        }else{
+                                                var img = document.getElementById('gift_image_insert');
+                                                var dataURI = img.getAttribute('src');
+                                                // dataURIをBlobに変換する
+                                                var blob = toBlob(dataURI);
+                                                ncmb.File
+                                                .upload(uid,blob)
+                                                .then(function(res){
+                                                        // アップロード後処理
+                                                        hideLoad();
+                                                        // giftInputOpen();
+                                                        
+                                                        if(ReleaseStatus==1){
+                                                                alertNew("下書き保存しました。","","homeBack");
+                                                                hideLoad();
+                                                                
+                                                        }else{
+                                                                alertNew("出品成功しました。","","homeBack");
+                                                                hideLoad();
+                                                                
+                                                        }
+                                                })
+                                                .catch(function(err){
+                                                        // エラー処理
+                                                        hideLoad();
+                                                        alertNew("画像の保存が失敗しました。","再度送信頂くか、お問い合わせください。","homeBack");
+                                                });
+                                        }
                                 })
                                 .catch(function(err){
                                 // エラー処理
-                                        hideGiftInsertLoad();
+                                        hideLoad();
                                         
                                         if(ReleaseStatus==1){
                                                 alertNew("下書き保存が失敗しました。","","homeBack");
@@ -161,26 +227,26 @@ function giftInsert(ReleaseStatus) {
                                         .upload(uid,blob)
                                         .then(function(res){
                                                 // アップロード後処理
-                                                hideGiftInsertLoad();
+                                                hideLoad();
                                                 // giftInputOpen();
                                                 
                                                 if(ReleaseStatus==1){
                                                         alertNew("下書き保存しました。","","homeBack");
-                                                        hideGiftInsertLoad();
+                                                        hideLoad();
                                                 }else{
                                                         alertNew("出品成功しました。","","homeBack");
-                                                        hideGiftInsertLoad();
+                                                        hideLoad();
                                                 }
                                         })
                                         .catch(function(err){
                                                 // エラー処理
-                                                hideGiftInsertLoad();
+                                                hideLoad();
                                                 alertNew("画像の保存が失敗しました。","再度送信頂くか、お問い合わせください。","homeBack");
                                         });
                                 })
                                 .catch(function(err){
                                 // エラー処理
-                                        hideGiftInsertLoad();
+                                        hideLoad();
                                         
                                         if(ReleaseStatus==1){
                                                 alertNew("下書き保存が失敗しました。","","homeBack");
@@ -366,7 +432,7 @@ function showGiftInsertLoad(){
         });
 }
 
-function hideGiftInsertLoad() {
+function hideLoad() {
         $("#giftInsertButtonZone,#giftShitagakiButtonZone").LoadingOverlay("hide");
 };
 
@@ -688,4 +754,67 @@ function presentEdit(){
                         alertNew("変更が失敗しました。","再度送信頂くか、お問い合わせください。","homeBack");
                 });
         }
+}
+
+function followUserSyuppinMail(fanUserId,releaseDate,gift_title,gift_text,gift_price,giftUrl,influencerId){
+
+        ncmb.User
+        .equalTo("objectId", influencerId)
+        .fetch()
+        .then(function(result){
+                var influencerName = result.get("userName");
+                return influencerName;
+        }).then(function(influencerName){
+                ncmb.User
+                .equalTo("objectId", fanUserId)
+                .fetch()
+                .then(function(result){
+                        var mailAddress = result.get("mailAddress");
+                        var userName = result.get("userName");
+                        $.ajax({
+                                type: 'post',
+                                url: 'https://fanfun2020.xsrv.jp/followUserSyuppinMail.html',
+                                data: {
+                                        'influencerName':influencerName,
+                                        'userName':userName,
+                                        'mailAddress':mailAddress,
+                                        'releaseDate':releaseDate,
+                                        'gift_title':gift_title,
+                                        'gift_text':gift_text,
+                                        'gift_price':gift_price,
+                                        'giftUrl':giftUrl
+                                },
+                                success: function(data){
+                                        console.log("----success.----");
+                                }
+                        });
+                });
+        });
+}
+
+function followUserSyuppinPushNotification(fanUserId,influencerId){
+        ncmb.User
+        .equalTo("objectId", influencerId)
+        .fetch()
+        .then(function(result){
+                var influencerName = result.get("userName");
+                return influencerName;
+        }).then(function(influencerName){
+                var push = new ncmb.Push();
+                push.set("immediateDeliveryFlag", true)
+                .set("message", influencerName+"様が新商品を出品しました！")
+                .set("target", ["ios", "android"])
+                .set('searchCondition', {
+                        userObjectId: fanUserId,
+                });
+                push.send()
+                .then(function(push){
+                        // 送信後処理
+                        console.log("----success.----");
+                })
+                .catch(function(err){
+                        // エラー処理
+                        console.log("----success.----");
+                });
+        });
 }

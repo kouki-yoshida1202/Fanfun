@@ -2,6 +2,7 @@
 
 //ユーザ画面でフォローか外すかの処理
 function follow() {
+        showLoad();
         var currentUser = ncmb.User.getCurrentUser();
         var objectId = currentUser.get("objectId");
         var followerId = $('#other_page_user_id').val();
@@ -16,12 +17,19 @@ function follow() {
                 .fetch()
                 .then(function(results){
                         // 保存後の処理
-                        results.delete();
-                        followOffOpen();
-                        $('#other_follow_button').removeClass("follow_on").html("フォロー");
+                        results
+                        .delete()
+                        .then(function(result){
+                                setTimeout(function(){
+                                        hideLoad();
+
+                                        otherPageUserId(followerId);
+                                },500);
+                        });
                 })
                 .catch(function(err){
                         // エラー処理
+                        hideLoad();
                         console.log(err)
                 });
         }else{
@@ -36,12 +44,14 @@ function follow() {
                 .save()
                 .then(function(){
                         // 保存後の処理
-                        followOnOpen();
-                        $('#other_follow_button').addClass("follow_on").html("フォロー中");
-                        
+                        setTimeout(function(){
+                                hideLoad();
+                                otherPageUserId(followerId);
+                        },500);
                 })
                 .catch(function(err){
                         // エラー処理
+                        hideLoad();
                         console.log(err)
                 });
         }
@@ -564,4 +574,43 @@ function followDelete() {
                         console.log(err)
                 });
         }
+}
+
+function bellmarkChange(bellmarkChangedStatus,influencerId,loginUserId){
+
+        if(bellmarkChangedStatus=="ON"){
+                var message="出品お知らせの通知をONにしますか？"
+        }else{
+                var message="出品お知らせの通知をOFFにしますか？"
+        }
+        ons.notification.confirm({
+                message: message,
+                title: "通知設定",
+                buttonLabels:["キャンセル","OK"],
+                callback: function(buttonIndex) {
+                        if(buttonIndex==1){
+                                showLoad();
+                                var FollowData = ncmb.DataStore("follow");
+                                FollowData
+                                .equalTo("followerId", influencerId)
+                                .equalTo("followId", loginUserId)
+                                .fetch()               
+                                .then(function(result){
+                                        result
+                                        .set("bellmark",bellmarkChangedStatus)
+                                        .update()
+                                        .then(function(result){
+                                                setTimeout(function(){
+                                                        hideLoad();
+                                                        otherPageUserId(influencerId);
+                                                },500);
+                                        });
+                                })
+                                .catch(function(){
+                                        hideLoad();
+                                });
+                        }
+                }
+        });
+        
 }
