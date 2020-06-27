@@ -36,8 +36,8 @@ function giftInsert(ReleaseStatus) {
                 var gift_stock = "1";
                 var timeLimit = "OFF";
                 var ohitotu = "OFF";
-                var auction_date = $('#yoyakuDate').val();
-                var auction_time = $('#yoyakuTime').val();
+                var auction_date = $('#auctionDate').val();
+                var auction_time = $('#auctionTime').val();
                 var auction_datetime = auction_date+"T"+auction_time;
                 var auctionEndtime = moment(auction_datetime).format();
         }else{
