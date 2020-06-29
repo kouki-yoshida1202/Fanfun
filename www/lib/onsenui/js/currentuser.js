@@ -13,7 +13,7 @@ function loginInfo(){
         var URLfanfun = currentUser.get("URLfanfun");
         $('#myGenre').empty();
         
-        if(objectId == "V5wsDER2rALwDReh"){
+        if(objectId == "V5wsDER2rALwDReh" || objectId=="sKRzVvf4gBcZFDNT"){
                 $('#kanrisyabox').show();
         }
         if(Genre){
@@ -69,6 +69,42 @@ function loginInfo(){
                 var object = results;
                 var followNumber = object.length;
                 $('#my_follow_number').html(followNumber);
+        })
+        .catch(function(err){
+                console.log(err);
+        }); 
+
+        var kyujosyoData = ncmb.DataStore("kyujosyoData");
+        kyujosyoData
+        .equalTo("userId", objectId)
+        .fetch()               
+        .then(function(result){
+                if(result){
+                        var rank = Number(result.get("rank"));
+                        if(0<rank && rank<16){
+                                console.log(rank);
+                                $('#myPageRanking').css("display","block");
+                                $('#myPagekyujosyoRanking').html("<i class='fas fa-crown'></i>急上昇ランキング"+rank+"位");
+                        }
+                }
+        })
+        .catch(function(err){
+                console.log(err);
+        }); 
+
+        var crownData = ncmb.DataStore("crownData");
+        crownData
+        .equalTo("userId", objectId)
+        .fetch()               
+        .then(function(result){
+                if(result){
+                        var rank = Number(result.get("rank"));
+                        if(0<rank && rank<16){
+                                console.log(rank);
+                                $('#myPageRanking').css("display","block");
+                                $('#myPagekyujosyoRanking').html("<i class='fas fa-crown'></i>総合ランキング"+rank+"位");
+                        }
+                }
         })
         .catch(function(err){
                 console.log(err);

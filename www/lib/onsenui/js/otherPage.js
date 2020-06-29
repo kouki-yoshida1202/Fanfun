@@ -58,7 +58,6 @@ function otherGiftImageGet(giftUid,i,gift_stock,auction){
 
 
 function otherPageUserId(other_user_id){     
-        
         $('#otherGiftList').empty();
         $('#other_page_user_id').empty();
         $('#other_user_name').empty();
@@ -230,6 +229,43 @@ function otherPageUserId(other_user_id){
                 .catch(function(err){
                         console.log(err);
                 }); 
+
+                var kyujosyoData = ncmb.DataStore("kyujosyoData");
+                kyujosyoData
+                .equalTo("userId", other_user_id)
+                .fetch()               
+                .then(function(result){
+                        console.log(result);
+                        if(result){
+                                var rank = Number(result.get("rank"));
+                                if(0<rank && rank<16){
+                                        console.log(rank);
+                                        $('#otherPageRanking').css("display","block");
+                                        $('#otherPagekyujosyoRanking').html("<i class='fas fa-crown'></i>急上昇ランキング"+rank+"位");
+                                }
+                        }
+                })
+                .catch(function(err){
+                        console.log(err);
+                }); 
+
+                var crownData = ncmb.DataStore("crownData");
+                crownData
+                .equalTo("userId", other_user_id)
+                .fetch()               
+                .then(function(result){
+                        if(result){
+                                var rank = Number(result.get("rank"));
+                                if(0<rank && rank<16){
+                                        console.log(rank);
+                                        $('#otherPageRanking').css("display","block");
+                                        $('#otherPageSougouRanking').html("<i class='fas fa-crown'></i>総合ランキング"+rank+"位");
+                                }
+                        }
+                })
+                .catch(function(err){
+                        console.log(err);
+                });
         });
 }
 

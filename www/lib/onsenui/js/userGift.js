@@ -157,7 +157,23 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
                                 $('#my_gift_id').val(gift_uid);
                                 if(auction=="オークション"){
                                         $('#mygift_detail_auction').css("display","block");
-                                        $('#gift_detail_price').html("現在:"+gift_price);
+                                        var auctionDataLog = ncmb.DataStore("auctionDataLog");
+                                        auctionDataLog
+                                        .order("nyusatuKakaku",true)
+                                        .equalTo('giftUid',gift_uid)
+                                        .limit(1)
+                                        .fetchAll()         
+                                        .then(function(results){
+                                                for(var i=0;i<results.length;i++){
+                                                        var nyusatuKakaku = results[i].get("nyusatuKakaku");
+                                                        $('#gift_detail_price').html("現在:¥"+nyusatuKakaku);
+                                                        $('#detail_kakaku').val(nyusatuKakaku);
+                                                }
+                                                if(results.length==0){
+                                                        $('#gift_detail_price').html("現在:"+gift_price);
+                                                        $('#detail_kakaku').val(nyusatuKakaku);
+                                                }
+                                        });
                                         var giftData = ncmb.DataStore("giftData");
                                         giftData
                                         .equalTo('giftUid',gift_uid)
@@ -165,6 +181,40 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
                                         .then(function(result){
                                                 var auctionEndTime = isoToNormalChange(result.get("auctionEndTime"));
                                                 $('#zaikoMyDetail').html("終了:"+auctionEndTime);
+                                        });
+                                        $('#nyusatuUserMyGift').empty();
+                                        var auctionDataLog = ncmb.DataStore("auctionDataLog");
+                                        auctionDataLog
+                                        .order("nyusatuKakaku",true)
+                                        .equalTo("giftUid", gift_uid)
+                                        .fetchAll()               
+                                        .then(function(results){
+                                                for(var j=0;j<results.length;j++){
+                                                        var buyUser = results[j].get("buyUser");
+                                                        var nyusatuKakaku = results[j].get("nyusatuKakaku");
+                                                        var createDate = isoToNormalChange(results[j].get("createDate"));
+                                                        var nyusatu_list = `
+                                                        <li class="list-item list-item--material">
+                                                                <div class="list-item__left list-item--material__left">
+                                                                        <img id="mynyusatu_user_image_`;
+                                                                        nyusatu_list += j+`"`;
+                                                                        nyusatu_list +=`
+                                                                        class="list-item__thumbnail list-item--material__thumbnail follow_thumbnanil" src="img/human.png" style="object-fit:cover;">
+                                                                </div>
+                                                                <div class="list-item__center list-item--material__center">
+                                                                        <p id="mynyusatu_list_name_`+j+`">
+                                                                        </p>
+                                                                </div>
+                                                        
+                                                                <div class="list-item__right list-item--material__right">
+                                                                <p style="text-align:right;">¥`+nyusatuKakaku+`<br>`+createDate+`</p>
+                                                                </div>
+                                                        </li>
+                                                        `;
+                                                        $('#nyusatuUserMyGift').append(nyusatu_list);
+                                                        mynyusatuUserImage(buyUser,j);
+                                                        mynyusatuUserName(buyUser,j);
+                                                }
                                         });
                                 }else if(auction=="プレゼント"){
                                         $('#gift_detail_price').html(gift_price);
@@ -197,6 +247,7 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
                                 }else{
                                         $('#my_stock').html(gift_stock);
                                         $('#gift_detail_price').html(gift_price);
+
                                 }
                                 $('#ReleaseStatus').val(ReleaseStatus);
                                 my_gift_favorite_check_detail(gift_uid);

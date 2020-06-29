@@ -39,6 +39,20 @@
                 </div>
             </li>
         </ul>
+        <ul id="myPageRanking"class="list list--material" style="display:none;margin-bottom:5px;">
+            <li class="list-item list-item--material">          
+                <div class="list-item__left list-item--material__left" style="padding:0px;min-height: auto;">
+                    <div class="list-item__subtitle list-item--material__subtitle" style="height:100%;padding:0px;">
+                        <div style="width:100%;text-align: center;float: left;height:100%;">
+                            <span id="myPageSougouRanking"style="line-height: 100%;margin:0px;font-size:0.8em;text-align: left;color:#FF6070;">
+                            </span> 
+                            <span id="myPagekyujosyoRanking"style="line-height: 100%;margin:0px;font-size:0.8em;text-align: left;color:#FF6070;">
+                            </span> 
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
         <ul class="list list--material">
             <li class="list-item list-item--material">          
                 <div class="list-item__left list-item--material__left" style="padding:0px;min-height: auto;">
@@ -101,7 +115,7 @@
             <button class="btn button" onclick="giftLogStatusChange($('#giftLogStatusChange').val());" style="margin-bottom:50px;">プレゼント完了</button>
             <input type="tel" id="giftLogStatusKakunin" class="text-input" style="background-color: white;border:1px solid black;width:100%;">
             <button class="btn button" onclick="giftLogStatusKakunin($('#giftLogStatusKakunin').val());">ギフト内容確認中</button>
-            <button class="btn button" onclick="normalGift();">通常出品に帰る</button>
+            <button class="btn button" onclick="kyujosyoUserPush();">急上昇のお知らせ</button>
         </div>
     </div>
     
@@ -122,21 +136,46 @@
     </div>
     <!-- 以下、javascript -->
     <script type="text/javascript">
-        function normalGift(){
-            var giftData = ncmb.DataStore("giftData");
-            giftData
-            .equalTo("auction",null)
-            .fetchAll()         
-            .then(function(result){
-                for(var i=0;i<result.length;i++){
-                    var auction = result[i].get("auction");
-                    var createDate = result[i].get("createDate");
-                    // if(auction==null){
-                        console.log(auction,createDate);
-                    // }
-                    result[i].set("auction", "通常出品")
-                    .update();
+        function kyujosyoUserPush(){
+            ons.notification.confirm({
+            message: '急上昇ランカーに通知を飛ばしますか？',
+            title: "確認",
+            buttonLabels:["キャンセル","OK"],
+            callback: function(buttonIndex) {
+                    if(buttonIndex==1){
+                        var kyujosyoData = ncmb.DataStore("kyujosyoData");
+                        kyujosyoData
+                        .order("rank",false)
+                        .limit(15)
+                        .fetchAll()         
+                        .then(function(result){
+                            for(var i=0;i<result.length;i++){
+                                var userId = result[i].get("userId");
+                                var userName = result[i].get("userName");
+                                var rank = result[i].get("rank");
+                                kyujosyoPush(userId,userName,rank);
+                            }
+                        });                        
+                    }
                 }
+            });
+        }
+        function kyujosyoPush(userId,userName,rank){
+            var push = new ncmb.Push();
+            push.set("immediateDeliveryFlag", true)
+            .set("message", "あなたは現在「急上昇ランキング"+rank+"位」にノミネートしています！")
+            .set("target", ["ios", "android"])
+            .set('searchCondition', {
+                    userObjectId: userId,
+            });
+            push.send()
+            .then(function(push){
+                    // 送信後処理
+                    alertNew(rank+"位の"+userName+"様は成功");
+            })
+            .catch(function(err){
+                    // エラー処理
+                    alertNew(rank+"位は送信NG!!!");
             });
         }
 

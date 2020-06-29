@@ -368,6 +368,36 @@ function nyusatuUserName(buyUser,j){
         });
 }
 
+function mynyusatuUserImage(object_id,j){
+        console.log(object_id,j);
+        ncmb.File.download(object_id, "blob")
+        .then(function(fileData) {
+                var reader = new FileReader();
+                reader.onloadend = function() {
+                        var nyusatu_user_image = "mynyusatu_user_image_"+j;
+                        var img = document.getElementById(nyusatu_user_image);
+                        img.src = reader.result;                        
+                } 
+                // DataURLとして読み込む
+                reader.readAsDataURL(fileData);
+        })
+        .catch(function(err){
+                // エラー処理
+                console.log('error = ' + err);
+        });
+}
+
+function mynyusatuUserName(buyUser,j){
+        ncmb.User
+        .equalTo("objectId", buyUser)
+        .fetch()
+        .then(function(result){
+                var userName = result.get("userName");
+                var nyusatu_name = "mynyusatu_list_name_"+j;
+                $('#'+nyusatu_name).html(userName);
+        });
+}
+
 function nyusatuPageCancel(){
         var giftUid = $('#nyusatupage_gift_uid').val();
         var currentUser = ncmb.User.getCurrentUser();
