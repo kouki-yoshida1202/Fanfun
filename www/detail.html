@@ -6,6 +6,9 @@
             <div class="center" style="color:#898989;">
                 ギフト詳細
             </div>
+            <div class="right" style="padding-right: 5%;">
+                <button class="button" style="border-radius:30px;background: transparent;height:80%;line-height: initial;vertical-align: middle;font-size:12px;" onclick="detailReflesh();"><i class="fas fa-redo-alt fa-lg" style="color:#FF6070;"></i></button>
+            </div>
         </ons-toolbar>
         <input type="hidden" id="other_user_id">
         <input type="hidden" id="gift_id">
@@ -92,6 +95,51 @@
             </div>
         </div>
         <script>
+
+            function detailReflesh(){
+                showLoad();
+                var gift_uid = $('#gift_id').val();
+                var prev_page = $('#prev_page').val();
+                var giftData = ncmb.DataStore("giftData");
+                giftData
+                .equalTo("giftUid", gift_uid)
+                .fetch()               
+                .then(function(results){
+                        var object = results;
+                        var gift_stock = object.get("stock");
+                        var gift_title = object.get("giftTitle");
+                        var gift_text = object.get("giftText");
+                        var create_date = object.get("createDate");
+                        var price = object.get("price");
+                        var gift_user_id = object.get("userId");
+                        var ReleaseStatus = object.get("ReleaseStatus");
+                        var ohitotu = object.get("ohitotu");
+                        var auction = object.get("auction");
+                        var currentUser = ncmb.User.getCurrentUser();
+                        var objectId = currentUser.get("objectId");
+                        ncmb.User
+                        .equalTo("objectId", gift_user_id)
+                        .fetch()
+                        .then(function(result){
+                            var userName = result.get("userName");
+                            console.log(gift_uid,userName,gift_title,gift_text,objectId,create_date,price,gift_user_id,gift_stock,ReleaseStatus,ohitotu,auction);
+                            prevPage(prev_page);
+                            giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date,price,gift_user_id,gift_stock,ReleaseStatus,ohitotu,auction);
+                            setTimeout(() => {
+                                hideLoad();
+                            }, 1000);
+                        }).catch(function(){
+                            setTimeout(() => {
+                                hideLoad();
+                            }, 1000);
+                        });
+                }).catch(function(){
+                    setTimeout(() => {
+                        hideLoad();
+                    }, 1000);
+                });
+            }
+
             function buyPageOpen(){
                 ons.notification.confirm({
                     message: '5分経ちましたら、購入権は破棄されますのでご注意ください。',

@@ -109,13 +109,15 @@
             
         </div>
         <div id="kanrisyabox"style="display: none;background-color: #efeff4;width:100%;padding-top:50px;padding-bottom:400px;">
-            <input type="tel" id="giftLogSearchInput" class="text-input" style="background-color: white;border:1px solid black;">
+            <input type="tel" id="giftLogSearchInput" class="text-input" style="background-color: white;border:1px solid black;margin-bottom:10px;">
             <button class="btn button" onclick="giftLogSearchInput($('#giftLogSearchInput').val());"style="margin-bottom:50px;">ギフトログ管理画面へ</button>
-            <input type="tel" id="giftLogStatusChange" class="text-input" style="background-color: white;border:1px solid black;width:100%;">
+            <input type="tel" id="giftLogStatusChange" class="text-input" style="background-color: white;border:1px solid black;width:100%;margin-bottom:10px;">
             <button class="btn button" onclick="giftLogStatusChange($('#giftLogStatusChange').val());" style="margin-bottom:50px;">プレゼント完了</button>
-            <input type="tel" id="giftLogStatusKakunin" class="text-input" style="background-color: white;border:1px solid black;width:100%;">
+            <input type="tel" id="giftLogStatusKakunin" class="text-input" style="background-color: white;border:1px solid black;width:100%;margin-bottom:10px;">
             <button class="btn button" onclick="giftLogStatusKakunin($('#giftLogStatusKakunin').val());">ギフト内容確認中</button>
+            <br><br>
             <button class="btn button" onclick="kyujosyoUserPush();">急上昇のお知らせ</button>
+            <button class="btn button" onclick="sougouUserPush();">総合ランキングのお知らせ</button>
         </div>
     </div>
     
@@ -136,6 +138,8 @@
     </div>
     <!-- 以下、javascript -->
     <script type="text/javascript">
+        $('.action-sheet-mask,.action-sheet').hide();
+
         function kyujosyoUserPush(){
             ons.notification.confirm({
             message: '急上昇ランカーに通知を飛ばしますか？',
@@ -178,8 +182,48 @@
                     alertNew(rank+"位は送信NG!!!");
             });
         }
-
-        $('.action-sheet-mask,.action-sheet').hide();
+        function sougouUserPush(){
+            ons.notification.confirm({
+            message: '総合ランカーに通知を飛ばしますか？',
+            title: "確認",
+            buttonLabels:["キャンセル","OK"],
+            callback: function(buttonIndex) {
+                    if(buttonIndex==1){
+                        var crownData = ncmb.DataStore("crownData");
+                        crownData
+                        .order("rank",false)
+                        .limit(15)
+                        .fetchAll()         
+                        .then(function(result){
+                            for(var i=0;i<result.length;i++){
+                                var userId = result[i].get("userId");
+                                var userName = result[i].get("userName");
+                                var rank = result[i].get("rank");
+                                sougouPush(userId,userName,rank);
+                            }
+                        });                        
+                    }
+                }
+            });
+        }
+        function sougouPush(userId,userName,rank){
+            var push = new ncmb.Push();
+            push.set("immediateDeliveryFlag", true)
+            .set("message", "あなたは現在「総合ランキング"+rank+"位」にノミネートしています！")
+            .set("target", ["ios", "android"])
+            .set('searchCondition', {
+                    userObjectId: userId,
+            });
+            push.send()
+            .then(function(push){
+                    // 送信後処理
+                    alertNew(rank+"位の"+userName+"様は成功");
+            })
+            .catch(function(err){
+                    // エラー処理
+                    alertNew(rank+"位は送信NG!!!");
+            });
+        }
 
         var myPageGiftCounter=0;
         function myPageRefresh(){

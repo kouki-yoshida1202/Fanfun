@@ -315,6 +315,7 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
                                         if((gift_stock <= 0 || gift_stock == '' || gift_stock==undefined) && auction=="通常出品"){
                                                 $('#ReleaseStatusButton').prop("disabled",true);
                                                 $('#ReleaseStatusButton').html("在庫切れ");
+                                                alertNew("在庫が0になりました。","注文手続きキャンセルが出る場合もあるため、時間を置いたあと更新を行った後、再度ご確認ください。","");
                                         }
                                 },500)
                                 
