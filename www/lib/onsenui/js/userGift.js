@@ -316,6 +316,9 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
                                                 $('#ReleaseStatusButton').prop("disabled",true);
                                                 $('#ReleaseStatusButton').html("在庫切れ");
                                                 alertNew("在庫が0になりました。","注文手続きキャンセルが出る場合もあるため、時間を置いたあと更新を行った後、再度ご確認ください。","");
+                                        }else{
+                                                $('#ReleaseStatusButton').prop("disabled",false);
+                                                $('#ReleaseStatusButton').html("購入手続き");
                                         }
                                 },500)
                                 

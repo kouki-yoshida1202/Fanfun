@@ -118,6 +118,10 @@
             <br><br>
             <button class="btn button" onclick="kyujosyoUserPush();">急上昇のお知らせ</button>
             <button class="btn button" onclick="sougouUserPush();">総合ランキングのお知らせ</button>
+            <br><br>
+            <input type="tel" id="giftLogStatusCancel" class="text-input" style="background-color: white;border:1px solid black;width:100%;margin-bottom:10px;">
+            <button class="btn button" onclick="giftLogStatusCancel($('#giftLogStatusCancel').val());">ギフトキャンセル</button>
+            <br><br>
         </div>
     </div>
     
@@ -514,6 +518,92 @@
             .catch(function(err){
                     console.log(err);
             });   
+        }
+
+        function giftLogStatusCancel(logId){
+            var giftLog = ncmb.DataStore("giftLog");
+            giftLog
+            .order('createDate', true)
+            .equalTo('logId',logId)
+            .fetch()         
+            .then(function(result){
+                var logId = result.get("logId");
+                var buyUser = result.get("buyUser");
+                var giftCreateInfluencer = result.get("giftCreateInfluencer");
+                var giftTitle = result.get("giftTitle");
+                var giftUid = result.get("giftUid");
+                var buyUserAtena = result.get("buyUserAtena");
+                var buyUserNickName = result.get("buyUserNickName");
+                var buyRequest = result.get("buyRequest");
+                var buyKakaku = result.get("buyKakaku");
+                var buyDate = result.get("buyDate");
+                ncmb.User
+                .equalTo("objectId",buyUser)
+                .fetch()
+                .then(function(result){
+                    var buyUserMailAddress = result.get("mailAddress");
+                    var buyUserName = result.get("userName");
+                    ncmb.User
+                    .equalTo("objectId",giftCreateInfluencer)
+                    .fetch()
+                    .then(function(result){
+                        var influencerMailAddress = result.get("mailAddress");
+                        var influencerName = result.get("userName");
+                        console.log(influencerMailAddress,influencerName,buyUserMailAddress,buyUserName,logId,giftTitle,buyUserAtena,buyUserNickName,buyRequest,buyKakaku,buyDate);
+                        $.ajax({
+                            type: 'post',
+                            url: 'https://fanfun2020.xsrv.jp/giftLogStatusCancel.html',
+                            data: {
+                                    "influencerMailAddress":influencerMailAddress,
+                                    "influencerName":influencerName,
+                                    "buyUserMailAddress":buyUserMailAddress,
+                                    "buyUserName":buyUserName,
+                                    "logId":logId,
+                                    "giftTitle":giftTitle,
+                                    "buyUserAtena":buyUserAtena,
+                                    "buyUserNickName":buyUserNickName,
+                                    "buyRequest":buyRequest,
+                                    "buyKakaku":buyKakaku,
+                                    "buyDate":buyDate,
+                                    "giftUid":giftUid,
+                            },
+                            success: function(data){
+                                console.log(data);
+                                if(data == "success"){
+                                    var GiftData = ncmb.DataStore("giftData");
+                                    GiftData
+                                    .equalTo("giftUid", giftUid)
+                                    .fetch()               
+                                    .then(function(result){
+                                        var object = result;
+                                        var stock = String(Number(object.get("stock")) + 1);
+                                        result
+                                        .set("stock",stock)
+                                        .update();
+                                        console.log(stock);
+                                        var giftLog = ncmb.DataStore("giftLog");
+                                        giftLog
+                                        .equalTo('logId',logId)
+                                        .fetch()         
+                                        .then(function(result){
+                                            result
+                                            .delete()
+                                            .then(function(){
+                                                alertNew("キャンセル成功");
+                                            });
+                                        });
+                                    });
+                                }
+                            },
+                            error: function (response) {
+                                    console.log(response);
+                            }
+                        });
+                    });
+                });
+            }).catch(function(){
+                alertNew("注文ID:"+logId+"は見つかりません");
+            });
         }
     </script>
     <style>

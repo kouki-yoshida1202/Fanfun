@@ -321,6 +321,7 @@ function mikanryoKounyuTorihikiList(){
 }
 
 function giftLogDetail(buyUserAtena,buyUserNickName,buyRequest,buyKakaku,giftUid,torihikiStatus,buyDate,status,logId){
+        showLoad();
         document.getElementById('navi').pushPage('giftLogDetail.html');
         var buyKakaku = String( buyKakaku );
         var giftData = ncmb.DataStore("giftData");
@@ -341,6 +342,10 @@ function giftLogDetail(buyUserAtena,buyUserNickName,buyRequest,buyKakaku,giftUid
                 if(status=="出品" && torihikiStatus=="ギフト準備中"){
                         $('#giftUploadButton').css("display","block");
                 }
+                hideLoad();
+        }).catch(function(){
+                alertNew("情報取得失敗","通信環境が悪い可能性がございます。再度お確かめください。直らない場合はお手数ですが運営までお問い合わせくださいませ。");
+                hideLoad();
         });
 }
 
