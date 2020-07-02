@@ -156,6 +156,7 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
                                 $('#my_user_id').val(gift_user_id);
                                 $('#my_gift_id').val(gift_uid);
                                 if(auction=="オークション"){
+                                        $('#auctionMyZone'). css("display","block");
                                         $('#mygift_detail_auction').css("display","block");
                                         var auctionDataLog = ncmb.DataStore("auctionDataLog");
                                         auctionDataLog
@@ -217,6 +218,7 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
                                                 }
                                         });
                                 }else if(auction=="プレゼント"){
+                                        $('#auctionMyZone'). css("display","none");
                                         $('#gift_detail_price').html(gift_price);
                                         $('#mygift_detail_fanpresent').css("display","block");
                                         $('#mygift_detail_ohitotu').css("display","block");
@@ -262,6 +264,29 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
                                 if(Authentication!="OK"){
                                         alertNew("本人確認が未完了のため、購入されません。","","");
                                 }
+                                var giftData = ncmb.DataStore("giftData");
+                                giftData
+                                .equalTo('giftUid',gift_uid)
+                                .fetch()
+                                .then(function(result){
+                                        var dataKind = result.get("dataKind");
+                                        var dataLong = result.get("dataLong");
+                                        console.log(dataKind,dataLong);
+                                        if(!(dataKind==null||dataKind==""||dataKind=="undefined")){
+                                                var dataKindText = '<span style="background-color: #FF6070;color:white;font-weight:bold;border-radius: 20px;padding:5px 10px;font-size:0.7em;">'+dataKind+'</span>';
+                                                $('#mygift_detail_datakind').html(dataKindText);
+                                                setTimeout(function(){
+                                                        $('#mygift_detail_datakind').css("display","block");
+                                                },500);
+                                        }
+                                        if(!(dataLong==null||dataLong==""||dataLong=="undefined")){
+                                                var dataLongText = '<span style="background-color: #FF6070;color:white;font-weight:bold;border-radius: 20px;padding:5px 10px;font-size:0.7em;">'+dataLong+'</span>';
+                                                $('#mygift_detail_datalong').html(dataLongText);
+                                                setTimeout(function(){
+                                                        $('#mygift_detail_datalong').css("display","block");
+                                                },500);
+                                        }
+                                });
                         },500);
                 }else{
                         document.getElementById('navi').bringPageTop('detail.html');
@@ -327,7 +352,23 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
                                         $('#ReleaseStatusButton').prop("disabled",true);
                                         $('#ReleaseStatusButton').html("購入不可");
                                 }
-                                
+                                var dataKind = result.get("dataKind");
+                                var dataLong = result.get("dataLong");
+                                console.log(dataKind,dataLong);
+                                if(!(dataKind==null||dataKind==""||dataKind=="undefined")){
+                                        var dataKindText = '<span style="background-color: #FF6070;color:white;font-weight:bold;border-radius: 20px;padding:5px 10px;font-size:0.7em;">'+dataKind+'</span>';
+                                        $('#gift_detail_datakind').html(dataKindText);
+                                        setTimeout(function(){
+                                                $('#gift_detail_datakind').css("display","block");
+                                        },500);
+                                }
+                                if(!(dataLong==null||dataLong==""||dataLong=="undefined")){
+                                        var dataLongText = '<span style="background-color: #FF6070;color:white;font-weight:bold;border-radius: 20px;padding:5px 10px;font-size:0.7em;">'+dataLong+'</span>';
+                                        $('#gift_detail_datalong').html(dataLongText);
+                                        setTimeout(function(){
+                                                $('#gift_detail_datalong').css("display","block");
+                                        },500);
+                                }
                                 if(auction=="オークション"){
                                         if(result.get('auctionEndTime') == ''||result.get('auctionEndTime') == null){
                                                 $('#zaikoOtherDetail').html("終了:");

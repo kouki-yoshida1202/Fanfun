@@ -580,17 +580,17 @@
                                         result
                                         .set("stock",stock)
                                         .update();
-                                        console.log(stock);
-                                        var giftLog = ncmb.DataStore("giftLog");
-                                        giftLog
-                                        .equalTo('logId',logId)
-                                        .fetch()         
-                                        .then(function(result){
-                                            result
-                                            .delete()
-                                            .then(function(){
-                                                alertNew("キャンセル成功");
-                                            });
+                                        alertNew("在庫＋１完了");
+                                    });
+                                    var giftLog = ncmb.DataStore("giftLog");
+                                    giftLog
+                                    .equalTo('logId',logId)
+                                    .fetch()         
+                                    .then(function(result){
+                                        result
+                                        .delete()
+                                        .then(function(){
+                                            alertNew("ログ削除完了");
                                         });
                                     });
                                 }

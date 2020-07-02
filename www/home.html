@@ -175,7 +175,6 @@
             if(results.length!=0){
               //落札者を保存
               var buyUser = results[0].get("buyUser");
-
               var auctionRakusatuLog = ncmb.DataStore("auctionRakusatuLog");
               var auctionRakusatuLog = new auctionRakusatuLog();
               auctionRakusatuLog
@@ -225,35 +224,40 @@
       .then(function(result){
         var giftTitle = result.get("giftTitle");
         var influencerId = result.get("userId");
-        ncmb.User
-        .equalTo("objectId", influencerId)
-        .fetch()
-        .then(function(result){
-          var influencerMailAddress = result.get("mailAddress");
-          var influencerName = result.get("userName");
-
+        result
+        .set("price",nyusatuKakaku)
+        .update()
+        .then(function(){
           ncmb.User
-          .equalTo("objectId", buyUser)
+          .equalTo("objectId", influencerId)
           .fetch()
           .then(function(result){
-            var userName = result.get("userName");
-            var mailAddress = result.get("mailAddress");
-            var giftUrl = 'https://fanfun2020.xsrv.jp/customUrlScheme.html?GIFTorUSERID='+giftUid+'&page=giftPage';
-            $.ajax({
-                    type: 'post',
-                    url: 'https://fanfun2020.xsrv.jp/rakusatuMail.html',
-                    data: {
-                            'userName': userName,
-                            'mailAddress':mailAddress,
-                            'giftUrl':giftUrl,
-                            'nyusatuKakaku':nyusatuKakaku,
-                            'giftTitle':giftTitle,
-                            'influencerMailAddress':influencerMailAddress,
-                            'influencerName':influencerName,
-                    },
-                    success: function(data){
-                            console.log("----success.----");
-                    }
+            var influencerMailAddress = result.get("mailAddress");
+            var influencerName = result.get("userName");
+
+            ncmb.User
+            .equalTo("objectId", buyUser)
+            .fetch()
+            .then(function(result){
+              var userName = result.get("userName");
+              var mailAddress = result.get("mailAddress");
+              var giftUrl = 'https://fanfun2020.xsrv.jp/customUrlScheme.html?GIFTorUSERID='+giftUid+'&page=giftPage';
+              $.ajax({
+                      type: 'post',
+                      url: 'https://fanfun2020.xsrv.jp/rakusatuMail.html',
+                      data: {
+                              'userName': userName,
+                              'mailAddress':mailAddress,
+                              'giftUrl':giftUrl,
+                              'nyusatuKakaku':nyusatuKakaku,
+                              'giftTitle':giftTitle,
+                              'influencerMailAddress':influencerMailAddress,
+                              'influencerName':influencerName,
+                      },
+                      success: function(data){
+                              console.log("----success.----");
+                      }
+              });
             });
           });
         });
@@ -1070,7 +1074,8 @@
   </style>
 </head>
 <body>
-  <ons-navigator id="navi" swipeable="force" swipeable swipe-target-width="100px" swipe-threshold="0.5">
+  <ons-navigator id="navi">
+      <!-- swipeable="force" swipeable swipe-target-width="100px" swipe-threshold="0.5" -->
     <ons-page>
       <ons-tabbar position="bottom">
           <ons-tab id="topPageTab"page="top.html" label="ホーム"icon="home" onclick="" active></ons-tab>

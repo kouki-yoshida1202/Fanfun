@@ -375,7 +375,6 @@ function nyusatuUserName(buyUser,j){
 }
 
 function mynyusatuUserImage(object_id,j){
-        console.log(object_id,j);
         ncmb.File.download(object_id, "blob")
         .then(function(fileData) {
                 var reader = new FileReader();

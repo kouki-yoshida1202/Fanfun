@@ -31,7 +31,12 @@ function giftInsert(ReleaseStatus) {
         var ohitotu = $('.segment-ohitotu:checked').val();
         var timeLimit = $('.segment-limit:checked').val();
         var profileGiftInputStatus = $('#profileGiftInputStatus').val();
-        
+        var dataKind = $('.segment-dataKind:checked').val();
+        if(dataKind=="画像"){
+                var dataLong = $('#dataLongPhoto').val();
+        }else{
+                var dataLong = $('#dataLongMovieVoice').val();
+        }
         if(giftKind=="オークション"){
                 var gift_stock = "1";
                 var timeLimit = "OFF";
@@ -96,6 +101,8 @@ function giftInsert(ReleaseStatus) {
                                 .set("ReleaseStatus",ReleaseStatus)
                                 .set("auction",giftKind)
                                 .set("auctionEndTime",auctionEndtime)
+                                .set("dataLong",dataLong)
+                                .set("dataKind",dataKind)
                                 .save()
                                 .then(function(gameScore){
                                         // 保存後の処理
@@ -487,7 +494,12 @@ function giftInsertPresent() {
         var profileGiftInputStatus = $('#profileGiftInputStatus').val();
         var ReleaseStatus="";
         var auctionEndtime = "";
-
+        var dataKind = $('.segment-dataKind:checked').val();
+        if(dataKind=="画像"){
+                var dataLong = $('#dataLongPhoto').val();
+        }else{
+                var dataLong = $('#dataLongMovieVoice').val();
+        }
         if(gift_title ==''){
                 hideLoad();
                 alertNew("ギフト名が未入力です","","");
@@ -523,6 +535,8 @@ function giftInsertPresent() {
                                 .set("ReleaseStatus",ReleaseStatus)
                                 .set("auction",giftKind)
                                 .set("auctionEndTime",auctionEndtime)
+                                .set("dataLong",dataLong)
+                                .set("dataKind",dataKind)
                                 .save()
                                 .then(function(gameScore){
                                         // 保存後の処理
