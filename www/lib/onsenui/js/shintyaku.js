@@ -333,7 +333,7 @@ function giftImageGetTop(giftUid,i,gift_stock,auction){
                 // DataURLとして読み込む
                 reader.readAsDataURL(fileData);
 
-                if(gift_stock==0 && auction=="通常出品"){
+                if(gift_stock==0 && (auction=="通常出品" || auction=="価格自由")){
                         var sold_out = `<img class="sold_out" src="img/custom – 8.png" style="border-radius:20px;">`;
                         $("#gift_image_top_"+i).before(sold_out);
                         $("#gift_image_top_"+i).addClass("sold_img");

@@ -77,7 +77,7 @@ function giftImageGet(giftUid,i,gift_stock,auction){
                 }
                 // DataURLとして読み込む
                 reader.readAsDataURL(fileData);
-                if(gift_stock==0 && auction=="通常出品"){
+                if(gift_stock==0 && (auction=="通常出品" || auction=="価格自由")){
                         var sold_out = `<img class="sold_out" src="img/custom – 8.png" style="border-radius:20px;"></div>`;
                         $("#gift_image_"+i).after(sold_out);
                         $("#gift_image_"+i).addClass("sold_img");
@@ -249,6 +249,11 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
                                 }else{
                                         $('#my_stock').html(gift_stock);
                                         $('#gift_detail_price').html(gift_price);
+                                        if(auction=="価格自由"){
+                                                $('#gift_detail_kakakufree').css("display","block");
+                                                $('#gift_detail_price').html("¥1000~");
+                                                $('#gift_detail_kakakufree_kaisetu').css("display","block");
+                                        }
 
                                 }
                                 $('#ReleaseStatus').val(ReleaseStatus);
@@ -464,6 +469,9 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
                                                         $('#presentEndButton').css("display","block");
                                                 }
                                         });
+                                }else if(auction=="価格自由"){
+                                        $('#gift_detail_kakakufree').css("display","block");
+                                        $('#gift_detail_kakakufree_kaisetu').css("display","block");
                                 }
                                 setTimeout(function(){
                                         var releaseDate = result.get("releaseDate");
@@ -524,8 +532,9 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
                                         
                                         $('#gift_detail_auction').css("display","block");
                                         
+                                }else if(auction=="価格自由"){
+                                        $('#gift_detail_price_other').html("¥1000~");
                                 }else{
-                                        
                                         $('#gift_detail_price_other').html(gift_price);
                                 }
                                 gift_favorite_check_detail(gift_uid);

@@ -66,7 +66,6 @@
         </div>
     </ons-toolbar>
     <input type="hidden" id="buypage_gift_uid">
-    <input type="hidden" id="buypage_price_number">
     <div class="container contents" style="padding-bottom:20px;">
         <!-- カードリスト部分 -->
         <div class="" style="width:100%;height: auto; padding: 1px 0 0 0;display: inline-block;">
@@ -113,9 +112,6 @@
                 <input type="text" placeholder="ギフト内で使用する呼び名になります。" id="nickname_input" required>
                 <i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
             </div>
-            <!-- <div class="" style="width: 100%; margin: 0 auto;margin-top:3px;">
-                <input id="nickname_input"type="text" class="text-input" placeholder="ギフト内で使用する呼び名になります。" style="background-color: white;border-radius:20px;width:100%;font-size:14px;border:1px solid #898989;height:30px;padding-left:3%;" required>
-            </div> -->
         </div>
         <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:20px;">
             <div>
@@ -125,109 +121,35 @@
                 <textarea type="text" rows="7"placeholder="話してほしいセリフ、書いて欲しい文字、などなどできるだけ具体的にご記入ください。(500文字以内)" id="request_message_input" maxlength="500" required></textarea>
                 <i class="fas fa-comment-alt fa-lg fa-fw" aria-hidden="true"></i>
             </div>
-            <!-- <div class="" style="width: 100%; margin: 0 auto;margin-top:3px;">
-                <textarea id="request_message_input"class="textarea" rows="7" placeholder="" style="background-color: white;border-radius:20px;width:100%;border:1px solid #898989;padding:10px;font-size:14px;" required></textarea>
-            </div> -->
+        </div>
+        <div id="kakakufree_inputzone"style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:20px;display: none;">
+            <div>
+                <span>お支払い金額</span>
+            </div>
+            <div class="cp_iptxt">
+                <input type="tel" placeholder="1000円以上/100円単位" id="buypage_price_number">
+                <i class="fas fa-piggy-bank fa-lg fa-fw" aria-hidden="true"></i>
+            </div>
         </div>
     </div>
     <div style="height:200px;margin:0 auto;padding:0px;width:90%;">
-        <!-- <div>
-            <span style="font-size: 70%;">
-                下の「決済ページへ」ボタンを押して、ご注文いただくことで、お客様は
-                <span onclick="document.getElementById('navi').pushPage('shikinkessai.html');">利用規約</span> 
-                および
-                <span onclick="document.getElementById('navi').pushPage('shikinkessai.html');">プライバシーポリシー</span>
-                に同意の上、商品をご注文されたことになります。
-            </span>
-        </div> -->
         <div style="width:100%;text-align:center;margin-top:5px;">
             <button class="button "style="width:100%;padding-top:0px;padding-bottom:0px;border-radius:30px;font-size:16px;margin:0 auto;height:35px;line-height: 35px;" onclick="orderCheck();">確認画面へ</button>
         </div>
     </div>
-    <div class="alert-dialog-mask sendHumanNoMiss_dialog_mask"></div>
-    <div class="alert-dialog sendHumanNoMiss_dialog">
-        <div class="alert-dialog-container">
-            <div class="alert-dialog-title">
-                送り先が選択されていません
-            </div>
-            <div class="alert-dialog-footer">
-                <button class="alert-dialog-button alert-dialog-button--primal" onclick="sendHumanNoMissClose();">OK</button>
-            </div>
-        </div>
-    </div>
-    <div class="alert-dialog-mask nicknameNoMiss_dialog_mask"></div>
-    <div class="alert-dialog nicknameNoMiss_dialog">
-        <div class="alert-dialog-container">
-            <div class="alert-dialog-title">
-                ニックネームが<br>入力されていません
-            </div>
-            <div class="alert-dialog-footer">
-                <button class="alert-dialog-button alert-dialog-button--primal" onclick="nicknameNoMissClose();">OK</button>
-            </div>
-        </div>
-    </div>
-    <div class="alert-dialog-mask requestMessageNoMiss_dialog_mask"></div>
-    <div class="alert-dialog requestMessageNoMiss_dialog">
-        <div class="alert-dialog-container">
-            <div class="alert-dialog-title">
-                リクエストが入力されていません
-            </div>
-            <div class="alert-dialog-footer">
-                <button class="alert-dialog-button alert-dialog-button--primal" onclick="requestMessageNoMissClose();">OK</button>
-            </div>
-        </div>
-    </div>
-    <div class="alert-dialog-mask buyPageCancel_dialog_mask"></div>
-    <div class="alert-dialog buyPageCancel_dialog">
-        <div class="alert-dialog-container">
-            <div class="alert-dialog-title">購入手続きをキャンセルしますか？</div>
-            <div class="alert-dialog-footer">
-                <button class="alert-dialog-button alert-dialog-button--primal" onclick="buyPageCancel();">キャンセルする</button>
-                <button class="alert-dialog-button" onclick="buyPageCancelClose();">閉じる</button>
-            </div>
-        </div>
-    </div>
     <script>
-        $('.sendHumanNoMiss_dialog_mask,.sendHumanNoMiss_dialog,.nicknameNoMiss_dialog_mask,.nicknameNoMiss_dialog,.requestMessageNoMiss_dialog_mask,.requestMessageNoMiss_dialog').hide();
-        $('.buyPageCancel_dialog_mask,.buyPageCancel_dialog').hide();
         function buyPageCancelOpen(){
                 $('.buyPageCancel_dialog_mask,.buyPageCancel_dialog').slideDown();
-        }
-        
-        function buyPageCancelClose(){
-                $('.buyPageCancel_dialog').slideUp();
-                setTimeout(function(){
-                    $('.buyPageCancel_dialog_mask').slideUp();
-                },500);
-        }
-        function sendHumanNoMissOpen(){
-            $('.sendHumanNoMiss_dialog_mask,.sendHumanNoMiss_dialog').slideDown();
-        }
-        function sendHumanNoMissClose(){
-            $('.sendHumanNoMiss_dialog').slideUp();
-            setTimeout(function(){
-                $('.sendHumanNoMiss_dialog_mask').slideUp();
-            },500);
-        }
-        
-        function nicknameNoMissOpen(){
-            $('.nicknameNoMiss_dialog_mask,.nicknameNoMiss_dialog').slideDown();
-        }
-        function nicknameNoMissClose(){
-            $('.nicknameNoMiss_dialog').slideUp();
-            setTimeout(function(){
-                $('.nicknameNoMiss_dialog_mask').slideUp();
-            },500);
-        }
-
-        function requestMessageNoMissOpen(){
-            $('.requestMessageNoMiss_dialog_mask,.requestMessageNoMiss_dialog').slideDown();
-        }
-        function requestMessageNoMissClose(){
-            $('.requestMessageNoMiss_dialog').slideUp();
-            setTimeout(function(){
-                $('.requestMessageNoMiss_dialog_mask').slideUp();
-            },500);
+                ons.notification.confirm({
+                message: '購入手続きをキャンセルしますか？',
+                title: "確認",
+                buttonLabels:["キャンセル","OK"],
+                callback: function(buttonIndex) {
+                        if(buttonIndex==1){
+                            buyPageCancel();
+                        }
+                }
+            });
         }
     </script>
 </ons-page>

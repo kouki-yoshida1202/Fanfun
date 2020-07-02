@@ -48,6 +48,9 @@ function giftInsert(ReleaseStatus) {
         }else{
                 var auctionEndtime = "";
         }
+        if(giftKind=="価格自由"){
+                var gift_price = "1000"; 
+        }
 
         if(gift_title ==''){
                 hideLoad();

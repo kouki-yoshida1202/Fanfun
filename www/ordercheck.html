@@ -13,20 +13,6 @@
         <input type="hidden" id="check_price">
         <input type="hidden" id="check_gift_uid">
         <div class="" style="width:100%;height: auto; padding: 1px 0 0 0;display: inline-block;">
-            <!-- <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:15px;">
-                <div>
-                    <span style="font-size: 70%;">
-                        下の「注文を確定する」ボタンを押して、ご注文いただくことで、お客様は
-                        <a href="">利用規約</a> 
-                        および
-                        <a href="">プライバシーポリシー</a>
-                        に同意の上、商品をご注文されたことになります。
-                    </span>
-                </div>
-                <div style="width:100%;text-align:center;margin-top:5px;">
-                    <button class="button "style="width:100%;padding-top:0px;padding-bottom:0px;line-height:auto;border-radius:30px;font-size:16px;margin:0 auto;" onclick="orderEnd();document.getElementById('navi').pushPage('orderend.html')">注文を確定する</button>
-                </div>
-            </div> -->
             <div style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:20px;">
                 <div>
                     <span>注文詳細</span>
@@ -45,12 +31,6 @@
                             <div id="nickname" style="width:100%;color:#898989;margin-left:10px;margin-top:5px;"></div>
                             </div>
                         </li>
-                        <!-- <li class="list-item">
-                            <div class="list-item__center" style="font-size: 80%;">
-                            <div style="width:100%;">支払い方法</div>
-                            <div style="width:100%;color:#898989;margin-left:10px;margin-top:5px;">コンビニ/ATM支払い</div>
-                            </div>
-                        </li> -->
                         <li class="list-item">
                             <div class="list-item__center" style="font-size: 80%;">
                                 <div style="width:100%;">リクエスト内容</div>
@@ -108,6 +88,7 @@
             var objectId = currentUser.get("objectId");
             var gift_title = $('#check_gift_title').val();
             var price = $('#check_price').val()*1.04;
+            var defaultPrice = $('#check_price').val();
             var gift_uid = $('#check_gift_uid').val();
             var send_human = $('#send_human').html();
             var nickname = $('#nickname').html();
@@ -129,7 +110,6 @@
             .then(function(results){
                 var object = results;
                 var influencerId = object.get("userId");
-                var defaultPrice = object.get("price");
 
                 var betweenOrder = ncmb.DataStore("betweenOrder");
                 // データストアへの登録
@@ -179,6 +159,7 @@
             var objectId = currentUser.get("objectId");
             var gift_title = $('#check_gift_title').val();
             var price = $('#check_price').val();
+            var defaultPrice = $('#check_price').val();
             var gift_uid = $('#check_gift_uid').val();
             var send_human = $('#send_human').html();
             var nickname = $('#nickname').html();
@@ -190,7 +171,6 @@
             .then(function(results){
                 var object = results;
                 var influencerId = object.get("userId");
-                var defaultPrice = object.get("price");
                 var betweenOrder = ncmb.DataStore("betweenOrder");
                 // データストアへの登録
                 betweenOrder
@@ -246,6 +226,7 @@
             var objectId = currentUser.get("objectId");
             var gift_title = $('#check_gift_title').val();
             var price = $('#check_price').val()*1.04;
+            var defaultPrice = $('#check_price').val();
             var gift_uid = $('#check_gift_uid').val();
             var send_human = $('#send_human').html();
             var nickname = $('#nickname').html();
@@ -257,7 +238,6 @@
             .then(function(results){
                 var object = results;
                 var influencerId = object.get("userId");
-                var defaultPrice = object.get("price");
                 var betweenOrder = ncmb.DataStore("betweenOrder");
                 // データストアへの登録
                 betweenOrder
@@ -312,6 +292,7 @@
             var mailaddress = currentUser.get("mailAddress");
             var objectId = currentUser.get("objectId");
             var gift_title = $('#check_gift_title').val();
+            var defaultPrice = $('#check_price').val();
             var price = $('#check_price').val()*1.04;
             var gift_uid = $('#check_gift_uid').val();
             var send_human = $('#send_human').html();
@@ -324,7 +305,6 @@
             .then(function(results){
                 var object = results;
                 var influencerId = object.get("userId");
-                var defaultPrice = object.get("price");
                 ncmb.User
                 .equalTo('objectId',influencerId)
                 .fetch()

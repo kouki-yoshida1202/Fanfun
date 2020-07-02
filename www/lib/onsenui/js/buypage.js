@@ -10,6 +10,7 @@ function buypage(){
         .then(function(results){
                 var object = results;
                 var stock = Number(object.get("stock"));
+                var auction = object.get("auction")
                 if(stock > 0){
                         var releaseDate = object.get("releaseDate");
                         var time = new Date();
@@ -43,18 +44,24 @@ function buypage(){
                                                                 var giftTitle = object.get("giftTitle");
                                                                 console.log(giftTitle);
                                                                 var giftText = object.get("giftText");
-                                                                if(object.get("auction")!="オークション"){
-                                                                        var price = object.get("price");
-                                                                }else{
+                                                                if(auction=="価格自由"){
+                                                                        var price = "1000~";
+                                                                }else if(auction == "オークション"){
                                                                         var price = $('#detail_kakaku').val();
+                                                                }else{
+                                                                        var price = object.get("price");
                                                                 }
                                                                 price_kakou = "¥"+price+"";
                                                                 setTimeout(function(){
-                                                                        $('#buypage_price_number').val(price);
                                                                         $('#buypage_title').html(giftTitle);
                                                                         $('#buypage_price').html(price_kakou);
                                                                         $('#buypage_gift_uid').val(gift_uid);
                                                                         $("#buypage_img").height($("#buypage_img").width());
+                                                                        if(auction=="価格自由"){
+                                                                                $('#kakakufree_inputzone').css("display","block");
+                                                                        }else{
+                                                                                $('#buypage_price_number').val(price);
+                                                                        }
                                                                         ncmb.File.download(gift_uid, "blob")
                                                                         .then(function(fileData) {
                                                                                 var reader = new FileReader();

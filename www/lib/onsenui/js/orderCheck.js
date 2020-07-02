@@ -8,14 +8,21 @@ function orderCheck(){
         var request_message_input = $('#request_message_input').val();
         var request_message_input = request_message_input.replace(/\r?\n/g,'');
         var gift_title = $('#buypage_title').html();
-        var price = $('#buypage_price_number').val();
+        var price = Number($('#buypage_price_number').val());
         var gift_uid = $('#buypage_gift_uid').val();
+        console.log(price);
         if(send_human==""){
-                sendHumanNoMissOpen();
+                alertNew("送り先が指定されていません");
         }else if(nickname_input==""){
-                nicknameNoMissOpen();
+                alertNew("ニックネームが入力されていません");
         }else if(request_message_input==""){
-                requestMessageNoMissOpen();
+                alertNew("リクエストが入力されていません");
+        }else if(price == ''){
+                alertNew("投げ銭額を入力してください");
+        }else if(!Number.isInteger(price) || price < 1000){
+                alertNew("1000以上の整数で入力してください");
+        }else if(price%100 != 0){
+                alertNew("100円単位(下2桁が00)で設定してください");
         }else{
                 document.getElementById('navi').bringPageTop('ordercheck.html');
                 setTimeout(function(){
