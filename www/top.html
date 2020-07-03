@@ -56,7 +56,7 @@
             <div class="left" style="padding-left: 5%;"onclick="">
                 <button class="button" style="border-radius:30px;background: transparent;height:80%;line-height: initial;vertical-align: middle;font-size:12px;" onclick="document.getElementById('navi').pushPage('request.html')"><i class="fas fa-info-circle fa-lg" style="color:#FF6070;"></i></button>
             </div>
-            <div id="fanfun_logo"class="center" style="width:120%;">
+            <div id="fanfun_logo"class="center" style="width:120%;" onclick="document.getElementById('navi').pushPage('detail.html');">
                 <!-- <img src="img/custom – 5.png" alt="" style="width:120px;height:auto;">
                 -->
                 <span style="font-family: 'Damion';color:#FF6070;font-size:1.7em;vertical-align: middle;">Fan fun</span>
@@ -123,22 +123,16 @@
         function bottomRefresh(){
             $('#topBottom').on('inview',  function(event, isInView){
                 if (isInView) {
-                    console.log("見えてる");
                     shintyakuCounter++;
                     shintyaku(shintyakuCounter);
-                }else{
-                    console.log("見えてない");
                 }
             });
         }
         function followRefresh(){
             $('#followBottom').on('inview',  function(event, isInView){
                 if (isInView) {
-                    console.log("folo見えてる");
                     followCounter++;
                     followUserGift(followCounter);
-                }else{
-                    console.log("folo見えてない");
                 }
             });
         }
@@ -152,6 +146,39 @@
                 $('.searchKeywordNo_dialog_mask').slideUp();
             },500);
         }
+
+        //このあたりはswiper.jsというライブラリのサンプルを結構そのまま持ってきたので、何をやっているか具体的にまでわかりません。
+        function setCurrentSlide(ele, index) {
+            $(".swiper-navigation .swiper-slide").removeClass('selected');
+            ele.addClass('selected');
+        }
+        swiperNavigation = new Swiper('.swiper-navigation', {
+            slidesPerView: 'auto',
+            allowTouchMove: false,
+            freeMode: false,
+            loop: false,
+            autoplay: false
+        });
+
+
+        swiperContents = new Swiper('.swiper-contents', {
+            direction: 'horizontal',
+            loop: false,
+            autoHeight: true
+        });
+        
+        swiperContents.on('slideChange', function() {
+            setTimeout(function(){
+                var index = $('div.sp-content > div.swiper-slide-active').index();
+                slideControl(index);
+                setCurrentSlide($('.swiper-navigation .swiper-slide').eq(index), index);
+                swiperNavigation.slideTo(index, 500, false);
+                $('.sp-content').height($(".swiper-slide-active").height());
+                setTimeout(function(){
+                        $('#sp-content').height($('.sp-content').height());
+                },500);              
+            },250);
+        });
         // $(document).ready(function(){
         //     var ptr = new PullToReload({ 
         //         'callback-loading': function(){

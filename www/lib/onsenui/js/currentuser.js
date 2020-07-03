@@ -79,7 +79,7 @@ function loginInfo(){
         .equalTo("userId", objectId)
         .fetch()               
         .then(function(result){
-                if(result){
+                if(Object.keys(result).length){
                         var rank = Number(result.get("rank"));
                         if(0<rank && rank<16){
                                 console.log(rank);
@@ -87,9 +87,6 @@ function loginInfo(){
                                 $('#myPagekyujosyoRanking').html("<i class='fas fa-crown'></i>急上昇ランキング"+rank+"位");
                         }
                 }
-        })
-        .catch(function(err){
-                console.log(err);
         }); 
 
         var crownData = ncmb.DataStore("crownData");
@@ -97,7 +94,7 @@ function loginInfo(){
         .equalTo("userId", objectId)
         .fetch()               
         .then(function(result){
-                if(result){
+                if(Object.keys(result).length){
                         var rank = Number(result.get("rank"));
                         if(0<rank && rank<16){
                                 console.log(rank);
@@ -105,9 +102,6 @@ function loginInfo(){
                                 $('#myPagekyujosyoRanking').html("<i class='fas fa-crown'></i>総合ランキング"+rank+"位");
                         }
                 }
-        })
-        .catch(function(err){
-                console.log(err);
         }); 
 
         //ログイン情報取得ミスでログイン画面に戻す

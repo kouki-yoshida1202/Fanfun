@@ -1,5 +1,8 @@
 <ons-page>
     <ons-toolbar class="toolbar" style="background-color: white;">
+        <div class="left" style="padding-left: 5%;">
+            <button class="button" style="border-radius:30px;background: transparent;height:80%;line-height: initial;vertical-align: middle;font-size:12px;" onclick="userReflesh();"><i class="fas fa-redo-alt fa-lg" style="color:#FF6070;"></i></button>
+        </div>
         <div class="center" style="width:120%;">
             <span id="mypage_user_name" class="current_user_name" style="color:#898989;"></span> 
         </div>
@@ -109,18 +112,20 @@
             
         </div>
         <div id="kanrisyabox"style="display: none;background-color: #efeff4;width:100%;padding-top:50px;padding-bottom:400px;">
-            <input type="tel" id="giftLogSearchInput" class="text-input" style="background-color: white;border:1px solid black;margin-bottom:10px;">
+            <input type="tel" id="giftLogSearchInput" class="text-input" style="background-color: white;border:1px solid black;width:100%;margin-bottom:10px;">
             <button class="btn button" onclick="giftLogSearchInput($('#giftLogSearchInput').val());"style="margin-bottom:50px;">ギフトログ管理画面へ</button>
             <input type="tel" id="giftLogStatusChange" class="text-input" style="background-color: white;border:1px solid black;width:100%;margin-bottom:10px;">
             <button class="btn button" onclick="giftLogStatusChange($('#giftLogStatusChange').val());" style="margin-bottom:50px;">プレゼント完了</button>
             <input type="tel" id="giftLogStatusKakunin" class="text-input" style="background-color: white;border:1px solid black;width:100%;margin-bottom:10px;">
             <button class="btn button" onclick="giftLogStatusKakunin($('#giftLogStatusKakunin').val());">ギフト内容確認中</button>
+            
+            <br><br>
+            <input type="tel" id="giftLogStatusCancel" class="text-input" style="background-color: white;border:1px solid black;width:100%;margin-bottom:10px;">
+            <button class="btn button" onclick="giftLogStatusCancel($('#giftLogStatusCancel').val());" style="background:gray;">ギフトキャンセル</button>
+            <br><br>
             <br><br>
             <button class="btn button" onclick="kyujosyoUserPush();">急上昇のお知らせ</button>
             <button class="btn button" onclick="sougouUserPush();">総合ランキングのお知らせ</button>
-            <br><br>
-            <input type="tel" id="giftLogStatusCancel" class="text-input" style="background-color: white;border:1px solid black;width:100%;margin-bottom:10px;">
-            <button class="btn button" onclick="giftLogStatusCancel($('#giftLogStatusCancel').val());">ギフトキャンセル</button>
             <br><br>
         </div>
     </div>
@@ -604,6 +609,18 @@
             }).catch(function(){
                 alertNew("注文ID:"+logId+"は見つかりません");
             });
+        }
+
+        function userReflesh(){
+            var currentUser = ncmb.User.getCurrentUser();
+            var objectId = currentUser.get("objectId");
+            var mailaddress = currentUser.get("mailAddress");
+            var password = currentUser.get("password");
+            ncmb.User.loginWithMailAddress(mailaddress,password)
+            .then(function(data){
+                // ログイン後処理
+                $('#myPageTab').click();
+            })
         }
     </script>
     <style>

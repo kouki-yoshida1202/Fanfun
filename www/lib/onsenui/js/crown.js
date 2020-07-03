@@ -131,14 +131,11 @@ function crownImg(j,userId,last){
                 var reader = new FileReader();
                 reader.onloadend = function() {
                 var img = document.getElementById("rank_"+j+"_img");
-                img.src = reader.result;
-                console.log(last);
-                
+                img.src = reader.result;                
                 }
                 // DataURLとして読み込む
                 reader.readAsDataURL(fileData);
                 if(last=="last"){
-                        console.log(j,last);
                         hideLoadRanking();
                         setTimeout(function(){
                                 $('#crown-sp-content').height($('#rankingZone').height()+100);

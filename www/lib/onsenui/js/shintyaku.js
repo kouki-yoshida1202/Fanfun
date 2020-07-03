@@ -56,7 +56,7 @@ function shintyaku(shintyakuCounter){
                                                 var card = `
                                                 <div class="gift-card" style="width:49%;height: 298px; padding: 1px 0 0 0;display: inline-block;margin-top:5px;"onclick="
                                                 `;
-                                                card += "prevPage('shintyaku');giftIdJudge('"+gift_uid+"','"+userName+"','"+gift_title+"','"+gift_text+"','"+objectId+"','"+create_date+"','"+gift_price+"','"+gift_user_id+"','"+gift_stock+"','"+ReleaseStatus+"','"+ohitotu+"','"+auction+"');";
+                                                card += "giftIdJudge('"+gift_uid+"','"+userName+"','"+gift_title+"','"+gift_text+"','"+objectId+"','"+create_date+"','"+gift_price+"','"+gift_user_id+"','"+gift_stock+"','"+ReleaseStatus+"','"+ohitotu+"','"+auction+"');";
                                                 card +=`
                                                 ">
                                                         <input class="gift_uid" type="" value="`;
@@ -210,7 +210,7 @@ function shintyaku(shintyakuCounter){
                                                 var card = `
                                                 <div class="gift-card" style="width:49%;height: 298px;padding: 1px 0 0 0;display: inline-block;margin-top:5px;"onclick="
                                                 `;
-                                                card += "prevPage('shintyaku');giftIdJudge('"+gift_uid+"','"+userName+"','"+gift_title+"','"+gift_text+"','"+objectId+"','"+create_date+"','"+gift_price+"','"+gift_user_id+"','"+gift_stock+"','"+ReleaseStatus+"','"+ohitotu+"','"+auction+"');";
+                                                card += "giftIdJudge('"+gift_uid+"','"+userName+"','"+gift_title+"','"+gift_text+"','"+objectId+"','"+create_date+"','"+gift_price+"','"+gift_user_id+"','"+gift_stock+"','"+ReleaseStatus+"','"+ohitotu+"','"+auction+"');";
                                                 card +=`
                                                 ">
                                                         <input class="gift_uid" type="" value="`;

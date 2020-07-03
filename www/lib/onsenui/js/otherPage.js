@@ -68,7 +68,9 @@ function otherPageUserId(other_user_id){
         $('#otherInstagramURL').empty();
         $('#otherYouTubeURL').empty();
         $('#other_user_image').attr('src','img/human.png');
-        $('#other_follow_button').removeClass("follow_on").html("フォローする");   
+        $('#other_follow_button').removeClass("follow_on").html("フォローする");
+        $('#otherPagekyujosyoRanking').empty();
+        $('#otherPageSougouRanking').empty();
         ncmb.User
         .equalTo("objectId", other_user_id)
         .fetch()
@@ -91,14 +93,10 @@ function otherPageUserId(other_user_id){
                 .equalTo("followId", objectId)
                 .fetchAll()               
                 .then(function(results){
-                        console.log(results);
                         if(results.length){
-                                console.log("a");
                                 if(results[0].get("bellmark")=="ON"){
-                                        console.log("on");
                                         other_user_name_title += "<i class='far fa-bell' style='color:white;background:#ff6070;border:1px solid;border-radius:50%;padding:4px;font-size:0.7em;transform:translateY(-1px);margin-left:5px;' onclick='bellmarkChange(`OFF`,`"+other_user_id+"`,`"+objectId+"`)'></i>";
                                 }else{
-                                        console.log("off");
                                         other_user_name_title += "<i class='far fa-bell-slash' style='color:#FF6070;margin-left:5px;' onclick='bellmarkChange(`ON`,`"+other_user_id+"`,`"+objectId+"`)'></i>";
                                 }
                         }
@@ -153,7 +151,6 @@ function otherPageUserId(other_user_id){
                 })
                 .catch(function(err){
                 // エラー処理
-                console.log('error = ' + err);
                 });
                 // ギフト情報を表示
                 var GiftData = ncmb.DataStore("giftData");
@@ -183,7 +180,6 @@ function otherPageUserId(other_user_id){
                         }
                 })
                 .catch(function(err){
-                        console.log(err);
                 }); 
 
                 //フォロー中かのチェック
@@ -202,7 +198,6 @@ function otherPageUserId(other_user_id){
                         }
                 })
                 .catch(function(err){
-                        console.log(err);
                 }); 
 
                 ncmb.DataStore("follow");
@@ -215,7 +210,6 @@ function otherPageUserId(other_user_id){
                         $('#follower_number').html(followerNumber);
                 })
                 .catch(function(err){
-                        console.log(err);
                 }); 
                 
                 FollowData
@@ -227,7 +221,6 @@ function otherPageUserId(other_user_id){
                         $('#follow_number').html(followNumber);
                 })
                 .catch(function(err){
-                        console.log(err);
                 }); 
 
                 var kyujosyoData = ncmb.DataStore("kyujosyoData");
@@ -235,36 +228,27 @@ function otherPageUserId(other_user_id){
                 .equalTo("userId", other_user_id)
                 .fetch()               
                 .then(function(result){
-                        console.log(result);
-                        if(result){
+                        if(Object.keys(result).length){
                                 var rank = Number(result.get("rank"));
                                 if(0<rank && rank<16){
-                                        console.log(rank);
                                         $('#otherPageRanking').css("display","block");
                                         $('#otherPagekyujosyoRanking').html("<i class='fas fa-crown'></i>急上昇ランキング"+rank+"位");
                                 }
                         }
-                })
-                .catch(function(err){
-                        console.log(err);
-                }); 
+                });
 
                 var crownData = ncmb.DataStore("crownData");
                 crownData
                 .equalTo("userId", other_user_id)
                 .fetch()               
                 .then(function(result){
-                        if(result){
+                        if(Object.keys(result).length){
                                 var rank = Number(result.get("rank"));
                                 if(0<rank && rank<16){
-                                        console.log(rank);
                                         $('#otherPageRanking').css("display","block");
                                         $('#otherPageSougouRanking').html("<i class='fas fa-crown'></i>総合ランキング"+rank+"位");
                                 }
                         }
-                })
-                .catch(function(err){
-                        console.log(err);
                 });
         });
 }
@@ -317,7 +301,6 @@ function hideLoadOtherPage() {
 };
 
 function otherPageGiftList(other_user_id,other_user_name,otherPageCounter){
-        console.log(otherPageCounter);
         if(otherPageCounter==0){
                 showLoadOtherPage();
         }

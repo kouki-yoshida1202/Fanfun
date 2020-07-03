@@ -102,7 +102,7 @@
                 <div>
                     <span>3.販売価格(300~9,999,999)</span>
                 </div>
-                <div class="card" style="width: 100%; margin: 0 auto;margin-top:3px;background-color: white;border:1px solid #898989;border-radius: 20px">
+                <div id="itemKakakuEdit"class="card" style="width: 100%; margin: 0 auto;margin-top:3px;background-color: white;border:1px solid #898989;border-radius: 20px">
                     <ul class="list">
                         <li class="list-item">
                             <div id="kakaku_text_edit"class="list-item__center" style="font-size: 80%;width:35%;">
@@ -138,6 +138,9 @@
                         </li>
                     </ul>
                 </div>
+            </div>
+            <div id="kakakuFreeZoneEdit"class="cp_iptxt" style="font-size:0.7em;padding-left:10px;padding-top:3px;display:none;">
+                <span style="color:#FF6070;">※「価格自由」商品のため、価格変更は出来ません。</span>
             </div>
             <div id="4_area_edit" style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:20px;">
                 <div>
@@ -190,9 +193,9 @@
                             変更する
                     </button>
                 </div>
-                <div id="presentEditButtonZone"class="cp_iptxt">
+                <div id="presentEditButtonZone"class="cp_iptxt" style="display:none;">
                     <button id="presentEditButton" class="button "style="width:100%;padding-top:5px;padding-bottom:5px;line-height:auto;border-radius:30px;font-size:100%;margin:0 auto;height:45px;" onclick="presentEdit()">
-                            変更する
+                            プレゼント変更する
                     </button>
                 </div>
             </div>

@@ -107,7 +107,6 @@ function messageKind(kind,messageCounter){
         var currentUser = ncmb.User.getCurrentUser();
         var objectId = currentUser.get('objectId');
         var messageData = ncmb.DataStore("messageData");
-        console.log(messageCounter);
         messageData
         .order('createDate',true)
         .equalTo(kind,objectId)

@@ -14,7 +14,6 @@ function shopPushPage(){
                 }
                 $('#minouHurikomi').html(minouUriage + "円");
         }).catch(function(err){
-                console.log(err);
         });
 
         $(".mikanryo").LoadingOverlay("show", {

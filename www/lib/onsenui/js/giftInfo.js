@@ -414,6 +414,10 @@ function giftNowInfo(){
                                         $('#giftEditButton2').css("display","none");
                                         $('#presentEditButtonZone').css("display","block");
                                         $('#presentEditButton').css("display","block");
+                                }else if(giftKind=="価格自由"){
+                                        $('#itemKakakuEdit').css("display","none");
+                                        $('#gift_price_edit').val(1000);
+                                        $('#kakakuFreeZoneEdit').css("display","block");
                                 }
                         });
 

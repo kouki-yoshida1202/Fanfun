@@ -59,7 +59,6 @@ function InstagramNews(){
                         let datas = this.Arrya_data.entry_data.ProfilePage[0].graphql.user.edge_owner_to_timeline_media.edges;
                         for (i in datas) {
                                 url = datas[i].node.display_url;
-                                console.log(url);
                                 this.html = `
                                 <div class="gift-card" style="width:48%;height: auto; padding: 1px 0 0 0;display: inline-block;margin-top:5px;"><div class="card" style="height:99%;margin:3px;border-radius:20px;"><div class="card__content" style="height:auto;"><img src="${url}"onclick="instagramOpen(${url});" class="gift_image"alt="" style="width:100%;height:154px;object-fit:cover;border-radius: 20px;"></div></div></div>
                                 `;

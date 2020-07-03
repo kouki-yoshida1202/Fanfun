@@ -64,15 +64,21 @@ function fanRanking(pageKind){
                 return arr;
         }).then(function(arr){
                 // console.log(arr);
-                for (var i = 0; i < arr.length; i++) {
-                        var userId = arr[i]["key"];
-                        var point = arr[i]['value'];
-                        if(i+1==arr.length){
-                                userAndPoint(userId,point,i+1,"last");
+                for (var i = 0; i < 9; i++) {
+                        if(arr.length<=i){
+                                var j = i+1;
+                                $('#fanRank_'+j).css("display","none");
+                                hideLoad();
                         }else{
-                                userAndPoint(userId,point,i+1,"");
+                                var userId = arr[i]["key"];
+                                var point = arr[i]['value'];
+                                if(i==8){
+                                        userAndPoint(userId,point,i+1,"last");
+                                }else{
+                                        userAndPoint(userId,point,i+1,"");
+                                }
+                                fanRankImg(i+1,userId);
                         }
-                        fanRankImg(i+1,userId);
                 }
         }).catch(function(err){
                 console.log(err);
@@ -109,7 +115,6 @@ function fanRankImg(j,userId){
         })
         .catch(function(err){
         // エラー処理
-        console.log('error = ' + err);
         });
 }
 
@@ -126,8 +131,9 @@ function clickFanRank(rank){
 
 function fanRankPresentPageOpen(){
         setTimeout(() => {
-                $('#itemKindRadio').hide();
                 $('#itemKakaku').hide();
+                $('#itemKakakuRadio').hide();
+                $('#meyasuKakakuZone').hide();
                 $('#fanRankPresentText').css("display","block");
                 $('#4_area').hide();
                 $('#5_area').hide();

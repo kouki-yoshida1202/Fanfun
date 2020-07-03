@@ -68,7 +68,7 @@ function followUserGift(followCounter){
                                 var card = `
                                 <div class="gift-card" style="width:49%;height: 298px;padding: 1px 0 0 0;display: inline-block;margin-top:5px;"onclick="
                                 `;
-                                card += "prevPage('follow');giftIdJudge('"+gift_uid+"','"+userName+"','"+gift_title+"','"+gift_text+"','"+objectId+"','"+create_date+"','"+gift_price+"','"+gift_user_id+"','"+gift_stock+"','"+ReleaseStatus+"','"+ohitotu+"','"+auction+"');";
+                                card += "giftIdJudge('"+gift_uid+"','"+userName+"','"+gift_title+"','"+gift_text+"','"+objectId+"','"+create_date+"','"+gift_price+"','"+gift_user_id+"','"+gift_stock+"','"+ReleaseStatus+"','"+ohitotu+"','"+auction+"');";
                                 card +=`
                                 ">
                                         <input class="gift_uid" type="" value="`;
@@ -280,11 +280,6 @@ function followgift_favorite_check(gift_uid,i){
         });
 }
 
-function prevPage(prevPage){
-        setTimeout(function(){
-                $('#prev_page').val(prevPage);
-        },500);
-}
 function followGiftList(){
         if($('#prev_page').val()=='follow'){
                 $('#followArea').removeClass('swiper-slide-next').addClass('swiper-slide-active');
