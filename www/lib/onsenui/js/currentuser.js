@@ -49,6 +49,7 @@ function loginInfo(){
                 $('#mypageFanRankDiv').hide();
                 $('#myPageShare').hide();
                 $('#myPageGuide').hide();
+                $('#imgGuideZone').css("display","none");
         }
         //フォローフォロワー数
         var FollowData = ncmb.DataStore("follow");
