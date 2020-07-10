@@ -59,6 +59,7 @@ function buypage(){
                                                                         $("#buypage_img").height($("#buypage_img").width());
                                                                         if(auction=="価格自由"){
                                                                                 $('#kakakufree_inputzone').css("display","block");
+                                                                                $('#buypage_gift_auction').val(auction);
                                                                         }else{
                                                                                 $('#buypage_price_number').val(price);
                                                                         }

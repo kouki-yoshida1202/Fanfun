@@ -6,13 +6,16 @@ function loginInfo(){
         var text = currentUser.get('Text');
         var objectId = currentUser.get("objectId");
         var Genre = currentUser.get("Genre");
+        var Authentication = currentUser.get("Authentication");
         var userKind = currentUser.get("userKind");
         var URLtwitter = currentUser.get("URLtwitter");
         var URLinstagram = currentUser.get("URLinstagram");
         var URLyoutube = currentUser.get("URLyoutube");
         var URLfanfun = currentUser.get("URLfanfun");
         $('#myGenre').empty();
-        
+        if(Authentication=="OK"){
+                $('#imgGuideZone').css("display","block");
+        }
         if(objectId == "V5wsDER2rALwDReh" || objectId=="sKRzVvf4gBcZFDNT"){
                 $('#kanrisyabox').show();
         }

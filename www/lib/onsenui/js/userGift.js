@@ -18,12 +18,9 @@ function MyGift(myPageGiftCounter){
                 $('#influencerTouroku').hide();
         }else if(influencer==true && authentication!="OK"){
                 var userNameTitle = currentUser.get("userName");
-                // $('#myGiftList').hide();
-                $('#exhibition_button').prop("disabled",false);
-                $('#fanRankPresentButton').prop("disabled",false);
                 var influencer_button = `
                 <button id="influencer_button" class="button "style="width:80%;padding-top:0px;padding-bottom:0px;line-height:auto;border-radius:30px;font-size:16px;margin:0 auto;" onclick="honninCheck();">本人確認マークの申請</button>
-                <p style="width:80%;margin:0 auto;font-size:0.8em;margin-top:15px;text-align:left;">本人確認がお済みでない限り、出品は出来ますがファンの方は購入できません。</p>
+                <p style="width:80%;margin:0 auto;font-size:0.8em;margin-top:15px;text-align:left;">本人確認がお済みでない限り、出品はできません。</p>
                 `;
                 $('#influencerTouroku').html(influencer_button);
         }else{

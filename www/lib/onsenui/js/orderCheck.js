@@ -10,6 +10,7 @@ function orderCheck(){
         var gift_title = $('#buypage_title').html();
         var price = Number($('#buypage_price_number').val());
         var gift_uid = $('#buypage_gift_uid').val();
+        var auction = $('#buypage_gift_auction').val();
         console.log(price);
         if(send_human==""){
                 alertNew("送り先が指定されていません");
@@ -18,8 +19,8 @@ function orderCheck(){
         }else if(request_message_input==""){
                 alertNew("リクエストが入力されていません");
         }else if(price == ''){
-                alertNew("投げ銭額を入力してください");
-        }else if(!Number.isInteger(price) || price < 1000){
+                alertNew("金額を入力してください");
+        }else if(auction=="価格自由"&&(!Number.isInteger(price) || price < 1000)){
                 alertNew("1000以上の整数で入力してください");
         }else if(price%100 != 0){
                 alertNew("100円単位(下2桁が00)で設定してください");

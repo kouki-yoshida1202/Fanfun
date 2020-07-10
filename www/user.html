@@ -98,7 +98,10 @@
                 <div style="width:100%;text-align:center;margin:0 auto;">
                     <button id="fanRankPresentButton" class="button "style="width:95%;padding-top:0px;padding-bottom:0px;line-height:auto;border-radius:30px;font-size:16px;margin:0 auto;"onclick="document.getElementById('navi').bringPageTop('giftinput.html');fanRankPresentPageOpen();" disabled>Fanランキング上位還元プレゼント</button>
                 </div>
-            </div>
+        </div>
+        <div id="imgGuideZone" style="display:none;" onclick="document.getElementById('navi').bringPageTop('syuppinGuide.html');">
+            <img src="img/guideSyuppin.png" alt="" style="width:100%;">
+        </div>
         <div style="width:100%;text-align:center;margin-top:20px;height:25px;">
             <p style="width:auto;line-height: 100%;margin:0px;font-size:14px;margin-top:10px;margin-bottom:10px;">
                 <span id="myGiftLength" style="border-bottom:1px solid #FF6070;padding-bottom:3px;"></span>
@@ -148,6 +151,7 @@
     <!-- 以下、javascript -->
     <script type="text/javascript">
         $('.action-sheet-mask,.action-sheet').hide();
+
 
         function kyujosyoUserPush(){
             ons.notification.confirm({
