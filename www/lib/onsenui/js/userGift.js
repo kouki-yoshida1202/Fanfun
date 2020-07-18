@@ -13,7 +13,7 @@ function MyGift(myPageGiftCounter){
                 $('#myGiftList').hide();
         }else if(influencer==true && authentication=="OK"){
                 $('#exhibition_button').prop("disabled",false);
-                $('#fanRankPresentButton').prop("disabled",false);
+                // $('#fanRankPresentButton').prop("disabled",false);
                 var userNameTitle = currentUser.get("userName") + " <span style='color:#FF6070;border:1px solid #FF6070;border-radius:20px;font-size:0.5em;padding:3px;vertical-align:middle;'>本人確認済</span>";
                 $('#influencerTouroku').hide();
         }else if(influencer==true && authentication!="OK"){
@@ -456,6 +456,7 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
                                                         mm = "0" + mm;
                                                 }
                                                 var time = m + "月" + d + "日" +hh + "時" + mm + "分";
+                                                $('#gift_text_fanPresent_date_other').before("<br>");
                                                 $('#gift_text_fanPresent_date_other').html(time+"時点でのFanランキングが"+rankNumber+"位までの方限定のプレゼントギフトとなります。");
                                                 $('#gift_text_fanPresent_date_other').css("display","block");
                                                 if (forUser.indexOf(objectId) >= 0){
@@ -465,6 +466,15 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
                                                         $('#presentEndButton').css("display","block");
                                                 }
                                         });
+                                }else if(auction=="抽選販売"){
+                                        $('#gift_detail_ohitotu').css("display","block");
+                                        $('#ReleaseStatusButton').prop("disabled",true);
+                                        $('#ReleaseStatusButton').css("display","none");
+                                        var auctionEndTime = isoToNormalChange(result.get("auctionEndTime"));
+                                        $('#zaikoOtherDetail').html(gift_stock+"名限定!応募は"+auctionEndTime+"まで");
+                                        $('#gift_detail_lottery').css("display","block");
+                                        $('#gift_detail_lottery_text').css("display","block");
+                                        $('#lotteryButton').css("display","block");
                                 }else if(auction=="価格自由"){
                                         $('#gift_detail_kakakufree').css("display","block");
                                         $('#gift_detail_kakakufree_kaisetu').css("display","block");
@@ -726,6 +736,10 @@ function myPageGiftList(myPageGiftCounter){
                                                 }else if(auction=="プレゼント"){
                                                         card += `<button class="toolbar-button" style="font-size:12px;padding:0px;background:#FF6070;margin-left:3px;border-radius:20px;padding:3px;">
                                                         <span style="font-size:10px;color:white;">プレゼント</span>
+                                                        </button>`;
+                                                }else if(auction=="抽選販売"){
+                                                        card += `<button class="toolbar-button" style="font-size:12px;padding:0px;background:#FF6070;margin-left:3px;border-radius:20px;padding:3px;">
+                                                        <span style="font-size:10px;color:white;">抽選ギフト</span>
                                                         </button>`;
                                                 }else{
                                                         card += `<button class="toolbar-button" style="font-size:12px;padding:0px;">
@@ -1150,6 +1164,7 @@ function giftIdJudgeFollow(gift_uid,userName,gift_title,gift_text,objectId,creat
                                                         mm = "0" + mm;
                                                 }
                                                 var time = m + "月" + d + "日" +hh + "時" + mm + "分";
+                                                $('#gift_text_fanPresent_date_other').before("<br>");
                                                 $('#gift_text_fanPresent_date_other').html(time+"時点でのFanランキングが"+rankNumber+"位までの方限定のプレゼントギフトとなります。");
                                                 $('#gift_text_fanPresent_date_other').css("display","block");
                                                 if (forUser.indexOf(objectId) >= 0){

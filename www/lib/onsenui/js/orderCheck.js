@@ -12,13 +12,14 @@ function orderCheck(){
         var gift_uid = $('#buypage_gift_uid').val();
         var auction = $('#buypage_gift_auction').val();
         console.log(price);
+        console.log(auction);
         if(send_human==""){
                 alertNew("送り先が指定されていません");
         }else if(nickname_input==""){
                 alertNew("ニックネームが入力されていません");
         }else if(request_message_input==""){
                 alertNew("リクエストが入力されていません");
-        }else if(price == ''){
+        }else if(price == '' && auction != "プレゼント"){
                 alertNew("金額を入力してください");
         }else if(auction=="価格自由"&&(!Number.isInteger(price) || price < 1000)){
                 alertNew("1000以上の整数で入力してください");

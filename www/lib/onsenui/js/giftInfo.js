@@ -45,13 +45,19 @@ function giftInsert(ReleaseStatus) {
                 var auction_time = $('#auctionTime').val();
                 var auction_datetime = auction_date+"T"+auction_time;
                 var auctionEndtime = moment(auction_datetime).format();
+        }else if(giftKind=="抽選販売"){
+                var timeLimit = "OFF";
+                var ohitotu = "ON";
+                var auction_date = $('#auctionDate').val();
+                var auction_time = $('#auctionTime').val();
+                var auction_datetime = auction_date+"T"+auction_time;
+                var auctionEndtime = moment(auction_datetime).format();
         }else{
                 var auctionEndtime = "";
         }
         if(giftKind=="価格自由"){
                 var gift_price = "1000"; 
         }
-
         if(gift_title ==''){
                 hideLoad();
                 alertNew("ギフト名が未入力です","","");
@@ -513,10 +519,10 @@ function giftInsertPresent() {
         }else if(gift_text == ""){
                 hideLoad();
                 alertNew("ギフト説明文が未入力です","","");
-        }
-        else if(profileGiftInputStatus == 0){
-                hideLoad();
-                alertNew("ギフト画像が未登録です","","");
+        // }
+        // else if(profileGiftInputStatus == 0){
+        //         hideLoad();
+        //         alertNew("ギフト画像が未登録です","","");
         }else{
                 var currentUser = ncmb.User.getCurrentUser();
                 var objectId = currentUser.get("objectId");
@@ -624,11 +630,11 @@ function giftInsertPresent() {
                                                 })
                                                 .catch(function(err){
                                                         hideLoad();
-                                                        console.log(err);
+                                                        alertNew("失敗しました。","再度送信頂くか、お問い合わせください。","homeBack");
                                                 });
                                         }).catch(function(err){
                                                 hideLoad();
-                                                console.log(err);
+                                                alertNew("失敗しました。","再度送信頂くか、お問い合わせください。","homeBack");
                                         });
                                 })
                                 .catch(function(err){

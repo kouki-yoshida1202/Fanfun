@@ -110,6 +110,10 @@ function shintyaku(shintyakuCounter){
                                                                                 card += `<button class="toolbar-button" style="font-size:12px;padding:0px;background:#FF6070;margin-left:3px;border-radius:20px;padding:3px;">
                                                                                 <span style="font-size:10px;color:white;">プレゼント</span>
                                                                                 </button>`;
+                                                                        }else if(auction=="抽選販売"){
+                                                                                card += `<button class="toolbar-button" style="font-size:12px;padding:0px;background:#FF6070;margin-left:3px;border-radius:20px;padding:3px;">
+                                                                                <span style="font-size:10px;color:white;">抽選ギフト</span>
+                                                                                </button>`;
                                                                         }else{
                                                                                 card += `<button class="toolbar-button" style="font-size:12px;padding:0px;">
                                                                                 <span style="font-size:12px;color:gray">残:`;

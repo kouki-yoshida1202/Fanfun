@@ -131,15 +131,21 @@
                     <span>3.販売価格(100~9,999,999)</span>
                 </div>
                 <div id="itemKakakuRadio" class="segment" style="width: 100%; margin: 0 auto;margin-top:7px;margin-bottom:7px;">
-                    <div class="segment__item" style="width:33%;">
+                    <div class="segment__item" style="width:49%;">
                         <input type="radio" class="segment__input segment-giftKind" name="segment-giftKind" value="通常出品"checked>
-                        <div class="segment__button" style="height:35px;line-height: 35px;">通常出品</div>
+                        <div class="segment__button" style="height:35px;line-height: 35px;">通常出品(先着)</div>
                     </div>
-                    <div class="segment__item" style="width:33%;">
+                    <div class="segment__item" style="width:49%;">
                         <input type="radio" class="segment__input segment-giftKind" name="segment-giftKind" value="オークション">
                         <div class="segment__button" style="height:35px;line-height: 35px;">オークション</div>
                     </div>
-                    <div class="segment__item" style="width:33%;">
+                </div>
+                <div id="itemKakakuRadio2" class="segment" style="width: 100%; margin: 0 auto;margin-top:7px;margin-bottom:7px;">
+                    <div class="segment__item" style="width:49%;">
+                        <input type="radio" class="segment__input segment-giftKind" name="segment-giftKind" value="抽選販売">
+                        <div class="segment__button" style="height:35px;line-height: 35px;">抽選販売</div>
+                    </div>
+                    <div class="segment__item" style="width:49%;">
                         <input type="radio" class="segment__input segment-giftKind" name="segment-giftKind" value="価格自由">
                         <div class="segment__button" style="height:35px;line-height: 35px;">価格自由</div>
                     </div>
@@ -191,16 +197,19 @@
                 <div id="fanRankPresentText"class="cp_iptxt" style="display:none;font-size:0.7em;">
                     <span style="color:#FF6070;">※Fanランキング上位還元プレゼントの価格は「０円」となります。</span>
                 </div>
+                <div id="giftLotteryZone"class="cp_iptxt" style="display:none;font-size:0.7em;padding-left:10px;padding-top:3px;">
+                    <span style="color:#FF6070;">※抽選販売は抽選期間中に応募したファンの中から、ランダムで当選したファンの方だけが購入できる形式です。</span>
+                </div>
             </div>
             <div id="4_area" style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:20px;">
                 <div>
-                    <span>4.在庫数(後から変更不可です)</span>
+                    <span id="4_area_zaiko">4.在庫数(後から変更不可です)</span>
                 </div>
                 
                 <div id="normal_text" class="cp_iptxt">
                     <input type="tel" placeholder="0~999の整数で入力してください" id="gift_stock"required>
                     <i class="fas fa-box fa-lg fa-fw" aria-hidden="true"></i>
-                    <span style="padding-left:10px;font-size:0.8em;color:#FF6070;">※5個前後が希少感が出るためオススメです！</span>
+                    <span id="4_area_zaiko_text"style="padding-left:10px;font-size:0.8em;color:#FF6070;">※5個前後が希少感が出るためオススメです！</span>
                 </div>
                 <div id="auction_text"class="cp_iptxt" style="display:none;">
                     <span style="font-size:0.8em;color:#FF6070;">※オークション制では最高値で落札された方のみの1品限定商品となります!</span>
@@ -222,7 +231,7 @@
             </div>
             <div id="5_area" style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:20px;">
                 <div>
-                    <span>5.投稿時間(後から変更不可です)</span>
+                    <span>5.販売開始時間(後から変更不可です)</span>
                 </div>
                 <div class="segment" style="width: 100%; margin: 0 auto;margin-top:7px;">
                     <div class="segment__item" style="width:49%;">
@@ -281,7 +290,7 @@
             </div>
             <div id="6_area_auction" style="height:99%;margin:0 auto;padding:0px;width:90%;margin-top:20px;display:none;">
                 <div>
-                    <span>6.オークション終了時間(後から変更不可です)</span>
+                    <span id="6_area_auction_title">6.オークション終了時間(後から変更不可です)</span>
                 </div>
                 <div class="cp_iptxt">
                     <input type="date" id="auctionDate" style="display:inline-block;" >
@@ -376,7 +385,10 @@
             $('#kakaku_text').html("販売価格");
             $('#kakakuFreeZone').css("display","none");
             $('#meyasuKakakuZone').css("display","block");
+            $('#giftLotteryZone').css("display","none");
             $('#itemKakaku').css("display","block");
+            $('#4_area_zaiko').html('4.在庫数(後から変更不可です)');
+            $('#4_area_zaiko_text').css("display","block");
         }else if($(this).val()=="オークション"){
             $('#normal_text').css("display","none");
             $('#auction_text').css("display","block");
@@ -386,7 +398,22 @@
             $('#7_area').css("display","none");
             $('#kakakuFreeZone').css("display","none");
             $('#meyasuKakakuZone').css("display","none");
+            $('#giftLotteryZone').css("display","none");
             $('#itemKakaku').css("display","block");
+        }else if($(this).val()=="抽選販売"){
+            $('#normal_text').css("display","block");
+            $('#auction_text').css("display","none");
+            $('#6_area_auction').css("display","block");
+            $('#6_area').css("display","none");
+            $('#7_area').css("display","none");
+            $('#kakaku_text').html("販売価格");
+            $('#itemKakaku').css("display","block");
+            $('#kakakuFreeZone').css("display","none");
+            $('#meyasuKakakuZone').css("display","none");
+            $('#giftLotteryZone').css("display","block");
+            $('#4_area_zaiko').html('4.当選人数(後から変更不可です)');
+            $('#4_area_zaiko_text').css("display","none");
+            $('#6_area_auction_title').html("6.抽選終了時間(後から変更不可です)");
         }else{
             $('#normal_text').css("display","block");
             $('#auction_text').css("display","none");
@@ -396,6 +423,8 @@
             $('#itemKakaku').css("display","none");
             $('#kakakuFreeZone').css("display","block");
             $('#meyasuKakakuZone').css("display","none");
+            $('#giftLotteryZone').css("display","none");
+            $('#6_area_auction_title').html("6.オークション終了時間(後から変更不可です)");
         }
     });
     

@@ -264,7 +264,44 @@
         });
       });
     }
+    lotteryCheck();
+    function lotteryCheck(){
+      var today = new Date();
+      var iso = moment(today).format();
+      var giftData = ncmb.DataStore("giftData");
+      giftData
+      .equalTo("auction","抽選販売")
+      .notEqualTo("auctionStatus","終了")
+      .lessThan("auctionEndTime",iso)
+      .fetchAll()         
+      .then(function(results){
+        console.log(results);
+        for(var i=0;i<results.length;i++){
+          results[i]
+          .set("auctionStatus","終了")
+          .update();
 
+          var giftUid = results[i].get("giftUid");
+          var giftTitle = results[i].get("giftTitle");
+          var stock = results[i].get("stock");
+          lotteryEndPush(giftUid,giftTitle,stock);
+        }
+      });
+    }
+    function lotteryEndPush(giftUid,giftTitle,stock){
+      $.ajax({
+        type: 'post',
+        url: 'https://fanfun2020.xsrv.jp/lotteryEndMail.html',
+        data: {
+                'giftUid': giftUid,
+                'giftTitle':giftTitle,
+                'stock':stock
+        },
+        success: function(data){
+                console.log("----success.----");
+        }
+      });
+    }
 
     // ログインしたらまずTopページにくるようにTopのアイコンを押す
     ons.ready(function() {
@@ -1039,7 +1076,7 @@
       <ons-tabbar position="bottom">
           <ons-tab id="topPageTab"page="top.html" label="ホーム"icon="home" onclick="" active></ons-tab>
           <ons-tab id="crownPageTab" page="crown.html" label="ランキング" icon="crown" onclick="crownCounterCheck();"></ons-tab>
-          <ons-tab id="instagramPageTab" page="instagram.html" label="ニュース"icon="instagram" onclick="InstagramNews();"></ons-tab>
+          <!-- <ons-tab id="instagramPageTab" page="instagram.html" label="ニュース"icon="instagram" onclick="InstagramNews();"></ons-tab> -->
           <!-- <ons-tab page="pointList.html" label="ショップ"icon="ticket" onclick=""></ons-tab> -->
           <ons-tab label="メッセージ"page="message.html" icon="fa-rocketchat" onclick="MessageJudge();"></ons-tab>
           <ons-tab label="出品/購入"page="shop.html" icon="fa-yen-sign" onclick="shopPushPage();"></ons-tab>

@@ -42,7 +42,6 @@ function buypage(){
                                                                 .update();
                                                                 document.getElementById('navi').bringPageTop('buypage.html');
                                                                 var giftTitle = object.get("giftTitle");
-                                                                console.log(giftTitle);
                                                                 var giftText = object.get("giftText");
                                                                 if(auction=="価格自由"){
                                                                         var price = "1000~";
@@ -57,11 +56,13 @@ function buypage(){
                                                                         $('#buypage_price').html(price_kakou);
                                                                         $('#buypage_gift_uid').val(gift_uid);
                                                                         $("#buypage_img").height($("#buypage_img").width());
+                                                                        console.log(auction);
                                                                         if(auction=="価格自由"){
                                                                                 $('#kakakufree_inputzone').css("display","block");
                                                                                 $('#buypage_gift_auction').val(auction);
                                                                         }else{
                                                                                 $('#buypage_price_number').val(price);
+                                                                                $('#buypage_gift_auction').val(auction);
                                                                         }
                                                                         ncmb.File.download(gift_uid, "blob")
                                                                         .then(function(fileData) {
@@ -438,11 +439,11 @@ function fanPresentpage(){
         .then(function(results){
                 var object = results;
                 var stock = Number(object.get("stock"));
+                var auction = object.get("auction");
                 document.getElementById('navi').bringPageTop('buypage.html');
                 var giftTitle = object.get("giftTitle");
-                console.log(giftTitle);
                 var giftText = object.get("giftText");
-                if(object.get("auction")!="オークション"){
+                if(auction != "オークション"){
                         var price = object.get("price");
                 }else{
                         var price = $('#detail_kakaku').val();
@@ -454,6 +455,7 @@ function fanPresentpage(){
                         $('#buypage_price').html(price_kakou);
                         $('#buypage_gift_uid').val(gift_uid);
                         $("#buypage_img").height($("#buypage_img").width());
+                        $('#buypage_gift_auction').val(auction);
                         ncmb.File.download(gift_uid, "blob")
                         .then(function(fileData) {
                                 var reader = new FileReader();
@@ -474,4 +476,41 @@ function fanPresentpage(){
         .catch(function(err){
                 console.log(err);
         });
+}
+
+function lotterypage(){
+        showLoad();
+        var gift_uid = $('#gift_id').val();
+        var currentUser = ncmb.User.getCurrentUser();
+        var myUserId = currentUser.get('objectId');
+        var giftLottery = ncmb.DataStore("giftLottery");
+        giftLottery
+        .equalTo("buyUserId",myUserId)
+        .fetchAll()
+        .then(function(results){
+                if(results.length>0){
+                        alertNew("既に応募しています。","","");
+                        hideLoad();
+                        document.getElementById('navi').bringPageTop('lotteryApplication.html');
+                }else{
+                        var giftLottery = ncmb.DataStore("giftLottery");
+                        var giftLottery = new giftLottery();
+                        giftLottery
+                        .set("buyUserId", myUserId)
+                        .set("giftUid", gift_uid)
+                        .save()
+                        .then(function(result){
+                                alertNew("応募完了しました。");
+                                hideLoad();
+                                document.getElementById('navi').bringPageTop('lotteryApplication.html');
+                        }).catch(function(){
+                                alertNew("応募に失敗しました。再度やり直してください。");
+                                hideLoad();
+                        });
+                }
+        }).catch(function(){
+                hideLoad();
+        });
+        
+
 }

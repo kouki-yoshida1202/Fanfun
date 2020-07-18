@@ -133,6 +133,7 @@ function fanRankPresentPageOpen(){
         setTimeout(() => {
                 $('#itemKakaku').hide();
                 $('#itemKakakuRadio').hide();
+                $('#itemKakakuRadio2').hide();
                 $('#meyasuKakakuZone').hide();
                 $('#fanRankPresentText').css("display","block");
                 $('#4_area').hide();

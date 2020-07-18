@@ -58,8 +58,11 @@
                     </div>
                     <div id="gift_detail_title_other"class="gift_title" style="height:auto;font-size:16px;font-weight:bold;padding:10px 5px 10px 5px;"></div>
                     <div id="option_zone_other" style="width:100%;min-height:30px;">
+                        <div id="gift_detail_lottery" style="display: none;margin:5px 0px;float:left;">
+                            <span style="background-color: #FF6070;color:white;font-weight:bold;border-radius: 20px;padding:5px 10px;font-size:0.7em;">抽選販売</span>
+                        </div>
                         <div id="gift_detail_ohitotu" style="display: none;margin:5px 0px;float:left;">
-                            <span style="background-color: #FF6070;color:white;font-weight:bold;border-radius: 20px;padding:5px 10px;font-size:0.7em;">お一人様おひとつ限定</span>
+                            <span style="background-color: #FF6070;color:white;font-weight:bold;border-radius: 20px;padding:5px 10px;font-size:0.7em;">1人1個まで</span>
                         </div>
                         <div id="gift_detail_auction" style="display: none;margin:5px 0px;float:left;">
                             <span style="background-color: #FF6070;color:white;font-weight:bold;border-radius: 20px;padding:5px 10px;font-size:0.7em;">オークション商品(1品限定)</span>
@@ -77,6 +80,7 @@
                     </div>
                     <div id="gift_text_fanPresent_date_other"class="gift_text_fanPresent_date" style="width:100%;height:auto;font-size:0.7em;padding:10px 5px 10px 5px;display:none;color:#898989;"></div>
                     <div id="gift_detail_kakakufree_kaisetu"class="gift_detail_kakakufree_kaisetu" style="width:100%;height:auto;font-size:0.7em;padding:10px 5px 10px 5px;display:none;color:#898989;">※「価格自由」商品は購入者様が自由にお支払い金額を決定できる制度です(最低金額は1000円)。</div>
+                    <div id="gift_detail_lottery_text"class="gift_detail_lottery" style="width:100%;height:auto;font-size:0.7em;padding:10px 5px 10px 5px;display:none;color:#898989;">※「抽選販売」は抽選終了時間までに応募したファンの方からランダムで当選者を選び、当選者のみが購入することができる商品です。</div>
                     <div id="gift_detail_text_other"class="gift_text" style="width:100%;height:auto;font-size:14px;padding:10px 5px 10px 5px;"></div>
                     <div id="gift_detail_time_other"class="gift_time" style="text-align:right;height:auto;font-size:10px;padding:10px 5px 10px 5px;"></div>
                 </div>
@@ -101,6 +105,12 @@
                 </button>
                 <button id="presentEndButton" class="button" style="background: gray;width:100%;display:none;color:white;" onclick="alertNew('Fanランキング上位者限定商品です。恐れ入りますが受け取り資格がございません。','','');">
                         受け取れません
+                </button>
+                <button id="lotteryButton" class="button" style="background-color: #FF6070;width:100%;display:none;" onclick="lotteryPageOpen();">
+                    応募する
+                </button>
+                <button id="lotteryEndButton" class="button" style="background: gray;width:100%;display:none;color:white;" onclick="alertNew('終了している抽選です。当選者の方のみ購入手続きに進めます。','','');">
+                        抽選期間終了
                 </button>
             </div>
         </div>
@@ -169,6 +179,18 @@
                     callback: function(buttonIndex) {
                         if(buttonIndex==1){
                             nyusatupage();
+                        }
+                    }
+                });
+            }
+            function lotteryPageOpen(){
+                ons.notification.confirm({
+                    message: '当選した場合、3日以内に購入がない場合は他のお客様を繰り上げ当選と致しますことをご了承ください。',
+                    title: "応募しますか？",
+                    buttonLabels:["キャンセル","応募"],
+                    callback: function(buttonIndex) {
+                        if(buttonIndex==1){
+                            lotterypage();
                         }
                     }
                 });

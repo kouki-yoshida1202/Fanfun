@@ -56,6 +56,7 @@ function InstagramNews(){
                         json_string = data.split("window._sharedData = ")[1];
                         json_string = json_string.split("};</script>")[0] + "}";
                         this.Arrya_data = JSON.parse(json_string);
+                        console.log(this.Arrya_data);
                         let datas = this.Arrya_data.entry_data.ProfilePage[0].graphql.user.edge_owner_to_timeline_media.edges;
                         for (i in datas) {
                                 console.log(datas[i]);
