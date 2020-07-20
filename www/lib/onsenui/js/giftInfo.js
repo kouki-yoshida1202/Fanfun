@@ -424,6 +424,13 @@ function giftNowInfo(){
                                         $('#itemKakakuEdit').css("display","none");
                                         $('#gift_price_edit').val(1000);
                                         $('#kakakuFreeZoneEdit').css("display","block");
+                                }else if(giftKind=="抽選販売"){
+                                        $('#3_area_edit').css("display","none");
+                                        $('#4_area_edit').css("display","none");
+                                        $('#5_area_edit').css("display","none");
+                                        $('#6_area_edit').css("display","none");
+                                        var gift_stock = object.get("stock");
+                                        $('#gift_stock_edit').val(gift_stock);
                                 }
                         });
 

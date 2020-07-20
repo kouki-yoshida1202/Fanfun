@@ -126,6 +126,9 @@
             <input type="tel" id="giftLogStatusCancel" class="text-input" style="background-color: white;border:1px solid black;width:100%;margin-bottom:10px;">
             <button class="btn button" onclick="giftLogStatusCancel($('#giftLogStatusCancel').val());" style="background:gray;">ギフトキャンセル</button>
             <br><br>
+            <input type="tel" id="giftLotteryNotification" class="text-input" style="background-color: white;border:1px solid black;width:100%;margin-bottom:10px;">
+            <button class="btn button" onclick="giftLotteryNotificationOpen($('#giftLotteryNotification').val());">抽選販売当落通知</button>
+            <br><br>
             <br><br>
             <button class="btn button" onclick="kyujosyoUserPush();">急上昇のお知らせ</button>
             <button class="btn button" onclick="sougouUserPush();">総合ランキングのお知らせ</button>
@@ -640,6 +643,76 @@
                 $('#myPageTab').click();
             })
         }
+
+        function giftLotteryNotificationOpen(giftUid){
+            ons.notification.confirm({
+            message: '抽選販売の通知を飛ばす',
+            title: "確認",
+            buttonLabels:["キャンセル","通知送信"],
+            callback: function(buttonIndex) {
+                    if(buttonIndex==1){
+                        giftLotteryNotification(giftUid);
+                    }
+                }
+            });
+        }
+
+        function giftLotteryNotification(giftUid){
+            var giftData = ncmb.DataStore("giftData");
+            giftData
+            .equalTo('giftUid',giftUid)
+            .fetch()         
+            .then(function(result){
+                var auction = result.get("auction");
+                var giftTitle = result.get("giftTitle");
+                var auctionStatus = result.get("auctionStatus");
+                if(auction =="抽選販売"&& auctionStatus=="終了"){
+                    var giftLottery = ncmb.DataStore("giftLottery");
+                    giftLottery
+                    .equalTo('giftUid',giftUid)
+                    .fetchAll()         
+                    .then(function(results){
+                        for(var i=0;i<results.length;i++){
+                            var Winning = results[i].get("Winning");
+                            var buyUserId = results[i].get("buyUserId");
+                            giftLotteryNotificationSend(giftUid,Winning,buyUserId,giftTitle);
+                        }
+                    });
+                }
+            });
+        }
+
+        function giftLotteryNotificationSend(giftUid,Winning,buyUserId,giftTitle){
+            ncmb.User
+            .equalTo('objectId',buyUserId)
+            .fetch()
+            .then(function(resultUser){
+                var mailAddress = resultUser.get("mailAddress");
+                var userName = resultUser.get("userName");
+                if(Winning=="OK"){
+                    var url = "https://fanfun2020.xsrv.jp/lotteryWinning.html";
+                }else{
+                    var url = "https://fanfun2020.xsrv.jp/lotteryRakusen.html";
+                }
+                $.ajax({
+                    type: 'post',
+                    url: url,
+                    data: {
+                            "giftUrl":'https://fanfun2020.xsrv.jp/customUrlScheme.html?GIFTorUSERID='+giftUid+'&page=giftPage',
+                            "giftTitle":giftTitle,
+                            "mailAddress":mailAddress,
+                            "userName":userName
+                    },
+                    success: function(data){
+                        alert("success");
+                    },
+                    error: function (response) {
+                        alert("error");
+                    }
+                });
+            });
+        }
+
     </script>
     <style>
         .favorite_on{

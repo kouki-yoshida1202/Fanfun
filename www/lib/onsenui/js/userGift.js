@@ -214,6 +214,21 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
                                                         mynyusatuUserName(buyUser,j);
                                                 }
                                         });
+                                }else if(auction=="抽選販売"){
+                                        $('#gift_detail_ohitotu').css("display","block");
+                                        $('#mygift_detail_lottery').css("display","block");
+                                        $('#mygift_detail_lottery_text').css("display","block");
+                                        $('#lotteryButton').css("display","block");
+                                        $('#my_stock').html(gift_stock);
+                                        $('#gift_detail_price').html(gift_price);
+                                        var giftData = ncmb.DataStore("giftData");
+                                        giftData
+                                        .equalTo('giftUid',gift_uid)
+                                        .fetch()         
+                                        .then(function(result){
+                                                var auctionEndTime = isoToNormalChange(result.get("auctionEndTime"));
+                                                $('#zaikoMyDetail').html(gift_stock+"名限定!応募は"+auctionEndTime+"まで");
+                                        });
                                 }else if(auction=="プレゼント"){
                                         $('#auctionMyZone'). css("display","none");
                                         $('#gift_detail_price').html(gift_price);
@@ -249,7 +264,7 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
                                         if(auction=="価格自由"){
                                                 $('#gift_detail_kakakufree').css("display","block");
                                                 $('#gift_detail_price').html("¥1000~");
-                                                $('#gift_detail_kakakufree_kaisetu').css("display","block");
+                                                $('#mygift_detail_kakakufree_kaisetu').css("display","block");
                                         }
 
                                 }
@@ -413,7 +428,6 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
                                                 var time = new Date();
                                                 var iso = moment(time).format();
                                                 if(releaseDate > iso){
-                                                        console.log("aiueo");
                                                         var dt = new Date(releaseDate);
                                                         var m = ("00" + (dt.getMonth()+1)).slice(-2);
                                                         var d = ("00" + dt.getDate()).slice(-2);
@@ -468,13 +482,59 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
                                         });
                                 }else if(auction=="抽選販売"){
                                         $('#gift_detail_ohitotu').css("display","block");
-                                        $('#ReleaseStatusButton').prop("disabled",true);
-                                        $('#ReleaseStatusButton').css("display","none");
                                         var auctionEndTime = isoToNormalChange(result.get("auctionEndTime"));
                                         $('#zaikoOtherDetail').html(gift_stock+"名限定!応募は"+auctionEndTime+"まで");
                                         $('#gift_detail_lottery').css("display","block");
                                         $('#gift_detail_lottery_text').css("display","block");
                                         $('#lotteryButton').css("display","block");
+
+                                        var auctionStatus = result.get("auctionStatus");
+                                        if(auctionStatus=="終了"){
+                                                $('#ReleaseStatusButton').css('display','none');
+                                                $('#lotteryButton').css('display','none');
+                                                $('#lotteryEndButton').css('display','block');
+                                                var giftLottery = ncmb.DataStore("giftLottery");
+                                                giftLottery
+                                                .equalTo("giftUid", gift_uid)
+                                                .equalTo("Winning", "OK")
+                                                .fetchAll()
+                                                .then(function(giftLotteryResult){
+                                                        for(var i=0;i<giftLotteryResult.length;i++){
+                                                                var buyUser = giftLotteryResult[i].get("buyUserId");
+                                                                if(buyUser==objectId){
+                                                                        $('#ReleaseStatusButton').css('display','block');
+                                                                        $('#lotteryButton').css('display','none');
+                                                                        $('#lotteryEndButton').css('display','none');
+                                                                }
+                                                        }
+                                                });
+                                                
+                                        }else{
+                                                $('#ReleaseStatusButton').css("display","none");
+                                                $('#lotteryButton').css("display","block");
+                                                $('#lotteryEndButton').css('display','none');
+                                        }
+                                        setTimeout(function(){
+                                                var releaseDate = result.get("releaseDate");
+                                                var time = new Date();
+                                                var iso = moment(time).format();
+                                                if(releaseDate > iso){
+                                                        var dt = new Date(releaseDate);
+                                                        var m = ("00" + (dt.getMonth()+1)).slice(-2);
+                                                        var d = ("00" + dt.getDate()).slice(-2);
+                                                        var hh = dt.getHours();
+                                                        if (hh < 10) {
+                                                                hh = "0" + hh;
+                                                        }
+                                                        var mm = dt.getMinutes();
+                                                        if (mm < 10) {
+                                                                mm = "0" + mm;
+                                                        }
+                                                        var time = m + "/" + d + " " +hh + ":" + mm;
+                                                        $('#lotteryButton').prop("disabled",true);
+                                                        $('#lotteryButton').html(time+"開始");
+                                                }
+                                        },500);
                                 }else if(auction=="価格自由"){
                                         $('#gift_detail_kakakufree').css("display","block");
                                         $('#gift_detail_kakakufree_kaisetu').css("display","block");

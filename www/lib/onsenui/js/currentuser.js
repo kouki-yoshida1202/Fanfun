@@ -16,7 +16,7 @@ function loginInfo(){
         if(Authentication=="OK"){
                 $('#imgGuideZone').css("display","block");
         }
-        if(objectId == "V5wsDER2rALwDReh" || objectId=="sKRzVvf4gBcZFDNT"){
+        if(objectId == "V5wsDER2rALwDReh" || objectId=="sKRzVvf4gBcZFDNT" || objectId=="CtYJDYMy6FaqM0hk"){
                 $('#kanrisyabox').show();
         }
         if(Genre){
