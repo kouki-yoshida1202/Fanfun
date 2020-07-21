@@ -1,4 +1,5 @@
 function buypage(){
+        showLoad();
         var gift_uid = $('#gift_id').val();
         var currentUser = ncmb.User.getCurrentUser();
         var myUserId = currentUser.get('objectId');
@@ -10,98 +11,125 @@ function buypage(){
         .then(function(results){
                 var object = results;
                 var stock = Number(object.get("stock"));
-                var auction = object.get("auction")
-                if(stock > 0){
-                        var releaseDate = object.get("releaseDate");
-                        var time = new Date();
-                        var iso = moment(time).format();
-                        if(releaseDate > iso){
-                                alertNew("まだギフト公開時間ではありません。","公開時間になってから再度お試しください。","");
-                        }else{
-                                $.ajax({
-                                        type: 'post',
-                                        url: 'https://fanfun2020.xsrv.jp/buypagePHP.html',
-                                        data: {
-                                                "stock":stock,
-                                                "gift_uid":gift_uid,
-                                        },
-                                        success: function(data){
-                                                if(data == "success"){
-                                                        var betweenOrder = ncmb.DataStore("betweenOrder");
-                                                        // データストアへの登録
-                                                        var timeNow = new Date();
-                                                        var timeNow = moment(timeNow).format();
-                                                        var betweenOrder = new betweenOrder();
-                                                        betweenOrder.set("giftUid", gift_uid)
-                                                        .set("buyUser", myUserId)
-                                                        .save()
-                                                        .then(function(){
-                                                                var afterStock = String(stock -1);
-                                                                results
-                                                                .set("stock",afterStock)
-                                                                .update();
-                                                                document.getElementById('navi').bringPageTop('buypage.html');
-                                                                var giftTitle = object.get("giftTitle");
-                                                                var giftText = object.get("giftText");
-                                                                if(auction=="価格自由"){
-                                                                        var price = "1000~";
-                                                                }else if(auction == "オークション"){
-                                                                        var price = $('#detail_kakaku').val();
-                                                                }else{
-                                                                        var price = object.get("price");
-                                                                }
-                                                                price_kakou = "¥"+price+"";
-                                                                setTimeout(function(){
-                                                                        $('#buypage_title').html(giftTitle);
-                                                                        $('#buypage_price').html(price_kakou);
-                                                                        $('#buypage_gift_uid').val(gift_uid);
-                                                                        $("#buypage_img").height($("#buypage_img").width());
-                                                                        console.log(auction);
-                                                                        if(auction=="価格自由"){
-                                                                                $('#kakakufree_inputzone').css("display","block");
-                                                                                $('#buypage_gift_auction').val(auction);
-                                                                        }else{
-                                                                                $('#buypage_price_number').val(price);
-                                                                                $('#buypage_gift_auction').val(auction);
-                                                                        }
-                                                                        ncmb.File.download(gift_uid, "blob")
-                                                                        .then(function(fileData) {
-                                                                                var reader = new FileReader();
-                                                                                reader.onloadend = function() {
-                                                                                        var img = document.getElementById("buypage_img");
-                                                                                        img.src = reader.result;
-                                                                                }
-                                                                                // DataURLとして読み込む
-                                                                                reader.readAsDataURL(fileData);
-                                                                        })
-                                                                        .catch(function(err){
-                                                                        // エラー処理
-                                                                        console.log('error = ' + err);
-                                                                        });
-                                                                },500);
-                                                        }).catch(function(){
-                                                                alertNew("エラーが発生しました。再度お願いします。","","");
-                                                        });
-                                                }else{
-                                                        alertNew("同時アクセスが検知されました。再度お試しください。","","");
-                                                }
-                                        },
-                                        error: function (response) {
-                                                console.log(response);
-                                                alertNew("失敗しました。アプリが最新状態でない可能性がございます。","","");
-                                        }
-                                });
-                        }
+                var auction = object.get("auction");
+                var ohitotu = object.get("ohitotu");
+                if(ohitotu=="ON"){
+                        var giftLog = ncmb.DataStore("giftLog");
+                        giftLog
+                        .equalTo('buyUser',myUserId)
+                        .equalTo('giftUid',gift_uid)
+                        .fetchAll()         
+                        .then(function(giftLogResults){
+                                if(giftLogResults.length > 0){
+                                        hideLoad();
+                                        alertNew("お一人様お一つ限定商品です。","購入済みのため進めません。","");
+                                }else{
+                                        buypageCheck(gift_uid,myUserId,stock,object,auction);
+                                }
+                        });
+                        
                 }else{
-                        alertNew("在庫が0になりました。","注文手続きキャンセルが出る場合もあるため、時間を置いたあと再度ご確認ください。","homeBack");
+                        buypageCheck(gift_uid,myUserId,stock,object,auction);
                 }
-                
         })
         .catch(function(err){
+                hideLoad();
                 console.log(err);
         });
 }
-
+function buypageCheck(gift_uid,myUserId,stock,object,auction){
+        if(stock > 0){
+                var releaseDate = object.get("releaseDate");
+                var time = new Date();
+                var iso = moment(time).format();
+                if(releaseDate > iso){
+                        hideLoad();
+                        alertNew("まだギフト公開時間ではありません。","公開時間になってから再度お試しください。","");
+                }else{
+                        $.ajax({
+                                type: 'post',
+                                url: 'https://fanfun2020.xsrv.jp/buypagePHP.html',
+                                data: {
+                                        "stock":stock,
+                                        "gift_uid":gift_uid,
+                                },
+                                success: function(data){
+                                        if(data == "success"){
+                                                var betweenOrder = ncmb.DataStore("betweenOrder");
+                                                // データストアへの登録
+                                                var timeNow = new Date();
+                                                var timeNow = moment(timeNow).format();
+                                                var betweenOrder = new betweenOrder();
+                                                betweenOrder.set("giftUid", gift_uid)
+                                                .set("buyUser", myUserId)
+                                                .save()
+                                                .then(function(){
+                                                        var afterStock = String(stock -1);
+                                                        object
+                                                        .set("stock",afterStock)
+                                                        .update();
+                                                        document.getElementById('navi').bringPageTop('buypage.html');
+                                                        var giftTitle = object.get("giftTitle");
+                                                        var giftText = object.get("giftText");
+                                                        if(auction=="価格自由"){
+                                                                var price = "1000~";
+                                                        }else if(auction == "オークション"){
+                                                                var price = $('#detail_kakaku').val();
+                                                        }else{
+                                                                var price = object.get("price");
+                                                        }
+                                                        price_kakou = "¥"+price+"";
+                                                        setTimeout(function(){
+                                                                $('#buypage_title').html(giftTitle);
+                                                                $('#buypage_price').html(price_kakou);
+                                                                $('#buypage_gift_uid').val(gift_uid);
+                                                                $("#buypage_img").height($("#buypage_img").width());
+                                                                console.log(auction);
+                                                                if(auction=="価格自由"){
+                                                                        $('#kakakufree_inputzone').css("display","block");
+                                                                        $('#buypage_gift_auction').val(auction);
+                                                                }else{
+                                                                        $('#buypage_price_number').val(price);
+                                                                        $('#buypage_gift_auction').val(auction);
+                                                                }
+                                                                ncmb.File.download(gift_uid, "blob")
+                                                                .then(function(fileData) {
+                                                                        var reader = new FileReader();
+                                                                        reader.onloadend = function() {
+                                                                                var img = document.getElementById("buypage_img");
+                                                                                img.src = reader.result;
+                                                                        }
+                                                                        // DataURLとして読み込む
+                                                                        reader.readAsDataURL(fileData);
+                                                                })
+                                                                .catch(function(err){
+                                                                // エラー処理
+                                                                console.log('error = ' + err);
+                                                                });
+                                                        },500);
+                                                        hideLoad();
+                                                }).catch(function(err){
+                                                        hideLoad();
+                                                        alertNew("エラーが発生しました。再度お願いします。","","");
+                                                        console.log('error = ' + err);
+                                                });
+                                        }else{
+                                                hideLoad();
+                                                alertNew("同時アクセスが検知されました。再度お試しください。","","");
+                                        }
+                                },
+                                error: function (response) {
+                                        hideLoad();
+                                        console.log(response);
+                                        alertNew("失敗しました。アプリが最新状態でない可能性がございます。","","");
+                                }
+                        });
+                }
+        }else{
+                hideLoad();
+                alertNew("在庫が0になりました。","注文手続きキャンセルが出る場合もあるため、時間を置いたあと再度ご確認ください。","homeBack");
+        }
+}
 function buyPageCancel(){
         var giftUid = $('#buypage_gift_uid').val();
         var currentUser = ncmb.User.getCurrentUser();

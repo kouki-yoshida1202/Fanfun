@@ -227,7 +227,7 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
                                         .fetch()         
                                         .then(function(result){
                                                 var auctionEndTime = isoToNormalChange(result.get("auctionEndTime"));
-                                                $('#zaikoMyDetail').html(gift_stock+"名限定!応募は"+auctionEndTime+"まで");
+                                                $('#zaikoMyDetail').html(result.get("stockDefault")+"名限定!応募は"+auctionEndTime+"まで");
                                         });
                                 }else if(auction=="プレゼント"){
                                         $('#auctionMyZone'). css("display","none");
@@ -483,7 +483,7 @@ function giftIdJudge(gift_uid,userName,gift_title,gift_text,objectId,create_date
                                 }else if(auction=="抽選販売"){
                                         $('#gift_detail_ohitotu').css("display","block");
                                         var auctionEndTime = isoToNormalChange(result.get("auctionEndTime"));
-                                        $('#zaikoOtherDetail').html(gift_stock+"名限定!応募は"+auctionEndTime+"まで");
+                                        $('#zaikoOtherDetail').html(result.get("stockDefault")+"名限定!応募は"+auctionEndTime+"まで");
                                         $('#gift_detail_lottery').css("display","block");
                                         $('#gift_detail_lottery_text').css("display","block");
                                         $('#lotteryButton').css("display","block");

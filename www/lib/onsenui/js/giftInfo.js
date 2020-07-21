@@ -104,6 +104,7 @@ function giftInsert(ReleaseStatus) {
                                 .set("price",gift_price)
                                 .set("giftUid",uid)
                                 .set("stock",gift_stock)
+                                .set("stockDefault",gift_stock)
                                 .set("releaseDate",iso)
                                 .set("ohitotu",ohitotu)
                                 .set("timeLimit",String(timeLimit))
