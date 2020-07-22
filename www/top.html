@@ -70,24 +70,32 @@
         <div class="top_header">
             <div id="swiper_menu"class="swiper-container swiper-navigation" style="width:100%;height:35px;background-color: white;z-index:100;border-bottom:1px solid #898989;">
                 <div class="swiper-wrapper sp-navi">
+                    <div class="swiper-slide sp-slide">
+                        <span class="navi-menu"><i class="fas fa-hourglass-half" style="padding-right:5px;"></i>公開待ち</span>
+                    </div>
                     <div class="swiper-slide selected sp-slide">
                         <span class="navi-menu"><i class="far fa-clock" style="padding-right:5px;"></i>新着</span>
                     </div>
                     <div class="swiper-slide sp-slide">
                         <span class="navi-menu"><i class="fas fa-glass-cheers" style="padding-right:5px;"></i>フォロー</span>
                     </div>
+                    
                 </div>
             </div>
         </div>
         <div id="content" class="content top_content">
             <div id="sp-content" class="swiper-container swiper-contents">
                 <div id="aaaaa"class="swiper-wrapper sp-content">
+                    <div id="reserveArea" class="swiper-slide">
+                        <div id="reserveGiftList" style="height:auto;"></div>
+                    </div>
                     <div id="shintyakuArea" class="swiper-slide">
                         <div id="shintyakuList" style="height:auto;"></div>
                     </div>
                     <div id="followArea" class="swiper-slide">
                         <div id="followGiftList" style="height:auto;"></div>
                     </div>
+                    
                 </div>
             </div>
         </div>
@@ -105,6 +113,7 @@
         $('.searchKeywordNo_dialog_mask,.searchKeywordNo_dialog').hide();
         var shintyakuCounter=0;
         var followCounter=0;
+        var reserveCounter=0;
         ons.ready(function() {
                 var page = document.getElementById("top-page");
                 var toolbar = page.querySelector(".top_toolbar");
@@ -136,6 +145,15 @@
                 }
             });
         }
+
+        function reserveRefresh(){
+            $('#reserveBottom').on('inview',  function(event, isInView){
+                if (isInView) {
+                    reserveCounter++;
+                    reserveGift(reserveCounter);
+                }
+            });
+        }
         
         function searchKeywordNoOpen(){
             $('.searchKeywordNo_dialog_mask,.searchKeywordNo_dialog').slideDown();
@@ -164,7 +182,8 @@
         swiperContents = new Swiper('.swiper-contents', {
             direction: 'horizontal',
             loop: false,
-            autoHeight: true
+            autoHeight: true,
+            initialSlide:1,
         });
         
         swiperContents.on('slideChange', function() {
@@ -179,33 +198,5 @@
                 },500);              
             },250);
         });
-        // $(document).ready(function(){
-        //     var ptr = new PullToReload({ 
-        //         'callback-loading': function(){
-        //             setTimeout(function(){
-        //                 ptr.loadingEnd();
-        //                 window.location.href = 'home.html';
-        //             }, 1000);
-                    
-        //         },
-        //         'height': 40,
-        //         'font-size': '20px',
-        //         'threshold': 20,
-        //         'pre-content': 'Loading...',
-        //         'loading-content': 'Loading...',
-        //     });
-        // });
-        
-        // this.opts = {
-        //     'refresh-element': 'ptr', //Required
-        //     'content-element': 'sp-content', //Required
-        //     'border-height': 1,
-        //     'height': 40,
-        //     'font-size': '30px',
-        //     'threshold': 20,
-        //     'pre-content': 'Loading...',
-        //     'loading-content': 'Loading...',
-        //     'callback-loading': function(){ setTimeout(function(){ self.loadingEnd(); }, 1000); } //Required
-        // }
     </script>
 </ons-page>

@@ -10,12 +10,15 @@ function shintyaku(shintyakuCounter){
         $('.current_user_id').val(objectId);
         var userName = currentUser.get("userName");
         var userKind = currentUser.get("userKind");
+        var today = new Date();
+        var iso = moment(today).format();
         //データストアから取得して、1件表示する
         var GiftData = ncmb.DataStore("giftData");
         if(userKind!="test"){
                 GiftData
                 .order('releaseDate', true)
                 .notEqualTo('ReleaseStatus',1)
+                .lessThan("releaseDate",iso)
                 .limit(10)
                 .skip(shintyakuCounter*10)
                 .fetchAll()                

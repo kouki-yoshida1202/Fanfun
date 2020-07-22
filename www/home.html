@@ -66,6 +66,7 @@
   <script src="lib/onsenui/js/moment.js"></script>
   <script src="lib/onsenui/js/fanRanking.js"></script>
   <script src="lib/onsenui/js/message.js"></script>
+  <script src="lib/onsenui/js/reserveGiftList.js"></script>
   <!-- <script src="lib/onsenui/js/fileUpload.js"></script> -->
 
   <script>
@@ -812,37 +813,57 @@
       function homeJudge(){
         setTimeout(function(){
           var index = $('.selected').index('div.sp-navi div');
-          if(index == 0){
+          console.log(index);
+          if(index == 1){
             shintyaku(0);
             setTimeout(function(){
               bottomRefresh();
             },2000);
-          }else if(index==1){
-            console.log("き");
+          }else if(index==2){
             followUserGift(0);
             setTimeout(function(){
               followRefresh();
+            },2000);
+          }else if(index==0){
+            reserveGift(0);
+            setTimeout(function(){
+              reserveRefresh();
             },2000);
           }
         },500);
       }
 
-      var slideCounter = 0;
+      var slideShintyakuCounter = 0;
+      var slideFollowCounter = 0;
+      var slideReserveCounter = 0;
       function slideControl(index){
-        slideCounter++;
-        if(slideCounter == 1){
-          if(index == 0){
+        console.log(index);
+        if(index == 1){
+          slideShintyakuCounter++;
+          if(slideShintyakuCounter==0){
             shintyaku(0);
             setTimeout(function(){
               bottomRefresh();
             },2000);
-          }else if(index==1){
+          }
+        }else if(index==2){
+          slideFollowCounter++;
+          if(slideFollowCounter==1){
             followUserGift(0);
             setTimeout(function(){
               followRefresh();
             },2000);
           }
+        }else if(index==0){
+          slideReserveCounter++;
+          if(slideReserveCounter==1){
+            reserveGift(0);
+            setTimeout(function(){
+              reserveRefresh();
+            },2000);
+          }
         }
+        
         // setTimeout(function(){
         //   slideCounter = 0;
         //   console.log(slideCounter);
@@ -1017,7 +1038,7 @@
     }
 
     .swiper-slide{
-      width:50%;
+      width:33%;
       text-align: center;
     }
     .crown-swiper-slide{
