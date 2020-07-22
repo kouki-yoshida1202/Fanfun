@@ -174,6 +174,7 @@ function reserveGift(reserveCounter){
                         hideLoad();
                 });
         }
+        hideLoad();
 }
 
 function reservegiftUserGet(gift_user_id,i){
