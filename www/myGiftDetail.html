@@ -240,37 +240,47 @@
         function mygiftDelete(){
             deleteCheckClose();
             var giftUid = $('#my_gift_id').val();
-            var giftData = ncmb.DataStore("giftData");
-            // データストアへの削除
-
-            giftData
+            var giftLog = ncmb.DataStore("giftLog");
+            giftLog
             .equalTo("giftUid", giftUid)
-            .fetch()
+            .notEqualTo("torihikiStatus","プレゼント完了")
+            .fetchAll()
             .then(function(results){
-                    // 保存後の処理
-                    results.delete();
-
-                    var GiftFavorite = ncmb.DataStore("GiftFavorite");
+                if(results.length>0){
+                    alertNew("未完了の取引が残っているため、削除できません。");
+                }else{
+                    var giftData = ncmb.DataStore("giftData");
                     // データストアへの削除
-                    GiftFavorite
+                    giftData
                     .equalTo("giftUid", giftUid)
                     .fetch()
                     .then(function(results){
-                        results.delete();
-                    });
+                            // 保存後の処理
+                            results.delete();
+                            var GiftFavorite = ncmb.DataStore("GiftFavorite");
+                            // データストアへの削除
+                            GiftFavorite
+                            .equalTo("giftUid", giftUid)
+                            .fetch()
+                            .then(function(results){
+                                results.delete();
+                            });
 
-                    ncmb.File.delete(giftUid)
-                    .then(function(){
-                    // 削除後処理
-                    });
+                            ncmb.File.delete(giftUid)
+                            .then(function(){
+                            // 削除後処理
+                            });
 
-                    deleteEndOpen();
-            })
-            .catch(function(err){
-                    // エラー処理
-                    deleteEndMissOpen();
+                            deleteEndOpen();
+                    })
+                    .catch(function(err){
+                            // エラー処理
+                            deleteEndMissOpen();
+                    });
+                }
             });
         }
+
         function shitagakiCheck(){
             $('.mygift_option_modal').slideUp();
             setTimeout(function(){
