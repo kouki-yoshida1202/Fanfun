@@ -32,16 +32,21 @@ function fanRanking(pageKind){
         }).catch(function(err){
                 console.log(err);
         });
+        var n=0;
+        var buyUserArray = [];
+        var arr = fanRankArrayPush(buyUserArray,n,userId);
+        console.log(arr);
+}
 
+function fanRankArrayPush(buyUserArray,n,userId){
+        console.log("きたよ");
         var giftLog = ncmb.DataStore("giftLog");
         giftLog
+        .order("createDate",true)
+        .skip(100*n)
         .equalTo('giftCreateInfluencer',userId)
         .fetchAll()         
         .then(function(results){
-                var buyUserArray = [];
-                if(results.length==0){
-                        hideLoad();
-                }
                 for (var i = 0; i < results.length; i++) {
                         var buyUser = results[i].get("buyUser");
                         var buyKakaku = results[i].get("buyKakaku");
@@ -55,34 +60,39 @@ function fanRanking(pageKind){
                                 buyUserArray[buyUser]=Number(buyKakaku);
                         }
                 }
-                let arr = Object.keys(buyUserArray).map((e)=>({ key: e, value: buyUserArray[e] }));
-                arr.sort(function(a,b){
-                        if(a.value < b.value) return 1;
-                        if(a.value > b.value) return -1;
-                        return 0;
-                });
-                return arr;
-        }).then(function(arr){
-                // console.log(arr);
-                for (var i = 0; i < 9; i++) {
-                        if(arr.length<=i){
-                                var j = i+1;
-                                $('#fanRank_'+j).css("display","none");
-                                hideLoad();
-                        }else{
-                                var userId = arr[i]["key"];
-                                var point = arr[i]['value'];
-                                if(i==8){
-                                        userAndPoint(userId,point,i+1,"last");
-                                }else{
-                                        userAndPoint(userId,point,i+1,"");
-                                }
-                                fanRankImg(i+1,userId);
-                        }
+                console.log(buyUserArray);
+                if(results.length==100){
+                        fanRankArrayPush(buyUserArray,n+1,userId);
+                }else{
+                        let arr = Object.keys(buyUserArray).map((e)=>({ key: e, value: buyUserArray[e] }));
+                        arr.sort(function(a,b){
+                                if(a.value < b.value) return 1;
+                                if(a.value > b.value) return -1;
+                                return 0;
+                        });        
+                        fanRankArrayClean(arr);
                 }
         }).catch(function(err){
                 console.log(err);
         });
+}
+function fanRankArrayClean(arr){
+        for (var i = 0; i < 9; i++) {
+                if(arr.length<=i){
+                        var j = i+1;
+                        $('#fanRank_'+j).css("display","none");
+                        hideLoad();
+                }else{
+                        var userId = arr[i]["key"];
+                        var point = arr[i]['value'];
+                        if(i==8){
+                                userAndPoint(userId,point,i+1,"last");
+                        }else{
+                                userAndPoint(userId,point,i+1,"");
+                        }
+                        fanRankImg(i+1,userId);
+                }
+        }
 }
 
 function userAndPoint(userId,point,i,lastcheck){
